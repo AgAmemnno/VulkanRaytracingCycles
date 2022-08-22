@@ -1,0 +1,69 @@
+<~
+ccl_device_inline Transform object_fetch_motion_pass_transform(KernelGlobals *kg,
+                                                               int object,
+                                                               enum ObjectVectorTransform type)
+{
+  int offset = object * OBJECT_MOTION_PASS_SIZE + (int)type;
+  return kernel_tex_fetch(__object_motion_pass, offset);
+}
+~>
+<~
+ccl_device_inline Transform object_fetch_motion_pass_transform(KernelGlobals *kg,
+                                                               int object,
+                                                               enum ObjectVectorTransform type)
+{
+ #ifdef _OBJECT_MOTION_
+  int offset = object * OBJECT_MOTION_PASS_SIZE + (int)type;
+  return kernel_tex_fetch(__object_motion_pass, offset);
+#else
+   Transform tr;
+   return tr;
+#endif
+}
+~>
+
+enum ObjectTransform type1$ObjectTransform type
+enum ObjectVectorTransform type1$ObjectVectorTransform type
+\([\s]*([a-zA-Z]+)[\s]*\)[\s]*([a-zA-Z_0-9\.\-\>]+)([\s\);\n]+)REG$\1(\2)\3
+const ccl_global DecomposedTransform *motion = &kernel_tex_fetch(__object_motion, motion_offset);1$const ccl_global DecomposedTransform motion = kernel_tex_fetch(_object_motion, motion_offset);
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})REG$(\1)\2
+int object_flag = kernel_tex_fetch(__object_flag, object);1$int object_flag = int(kernel_tex_fetch(_object_flag, object));
+if (itfm)1$if (!(Transform_ISNULL(itfm)))
+object_flag & SD_OBJECT_MOTION1$bool(object_flag & SD_OBJECT_MOTION)
+const ccl_global KernelObject *kobject = &kernel_tex_fetch(__objects, object);1$const ccl_global KernelObject kobject = kernel_tex_fetch(_objects, object);
+if (numkeys)1$ if (!isNULL(numkeys))
+if (numsteps)1$ if (!isNULL(numkeys))
+if (numverts)1$ if (!isNULL(numkeys))
+
+~<
+ccl_device_inline Transform object_fetch_transform_motion(inout KernelGlobals kg,
+                                                          int object,
+                                                          float time)
+{
+  const uint motion_offset = kernel_tex_fetch(_objects, object).motion_offset;
+  const ccl_global DecomposedTransform motion = kernel_tex_fetch(_object_motion, motion_offset);
+
+  const uint num_steps = kernel_tex_fetch(_objects, object).numsteps * 2 + 1;
+
+  Transform tfm;
+  transform_motion_array_interpolate((tfm),
+ motion, num_steps, time);
+
+  return tfm;
+}
+>~
+~<
+ccl_device_inline Transform object_fetch_transform_motion(inout KernelGlobals kg,
+                                                          int object,
+                                                          float time)
+{
+  int motion_offset    = int(kernel_tex_fetch(_objects, object).motion_offset);
+  const uint num_steps = kernel_tex_fetch(_objects, object).numsteps * 2 + 1;
+
+  Transform tfm;
+  transform_motion_array_interpolate((tfm),num_steps, time ,motion_offset);
+
+  return tfm;
+}
+>~
+

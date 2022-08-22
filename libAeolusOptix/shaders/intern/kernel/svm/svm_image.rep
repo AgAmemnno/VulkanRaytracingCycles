@@ -1,0 +1,5 @@
+(flags & NODE_IMAGE_ALPHA_UNASSOCIATE)1$bool(flags & NODE_IMAGE_ALPHA_UNASSOCIATE)
+id = tile_node.y;2$id = int(tile_node.y);
+id = tile_node.w;2$id = int(tile_node.w);
+float blend = _int_as_float(node.w);2$float blend = _uint_as_float(node.w);
+svm_image_texture(kg, id, uv.x, uv.y, flags);2$svm_image_texture(kg, int(id), float(uv.x), float(uv.y), uint(flags));

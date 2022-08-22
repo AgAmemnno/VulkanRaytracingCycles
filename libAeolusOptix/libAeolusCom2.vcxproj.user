@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommand>D:\blender\build2\2.91\python\bin\python_d.exe</LocalDebuggerCommand>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>-i -c "print('&gt;&gt;&gt; Aeolus V.0.0.1 ');f ='D:\\C\\Aeoluslibrary\\libAeolusOptix\\scripts\\vs_run_circus.py';file = open(f);exec(file.read(), globals());file.close();"</LocalDebuggerCommandArguments>
+    <LocalDebuggerWorkingDirectory>D:\blender\build2\2.91\python</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerEnvironment>PYTHONPATH=D:\\blender\\lib\\site-packages;$(OutDir)</LocalDebuggerEnvironment>
+  </PropertyGroup>
+</Project>

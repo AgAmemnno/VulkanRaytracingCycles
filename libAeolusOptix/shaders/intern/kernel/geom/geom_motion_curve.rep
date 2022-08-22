@@ -1,0 +1,15 @@
+float4 keys[1$inout float4 keys[
+<~
+  /* get motion info */
+  int numsteps, numkeys;
+  object_motion_info(kg, object, &numsteps, NULL, &numkeys);
+~>
+<~
+  /* get motion info */
+  int numsteps, numkeys;
+  {
+  int null_int = INT_MIN;
+  object_motion_info(kg, object, &numsteps, null_int, &numkeys);
+  }
+
+~>

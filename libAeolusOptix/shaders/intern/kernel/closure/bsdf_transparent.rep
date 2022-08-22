@@ -1,0 +1,7 @@
+ShaderClosure *sc = &sd->closure[i];1$  
+sc->1$sd->closure[i].
+ return LABEL_TRANSMIT | LABEL_TRANSPARENT;1$ return int(LABEL_TRANSMIT | LABEL_TRANSPARENT);
+SD_BSDF | SD_TRANSPARENT;1$int( SD_BSDF | SD_TRANSPARENT);
+if (path_flag & PATH_RAY_TERMINATE) 1$if (bool(path_flag & PATH_RAY_TERMINATE)) 
+sizeof(ShaderClosure)1$sizeof_ShaderClosure
+sd->flag & SD_TRANSPARENT1$bool(sd.flag & SD_TRANSPARENT)

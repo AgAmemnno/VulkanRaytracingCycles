@@ -1,0 +1,10 @@
+primitive_attribute_float(kg, sd, desc, NULL, NULL);1$primitive_attribute_float(kg, sd, desc, null_flt, null_flt);
+primitive_attribute_float([2-4]+)\(kg, sd, desc, NULL, NULL\);REG$primitive_attribute_float\1(kg, sd, desc, null_flt\1, null_flt\1);
+primitive_attribute_float([2-4]+)\(kg, sd, desc,[\s]*([\(\)a-z0-9]+)[\s]*, NULL\);REGP$primitive_attribute_float\1(kg, sd, desc, \2, null_flt\1);
+primitive_attribute_float([2-4]+)\(kg, sd, desc, NULL,[\s]*([\(\)a-z0-9]+)[\s]*\);REGP$primitive_attribute_float\1(kg, sd, desc, null_flt\1, \2);
+
+primitive_surface_attribute_float(kg, sd, desc, (dx), NULL);2$primitive_surface_attribute_float(kg, sd, desc, (dx), null_flt);
+primitive_surface_attribute_float([2-4]+)\(kg, sd, desc,[\s]*([\(\)a-z0-9]+)[\s]*, NULL\);REGP$primitive_surface_attribute_float\1(kg, sd, desc, \2, null_flt\1);
+primitive_surface_attribute_float(kg, sd, desc, NULL, (dy));2$primitive_surface_attribute_float(kg, sd, desc, null_flt,(dy));
+primitive_surface_attribute_float([2-4]+)\(kg, sd, desc, NULL,[\s]*([\(\)a-z0-9]+)[\s]*\);REGP$primitive_surface_attribute_float\1(kg, sd, desc, null_flt\1, \2);
+

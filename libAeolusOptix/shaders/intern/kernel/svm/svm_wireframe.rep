@@ -1,0 +1,12 @@
+<~
+      object_position_transform(kg, sd, &Co[0]);
+      object_position_transform(kg, sd, &Co[1]);
+      object_position_transform(kg, sd, &Co[2]);
+~>
+<~
+      object_position_transform(kg, sd, Co[0]);
+      object_position_transform(kg, sd, Co[1]);
+      object_position_transform(kg, sd, Co[2]);
+~>
+    if (pixel_size) {1$    if (bool(pixel_size)) {
+int i2 = i ? i - 1 : np - 1;1$ int i2 = bool(i) ? i - 1 : np - 1;

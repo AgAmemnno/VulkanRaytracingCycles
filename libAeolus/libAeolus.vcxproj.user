@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommand>$(PYTHON_ROOT)\PCbuild\amd64\python_d.exe</LocalDebuggerCommand>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>-i -c "print('&gt;&gt;&gt; Aeolus V.0.0.1 '); f ='D:\\Python\\Aeolus\\aeolus\\sample\\rt_stage\\level6.py';file = open(f);exec(file.read(), globals());file.close();"</LocalDebuggerCommandArguments>
+    <LocalDebuggerWorkingDirectory>$(PYTHON_ROOT)\PCbuild\amd64</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerEnvironment>PYTHONPATH=$(PYTHON_ROOT)\Lib;$(PYTHON_ROOT);$(OutDir)</LocalDebuggerEnvironment>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,6 @@
+inout float stack2$inout float stack[SVM_STACK_SIZE]
+if (ofs) {2$if(!isNULLI(ofs)){
+\([\s]*([int|float|uint|bool|NodeVoronoiDistanceMetric|NodeVoronoiFeature|NodeAttributeType|ClosureType|NodeGradientType|NodeMathType|NodeVectorMathType|NodeMix|NodeMusgraveType|NodeVectorTransformType|NodeVectorTransformConvertSpace]+)[\s]*\)[\s]*([a-zA-Z_0-9\.\-\>]+)([\s\)\;\,\n])(.*)REGP$\1(\2)\3\4
+\([\s]*([int|float|uint|bool|NodeAttributeType|ClosureType|NodeGradientType|NodeMathType|NodeVectorMathType|NodeMix|NodeMusgraveType|NodeVectorTransformType|NodeVectorTransformConvertSpace]+)[\s]*\)[\s]*([a-zA-Z_0-9\.\-\>]+)([\s\)\;\,\n])(.*)REGP$\1(\2)\3\4
+(if[\s]*)(\(|\([\s]*![\s]*\()[\s]*([A-Za-z0-9_\.]+)[\s]+\&[\s]+([A-Za-z0-9_]+)([\s\)]+)(([^!=].)*)\nREGP$\1\2bool(\3 & \4)\5\6\n
+\([\s]*([int|float|uint]+)[\s]*\)[\s]*([a-zA-Z_0-9\.\-\>]+)\(([a-zA-Z_0-9\,\s]+)\)([\s\)\;\n])(.*)REGP$\1(\2(\3))\4\5

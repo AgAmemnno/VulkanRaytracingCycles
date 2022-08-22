@@ -1,0 +1,587 @@
+commit e39d9ed1d60dfeb58dd2a0df4622c683f87b28e3
+Author: Carl Dehlin <carl@dehlin.com>
+Date:   Tue Jun 16 09:02:05 2020 +0200
+
+    Add a missing term and remove a superfluous word
+    
+    Change-Id: I25f40f0bf241302b975e6fc14690aa863c0728b0
+
+commit 27cab77b699a1a2b5354820c57a91c92eaeb21e3
+Author: Carl Dehlin <carl@dehlin.com>
+Date:   Mon Jun 15 20:01:18 2020 +0200
+
+    Reformulate some sentences
+    
+    Change-Id: I4841aa8e8522008dd816261d9ad98e5fb8ad1758
+
+commit 8ac6655ce85a4462f2882fcb9e9118a7057ebe09
+Author: Carl Dehlin <carl@dehlin.com>
+Date:   Mon Jun 15 19:10:12 2020 +0200
+
+    Fix documentation formatting issues
+    
+    Change-Id: Iea3a6e75dc3a7376eda866ab24e535a6df84f8ea
+
+commit 7ef83e07592ead74eeacc227b642df1959d2a246
+Author: Alex Stewart <alexs.mac@gmail.com>
+Date:   Sat May 30 11:30:01 2020 +0100
+
+    Update minimum required C++ version for Ceres to C++14
+    
+    - Removes all workarounds for pre-C++14 versions
+    - Removes '11' qualifier from C++ threading option and associated
+      defines.
+    - Fix missing inclusion of 'Multithreading' in reported Ceres components
+      when C++ threading model is enabled.
+    - Update Sphinx documentation to specify C++14 as minimum requirement.
+    
+    Change-Id: I706c8b367b3221e3c4d1a0aaf669a8f9c911e438
+
+commit 1d75e7568172dc5a4dc97937dcf66e0f5d28272c
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Mon May 25 18:09:50 2020 -0700
+
+    Improve documentation for LocalParameterization
+    
+    Change-Id: I63fa81206e67bfac56cc42bf2bb4915a3a11332b
+
+commit 763398ca4ed56952f48c48df6a98e277e3e05381
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Mon May 25 12:12:03 2020 -0700
+
+    Update the section on Preconditioners
+    
+    Re-organize the section, add some more references and details for
+    existing preconditioners and add documentation for the SUBSET
+    precondition.
+    
+    https://github.com/ceres-solver/ceres-solver/issues/490
+    
+    Change-Id: I93d0af819c160f5e4ce48b18202f629ddb92ca7b
+
+commit a614f788a34ea86dd9f679b779ffbf920db45aa6
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Fri May 22 13:52:53 2020 -0700
+
+    Call EvaluationCallback before evaluating the fixed cost.
+    
+    Fixe a subtle bug in Program::RemoveFixedBlocks, where we call
+    ResidualBlock::Evaluate on residual blocks with all constant parameter
+    blocks without paying attention to the presence of an
+    EvaluationCallback.
+    
+    In the process also run clang-format on some of the files touched by
+    this change.
+    
+    https://github.com/ceres-solver/ceres-solver/issues/482
+    
+    Change-Id: I342b66f6f975fdee2eef139a31f24d4a3e568e84
+
+commit 70308f7bb9cac560db250262079c0f8b030b9d6b
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Tue May 26 06:12:13 2020 -0700
+
+    Simplify documentation generation.
+    
+    1. The MathJax font configuration is moved into conf.py and removed
+    from make_docs.py along with better font sizing.
+    2. Remove the bread crumb replacement as it is not working anymore.
+    3. Fix a parsing error in nnls_modeling.rst which the new version of
+    sphinx barfed on.
+    
+    Change-Id: Ia3c2e732323a8b5cabafe851ac5ca0f0c82da071
+
+commit e886d7e65368e73e9d35c2ead895d81ced677977
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Mon May 25 13:09:39 2020 -0700
+
+    Reduce the number of minimizer iterations in evaluation_callback_test.cc
+    
+    This should reduce the probability of the test heuristic failing due
+    to floating point issues.
+    
+    https://github.com/ceres-solver/ceres-solver/issues/562
+    https://github.com/ceres-solver/ceres-solver/issues/392
+    
+    Change-Id: I8ccf4164a8d595f5930d378f464313d4a2cae419
+
+commit 9483e6f2f57bf51bad7cefd155cd5b48ca672c63
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Tue May 12 05:16:32 2020 -0700
+
+    Simplify DynamicCompressedRowJacobianWriter::Write
+    
+    Change-Id: I67aa2959bd479909b5cada79359c5cfdb8a37ef7
+
+commit 323cc55bb92a513924e566f487b54556052a716f
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Mon May 25 10:38:35 2020 -0700
+
+    Update the version in package.xml to 2.0.0.
+    
+    Change-Id: Ibac053916520e8c597c875a8c7f5668bb35b6ba1
+
+commit 303b078b50bd3311a9c86fc256be3e9f2f334411
+Author: Bayes Nie <niebayes@gmail.com>
+Date:   Sun May 24 16:08:52 2020 +0800
+
+    Fix few typos and alter a NULL to nullptr.
+    
+    Fix typos in docs/source/features.rst and examples/helloworld.cc. Alter a NULL to nullptr in include/ceres/autodiff_cost_function.h
+    
+    Change-Id: Ibcf00b6ef665ad6be9af14b3add2dd4f3852e7e6
+
+commit cca93fed63dd4117f3d6dd5339131fc7674e6e0a
+Author: Alex Stewart <alexs.mac@gmail.com>
+Date:   Sun May 24 18:05:05 2020 +0100
+
+    Bypass Ceres' FindGlog.cmake in CeresConfig.cmake if possible
+    
+    - If the version of glog detected and used to build Ceres was built with
+      CMake (i.e. Config mode) then we now use Config mode directly in
+      CeresConfig.cmake and do not install Ceres' FindGlog.cmake module.
+    - This has the benefit of removing any hard-coded paths from
+      CeresConfig.cmake provided that all dependencies were also built with
+      CMake.
+    
+    Change-Id: I85af8a953fd6d300e8bc0cdeb0b3636fec182f68
+
+commit 77fc1d0fc4159ebb3a0a84a16651564eb2ce3c9d
+Author: Alex Stewart <alexs.mac@gmail.com>
+Date:   Sun May 24 19:07:26 2020 +0100
+
+    Use build_depend for private dependencies in Catkin package.xml
+    
+    Change-Id: If0c0569e7ebbf37c0d8e8daaf7765e20a6282531
+
+commit a09682f00d8e50ada3c7ed16f8c48fa71a423f60
+Author: Alex Stewart <alexs.mac@gmail.com>
+Date:   Sun May 24 16:49:28 2020 +0100
+
+    Fix MSVC version check to support use of clang-cl front-end
+    
+    - Raised as issue: #521
+    
+    Change-Id: Iaea6b43484b90ec8789bda0447c8a90759974ec1
+
+commit b70687fcc86624c7d5520d25734938fa95d2af73
+Author: Alex Stewart <alexs.mac@gmail.com>
+Date:   Sun May 24 20:28:12 2020 +0100
+
+    Add namespace qualified Ceres::ceres CMake target
+    
+    - This reflects modern CMake style, and also provides a measure of
+      protection against missing find_package() imports in downstream
+      clients resulting in linker errors when 'ceres' matches the compiled
+      library and not the imported target.
+    - The original 'ceres' target remains, as a local imported interface
+      target created by CeresConfig for backwards compatibility.
+    
+    Change-Id: Ie9ed8de9b7059bc0cae1ae5002bb94d8fe617188
+
+commit 99efa54bdb4e14c3f4382a166baf6772113f74a8
+Author: Alex Stewart <alexs.mac@gmail.com>
+Date:   Sun May 24 19:18:38 2020 +0100
+
+    Replace type aliases deprecated/removed in C++17/C++20 from FixedArray
+    
+    - Raised as issue #551
+    - Also adds C++20 to the set of ALLOWED_CXX_STANDARDS, although this
+      will require a version of CMake >= 3.12.
+    
+    Change-Id: I0f13c72e93a35391fd2d18590b4243a329a2322c
+
+commit adb973e4a337c372aa81ca1a4f3bb704068c08b7
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Thu May 21 14:45:28 2020 -0700
+
+    NULL -> nullptr
+    
+    Change-Id: Iaeea2ef7912d328653a76b65976adc8025a5be35
+
+commit 27b717951b58c134b3a5a9f664a66c7480364d6c
+Author: Alastair Harrison <aharrison24@gmail.com>
+Date:   Fri May 15 10:10:12 2020 +0100
+
+    Respect FIND_QUIETLY flag in cmake config file
+    
+    Ensure that Ceres does not print any log messages when somebody has
+    used 'find_package(Ceres QUIET)' in their CMake project.
+    
+    Change-Id: Id6b68859cc8a5857f3fa78f29736cb82fd5a0943
+
+commit 646959ef118a1f10bf93741d97cf64265d42f8c6
+Author: huangqinjin <huangqinjin@gmail.com>
+Date:   Sat Apr 25 02:03:11 2020 +0800
+
+    Do not export class template LineParameterization
+    
+    For MSVC, instantiating a dllimport class template will cause error C2491:
+    definition of dllimport function not allowed.
+    
+    Change-Id: Icc7f7ea84598df0a5436f48ffc2bab5cfab93921
+
+commit 1f128d070a24224d12eb901bc74ba393ccdbd0c3
+Author: huangqinjin <huangqinjin@gmail.com>
+Date:   Mon Mar 4 13:14:43 2019 +0800
+
+    Change the type of parameter index/offset to match their getter/setter
+    
+    Change-Id: If28b795e792f39db9775ada105e9038570195329
+
+commit 072c8f070e16cb32f211473c40196c6b5618d5a9
+Author: huangqinjin <huangqinjin@gmail.com>
+Date:   Sat Apr 25 00:04:58 2020 +0800
+
+    Initialize integer variables with integer instead of double
+    
+    Change-Id: I652aca4ceb3129706a5d5e38afe9f16b61200a5b
+
+commit 8c36bcc81fbd4f78a2faa2c914ef40af264f4c31
+Author: Alex Stewart <alexs.mac@gmail.com>
+Date:   Mon Apr 27 18:33:25 2020 +0100
+
+    Use inline & -inlinehint-threshold in auto-diff benchmarks
+    
+    - This results in the same performance as the original solution of
+      increasing -inline-threshold, but this approach is more viable to
+      incorporate in a large code base as its effects are more targeted.
+    
+    Change-Id: Id798dbca7d3050de0ea847a5ecc69484ac78a2cf
+
+commit 57cf20aa5d3c1b2f25d255814f4fff5260db81c6
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Tue Apr 21 10:10:01 2020 -0700
+
+    static const -> static constexpr where we can.
+    
+    Change-Id: I8a6d26a89c4377dd440fa6dcf23513b7556533fc
+
+commit 40b27482a202c8b0a5f9e8f2b4be0192d34195f5
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Tue Apr 21 09:35:30 2020 -0700
+
+    Add std::numeric_limit specialization for Jets
+    
+    This allows users to use std::numeric_limits on templated functors.
+    
+    Change-Id: I403cec5c9826033ce7dfd6047deb64f66c35f806
+
+commit e751d6e4f0daa9f691c5ed25ca8dc564875d8bef
+Author: Darius Rueckert <darius.rueckert@fau.de>
+Date:   Wed Apr 8 10:43:53 2020 +0200
+
+    Remove AutodiffCodegen
+    
+    - Remove Codegen files
+    - Revert Jet and Rotation
+    
+    Change-Id: I005c5f98f2b6dfa5c7fd88d998b6aa83e47dab60
+
+commit e9eb76f8ef9835940659cfb3a312ed6822c48152
+Author: Darius Rueckert <darius.rueckert@fau.de>
+Date:   Mon Apr 6 11:11:43 2020 +0200
+
+    Remove AutodiffCodegen CMake integration
+    
+    Change-Id: I403597540df8429378336626b8f748b7821fe6f5
+
+commit 9435e08a7a7c903897e18e1dc24d801caf4f62a4
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Fri Apr 3 11:50:09 2020 -0700
+
+    More clang-tidy and wjr@ comment fixes
+    
+    Change-Id: I5736ae482f736fc56c00d21c659b1f8d41da68e9
+
+commit d93fac4b7ab670a936ce821284a0b9d099b4688c
+Author: Darius Rueckert <darius.rueckert@fau.de>
+Date:   Fri Apr 3 09:33:17 2020 +0200
+
+    Remove AutodiffCodegen Tests
+    
+    Change-Id: Icd194db7b22add518844f1b507d0fdd3e0fe17fe
+
+commit 2281c6ed24d2c12f133fa6039f224b3da18cebe3
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Thu Apr 2 16:43:42 2020 -0700
+
+    Fixes for comments from William Rucklidge
+    
+    Change-Id: I64fcc25532cc66dc4cb7e2ea7ccfb220b0cb7e1f
+
+commit d797a87a4091af6ae0063e3c8291429c15318bdc
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Thu Apr 2 13:57:56 2020 -0700
+
+    Use Ridders' method in GradientChecker.
+    
+    Using Ridders' method gives orders of magnitude more accuracy compared
+    to central differences. This will make things slower, but this is
+    primarily a testing/debugging feature and the speed hit is not a
+    concern. This should also reduce the false positive rates when users
+    enable check_gradients. This is reflected the increased sensitivity of
+    the tests for GradientChecker.
+    
+    https://github.com/ceres-solver/ceres-solver/issues/554
+    
+    Change-Id: I6b871c72df55be1c31175ba062cf3c1e94e4b662
+
+commit 41675682dc9df836bf15845064cfe1087619c79d
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Thu Apr 2 07:28:38 2020 -0700
+
+    Fix a MSVC type deduction bug in ComputeHouseholderVector
+    
+    A recent change made this function templated and MSVC 16 has trouble
+    doing automatic argument deduction, so the type of the template is
+    simplified and all callsites are explicitly annotated with the type
+    of the arguments.
+    
+    Change-Id: I83cd0269e6e82c4a8f4e391f5fc03b92c942f74d
+
+commit 947ec0c1fa0f67c89e21daaf8d1648822ae5293a
+Author: Darius Rueckert <darius.rueckert@fau.de>
+Date:   Thu Apr 2 09:52:53 2020 +0200
+
+    Remove AutodiffCodegen autodiff benchmarks
+    
+    Change-Id: If1eaad31710cc91d40323ea6cae7cabe6fa64b1f
+
+commit 27183d661ecae246dbce6d03cacf84f39fba1f1e
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Thu Jul 11 16:30:59 2019 +0200
+
+    Allow LocalParameterizations to have zero local size.
+    
+    Local parameterizations with zero tangent/local size will cause the
+    corresponding parameter block to be treated as constant.
+    
+    https://github.com/ceres-solver/ceres-solver/issues/347
+    
+    Change-Id: I554a2acc420f5dd9d0cc7f97b691877eb057b2c0
+
+commit 7ac7d79dca2ac6b482da50fd9ad0227ba8d6c632
+Author: Darius Rueckert <darius.rueckert@fau.de>
+Date:   Wed Apr 1 14:51:12 2020 +0200
+
+    Remove HelloWorldCodegen example
+    
+    Change-Id: I2584f41d591a5d648b4832385c2a779bb25fc04d
+
+commit 8c8738bf832f0fc27f0d4a9585fc59b2eaa6a828
+Author: Nikolaus Demmel <nikolaus@nikolaus-demmel.de>
+Date:   Sun Mar 29 13:29:02 2020 +0200
+
+    Add photometric and relative-pose residuals to autodiff benchmarks
+    
+    Change-Id: Id100ff2656ab63bb4fd19a51b95e78281cfd8b4a
+
+commit 9f7fb66d62014ed62ba6aa617364e8591211c797
+Author: Darius Rueckert <darius.rueckert@fau.de>
+Date:   Wed Mar 25 11:41:39 2020 +0100
+
+    Add a constant cost function to the autodiff benchmarks
+    
+    The constant cost function is run with a variable number of
+    parameters to test at which point, different compilers fail
+    to optimize the autodiff code.
+    
+    Clang achieves expected performance which fails at >50 parameters.
+    G++ fails already at 20 parameters
+    
+    Change-Id: I75d8c683ef0011d813ec6d966d7ad58f86530f44
+
+commit ab0d373e465f46ce483db640d0fb2f244f48702d
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Tue Mar 24 12:30:46 2020 -0700
+
+    Fix a comment in autodiff.h
+    
+    Change-Id: I613e537c834e3f29cd92808c65ddb74f112974cc
+
+commit 27bb997144d00dd4494d440627f1e782bf4adf43
+Author: Johannes Beck <Jodebo_Beck@gmx.de>
+Date:   Tue Mar 24 08:05:43 2020 +0100
+
+    Change SVD algorithm in covariance computation.
+    
+    Switch from JacobiSVD to BDCSVD in
+    ComputeCovarianceValuesUsingDenseSVD. This should increase
+    the performance for larger covariance matrices. See
+    https://eigen.tuxfamily.org/dox/classEigen_1_1BDCSVD.html
+    
+    Change-Id: Icde4dec89f506b638b0f9f1aee3b7cfc9e4d72fc
+
+commit 84fdac38e033c8f9a63c6e6fca7b44219110f7df
+Author: Johannes Beck <Jodebo_Beck@gmx.de>
+Date:   Tue Mar 24 08:02:21 2020 +0100
+
+    Add const to GetCovarianceMatrix*
+    
+    This CL adds const to the functions GetCovarianceMatrix and
+    GetCovarianceMatrixInTangentSpace.
+    
+    Change-Id: Ibe2cafebede47977a9aabcac8d245f30af184fd1
+
+commit 6bde61d6be9d81a2cd759a6bbb4a8cd3c24a529c
+Author: Johannes Beck <Jodebo_Beck@gmx.de>
+Date:   Sat Dec 28 13:29:19 2019 +0100
+
+    Add line local parameterization.
+    
+    This CL adds a local parameterization for a n-dimensional
+    line, which is represented as an origin point and a direction.
+    The line direction is updated in the same way as a
+    homogeneous vector and the origin point is updated
+    perpendicular to the line direction.
+    
+    Change-Id: I733f395e5cc4250abf9778c26fe0a5ae1de6b624
+
+commit 2c1c0932e9d3f91691e5c5fce46b4440e181a8bc
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Mon Mar 23 11:15:32 2020 -0700
+
+    Update documentation in autodiff.h
+    
+    Change-Id: Icc2753b4f5be95022ffd92e479cdd3d9d7959d4c
+
+commit 8904fa4887ed7b3e6d110ad5a98efbc2df48595e
+Author: Darius Rueckert <darius.rueckert@fau.de>
+Date:   Mon Mar 23 14:59:26 2020 +0100
+
+    Inline Jet initialization in Autodiff
+    
+    Inlining the Jet initialzation is mandatory for good performance
+    in autodiff, because all the constants in the dual part can be
+    propagated into the cost functor.
+    
+    This patch unrolls the initialization loop with templates and adds
+    EIGEN_ALWAYS_INLINE to the constructors.
+    
+    Change-Id: Ic89d645984f3e1df6c63948236da823ba60d9620
+
+commit 18a464d4e566e17930005876af19e32cc8796fa3
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Mon Mar 23 07:12:12 2020 -0700
+
+    Remove an errant CR from local_parameterization.cc
+    
+    Change-Id: Iff98a96f06de5755062a1c79523604dca78b298e
+
+commit 5c85f21799804d39cbfd20ec451aa219511e4212
+Author: Darius Rueckert <darius.rueckert@fau.de>
+Date:   Mon Mar 23 10:12:00 2020 +0100
+
+    Use ArraySelector in Autodiff
+    
+    The class ArraySelector is now used in autodiff to store the
+    parameters and residuals. This reduces overhead of FixedArray
+    for fixed-sized residuals and allows more optimizations due
+    to inlining and unrolling.
+    
+    Change-Id: Ibadc5644e64d672f7a555e250fb1f8da262f9d4f
+
+commit 80477ff073ab7af03cfb248cab4ef41a87f913d0
+Author: Darius Rueckert <darius.rueckert@fau.de>
+Date:   Fri Mar 20 16:26:55 2020 +0100
+
+    Add class ArraySelector
+    
+    The ArraySelector selects the best array implementation based on
+    template arguments.
+    
+    Change-Id: I93c6db1a638e924b85292e63bca9525610ec2e2f
+
+commit e7a30359ee754057f9bd7b349c98c291138d91f4
+Author: Darius Rueckert <darius.rueckert@fau.de>
+Date:   Fri Mar 20 15:50:37 2020 +0100
+
+    Pass kNumResiduals to Autodiff
+    
+    The compile-time constant kNumResiduals is now passed to the
+    autodiff functions as a template parameter. This will be used
+    by future patches to optimize autodiff performance.
+    
+    Change-Id: Ia2b2cc99b88752e8f12f4ce2542b1963bda552f5
+
+commit f339d71dd64e4d871cc883f278a153f212f0d1f0
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Thu Mar 19 12:08:28 2020 -0700
+
+    Refactor the automatic differentiation benchmarks.
+    
+    1. Merge them into a single binary.
+    2. All benchmarks now do the Residual and the Residual + Jacobian
+    evaluation.
+    3. Re-organize and simplify the CMake file in this directory.
+    4. Fix a bug in the file where the Clang compiler was not being matched.
+    
+    autodiff_benchmarks
+    ---------------------------------------------------------------------------
+    Benchmark                                 Time             CPU   Iterations
+    ---------------------------------------------------------------------------
+    BM_Linear1CodeGen/0                    3.02 ns         3.01 ns    233870456
+    BM_Linear1CodeGen/1                    3.02 ns         3.01 ns    233059100
+    BM_Linear1AutoDiff/0                   3.78 ns         3.77 ns    185791712
+    BM_Linear1AutoDiff/1                   14.0 ns         13.8 ns     53927875
+    BM_Linear10CodeGen/0                   5.10 ns         5.10 ns    126745007
+    BM_Linear10CodeGen/1                   29.1 ns         29.1 ns     23949310
+    BM_Linear10AutoDiff/0                  6.50 ns         6.49 ns    107516972
+    BM_Linear10AutoDiff/1                   169 ns          169 ns      4153218
+    BM_Rat43AutoDiff/0                     52.7 ns         51.2 ns     16444586
+    BM_Rat43AutoDiff/1                     91.8 ns         91.5 ns      7302316
+    BM_SnavelyReprojectionCodeGen/0        38.0 ns         36.2 ns     21131501
+    BM_SnavelyReprojectionCodeGen/1         113 ns          112 ns      5627779
+    BM_SnavelyReprojectionAutoDiff/0       34.4 ns         34.3 ns     20476937
+    BM_SnavelyReprojectionAutoDiff/1        242 ns          240 ns      2930611
+    BM_BrdfCodeGen/0                       53.9 ns         53.7 ns     11950083
+    BM_BrdfCodeGen/1                        507 ns          505 ns      1396732
+    BM_BrdfAutoDiff/0                      58.3 ns         57.8 ns     12220670
+    BM_BrdfAutoDiff/1                      2034 ns         1999 ns       257003
+    
+    autodiff_benchmarks_fast_math
+    ---------------------------------------------------------------------------
+    Benchmark                                 Time             CPU   Iterations
+    ---------------------------------------------------------------------------
+    BM_Linear1CodeGen/0                    3.19 ns         3.16 ns    215313065
+    BM_Linear1CodeGen/1                    2.78 ns         2.76 ns    201497994
+    BM_Linear1AutoDiff/0                   3.27 ns         3.26 ns    206154598
+    BM_Linear1AutoDiff/1                   13.2 ns         13.1 ns     57257840
+    BM_Linear10CodeGen/0                   5.70 ns         5.51 ns    121849325
+    BM_Linear10CodeGen/1                   33.9 ns         33.3 ns     21829295
+    BM_Linear10AutoDiff/0                  6.85 ns         6.78 ns    106813153
+    BM_Linear10AutoDiff/1                   173 ns          171 ns      3849877
+    BM_Rat43AutoDiff/0                     44.8 ns         44.2 ns     15577017
+    BM_Rat43AutoDiff/1                     96.2 ns         94.6 ns      7374864
+    BM_SnavelyReprojectionCodeGen/0        33.9 ns         33.5 ns     20508373
+    BM_SnavelyReprojectionCodeGen/1        89.7 ns         88.4 ns      7620624
+    BM_SnavelyReprojectionAutoDiff/0       36.5 ns         35.8 ns     20546176
+    BM_SnavelyReprojectionAutoDiff/1        257 ns          252 ns      3044325
+    BM_BrdfCodeGen/0                       61.1 ns         58.5 ns     11334013
+    BM_BrdfCodeGen/1                        265 ns          265 ns      2625459
+    BM_BrdfAutoDiff/0                      52.5 ns         52.5 ns     12938763
+    BM_BrdfAutoDiff/1                      1560 ns         1560 ns       440909
+    
+    Change-Id: I2d1a4293d3245a50f73af6cf5e5138084321ae6f
+
+commit d37b4cb150c4af65268f9ce5739d1c67e73cb358
+Author: Sameer Agarwal <sameeragarwal@google.com>
+Date:   Thu Mar 19 07:36:58 2020 -0700
+
+    Fix some include headers in codegen/test_utils.cc/h
+    
+    Change-Id: I769029ce2797eba0de6c7baeb76dc3f2782b6305
+
+commit 550766e6da49dca895a6e2056b0872c557157c5b
+Author: Darius Rueckert <darius.rueckert@fau.de>
+Date:   Wed Mar 18 20:09:20 2020 +0100
+
+    Add Autodiff Brdf Benchmark
+    
+    The disney brdf is a good benchmark cost functor, because it has
+     - 28 parameters in 7 blocks
+     - 3 residuals
+     - Lots of low-level arithmetic
+    
+    Change-Id: I62c8a717d0aecb64639158f971bdccf6afdfae36

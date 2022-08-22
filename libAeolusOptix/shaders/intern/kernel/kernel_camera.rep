@@ -1,0 +1,330 @@
+if (kernel_data.cam.have_perspective_motion) {1$if (bool(kernel_data.cam.have_perspective_motion)) {
+if (kernel_data.cam.num_motion_steps) {1$if (bool(kernel_data.cam.num_motion_steps)) {
+spherical_stereo_transform\(&kernel_data.cam, &([a-zA-Z0-9_]+), &([a-zA-Z0-9_]+)\);REG$spherical_stereo_transform( \1, \2);
+<~
+ccl_device float2 camera_sample_aperture(const KernelCamera *cam, float u, float v)
+{
+  float blades = cam->blades;
+  float2 bokeh;
+
+  if (blades == 0.0f) {
+    /* sample disk */
+    bokeh = concentric_sample_disk(u, v);
+  }
+  else {
+    /* sample polygon */
+    float rotation = cam->bladesrotation;
+    bokeh = regular_polygon_sample(blades, rotation, u, v);
+  }
+
+  /* anamorphic lens bokeh */
+  bokeh.x *= cam->inv_aperture_ratio;
+
+  return bokeh;
+}
+~>
+<~
+ccl_device float2 camera_sample_aperture( float u, float v)
+{
+  float blades = kernel_data.cam.blades;
+  float2 bokeh;
+
+  if (blades == 0.0f) {
+    /* sample disk */
+    bokeh = concentric_sample_disk(u, v);
+  }
+  else {
+    /* sample polygon */
+    float rotation = kernel_data.cam.bladesrotation;
+    bokeh = regular_polygon_sample(blades, rotation, u, v);
+  }
+
+  /* anamorphic lens bokeh */
+  bokeh.x *= kernel_data.cam.inv_aperture_ratio;
+
+  return bokeh;
+}
+~>
+<~
+ccl_device_inline void camera_sample_panorama(ccl_constant KernelCamera *cam,
+#ifdef __CAMERA_MOTION__
+                                              const ccl_global DecomposedTransform *cam_motion,
+#endif
+                                              float raster_x,
+                                              float raster_y,
+                                              float lens_u,
+                                              float lens_v,
+                                              ccl_addr_space Ray *ray)
+{
+  ProjectionTransform rastertocamera = cam->rastertocamera;
+  float3 Pcamera = transform_perspective(&rastertocamera, make_float3(raster_x, raster_y, 0.0f));
+
+  /* create ray form raster position */
+  float3 P = make_float3(0.0f, 0.0f, 0.0f);
+  float3 D = panorama_to_direction(cam, Pcamera.x, Pcamera.y);
+
+  /* indicates ray should not receive any light, outside of the lens */
+  if (is_zero(D)) {
+    ray->t = 0.0f;
+    return;
+  }
+
+  /* modify ray for depth of field */
+  float aperturesize = cam->aperturesize;
+
+  if (aperturesize > 0.0f) {
+    /* sample point on aperture */
+    float2 lensuv = camera_sample_aperture(cam, lens_u, lens_v) * aperturesize;
+
+    /* compute point on plane of focus */
+    float3 Dfocus = normalize(D);
+    float3 Pfocus = Dfocus * cam->focaldistance;
+
+    /* calculate orthonormal coordinates perpendicular to Dfocus */
+    float3 U, V;
+    U = normalize(make_float3(1.0f, 0.0f, 0.0f) - Dfocus.x * Dfocus);
+    V = normalize(cross(Dfocus, U));
+
+    /* update ray for effect of lens */
+    P = U * lensuv.x + V * lensuv.y;
+    D = normalize(Pfocus - P);
+  }
+
+  /* transform ray from camera to world */
+  Transform cameratoworld = cam->cameratoworld;
+
+#ifdef __CAMERA_MOTION__
+  if (cam->num_motion_steps) {
+    transform_motion_array_interpolate(
+        &cameratoworld, cam_motion, cam->num_motion_steps, ray->time);
+  }
+#endif
+
+  P = transform_point(&cameratoworld, P);
+  D = normalize(transform_direction(&cameratoworld, D));
+
+  /* Stereo transform */
+  bool use_stereo = cam->interocular_offset != 0.0f;
+  if (use_stereo) {
+    spherical_stereo_transform(cam, &P, &D);
+  }
+
+  ray->P = P;
+  ray->D = D;
+
+#ifdef __RAY_DIFFERENTIALS__
+  /* Ray differentials, computed from scratch using the raster coordinates
+   * because we don't want to be affected by depth of field. We compute
+   * ray origin and direction for the center and two neighboring pixels
+   * and simply take their differences. */
+  float3 Pcenter = Pcamera;
+  float3 Dcenter = panorama_to_direction(cam, Pcenter.x, Pcenter.y);
+  Pcenter = transform_point(&cameratoworld, Pcenter);
+  Dcenter = normalize(transform_direction(&cameratoworld, Dcenter));
+  if (use_stereo) {
+    spherical_stereo_transform(cam, &Pcenter, &Dcenter);
+  }
+
+  float3 Px = transform_perspective(&rastertocamera, make_float3(raster_x + 1.0f, raster_y, 0.0f));
+  float3 Dx = panorama_to_direction(cam, Px.x, Px.y);
+  Px = transform_point(&cameratoworld, Px);
+  Dx = normalize(transform_direction(&cameratoworld, Dx));
+  if (use_stereo) {
+    spherical_stereo_transform(cam, &Px, &Dx);
+  }
+
+  ray->dP.dx = Px - Pcenter;
+  ray->dD.dx = Dx - Dcenter;
+
+  float3 Py = transform_perspective(&rastertocamera, make_float3(raster_x, raster_y + 1.0f, 0.0f));
+  float3 Dy = panorama_to_direction(cam, Py.x, Py.y);
+  Py = transform_point(&cameratoworld, Py);
+  Dy = normalize(transform_direction(&cameratoworld, Dy));
+  if (use_stereo) {
+    spherical_stereo_transform(cam, &Py, &Dy);
+  }
+
+  ray->dP.dy = Py - Pcenter;
+  ray->dD.dy = Dy - Dcenter;
+#endif
+
+#ifdef __CAMERA_CLIPPING__
+  /* clipping */
+  float nearclip = cam->nearclip;
+  ray->P += nearclip * ray->D;
+  ray->dP.dx += nearclip * ray->dD.dx;
+  ray->dP.dy += nearclip * ray->dD.dy;
+  ray->t = cam->cliplength;
+#else
+  ray->t = FLT_MAX;
+#endif
+}
+~>
+<~
+ccl_device_inline void camera_sample_panorama(
+#ifdef __CAMERA_MOTION__
+                                              int cam_motion_ofs,
+#endif
+                                              float raster_x,
+                                              float raster_y,
+                                              float lens_u,
+                                              float lens_v,
+                                              ccl_addr_space Ray *ray)
+{
+  ProjectionTransform rastertocamera = kernel_data.cam.rastertocamera;
+  float3 Pcamera = transform_perspective(&rastertocamera, make_float3(raster_x, raster_y, 0.0f));
+
+  /* create ray form raster position */
+  float3 P = make_float3(0.0f, 0.0f, 0.0f);
+  float3 D = panorama_to_direction(Pcamera.x, Pcamera.y);
+
+  /* indicates ray should not receive any light, outside of the lens */
+  if (is_zero(D)) {
+    ray->t = 0.0f;
+    return;
+  }
+
+  /* modify ray for depth of field */
+  float aperturesize = kernel_data.cam.aperturesize;
+
+  if (aperturesize > 0.0f) {
+    /* sample point on aperture */
+    float2 lensuv = camera_sample_aperture(lens_u, lens_v) * aperturesize;
+
+    /* compute point on plane of focus */
+    float3 Dfocus = normalize(D);
+    float3 Pfocus = Dfocus * kernel_data.cam.focaldistance;
+
+    /* calculate orthonormal coordinates perpendicular to Dfocus */
+    float3 U, V;
+    U = normalize(make_float3(1.0f, 0.0f, 0.0f) - Dfocus.x * Dfocus);
+    V = normalize(cross(Dfocus, U));
+
+    /* update ray for effect of lens */
+    P = U * lensuv.x + V * lensuv.y;
+    D = normalize(Pfocus - P);
+  }
+
+  /* transform ray from camera to world */
+  Transform cameratoworld = kernel_data.cam.cameratoworld;
+
+#ifdef __CAMERA_MOTION__
+  if (bool(kernel_data.cam.num_motion_steps)) {
+    transform_motion_array_interpolate(
+        cameratoworld, kernel_data.cam.num_motion_steps, ray->time,cam_motion_ofs);
+  }
+#endif
+
+  P = transform_point(&cameratoworld, P);
+  D = normalize(transform_direction(&cameratoworld, D));
+
+  /* Stereo transform */
+  bool use_stereo = kernel_data.cam.interocular_offset != 0.0f;
+  if (use_stereo) {
+    spherical_stereo_transform(P, D);
+  }
+
+  ray->P = P;
+  ray->D = D;
+
+#ifdef __RAY_DIFFERENTIALS__
+  /* Ray differentials, computed from scratch using the raster coordinates
+   * because we don't want to be affected by depth of field. We compute
+   * ray origin and direction for the center and two neighboring pixels
+   * and simply take their differences. */
+  float3 Pcenter = Pcamera;
+  float3 Dcenter = panorama_to_direction(Pcenter.x, Pcenter.y);
+  Pcenter = transform_point(&cameratoworld, Pcenter);
+  Dcenter = normalize(transform_direction(&cameratoworld, Dcenter));
+  if (use_stereo) {
+    spherical_stereo_transform(Pcenter, Dcenter);
+  }
+
+  float3 Px = transform_perspective(&rastertocamera, make_float3(raster_x + 1.0f, raster_y, 0.0f));
+  float3 Dx = panorama_to_direction(Px.x, Px.y);
+  Px = transform_point(&cameratoworld, Px);
+  Dx = normalize(transform_direction(&cameratoworld, Dx));
+  if (use_stereo) {
+    spherical_stereo_transform(Px, Dx);
+  }
+
+  ray->dP.dx = Px - Pcenter;
+  ray->dD.dx = Dx - Dcenter;
+
+  float3 Py = transform_perspective(&rastertocamera, make_float3(raster_x, raster_y + 1.0f, 0.0f));
+  float3 Dy = panorama_to_direction(Py.x, Py.y);
+  Py = transform_point(&cameratoworld, Py);
+  Dy = normalize(transform_direction(&cameratoworld, Dy));
+  if (use_stereo) {
+    spherical_stereo_transform(Py, Dy);
+  }
+
+  ray->dP.dy = Py - Pcenter;
+  ray->dD.dy = Dy - Dcenter;
+#endif
+
+#ifdef __CAMERA_CLIPPING__
+  /* clipping */
+  float nearclip = kernel_data.cam.nearclip;
+  ray->P += nearclip * ray->D;
+  ray->dP.dx += nearclip * ray->dD.dx;
+  ray->dP.dy += nearclip * ray->dD.dy;
+  ray->t = kernel_data.cam.cliplength;
+#else
+  ray->t = FLT_MAX;
+#endif
+}
+~>
+<~
+transform_motion_array_interpolate(&cameratoworld,
+                                    kernel_tex_array(__camera_motion),
+                                    kernel_data.cam.num_motion_steps,
+                                    ray->time);
+~>
+<~
+transform_motion_array_interpolate(cameratoworld,
+                                    kernel_data.cam.num_motion_steps,
+                                    ray->time,0);
+~>
+<~
+transform_motion_array_interpolate(&cameratoworld,
+                                       kernel_tex_array(__camera_motion),
+                                       kernel_data.cam.num_motion_steps,
+                                       ray->time);
+~>
+<~
+transform_motion_array_interpolate(cameratoworld,
+                                       kernel_data.cam.num_motion_steps,
+                                       ray->time,0);
+~>
+<~
+    float2 lensuv = camera_sample_aperture(&kernel_data.cam, lens_u, lens_v) * aperturesize;
+~>
+<~
+    float2 lensuv = camera_sample_aperture(lens_u, lens_v) * aperturesize;
+~>
+
+if (kernel_data.cam.rolling_shutter_type) {1$if (bool(kernel_data.cam.rolling_shutter_type)) {
+
+~<
+#ifdef _CAMERA_MOTION_
+    const ccl_global DecomposedTransform *cam_motion = kernel_tex_array(_camera_motion);
+    camera_sample_panorama((kernel_data.cam), cam_motion, raster_x, raster_y, lens_u, lens_v, ray);
+
+#else
+    camera_sample_panorama((kernel_data.cam), raster_x, raster_y, lens_u, lens_v, ray);
+
+#endif
+>~
+~<
+#ifdef _CAMERA_MOTION_
+    camera_sample_panorama(0, raster_x, raster_y, lens_u, lens_v, ray);
+
+#else
+    camera_sample_panorama(raster_x, raster_y, lens_u, lens_v, ray);
+
+#endif
+
+>~
+float2 uv = direction_to_panorama((kernel_data.cam), P);2$float2 uv = direction_to_panorama(P);
+

@@ -1,0 +1,9 @@
+float3 P[3]2$out float3 P[3]
+if[\s]*\([\s]*dx[\s]*\)(.*)REGP$if(!isNULL(dx))\1
+if[\s]*\([\s]*dy[\s]*\)(.*)REGP$if(!isNULL(dy))\1
+if[\s]*\([\s]*dx2[\s]*\)(.*)REGP$if(!isNULL2(dx2))\1
+if[\s]*\([\s]*dy2[\s]*\)(.*)REGP$if(!isNULL2(dy2))\1
+if[\s]*\([\s]*dx3[\s]*\)(.*)REGP$if(!isNULL3(dx3))\1
+if[\s]*\([\s]*dy3[\s]*\)(.*)REGP$if(!isNULL3(dy3))\1
+if[\s]*\([\s]*dx4[\s]*\)(.*)REGP$if(!isNULL4(dx4))\1
+if[\s]*\([\s]*dy4[\s]*\)(.*)REGP$if(!isNULL4(dy4))\1

@@ -1,0 +1,4 @@
+bssrdf->radius.x1$bssrdf.data[0]
+bssrdf->radius.y1$bssrdf.data[1]
+bssrdf->radius.z1$bssrdf.data[2]
+SD_BSSRDF;1$int(SD_BSSRDF);

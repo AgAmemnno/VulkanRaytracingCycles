@@ -1,0 +1,8 @@
+sd->type & PRIMITIVE_ALL_CURVE1$bool(sd.type & PRIMITIVE_ALL_CURVE)
+&domega_in->dx1$domega_in.dx
+&domega_in->dy1$domega_in.dy
+&sd->lcg_state1$sd.lcg_state
+LABEL_NONE;1$int(LABEL_NONE);
+LABEL_TRANSMIT_TRANSPARENT;1$int(LABEL_TRANSMIT_TRANSPARENT);
+label & LABEL_TRANSMIT1$bool(label & LABEL_TRANSMIT)
+label & LABEL_DIFFUSE1$bool(label & LABEL_DIFFUSE)

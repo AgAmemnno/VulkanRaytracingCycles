@@ -1,0 +1,3 @@
+\(path_flag & PATH([a-zA-Z0-9_]+)\) (.*)REG$(bool(path_flag & PATH\1)) \2
+\(sd.flag & SD_([a-zA-Z0-9_]+)\) (.*)REGP$(bool(sd.flag & SD_\1)) \2
+isfinite1$isfinite_safe

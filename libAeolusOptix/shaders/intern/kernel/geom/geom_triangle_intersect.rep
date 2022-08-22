@@ -1,0 +1,39 @@
+lcg_step_uint(lcg_state) % local_isect->num_hits;1$ int(lcg_step_uint(lcg_state) % local_isect.num_hits);
+(local_isect->num_hits && t > local_isect->hits[0].t)1$(bool(local_isect.num_hits) && t > local_isect.hits[0].t) 
+if (lcg_state)1$if (bool(lcg_state))
+inout Intersection isect = &local_isect.hits[hit];2$ Intersection isect = local_isect.hits[hit];
+<~
+  /* Record intersection. */
+  Intersection *isect = &local_isect->hits[hit];
+  isect->prim = prim_addr;
+  isect->object = object;
+  isect->type = PRIMITIVE_TRIANGLE;
+  isect->u = u;
+  isect->v = v;
+  isect->t = t;
+
+  /* Record geometric normal. */
+#  if defined(__KERNEL_SSE2__) && defined(__KERNEL_SSE__)
+  const float3 tri_a = float4_to_float3(kernel_tex_fetch(__prim_tri_verts, tri_vindex + 0)),
+               tri_b = float4_to_float3(kernel_tex_fetch(__prim_tri_verts, tri_vindex + 1)),
+               tri_c = float4_to_float3(kernel_tex_fetch(__prim_tri_verts, tri_vindex + 2));
+#  endif
+  local_isect->Ng[hit] = normalize(cross(tri_b - tri_a, tri_c - tri_a));
+~>
+<~
+  /* Record intersection. */
+  local_isect.hits[hit].prim = prim_addr;
+  local_isect.hits[hit].object = object;
+  local_isect.hits[hit].type = int(PRIMITIVE_TRIANGLE);
+  local_isect.hits[hit].u = u;
+  local_isect.hits[hit].v = v;
+  local_isect.hits[hit].t = t;
+
+  /* Record geometric normal. */
+#  if defined(__KERNEL_SSE2__) && defined(__KERNEL_SSE__)
+  const float3 tri_a = float4_to_float3(kernel_tex_fetch(__prim_tri_verts, tri_vindex + 0)),
+               tri_b = float4_to_float3(kernel_tex_fetch(__prim_tri_verts, tri_vindex + 1)),
+               tri_c = float4_to_float3(kernel_tex_fetch(__prim_tri_verts, tri_vindex + 2));
+#  endif
+  local_isect.Ng[hit] = normalize(cross(tri_b - tri_a, tri_c - tri_a));
+~>

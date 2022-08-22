@@ -1,0 +1,22 @@
+<~
+{
+  int path_flag = state->flag;
+
+  bool is_primary = (path_flag & PATH_RAY_CAMERA) && (!(path_flag & PATH_RAY_SINGLE_PASS_DONE));
+
+  return ((buffer != NULL) && is_primary);
+}
+~>
+<~
+{
+  int path_flag = state->flag;
+
+  bool is_primary = bool(path_flag & PATH_RAY_CAMERA) && (!bool(path_flag & PATH_RAY_SINGLE_PASS_DONE));
+
+  return ((!isNULLI(buffer)) && is_primary);
+}
+~>
+#kernel_write_pass_float4\(((?>[^\(\)]+|(?R))+),REGEX2$kernel_write_pass_float4(\1,
+kernel_write_pass_float4(ofs + kernel_data.film.pass_aov_color + 4 * node.z,2$kernel_write_pass_float4(int(ofs + kernel_data.film.pass_aov_color + 4 * node.z),
+kernel_write_pass_float(ofs + kernel_data.film.pass_aov_value + node.z, val);2$kernel_write_pass_float(int(ofs + kernel_data.film.pass_aov_value + node.z), val);
+

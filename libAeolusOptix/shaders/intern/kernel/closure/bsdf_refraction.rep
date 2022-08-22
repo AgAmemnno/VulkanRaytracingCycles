@@ -1,0 +1,9 @@
+return SD_BSDF;1$return int(SD_BSDF);
+  &R,1$   R,
+                &T,1$                                   T,
+                &dRdx,1$                                dRdx,
+                &dRdy,1$                                dRdy,
+                &dTdx,1$                                dTdx,
+                &dTdy,1$                                dTdy,
+                &inside);1$                             inside);
+ LABEL_TRANSMIT | LABEL_SINGULAR;1$  int( LABEL_TRANSMIT | LABEL_SINGULAR);

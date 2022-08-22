@@ -1,0 +1,16 @@
+&wh_len1$wh_len
+#include "kernel/closure/bsdf_microfacet_multi_impl.h"1$#include "kernel/closure/bsdf_microfacet_multi_impl.h.glsl"
+  return SD_BSDF | SD_BSDF_HAS_EVAL | SD_BSDF_NEEDS_LCG;1$  return int(SD_BSDF | SD_BSDF_HAS_EVAL | SD_BSDF_NEEDS_LCG);
+ &X, &Y);1$ X, Y);
+&localO,1$ localO,
+LABEL_REFLECT | LABEL_SINGULAR;1$int(LABEL_REFLECT | LABEL_SINGULAR);
+LABEL_REFLECT | LABEL_GLOSSY;1$ int(LABEL_REFLECT | LABEL_GLOSSY);
+LABEL_TRANSMIT | LABEL_SINGULAR;1$int(LABEL_TRANSMIT | LABEL_SINGULAR);
+LABEL_TRANSMIT | LABEL_GLOSSY;1$int(LABEL_TRANSMIT | LABEL_GLOSSY);
+                                    &R,1$                                   R,
+                                   &T,1$                                   T,
+                                   &dRdx,1$                                dRdx,
+                                   &dRdy,1$                                dRdy,
+                                   &dTdx,1$                                dTdx,
+                                   &dTdy,1$                                dTdy,
+                                   &inside);1$                             inside);

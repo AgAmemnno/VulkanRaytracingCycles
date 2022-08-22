@@ -1,0 +1,66 @@
+
+<~
+  if (desc.offset != ATTR_STD_NOT_FOUND) {
+    float3 data = primitive_surface_attribute_float3(kg, sd, desc, NULL, NULL);
+    data = make_float3(-(data.y - 0.5f), (data.x - 0.5f), 0.0f);
+    object_normal_transform(kg, sd, &data);
+    return cross(sd->N, normalize(cross(data, sd->N)));
+  }
+~>
+<~
+  if (desc.offset != ATTR_STD_NOT_FOUND) {
+    float3 null1 = float3(NULL_FLT);
+    float3 null2 = float3(NULL_FLT);
+    float3 data = primitive_surface_attribute_float3(kg, sd, desc, null1, null2);
+    data = make_float3(-(data.y - 0.5f), (data.x - 0.5f), 0.0f);
+    object_normal_transform(kg, sd, &data);
+    return cross(sd->N, normalize(cross(data, sd->N)));
+  }
+~>
+
+float2 uv = primitive_surface_attribute_float2(kg, sd, desc, NULL, NULL);2$ float2 uv;{float2 null1 = float2(NULL_FLT);float2 null2 = float2(NULL_FLT);uv = primitive_surface_attribute_float2(kg, sd, desc, null1, null2);}
+<~
+  float3 uv3 = primitive_surface_attribute_float3(kg, sd, desc_uv, NULL, NULL);
+  float face_id_f = primitive_surface_attribute_float(kg, sd, desc_face_id, NULL, NULL);
+~>
+<~
+  float3 uv3;
+  float face_id_f;
+  {
+  float3 null1 = float3(NULL_FLT);
+  float3 null2 = float3(NULL_FLT);
+  uv3 = primitive_surface_attribute_float3(kg, sd, desc_uv, null1, null2);
+  face_id_f = primitive_surface_attribute_float(kg, sd, desc_face_id, null1.x, null2.x);
+  }
+~>
+bool is_curve_primitive = sd.type & PRIMITIVE_ALL_CURVE;2$bool is_curve_primitive = bool(sd.type & PRIMITIVE_ALL_CURVE);
+<~
+    int numverts, numkeys;
+    object_motion_info(kg, sd->object, NULL, &numverts, &numkeys);
+~>
+<~
+    int numverts, numkeys;
+    {
+      int null_int = NULL_INT;
+      object_motion_info(kg, sd.object, null_int, (numverts), (numkeys));
+    };
+~>
+<~
+    /* lookup attributes */
+    motion_pre = primitive_surface_attribute_float3(kg, sd, desc, NULL, NULL);
+
+    desc.offset += (sd->type & PRIMITIVE_ALL_TRIANGLE) ? numverts : numkeys;
+    motion_post = primitive_surface_attribute_float3(kg, sd, desc, NULL, NULL);
+~>
+<~
+    /* lookup attributes */
+     {
+  float3 null1 = float3(NULL_FLT);
+  float3 null2 = float3(NULL_FLT);
+    motion_pre = primitive_surface_attribute_float3(kg, sd, desc, null1, null2);
+
+    desc.offset += bool(sd->type & PRIMITIVE_ALL_TRIANGLE) ? numverts : numkeys;
+    motion_post = primitive_surface_attribute_float3(kg, sd, desc,null1, null2);
+     }
+~>
+direction_to_panorama((kernel_data.cam),2$direction_to_panorama(

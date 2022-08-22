@@ -1,0 +1,21 @@
+const ccl_global KernelLight *klight = &1$const ccl_global KernelLight klight = 
+klight->area.axisu[0]1$AreaLight_axisu0(klight)
+klight->area.axisu[1]1$AreaLight_axisu1(klight)
+klight->area.axisu[2]1$AreaLight_axisu2(klight)
+klight->area.invarea1$AreaLight_invarea(klight) 
+klight->area.axisv[0]1$AreaLight_axisv0(klight) 
+klight->area.axisv[1]1$AreaLight_axisv1(klight) 
+klight->area.axisv[2]1$AreaLight_axisv2(klight) 
+klight->area.pad1$AreaLight_pad1(klight)
+klight->area.dir[0]1$AreaLight_dir0(klight)
+klight->area.dir[1]1$AreaLight_dir1(klight)
+klight->area.dir[2]1$AreaLight_dir2(klight)
+&lightpos, &dir1$lightpos, dir
+&t);1$t);
+&lightpos1$lightpos
+\([\s]*(int|float|uint)[\s]*\)[\s]*([a-zA-Z_0-9]+)([\s\);\n]+)REG$\1(\2)\3
+&D,1$D,
+&portal1$portal
+&is_possible1$is_possible
+
+

@@ -1,0 +1,5 @@
+int prim = kernel_tex_fetch(_prim_index, prim_addr);2$int prim = int(kernel_tex_fetch(_prim_index, prim_addr));
+int fobject = (object == OBJECT_NONE) ? kernel_tex_fetch(_prim_object, prim_addr) : object;2$  int fobject = (object == OBJECT_NONE) ? int(kernel_tex_fetch(_prim_object, prim_addr) ): object;
+isect.type = PRIMITIVE_MOTION_TRIANGLE;2$isect.type = int(PRIMITIVE_MOTION_TRIANGLE);
+if (kernel_tex_fetch(_prim_visibility, prim_addr) & visibility)2$if (bool(kernel_tex_fetch(_prim_visibility, prim_addr) & visibility))
+

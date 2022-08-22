@@ -1,0 +1,4 @@
+\([\s]*([a-zA-Z]+)[\s]*\)[\s]*([a-zA-Z_0-9\.\-\>]+)([\s\);\n]+)REG$\1(\2)\3
+object_motion_info(kg, object, &numsteps, &numverts, NULL);1${int null_int = 0; object_motion_info(kg, object, numsteps, numverts, null_int);}
+float3 verts[3])2$inout float3 verts[3])
+float3 normals[3])2$inout float3 normals[3])

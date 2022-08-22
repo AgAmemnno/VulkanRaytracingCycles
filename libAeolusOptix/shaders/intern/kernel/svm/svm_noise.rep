@@ -1,0 +1,75 @@
+(condition)1$bool(bool(condition))
+<~
+ccl_device float grad1(int hash, float x)
+{
+  int h = hash & 15;
+  float g = 1 + (h & 7);
+  return negate_if(g, h & 8) * x;
+}
+~>
+<~
+ccl_device float grad1(uint hash, float x)
+{
+  int h = int(hash) & 15;
+  float g = 1 + (h & 7);
+  return negate_if(g, h & 8) * x;
+}
+~>
+<~
+ccl_device float grad2(int hash, float x, float y)
+{
+  int h = hash & 7;
+  float u = h < 4 ? x : y;
+  float v = 2.0f * (h < 4 ? y : x);
+  return negate_if(u, h & 1) + negate_if(v, h & 2);
+}
+~>
+<~
+ccl_device float grad2(uint hash, float x, float y)
+{
+  int h = int(hash) & 7;
+  float u = h < 4 ? x : y;
+  float v = 2.0f * (h < 4 ? y : x);
+  return negate_if(u, h & 1) + negate_if(v, h & 2);
+}
+~>
+<~
+ccl_device float grad3(int hash, float x, float y, float z)
+{
+  int h = hash & 15;
+  float u = h < 8 ? x : y;
+  float vt = ((h == 12) || (h == 14)) ? x : z;
+  float v = h < 4 ? y : vt;
+  return negate_if(u, h & 1) + negate_if(v, h & 2);
+}
+~>
+<~
+ccl_device float grad3(uint hash, float x, float y, float z)
+{
+  int h = int(hash) & 15;
+  float u = h < 8 ? x : y;
+  float vt = ((h == 12) || (h == 14)) ? x : z;
+  float v = h < 4 ? y : vt;
+  return negate_if(u, h & 1) + negate_if(v, h & 2);
+}
+~>
+<~
+ccl_device float grad4(int hash, float x, float y, float z, float w)
+{
+  int h = hash & 31;
+  float u = h < 24 ? x : y;
+  float v = h < 16 ? y : z;
+  float s = h < 8 ? z : w;
+  return negate_if(u, h & 1) + negate_if(v, h & 2) + negate_if(s, h & 4);
+}
+~>
+<~
+ccl_device float grad4(uint hash, float x, float y, float z, float w)
+{
+  int h = int(hash) & 31;
+  float u = h < 24 ? x : y;
+  float v = h < 16 ? y : z;
+  float s = h < 8 ? z : w;
+  return negate_if(u, h & 1) + negate_if(v, h & 2) + negate_if(s, h & 4);
+}
+~>

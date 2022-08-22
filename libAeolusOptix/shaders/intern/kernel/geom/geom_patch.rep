@@ -1,0 +1,28 @@
+#(object_patch_map_offset(kg, object) + patch) / 2;1$int((object_patch_map_offset(kg, object) + patch) / 2);
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REG$(\1)\2\3
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REG$(\1)\2\3
+child & PATCH_MAP_NODE_IS_SET1$bool(child & PATCH_MAP_NODE_IS_SET)
+node = index;1$node = int(index);
+child & PATCH_MAP_NODE_IS_LEAF1$bool(child & PATCH_MAP_NODE_IS_LEAF)
+(float t, inout float point, inout float deriv)2$(float t, inout float point[4], inout float deriv[4])
+(uint bits, inout float s, inout float t)2$(uint bits, inout float s[4], inout float t[4])
+((bits >> 8) & 0xf);1$int((bits >> 8) & 0xf);
+return 1.0f / (float)(1 << (depth - 1));1$return 1.0f / float(1 << (depth - 1));
+return 1.0f / (float)(1 << depth);1$return 1.0f / float(1 << depth);
+boundary & ([0-9])REG$bool(boundary & \1)
+(patch_bits & 0xf);1$ int(patch_bits & 0xf);
+(patch_bits >> 4) & 0x1;1$bool((patch_bits >> 4) & 0x1);
+  int iu = (patch_bits >> 22) & 0x3ff;1$  int iu = int((patch_bits >> 22) & 0x3ff);
+  int iv = (patch_bits >> 12) & 0x3ff;1$  int iv = int((patch_bits >> 12) & 0x3ff);
+float pu = (float)iu * frac;1$float pu = float(iu * frac);
+float pv = (float)iv * frac;1$float pv = float(iv * frac);
+kernel_tex_fetch(__patches, handle->array_index + 2) + handle->vert_index;1$int(kernel_tex_fetch(_patches, handle.array_index + 2) + handle.vert_index);
+indices[i] = kernel_tex_fetch(__patches, index_base + i);1$indices[i] = int(kernel_tex_fetch(_patches, index_base + i));
+if (du)1$if (!isNULL(du))
+if (dv)1$if (!isNULL(dv))
+if (du2)1$if (!isNULL2(du2))
+if (dv2)1$if (!isNULL2(dv2))
+if (du3)1$if (!isNULL3(du3))
+if (dv3)1$if (!isNULL3(dv3))
+if (du4)1$if (!isNULL4(du4))
+if (dv4)1$if (!isNULL4(dv4))

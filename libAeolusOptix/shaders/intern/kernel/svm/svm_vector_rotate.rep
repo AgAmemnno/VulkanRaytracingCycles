@@ -1,0 +1,3 @@
+if (invert) {1$ if (bool(invert)) {
+invert \?(.*)REG$bool(invert) ?\1
+

@@ -1,0 +1,27 @@
+﻿{
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "generator": "Visual Studio 16 2019 Win64",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-Wno-dev",
+      "ctestCommandArgs": "",
+      "variables": [
+        {
+          "name": "CMAKE_TOOLCHAIN_FILE",
+          "value": "D:/C/vcpkg_v2/scripts/buildsystems/vcpkg.cmake",
+          "type": "UNINITIALIZED"
+        },
+        {
+          "name": "IlmBASE_FOUND",
+          "value": "True",
+          "type": "BOOL"
+        }
+      ]
+    }
+  ]
+}

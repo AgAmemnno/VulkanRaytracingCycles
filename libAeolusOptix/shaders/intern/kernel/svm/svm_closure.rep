@@ -1,0 +1,724 @@
+
+<~
+CCL_NAMESPACE_BEGIN
+~>
+<~
+CCL_NAMESPACE_BEGIN
+/*
+typedef ccl_addr_space struct MicrofacetExtra {
+  float3 color;
+  float3 cspec0;
+  float3 fresnel_color;
+  float clearcoat;
+} MicrofacetExtra;
+
+typedef ccl_addr_space struct MicrofacetBsdf {
+  SHADER_CLOSURE_BASE;
+
+  float alpha_x;
+  float alpha_y;
+  float  ior;
+  MicrofacetExtra *extra;
+  float3 T;
+} MicrofacetBsdf;
+*/
+~>
+<~
+        else {
+          bsdf->roughness = roughness;
+          sd->flag |= bsdf_oren_nayar_setup(bsdf);
+        }
+~>
+<~
+        else {
+          OrenNayar_roughness(sd.closure[n]) =  roughness;
+          sd.flag |= bsdf_oren_nayar_setup(sd.closure[n]);
+        }
+~>
+
+([\s\(]+)bsdf([\s\)\.]+)REXP$\1sd.closure[n]\2
+float ior = (sd.flag & SD_BACKFACING) ? 1.0f / eta : eta;2$float ior = bool(sd.flag & SD_BACKFACING) ? 1.0f / eta : eta;
+([a-zA-Z0-9_]+) \*bsdf = \(\1 \*\)bsdf_alloc(.*)REGEX$int n = bsdf_alloc\2
+sizeof\(([a-zA-Z0-9_]+)\)(.*)REG$sizeof_\1\2
+if (bsdf) {1$ if (n >= 0) {
+if (bsdf && extra) {1$if (n >= 0) {
+if (!bsdf)1$if (n < 0) 
+bsdf\.(.*)REGP$sd.closure[n].\1
+\(bsdf\)(.*)REGP$(sd.closure[n])\1
+\(bsdf\)(.*)REGP$(sd.closure[n])\1
+\(bsdf\)(.*)REGP$(sd.closure[n])\1
+~<
+#define MicrofacetBsdf ShaderClosure
+>~
+~<
+/*undef*/
+>~
+
+
+path_flag & PATH_RAY_DIFFUSE_ANCESTOR(.*)REG$bool(path_flag & PATH_RAY_DIFFUSE_ANCESTOR)\1
+path_flag & PATH_RAY_DIFFUSE([\s\)])(.*)REG$bool(path_flag & PATH_RAY_DIFFUSE)\1\2
+kernel_data.integrator.caustics_refractive(.*)REG$bool(kernel_data.integrator.caustics_refractive)\1
+kernel_data.integrator.caustics_reflective(.*)REG$bool(kernel_data.integrator.caustics_reflective)\1
+sd.flag & SD_BACKFACING2$bool(sd.flag & SD_BACKFACING)
+
+/* Closure Nodes */
+1
+~<
+ccl_device void svm_node_glass_setup(
+    inout ShaderData sd, inout MicrofacetBsdf bsdf, int type, float eta, float roughness, bool refract)
+{
+  if (type == CLOSURE_BSDF_SHARP_GLASS_ID) {
+    if (refract) {
+      Microfacet_alpha_y(sd.closure[n]) = 0.0f;
+
+      Microfacet_alpha_x(sd.closure[n]) = 0.0f;
+
+      Microfacet_ior(sd.closure[n]) = eta;
+
+      sd.flag |= bsdf_refraction_setup(sd.closure[n]);
+
+    }
+    else {
+      Microfacet_alpha_y(sd.closure[n]) = 0.0f;
+
+      Microfacet_alpha_x(sd.closure[n]) = 0.0f;
+
+      Microfacet_ior(sd.closure[n]) = 0.0f;
+
+      sd.flag |= bsdf_reflection_setup(sd.closure[n]);
+
+    }
+  }
+  else if (type == CLOSURE_BSDF_MICROFACET_BECKMANN_GLASS_ID) {
+    Microfacet_alpha_x(sd.closure[n]) = roughness;
+
+    Microfacet_alpha_y(sd.closure[n]) = roughness;
+
+    Microfacet_ior(sd.closure[n]) = eta;
+
+
+    if (refract){
+      sd.flag |= bsdf_microfacet_beckmann_refraction_setup(sd.closure[n]);
+
+    }else
+      sd.flag |= bsdf_microfacet_beckmann_setup(sd.closure[n]);
+
+  }
+  else {
+    Microfacet_alpha_x(sd.closure[n]) = roughness;
+
+    Microfacet_alpha_y(sd.closure[n]) = roughness;
+
+    Microfacet_ior(sd.closure[n]) = eta;
+
+
+    if (refract){
+      sd.flag |= bsdf_microfacet_ggx_refraction_setup(sd.closure[n]);
+
+    }else
+      sd.flag |= bsdf_microfacet_ggx_setup(sd.closure[n]);
+
+  }
+}
+>~
+~<
+ccl_device void svm_node_glass_setup(
+    inout ShaderData sd, inout ShaderClosure bsdf, int type, float eta, float roughness, bool refract)
+{
+  if (type == CLOSURE_BSDF_SHARP_GLASS_ID) {
+    if (refract) {
+      Microfacet_alpha_y(bsdf) = 0.0f;
+
+      Microfacet_alpha_x(bsdf) = 0.0f;
+
+      Microfacet_ior(bsdf) = eta;
+
+      sd.flag |= bsdf_refraction_setup(bsdf);
+
+    }
+    else {
+      Microfacet_alpha_y(bsdf) = 0.0f;
+
+      Microfacet_alpha_x(bsdf) = 0.0f;
+
+      Microfacet_ior(bsdf) = 0.0f;
+
+      sd.flag |= bsdf_reflection_setup(bsdf);
+
+    }
+  }
+  else if (type == CLOSURE_BSDF_MICROFACET_BECKMANN_GLASS_ID) {
+    Microfacet_alpha_x(bsdf) = roughness;
+
+    Microfacet_alpha_y(bsdf) = roughness;
+
+    Microfacet_ior(bsdf) = eta;
+
+
+    if (refract){
+      sd.flag |= bsdf_microfacet_beckmann_refraction_setup(bsdf);
+    }
+    else
+      sd.flag |= bsdf_microfacet_beckmann_setup(bsdf);
+
+  }
+  else {
+    Microfacet_alpha_x(bsdf) = roughness;
+
+    Microfacet_alpha_y(bsdf) = roughness;
+
+    Microfacet_ior(bsdf) = eta;
+
+
+    if (refract){
+      sd.flag |= bsdf_microfacet_ggx_refraction_setup(bsdf);
+    }
+    else
+      sd.flag |= bsdf_microfacet_ggx_setup(bsdf);
+
+  }
+}
+>~
+
+
+2
+~<
+            sd.closure[n].roughness = roughness;
+>~
+~<
+            PrincipledDiffuse_roughness(sd.closure[n]) = roughness;
+>~
+
+
+3
+~<       
+          Bssrdf *bssrdf = bssrdf_alloc(sd, subsurf_weight);
+
+          if (bssrdf) {
+            bssrdf.radius = subsurface_radius * subsurface;
+            bssrdf.albedo = (subsurface_method == CLOSURE_BSSRDF_PRINCIPLED_ID) ?
+                                 subsurface_color :
+                                 mixed_ss_base_color;
+            bssrdf.texture_blur = 0.0f;
+            bssrdf.sharpness = 0.0f;
+            bssrdf.N = N;
+            bssrdf.roughness = roughness;
+
+            /* setup bsdf */
+            sd.flag |= bssrdf_setup(sd, bssrdf, subsurface_method);
+          }
+        }
+>~
+~<       
+          int n = bssrdf_alloc(sd, subsurf_weight);
+
+          if (n >= 0) {
+            Bssrdf_radius_lval(sd.closure[n]) = subsurface_radius * subsurface;
+            Bssrdf_radius_assign(sd.closure[n]) 
+            Bssrdf_albedo_lval(sd.closure[n]) = (subsurface_method == CLOSURE_BSSRDF_PRINCIPLED_ID) ?
+                                 subsurface_color :
+                                 mixed_ss_base_color;
+            Bssrdf_albedo_assign(sd.closure[n])
+            Bssrdf_texture_blur(sd.closure[n]) = 0.0f;
+            Bssrdf_sharpness(sd.closure[n]) = 0.0f;
+            sd.closure[n].N = N;
+            Bssrdf_roughness(sd.closure[n]) = roughness;
+
+            /* setup bsdf */
+            sd.flag |= bssrdf_setup(sd, sd.closure[n], subsurface_method);
+          }
+        }
+>~
+ 
+4
+~<
+          sd.closure[n].roughness = roughness;
+>~
+~<
+          PrincipledDiffuse_roughness(sd.closure[n]) =  roughness;
+>~
+
+5
+~<
+          /* setup bsdf */
+          sd.flag |= bsdf_principled_sheen_setup(sd, bsdf);
+>~
+~<
+          /* setup bsdf */
+          sd.flag |= bsdf_principled_sheen_setup(sd, sd.closure[n]);
+>~       
+
+
+6
+~<
+          MicrofacetExtra *extra = (bsdf != NULL) ? (MicrofacetExtra *)closure_alloc_extra(
+                                                        sd, sizeof_MicrofacetExtra) :
+
+                                                    NULL;
+>~
+~<
+
+>~
+
+
+7
+~<
+            sd.closure[n].extra = extra;
+>~
+~<
+  /*sd.closure[n].extra = extra;*/
+>~
+
+8
+~<
+            /* setup bsdf */
+            if (distribution == CLOSURE_BSDF_MICROFACET_GGX_GLASS_ID ||
+                roughness <= 0.075f) /* use single-scatter GGX */
+              sd.flag |= bsdf_microfacet_ggx_fresnel_setup(bsdf, sd);
+            else /* use multi-scatter GGX */
+              sd.flag |= bsdf_microfacet_multi_ggx_fresnel_setup(bsdf, sd);
+>~
+~<
+            /* setup bsdf */
+            if (distribution == CLOSURE_BSDF_MICROFACET_GGX_GLASS_ID ||
+                roughness <= 0.075f) /* use single-scatter GGX */
+              sd.flag |= bsdf_microfacet_ggx_fresnel_setup(sd.closure[n], sd);
+            else /* use multi-scatter GGX */
+              sd.flag |= bsdf_microfacet_multi_ggx_fresnel_setup(sd.closure[n], sd);
+>~
+
+9
+~<
+              MicrofacetExtra *extra = (bsdf != NULL) ? (MicrofacetExtra *)closure_alloc_extra(
+                                                            sd, sizeof_MicrofacetExtra) :
+
+                                                        NULL;
+>~
+~<
+/*extra allocate elim*/
+>~
+
+
+10
+~<
+                sd.closure[n].extra = extra;
+>~
+~<
+  /*sd.closure[n].extra = extra;*/
+>~
+
+
+11
+~<
+                /* setup bsdf */
+                sd.flag |= bsdf_microfacet_ggx_fresnel_setup(bsdf, sd);
+>~
+~<
+                /* setup bsdf */
+                sd.flag |= bsdf_microfacet_ggx_fresnel_setup(sd.closure[n], sd);
+>~
+
+12
+~<
+            MicrofacetExtra *extra = (bsdf != NULL) ? (MicrofacetExtra *)closure_alloc_extra(
+                                                          sd, sizeof_MicrofacetExtra) :
+
+                                                      NULL;
+>~
+~<
+
+>~
+
+
+13
+~<
+              sd.closure[n].extra = extra;
+>~
+~<
+       
+>~
+
+
+14
+~<
+              /* setup bsdf */
+              sd.flag |= bsdf_microfacet_multi_ggx_glass_fresnel_setup(bsdf, sd);
+>~
+~<
+              /* setup bsdf */
+              sd.flag |= bsdf_microfacet_multi_ggx_glass_fresnel_setup(sd.closure[n], sd);    
+>~ 
+             
+15
+~<
+
+          MicrofacetExtra *extra = (bsdf != NULL) ? (MicrofacetExtra *)closure_alloc_extra(
+                                                        sd, sizeof_MicrofacetExtra) :
+
+                                                    NULL;
+>~
+~<
+
+>~
+
+16
+~<
+            sd.closure[n].extra = extra;
+>~
+~<
+
+>~
+
+            Microfacet_alpha_x(sd.closure[n]) = clearcoat_roughness * clearcoat_roughness;
+
+            Microfacet_alpha_y(sd.closure[n]) = clearcoat_roughness * clearcoat_roughness;
+
+
+             Microfacet_color_lval(sd.closure[n]) =  make_float3(0.0f, 0.0f, 0.0f); Microfacet_color_assign(bsdf) 
+
+             Microfacet_cspec0_lval(sd.closure[n]) =  make_float3(0.04f, 0.04f, 0.04f); Microfacet_cspec0_assign(bsdf) 
+
+            Microfacet_clearcoat(sd.closure[n]) = clearcoat;
+17
+~<
+            /* setup bsdf */
+            sd.flag |= bsdf_microfacet_ggx_clearcoat_setup(bsdf, sd);
+>~
+~<
+            /* setup bsdf */
+            sd.flag |= bsdf_microfacet_ggx_clearcoat_setup(sd.closure[n], sd);
+>~         
+
+18          
+~<          
+          sd.flag |= bsdf_diffuse_setup((DiffuseBsdf *)bsdf);
+>~   
+~<          
+          sd.flag |= bsdf_diffuse_setup(sd.closure[n]);
+          /*conv 18*/
+>~
+
+19
+~<          
+          sd.closure[n].roughness = roughness;
+>~
+~<
+          OrenNayar_roughness(sd.closure[n]) =roughness;
+>~        
+
+ 
+20
+~<        
+        sd.closure[n].extra = (MicrofacetExtra *)closure_alloc_extra(sd, sizeof_MicrofacetExtra);
+>~        
+~<        
+        /*sd.closure[n].extra = (MicrofacetExtra *)closure_alloc_extra(sd, sizeof_MicrofacetExtra);*/
+>~ 
+21
+~< 
+        if (sd.closure[n].extra) {
+>~           
+~< 
+        /*if (sd.closure[n].extra) */{
+>~ 
+   
+22
+~<
+          svm_node_glass_setup(sd, bsdf, type, eta, roughness, false);
+>~          
+~<
+          svm_node_glass_setup(sd,sd.closure[n], int(type), float(eta), float(roughness), false);
+>~      
+
+23
+~<
+          svm_node_glass_setup(sd, bsdf, type, eta, roughness, true);
+>~   
+~<
+          svm_node_glass_setup(sd,    sd.closure[n], int(type), eta, roughness, true);
+>~   
+
+24
+~<
+      MicrofacetExtra *extra = (MicrofacetExtra *)closure_alloc_extra(sd, sizeof_MicrofacetExtra);
+
+      if (!extra) {
+        break;
+      }
+>~
+~<
+
+>~
+
+25
+~<
+      sd.closure[n].extra = extra;
+>~
+~<    
+
+>~
+
+
+26
+~<
+        sd.closure[n].sigma = saturate(param1);
+>~
+~<
+        Velvet_sigma(sd.closure[n]) = saturate(param1);
+>~        
+
+27
+~<
+        sd.closure[n].size = param1;
+
+        sd.closure[n].smooth = param2;
+>~
+~<
+        Toon_size(sd.closure[n]) = param1;
+
+        Toon_smooth(sd.closure[n]) = param2;
+>~        
+
+
+28
+~<
+        PrincipledHairExtra *extra = (PrincipledHairExtra *)closure_alloc_extra(
+            sd, sizeof_PrincipledHairExtra);
+
+
+        if (!extra)
+          break;
+>~
+~<
+  /*  PrincipledHairExtra */
+>~
+
+29
+~<
+        sd.closure[n].v = roughness;
+
+        sd.closure[n].s = radial_roughness;
+
+        sd.closure[n].m0_roughness = m0_roughness;
+
+        sd.closure[n].alpha = alpha;
+
+        sd.closure[n].eta = ior;
+
+        sd.closure[n].extra = extra;
+>~
+~<
+
+PrincipledHair_v(sd.closure[n]) =  roughness;
+
+PrincipledHair_s(sd.closure[n]) =  radial_roughness;
+
+PrincipledHair_m0_roughness(sd.closure[n]) = m0_roughness;
+
+PrincipledHair_alpha(sd.closure[n]) = alpha;
+
+PrincipledHair_eta(sd.closure[n]) = ior;
+
+>~
+
+30
+~<            
+            sd.closure[n].sigma = absorption_coefficient;
+>~
+~<            
+            PrincipledHair_sigma(sd.closure[n]) = absorption_coefficient;
+>~
+
+31
+~<
+            sd.closure[n].sigma = melanin_sigma + tint_sigma;
+>~
+~<
+PrincipledHair_sigma(sd.closure[n]) = melanin_sigma + tint_sigma;
+>~
+
+
+32
+~<        
+            sd.closure[n].sigma = bsdf_principled_hair_sigma_from_reflectance(color, radial_roughness);
+>~
+~<        
+            PrincipledHair_sigma(sd.closure[n]) =  bsdf_principled_hair_sigma_from_reflectance(color, radial_roughness);
+>~
+
+
+33
+~<             
+            sd.closure[n].sigma = bsdf_principled_hair_sigma_from_concentration(0.0f, 0.8054375f);
+>~
+~<             
+           PrincipledHair_sigma(sd.closure[n])  = bsdf_principled_hair_sigma_from_concentration(0.0f, 0.8054375f);
+>~
+
+34
+~<             
+        sd.flag |= bsdf_principled_hair_setup(sd, bsdf);
+>~
+~<             
+        sd.flag |= bsdf_principled_hair_setup(sd,sd.closure[n]);
+>~
+
+35
+~<
+        sd.closure[n].roughness1 = param1;
+
+        sd.closure[n].roughness2 = param2;
+
+        sd.closure[n].offset = -stack_load_float(stack, data_node.z);
+
+
+        if (stack_valid(data_node.y)) {
+           Microfacet_T_lval(sd.closure[n]) =  normalize(stack_load_float3(stack, data_node.y)); Microfacet_T_assign(bsdf) 
+
+        }
+        else if (!(bool(sd.type & PRIMITIVE_ALL_CURVE))) {
+           Microfacet_T_lval(sd.closure[n]) =  normalize(sd.dPdv); Microfacet_T_assign(bsdf) 
+
+
+          sd.closure[n].offset = 0.0f;
+
+        }
+        else
+           Microfacet_T_lval(sd.closure[n]) =  normalize(sd.dPdu); Microfacet_T_assignbsdf(if) (type == CLOSURE_BSDF_HAIR_REFLECTION_ID) {
+>~
+~<
+        Hair_roughness1(sd.closure[n])= param1;
+
+        Hair_roughness2(sd.closure[n])= param2;
+
+        Hair_offset(sd.closure[n])= -stack_load_float(stack, data_node.z);
+
+
+        if (stack_valid(data_node.y)) {
+           Hair_T_lval(sd.closure[n]) =  normalize(stack_load_float3(stack, data_node.y)); Hair_T_assign(bsdf) 
+
+        }
+        else if (!(bool(sd.type & PRIMITIVE_ALL_CURVE))) {
+           Hair_T_lval(sd.closure[n]) =  normalize(sd.dPdv); Hair_T_assign(bsdf) 
+
+
+          Hair_offset(sd.closure[n]) = 0.0f;
+
+        }
+        else
+           Hair_T_lval(sd.closure[n]) =  normalize(sd.dPdu); Hair_T_assignbsdf(if) (type == CLOSURE_BSDF_HAIR_REFLECTION_ID) {
+>~
+
+36
+~<  
+      Bssrdf *bssrdf = bssrdf_alloc(sd, weight);
+
+      if (bssrdf) {
+>~
+~<   
+      int n = bssrdf_alloc(sd, weight);
+
+      if (n >=0) {
+>~
+
+36-2
+~<  
+        bssrdf.radius = stack_load_float3(stack, data_node.z) * param1;
+>~
+~<   
+        Bssrdf_radius_lval(sd.closure[n]) = stack_load_float3(stack, data_node.z) * param1; Bssrdf_radius_assign(sd.closure[n]);
+>~
+~<        
+        bssrdf.albedo = sd.svm_closure_weight;
+>~
+~<   
+        Bssrdf_albedo_lval(sd.closure[n]) = sd.svm_closure_weight;Bssrdf_albedo_assign(sd.closure[n]);
+>~
+~<
+        bssrdf.texture_blur = param2;
+>~
+~<   
+        Bssrdf_texture_blur(sd.closure[n]) = param2;
+>~
+~<
+        bssrdf.sharpness = stack_load_float(stack, data_node.w);
+>~
+~<
+        Bssrdf_sharpness(sd.closure[n]) = stack_load_float(stack, data_node.w);
+>~
+~<
+        bssrdf.N = N;
+>~
+~<
+        sd.closure[n].N = N;
+>~
+~<
+        bssrdf.roughness = 0.0f;
+>~
+~<
+        Bssrdf_roughness(sd.closure[n]) = 0.0f;
+>~        
+
+sd.flag |= bssrdf_setup(sd, bssrdf, ClosureType(type));2$sd.flag |= bssrdf_setup(sd, sd.closure[n], ClosureType(type));
+
+sd.flag |= SD_HOLDOUT;2$sd.flag |= int(SD_HOLDOUT);
+
+37
+~<    
+    HenyeyGreensteinVolume *volume = (HenyeyGreensteinVolume *)bsdf_alloc(
+        sd, sizeof_HenyeyGreensteinVolume, weight);
+
+
+    if (volume) {
+      float anisotropy = (stack_valid(anisotropy_offset)) ?
+                             stack_load_float(stack, anisotropy_offset) :
+                             _uint_as_float(node.w);
+      volume.g = anisotropy; /* g */
+      sd.flag |= volume_henyey_greenstein_setup(volume);
+    }
+  }
+>~
+~<    
+    int n = bsdf_alloc(
+        sd, sizeof_HenyeyGreensteinVolume, weight);
+
+
+    if (n >=0 ) {
+      float anisotropy = (stack_valid(anisotropy_offset)) ?
+                             stack_load_float(stack, anisotropy_offset) :
+                             _uint_as_float(node.w);
+      HenyeyGreensteinVolume_g(sd.closure[n]) = anisotropy; /* g */
+      sd.flag |= volume_henyey_greenstein_setup(sd.closure[n]);
+    }
+  }
+>~
+ 
+
+
+38
+~<    
+    HenyeyGreensteinVolume *volume = (HenyeyGreensteinVolume *)bsdf_alloc(
+        sd, sizeof_HenyeyGreensteinVolume, color * density);
+
+    if (volume) {
+      float anisotropy = (stack_valid(anisotropy_offset)) ?
+                             stack_load_float(stack, anisotropy_offset) :
+                             _uint_as_float(value_node.y);
+      volume.g = anisotropy;
+      sd.flag |= volume_henyey_greenstein_setup(volume);
+    }
+>~
+~<    
+    int n = bsdf_alloc(
+        sd, sizeof_HenyeyGreensteinVolume, color * density);
+
+    if (n >= 0) {
+      float anisotropy = (stack_valid(anisotropy_offset)) ?
+                             stack_load_float(stack, anisotropy_offset) :
+                             _uint_as_float(value_node.y);
+      HenyeyGreensteinVolume_g(sd.closure[n]) = anisotropy;
+      sd.flag |= volume_henyey_greenstein_setup(sd.closure[n]);
+    }
+>~
+  
+

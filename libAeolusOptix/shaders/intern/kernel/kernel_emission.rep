@@ -1,0 +1,65 @@
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REGP$(\1)\2\3
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REGP$(\1)\2\3
+shader_eval_surface(kg, emission_sd, state, NULL, PATH_RAY_EMISSION);2$shader_eval_surface(kg, emission_sd, state, null_int, int(PATH_RAY_EMISSION));
+~<
+  if (ls.lamp != LAMP_NONE) {
+    const ccl_global KernelLight *klight = &kernel_tex_fetch(_lights, ls.lamp);
+    eval *= make_float3(klight.strength[0], klight.strength[1], klight.strength[2]);
+  }
+>~
+~<
+  if (ls.lamp != LAMP_NONE) {
+    const  KernelLight klight = kernel_tex_fetch(_lights, ls.lamp);
+    eval *= make_float3(klight.strength[0], klight.strength[1], klight.strength[2]);
+  }
+>~
+shader_bsdf_eval(kg, sd, ls.D, eval, ls.pdf, ls.shader & SHADER_USE_MIS);2$  shader_bsdf_eval(kg, sd, ls.D, eval, ls.pdf,bool( ls.shader & SHADER_USE_MIS) );
+(if[\s]*)(\(|\([\s]*![\s]*\()[\s]*([A-Za-z0-9_\.]+)[\s]+\&[\s]+([A-Za-z0-9_]+)([\s\)]+)(([^!=].)*)\nREGP$\1\2bool(\3 & \4)\5\6\n
+(if[\s]*)(\(|\([\s]*![\s]*\()[\s]*([A-Za-z0-9_\.]+)[\s]+\&[\s]+([A-Za-z0-9_]+)([\s\)]+)(([^!=].)*)\nREGP$\1\2bool(\3 & \4)\5\6\n
+if (!(bool(path_flag & PATH_RAY_MIS_SKIP)) && (sd.flag & SD_USE_MIS))2$if (!(bool(path_flag & PATH_RAY_MIS_SKIP)) && bool(sd.flag & SD_USE_MIS))
+~<
+      if (((ls.shader & SHADER_EXCLUDE_DIFFUSE) && (state.flag & PATH_RAY_DIFFUSE)) ||
+          ((ls.shader & SHADER_EXCLUDE_GLOSSY) &&
+           ((state.flag & (PATH_RAY_GLOSSY | PATH_RAY_REFLECT)) ==
+            (PATH_RAY_GLOSSY | PATH_RAY_REFLECT))) ||
+          ((ls.shader & SHADER_EXCLUDE_TRANSMIT) && (state.flag & PATH_RAY_TRANSMIT)) ||
+          ((ls.shader & SHADER_EXCLUDE_SCATTER) && (state.flag & PATH_RAY_VOLUME_SCATTER)))
+        continue;
+    }
+>~
+~<
+      if (( bool(ls.shader & SHADER_EXCLUDE_DIFFUSE) && bool(state.flag & PATH_RAY_DIFFUSE)) ||
+          ( bool(ls.shader & SHADER_EXCLUDE_GLOSSY) &&
+           ((state.flag & (PATH_RAY_GLOSSY | PATH_RAY_REFLECT)) ==
+            (PATH_RAY_GLOSSY | PATH_RAY_REFLECT))) ||
+          (bool(ls.shader & SHADER_EXCLUDE_TRANSMIT) && bool(state.flag & PATH_RAY_TRANSMIT)) ||
+          (bool(ls.shader & SHADER_EXCLUDE_SCATTER) && bool(state.flag & PATH_RAY_VOLUME_SCATTER)))
+        continue;
+    }
+>~
+~<
+    if (((shader & SHADER_EXCLUDE_DIFFUSE) && (state.flag & PATH_RAY_DIFFUSE)) ||
+
+        ((shader & SHADER_EXCLUDE_GLOSSY) &&
+         ((state.flag & (PATH_RAY_GLOSSY | PATH_RAY_REFLECT)) ==
+          (PATH_RAY_GLOSSY | PATH_RAY_REFLECT))) ||
+        ((shader & SHADER_EXCLUDE_TRANSMIT) && (state.flag & PATH_RAY_TRANSMIT)) ||
+        ((shader & SHADER_EXCLUDE_CAMERA) && (state.flag & PATH_RAY_CAMERA)) ||
+        ((shader & SHADER_EXCLUDE_SCATTER) && (state.flag & PATH_RAY_VOLUME_SCATTER)))
+      return make_float3(0.0f, 0.0f, 0.0f);
+>~
+~<
+    if ((bool(shader & SHADER_EXCLUDE_DIFFUSE) && bool(state.flag & PATH_RAY_DIFFUSE)) ||
+
+        (bool(shader & SHADER_EXCLUDE_GLOSSY) &&
+         ((state.flag & (PATH_RAY_GLOSSY | PATH_RAY_REFLECT)) ==
+          (PATH_RAY_GLOSSY | PATH_RAY_REFLECT))) ||
+        (bool(shader & SHADER_EXCLUDE_TRANSMIT) && bool(state.flag & PATH_RAY_TRANSMIT)) ||
+        (bool(shader & SHADER_EXCLUDE_CAMERA) && bool(state.flag & PATH_RAY_CAMERA)) ||
+        (bool(shader & SHADER_EXCLUDE_SCATTER) && bool(state.flag & PATH_RAY_VOLUME_SCATTER)))
+      return make_float3(0.0f, 0.0f, 0.0f);
+>~
+ccl_global inout float buffer,2$inout int buffer_ofs,
+shader_eval_surface(kg, emission_sd, state, buffer, state.flag | PATH_RAY_EMISSION);2$shader_eval_surface(kg, emission_sd, state, buffer_ofs, int(state.flag | PATH_RAY_EMISSION));
+ if (!(bool(state.flag & PATH_RAY_MIS_SKIP)) && kernel_data.background.use_mis) {2$ if (!(bool(state.flag & PATH_RAY_MIS_SKIP)) && bool(kernel_data.background.use_mis) ) {
+   

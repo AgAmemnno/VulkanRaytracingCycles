@@ -1,0 +1,3 @@
+sd.shader = kernel_tex_fetch(_tri_shader, sd.prim);2$sd.shader = int(kernel_tex_fetch(_tri_shader, sd.prim));
+object_motion_info(kg, sd.object, (numsteps), (numverts), NULL);2$  object_motion_info(kg, sd.object, (numsteps), (numverts), null_int);
+find_attribute_motion(kg, sd.object, ATTR_STD_MOTION_VERTEX_POSITION, (elem));2$find_attribute_motion(kg, int(sd.object), uint(ATTR_STD_MOTION_VERTEX_POSITION), (elem));

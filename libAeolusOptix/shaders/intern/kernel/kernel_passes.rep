@@ -1,0 +1,307 @@
+<~
+ccl_device_inline void kernel_write_light_passes(KernelGlobals *kg,
+                                                 ccl_global float *buffer,
+                                                 PathRadiance *L)
+{
+#ifdef __PASSES__
+  int light_flag = kernel_data.film.light_pass_flag;
+
+  if (!kernel_data.film.use_light_pass)
+    return;
+
+  if (light_flag & PASSMASK(DIFFUSE_INDIRECT))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_diffuse_indirect, L->indirect_diffuse);
+  if (light_flag & PASSMASK(GLOSSY_INDIRECT))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_glossy_indirect, L->indirect_glossy);
+  if (light_flag & PASSMASK(TRANSMISSION_INDIRECT))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_transmission_indirect,
+                             L->indirect_transmission);
+  if (light_flag & PASSMASK(VOLUME_INDIRECT))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_volume_indirect, L->indirect_volume);
+  if (light_flag & PASSMASK(DIFFUSE_DIRECT))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_diffuse_direct, L->direct_diffuse);
+  if (light_flag & PASSMASK(GLOSSY_DIRECT))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_glossy_direct, L->direct_glossy);
+  if (light_flag & PASSMASK(TRANSMISSION_DIRECT))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_transmission_direct,
+                             L->direct_transmission);
+  if (light_flag & PASSMASK(VOLUME_DIRECT))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_volume_direct, L->direct_volume);
+
+  if (light_flag & PASSMASK(EMISSION))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_emission, L->emission);
+  if (light_flag & PASSMASK(BACKGROUND))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_background, L->background);
+  if (light_flag & PASSMASK(AO))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_ao, L->ao);
+
+  if (light_flag & PASSMASK(DIFFUSE_COLOR))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_diffuse_color, L->color_diffuse);
+  if (light_flag & PASSMASK(GLOSSY_COLOR))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_glossy_color, L->color_glossy);
+  if (light_flag & PASSMASK(TRANSMISSION_COLOR))
+    kernel_write_pass_float3(buffer + kernel_data.film.pass_transmission_color,
+                             L->color_transmission);
+  if (light_flag & PASSMASK(SHADOW)) {
+    float4 shadow = L->shadow;
+    shadow.w = kernel_data.film.pass_shadow_scale;
+    kernel_write_pass_float4(buffer + kernel_data.film.pass_shadow, shadow);
+  }
+  if (light_flag & PASSMASK(MIST))
+    kernel_write_pass_float(buffer + kernel_data.film.pass_mist, 1.0f - L->mist);
+#endif
+}
+~>
+<~
+ccl_device_inline void kernel_write_light_passes(inout KernelGlobals kg,
+                                                 inout buffer_ofs,
+                                                 inout PathRadiance L)
+{
+
+#ifdef __PASSES__
+  int light_flag = kernel_data.film.light_pass_flag;
+
+  if (!bool(kernel_data.film.use_light_pass))
+    return;
+
+  if (bool(light_flag & PASSMASK(DIFFUSE_INDIRECT)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_diffuse_indirect, L->indirect_diffuse);
+  if (bool(light_flag & PASSMASK(GLOSSY_INDIRECT)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_glossy_indirect, L->indirect_glossy);
+  if (bool(light_flag & PASSMASK(TRANSMISSION_INDIRECT)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_transmission_indirect,
+                             L->indirect_transmission);
+  if (bool(light_flag & PASSMASK(VOLUME_INDIRECT)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_volume_indirect, L->indirect_volume);
+  if (bool(light_flag & PASSMASK(DIFFUSE_DIRECT)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_diffuse_direct, L->direct_diffuse);
+  if (bool(light_flag & PASSMASK(GLOSSY_DIRECT)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_glossy_direct, L->direct_glossy);
+  if (bool(light_flag & PASSMASK(TRANSMISSION_DIRECT)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_transmission_direct,
+                             L->direct_transmission);
+  if (bool(light_flag & PASSMASK(VOLUME_DIRECT)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_volume_direct, L->direct_volume);
+
+  if (bool(light_flag & PASSMASK(EMISSION)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_emission, L->emission);
+  if (bool(light_flag & PASSMASK(BACKGROUND)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_background, L->background);
+  if (bool(light_flag & PASSMASK(AO)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_ao, L->ao);
+
+  if (bool(light_flag & PASSMASK(DIFFUSE_COLOR)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_diffuse_color, L->color_diffuse);
+  if (bool(light_flag & PASSMASK(GLOSSY_COLOR)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_glossy_color, L->color_glossy);
+  if (bool(light_flag & PASSMASK(TRANSMISSION_COLOR)))
+    kernel_write_pass_float3(buffer_ofs + kernel_data.film.pass_transmission_color,
+                             L->color_transmission);
+  if (bool(light_flag & PASSMASK(SHADOW))) {
+    float4 shadow = L->shadow;
+    shadow.w = kernel_data.film.pass_shadow_scale;
+    kernel_write_pass_float4(buffer_ofs + kernel_data.film.pass_shadow, shadow);
+  }
+  if (bool(light_flag & PASSMASK(MIST)))
+    kernel_write_pass_float(buffer_ofs + kernel_data.film.pass_mist, 1.0f - L->mist);
+#endif
+}
+~>
+
+<~
+ccl_device_inline void kernel_write_result(KernelGlobals *kg,
+                                           ccl_global float *buffer,
+                                           int sample,
+                                           PathRadiance *L)
+{
+  PROFILING_INIT(kg, PROFILING_WRITE_RESULT);
+  PROFILING_OBJECT(PRIM_NONE);
+
+  float alpha;
+  float3 L_sum = path_radiance_clamp_and_sum(kg, L, &alpha);
+
+  if (kernel_data.film.pass_flag & PASSMASK(COMBINED)) {
+    kernel_write_pass_float4(buffer, make_float4(L_sum.x, L_sum.y, L_sum.z, alpha));
+  }
+
+  kernel_write_light_passes(kg, buffer, L);
+
+#ifdef __DENOISING_FEATURES__
+  if (kernel_data.film.pass_denoising_data) {
+#  ifdef __SHADOW_TRICKS__
+    kernel_write_denoising_shadow(kg,
+                                  buffer + kernel_data.film.pass_denoising_data,
+                                  sample,
+                                  average(L->path_total),
+                                  average(L->path_total_shaded));
+#  else
+    kernel_write_denoising_shadow(
+        kg, buffer + kernel_data.film.pass_denoising_data, sample, 0.0f, 0.0f);
+#  endif
+    if (kernel_data.film.pass_denoising_clean) {
+      float3 noisy, clean;
+      path_radiance_split_denoising(kg, L, &noisy, &clean);
+      kernel_write_pass_float3_variance(
+          buffer + kernel_data.film.pass_denoising_data + DENOISING_PASS_COLOR, noisy);
+      kernel_write_pass_float3_unaligned(buffer + kernel_data.film.pass_denoising_clean, clean);
+    }
+    else {
+      kernel_write_pass_float3_variance(buffer + kernel_data.film.pass_denoising_data +
+                                            DENOISING_PASS_COLOR,
+                                        ensure_finite3(L_sum));
+    }
+
+    kernel_write_pass_float3_variance(buffer + kernel_data.film.pass_denoising_data +
+                                          DENOISING_PASS_NORMAL,
+                                      L->denoising_normal);
+    kernel_write_pass_float3_variance(buffer + kernel_data.film.pass_denoising_data +
+                                          DENOISING_PASS_ALBEDO,
+                                      L->denoising_albedo);
+    kernel_write_pass_float_variance(
+        buffer + kernel_data.film.pass_denoising_data + DENOISING_PASS_DEPTH, L->denoising_depth);
+  }
+#endif /* __DENOISING_FEATURES__ */
+
+#ifdef __KERNEL_DEBUG__
+  kernel_write_debug_passes(kg, buffer, L);
+#endif
+
+  /* Adaptive Sampling. Fill the additional buffer with the odd samples and calculate our stopping
+     criteria. This is the heuristic from "A hierarchical automatic stopping condition for Monte
+     Carlo global illumination" except that here it is applied per pixel and not in hierarchical
+     tiles. */
+  if (kernel_data.film.pass_adaptive_aux_buffer &&
+      kernel_data.integrator.adaptive_threshold > 0.0f) {
+    if (sample_is_even(kernel_data.integrator.sampling_pattern, sample)) {
+      kernel_write_pass_float4(buffer + kernel_data.film.pass_adaptive_aux_buffer,
+                               make_float4(L_sum.x * 2.0f, L_sum.y * 2.0f, L_sum.z * 2.0f, 0.0f));
+    }
+#ifdef __KERNEL_CPU__
+    if ((sample > kernel_data.integrator.adaptive_min_samples) &&
+        kernel_data.integrator.adaptive_stop_per_sample) {
+      const int step = kernel_data.integrator.adaptive_step;
+
+      if ((sample & (step - 1)) == (step - 1)) {
+        kernel_do_adaptive_stopping(kg, buffer, sample);
+      }
+    }
+#endif
+  }
+
+  /* Write the sample count as negative numbers initially to mark the samples as in progress.
+   * Once the tile has finished rendering, the sign gets flipped and all the pixel values
+   * are scaled as if they were taken at a uniform sample count. */
+  if (kernel_data.film.pass_sample_count) {
+    /* Make sure it's a negative number. In progressive refine mode, this bit gets flipped between
+     * passes. */
+#ifdef __ATOMIC_PASS_WRITE__
+    atomic_fetch_and_or_uint32((ccl_global uint *)(buffer + kernel_data.film.pass_sample_count),
+                               0x80000000);
+#else
+    if (buffer[kernel_data.film.pass_sample_count] > 0) {
+      buffer[kernel_data.film.pass_sample_count] *= -1.0f;
+    }
+#endif
+    kernel_write_pass_float(buffer + kernel_data.film.pass_sample_count, -1.0f);
+  }
+}
+~>
+<~
+ccl_device_inline void kernel_write_result(inout KernelGlobals kg,
+                                           inout int buffer_ofs,
+                                           int sample_rsv,
+                                           inout PathRadiance L)
+{
+  PROFILING_INIT(kg, PROFILING_WRITE_RESULT);
+  PROFILING_OBJECT(PRIM_NONE);
+
+  float alpha;
+  float3 L_sum = path_radiance_clamp_and_sum(kg, L, alpha);
+
+  if(bool(kernel_data.film.pass_flag & PASSMASK(COMBINED))) {
+    kernel_write_pass_float4(buffer_ofs, make_float4(L_sum.x, L_sum.y, L_sum.z, alpha));
+  }
+
+  kernel_write_light_passes(kg, buffer_ofs, L);
+
+#ifdef __DENOISING_FEATURES__
+  if (bool(kernel_data.film.pass_denoising_data) ){
+#  ifdef __SHADOW_TRICKS__
+    kernel_write_denoising_shadow(kg,
+                                  buffer + kernel_data.film.pass_denoising_data,
+                                  sample_rsv,
+                                  average(L->path_total),
+                                  average(L->path_total_shaded));
+#  else
+    kernel_write_denoising_shadow(
+        kg, buffer + kernel_data.film.pass_denoising_data, sample_rsv, 0.0f, 0.0f);
+#  endif
+    if (kernel_data.film.pass_denoising_clean) {
+      float3 noisy, clean;
+      path_radiance_split_denoising(kg, L, &noisy, &clean);
+      kernel_write_pass_float3_variance(
+          buffer + kernel_data.film.pass_denoising_data + DENOISING_PASS_COLOR, noisy);
+      kernel_write_pass_float3_unaligned(buffer + kernel_data.film.pass_denoising_clean, clean);
+    }
+    else {
+      kernel_write_pass_float3_variance(buffer + kernel_data.film.pass_denoising_data +
+                                            DENOISING_PASS_COLOR,
+                                        ensure_finite3(L_sum));
+    }
+
+    kernel_write_pass_float3_variance(buffer + kernel_data.film.pass_denoising_data +
+                                          DENOISING_PASS_NORMAL,
+                                      L->denoising_normal);
+    kernel_write_pass_float3_variance(buffer + kernel_data.film.pass_denoising_data +
+                                          DENOISING_PASS_ALBEDO,
+                                      L->denoising_albedo);
+    kernel_write_pass_float_variance(
+        buffer + kernel_data.film.pass_denoising_data + DENOISING_PASS_DEPTH, L->denoising_depth);
+  }
+#endif /* __DENOISING_FEATURES__ */
+
+#ifdef __KERNEL_DEBUG__
+  kernel_write_debug_passes(kg, buffer, L);
+#endif
+
+  /* Adaptive Sampling. Fill the additional buffer with the odd samples and calculate our stopping
+     criteria. This is the heuristic from "A hierarchical automatic stopping condition for Monte
+     Carlo global illumination" except that here it is applied per pixel and not in hierarchical
+     tiles. */
+  if ( bool(kernel_data.film.pass_adaptive_aux_buffer) &&
+      kernel_data.integrator.adaptive_threshold > 0.0f) {
+    if (sample_is_even(kernel_data.integrator.sampling_pattern, sample_rsv)) {
+      kernel_write_pass_float4(buffer_ofs + kernel_data.film.pass_adaptive_aux_buffer,
+                               make_float4(L_sum.x * 2.0f, L_sum.y * 2.0f, L_sum.z * 2.0f, 0.0f));
+    }
+#ifdef __KERNEL_CPU__
+    if ((sample_rsv > kernel_data.integrator.adaptive_min_samples) &&
+        kernel_data.integrator.adaptive_stop_per_sample) {
+      const int step = kernel_data.integrator.adaptive_step;
+
+      if ((sample_rsv & (step - 1)) == (step - 1)) {
+        kernel_do_adaptive_stopping(kg, buffer, sample_rsv);
+      }
+    }
+#endif
+  }
+
+  /* Write the sample count as negative numbers initially to mark the samples as in progress.
+   * Once the tile has finished rendering, the sign gets flipped and all the pixel values
+   * are scaled as if they were taken at a uniform sample count. */
+  if (bool(kernel_data.film.pass_sample_count) ){
+    /* Make sure it's a negative number. In progressive refine mode, this bit gets flipped between
+     * passes. */
+    float v = OutBuffer[kernel_data.film.pass_sample_count];
+    if ( v > 0.f) {
+#ifdef __ATOMIC_PASS_WRITE__
+      atomic_add_and_fetch_float(OutBuffer[buffer_ofs], -v);
+#else
+      OutBuffer[buffer_ofs]  = -v;
+#endif
+    }
+    kernel_write_pass_float( buffer_ofs + kernel_data.film.pass_sample_count, -1.0f);
+  }
+}
+~>
+inout buffer_ofs,2$inout int buffer_ofs,

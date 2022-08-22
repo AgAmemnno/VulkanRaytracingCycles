@@ -1,0 +1,2 @@
+ccl_device_inline uint subd_triangle_patch(KernelGlobals *kg, const ShaderData *sd);1$FUNC_DEF_subd_triangle_patch
+FUNC_DEF_subd_triangle_patch2$ccl_device_inline uint subd_triangle_patch(inout KernelGlobals kg, in ShaderData sd);

@@ -1,0 +1,44 @@
+<~
+  if (offset_frequency && squash_frequency) {
+    brick_width *= (rownum % squash_frequency) ? 1.0f : squash_amount;           /* squash */
+    offset = (rownum % offset_frequency) ? 0.0f : (brick_width * offset_amount); /* offset */
+  }
+~>
+<~
+  if (bool(offset_frequency) && bool(squash_frequency)) {
+    brick_width *= bool(rownum % squash_frequency) ? 1.0f : squash_amount;           /* squash */
+    offset = bool(rownum % offset_frequency) ? 0.0f : (brick_width * offset_amount); /* offset */
+  }
+~>
+<~
+  float offset_amount = __int_as_float(node3.z);
+  float squash_amount = __int_as_float(node3.w);
+~>
+<~
+  float offset_amount = __uint_as_float(node3.z);
+  float squash_amount = __uint_as_float(node3.w);
+~>
+<~
+  float2 f2 = svm_brick(co * scale,
+                        mortar_size,
+                        mortar_smooth,
+                        bias,
+                        brick_width,
+                        row_height,
+                        offset_amount,
+                        offset_frequency,
+                        squash_amount,
+                        squash_frequency);
+~>
+<~
+  float2 f2 = svm_brick(co * scale,
+                        mortar_size,
+                        mortar_smooth,
+                        bias,
+                        brick_width,
+                        row_height,
+                        offset_amount,
+                        int(offset_frequency),
+                        squash_amount,
+                        int(squash_frequency));
+~>

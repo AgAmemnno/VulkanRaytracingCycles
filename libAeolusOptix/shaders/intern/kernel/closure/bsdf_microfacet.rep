@@ -1,0 +1,21 @@
+
+return SD_BSDF | SD_BSDF_HAS_EVAL;1$return int(SD_BSDF | SD_BSDF_HAS_EVAL);
+(const ShaderClosure *a, const ShaderClosure *b)1$(const ShaderClosure *bsdf_a, const ShaderClosure *bsdf_b)
+return SD_BSDF | SD_BSDF_HAS_EVAL;1$return int(SD_BSDF | SD_BSDF_HAS_EVAL);
+LABEL_REFLECT | LABEL_GLOSSY;1$int(LABEL_REFLECT | LABEL_GLOSSY);
+LABEL_TRANSMIT | LABEL_GLOSSY;1$int(LABEL_TRANSMIT | LABEL_GLOSSY);
+&slope_x, &slope_y,1$ slope_x, slope_y,
+((bsdf_a->extra == NULL && bsdf_b->extra == NULL) ||1$((Microfacet_is_extra_NULL(bsdf_a) && Microfacet_is_extra_NULL(bsdf_b)) ||
+((bsdf_a->extra && bsdf_b->extra) &&1$( (!Microfacet_is_extra_NULL(bsdf_a) && !Microfacet_is_extra_NULL(bsdf_b)) &&
+&X, &Y1$X, Y
+ &G1o1$  G1o
+label = LABEL_REFLECT | LABEL_SINGULAR;1$label = int( LABEL_REFLECT | LABEL_SINGULAR);
+label = LABEL_TRANSMIT | LABEL_SINGULAR;1$label = int( LABEL_TRANSMIT | LABEL_SINGULAR);
+label = (m_refractive) ? LABEL_TRANSMIT | LABEL_GLOSSY : int(LABEL_REFLECT | LABEL_GLOSSY);1$label = (m_refractive) ? int(LABEL_TRANSMIT | LABEL_GLOSSY) : int(LABEL_REFLECT | LABEL_GLOSSY);
+                                   &R,1$                                   R,
+                                   &T,1$                                   T,
+                                   &dRdx,1$                                dRdx,
+                                   &dRdy,1$                                dRdy,
+                                   &dTdx,1$                                dTdx,
+                                   &dTdy,1$                                dTdy,
+                                   &inside);1$                             inside);

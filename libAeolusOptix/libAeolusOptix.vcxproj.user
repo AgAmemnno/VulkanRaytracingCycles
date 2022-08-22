@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommand>D:\blender\build\2.91\python\bin\python_d.exe</LocalDebuggerCommand>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>-i -c "print('&gt;&gt;&gt; Aeolus V.0.0.1 '); f ='D:\\Python\\Aeolus\\aeolus\\sample\\rt_stage\\server2.py';file = open(f);exec(file.read(), globals());file.close();"</LocalDebuggerCommandArguments>
+    <LocalDebuggerWorkingDirectory>D:\blender\build\2.91\python</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerEnvironment>PYTHONPATH=D:\blender\build\2.91\python\lib;$(OutDir)</LocalDebuggerEnvironment>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <DebuggerFlavor>PythonNativeDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>-con --env-system-scripts "D:/C/Aeoluslibrary/libblender/release/scripts" </LocalDebuggerCommandArguments>
+  </PropertyGroup>
+
+</Project>
+
+

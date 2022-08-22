@@ -1,0 +1,4 @@
+SD_BSDF | SD_BSDF_HAS_EVAL;1$int(SD_BSDF | SD_BSDF_HAS_EVAL);
+const ShaderClosure *a, const ShaderClosure *b1$const ShaderClosure *bsdf_a, const ShaderClosure *bsdf_b
+LABEL_REFLECT | LABEL_DIFFUSE;1$int(LABEL_REFLECT | LABEL_DIFFUSE);
+LABEL_GLOSSY | LABEL_REFLECT;1$int(LABEL_GLOSSY | LABEL_REFLECT);

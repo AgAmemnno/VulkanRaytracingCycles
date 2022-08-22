@@ -1,0 +1,17 @@
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REGP$(\1)\2\3
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REGP$(\1)\2\3
+\([\s]*([int|float|uint|bool]+)[\s]*\)[\s]*([a-zA-Z_0-9\.\-\>]+)([\s\)\;\,\n])(.*)REGP$\1(\2)\3\4
+
+
+    ..\..\lib\Debug\cycles_graph.lib
+..\..\..\Lib\Debug\bf_intern_cycles.lib
+..\..\..\Lib\Debug\creator\aeolus_device_cr.lib
+D:\C\vcpkg\installed\x64-windows-static-custom\debug\lib\static\OpencolorIO.lib
+D:\C\vcpkg\installed\x64-windows-static-custom\debug\lib\tinyxml.lib
+D:\C\vcpkg\installed\x64-windows-static-custom\debug\lib\libyaml-cppmdd.lib
+..\..\..\..\..\lib\hiredis\lib\hiredis_staticd.lib
+D:\C\openvr\lib\win64\openvr_api.lib
+..\..\..\..\..\libthreepy\..\lib\packages\lib\Catcher_d.lib
+..\..\..\..\..\libthreepy\..\lib\packages\lib\xrui_d.lib
+aeolus_device.lib
+winspool.lib

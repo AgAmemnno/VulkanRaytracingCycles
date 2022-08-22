@@ -1,0 +1,83 @@
+/*
+ * Copyright 2011-2013 Blender Foundation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef KERNEL_TEX
+#  define KERNEL_TEX(type, name)
+#endif
+
+KERNEL_TEX(ccl::float4, __prim_tri_verts)
+KERNEL_TEX(ccl::uint, __prim_tri_index)
+KERNEL_TEX(ccl::uint, __prim_type)
+KERNEL_TEX(ccl::uint, __prim_visibility)
+KERNEL_TEX(ccl::uint, __prim_index)
+KERNEL_TEX(ccl::uint, __prim_object)
+
+
+
+
+/* objects */
+KERNEL_TEX(ccl::KernelObject, __objects)
+//KERNEL_TEX(ccl::Transform, __object_motion_pass)
+//KERNEL_TEX(ccl::DecomposedTransform, __object_motion)
+KERNEL_TEX(ccl::uint, __object_flag)
+KERNEL_TEX(float, __object_volume_step)
+
+
+// patches 
+KERNEL_TEX(ccl::uint, __patches)
+/* attributes */
+KERNEL_TEX(ccl::uint4, __attributes_map)
+KERNEL_TEX(float, __attributes_float)
+KERNEL_TEX(ccl::float2, __attributes_float2)
+KERNEL_TEX(ccl::float4, __attributes_float3)
+KERNEL_TEX(ccl::uchar4, __attributes_uchar4)
+
+/* triangles */
+KERNEL_TEX(ccl::uint, __tri_shader)
+KERNEL_TEX(ccl::float4, __tri_vnormal)
+KERNEL_TEX(ccl::uint, __tri_vindex)
+KERNEL_TEX(ccl::uint, __tri_patch)
+KERNEL_TEX(ccl::float2, __tri_patch_uv)
+// lights 
+KERNEL_TEX(ccl::KernelLightDistribution, __light_distribution)
+KERNEL_TEX(ccl::KernelLight, __lights)
+
+KERNEL_TEX(ccl::float2, __light_background_marginal_cdf)
+KERNEL_TEX(ccl::float2, __light_background_conditional_cdf)
+
+// particles 
+KERNEL_TEX(ccl::KernelParticle, __particles)
+
+
+KERNEL_TEX(ccl::uint4, __svm_nodes)
+KERNEL_TEX(ccl::KernelShader, __shaders)
+
+// lookup tables 
+KERNEL_TEX(float, __lookup_table)
+
+// sobol 
+KERNEL_TEX(ccl::uint, __sample_pattern_lut)
+/* image textures */
+KERNEL_TEX(ccl::TextureInfo, __texture_info)
+
+/* ies lights
+KERNEL_TEX(float, __ies)
+*/
+
+
+
+
+#undef KERNEL_TEX

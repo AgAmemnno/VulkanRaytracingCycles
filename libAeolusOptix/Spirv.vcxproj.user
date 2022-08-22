@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommand>C:\Users\kaz38\AppData\Local\Programs\Python\Python37\python.exe</LocalDebuggerCommand>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>-i -c "print('&gt;&gt;&gt; Aeolus V.0.0.1 ');f ='D:\\C\\Aeoluslibrary\\libAeolusOptix\\scripts\\utils_py\\spv_check.py';file = open(f);exec(file.read(), globals());file.close();"</LocalDebuggerCommandArguments>
+    <LocalDebuggerWorkingDirectory>C:\\Users\\kaz38\\AppData\\Local\\Programs\\Python\\Python37</LocalDebuggerWorkingDirectory>
+    <LocalDebuggerEnvironment>PYTHONPATH=C:\\Users\\kaz38\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages;$(OutDir)</LocalDebuggerEnvironment>
+  </PropertyGroup>
+</Project>

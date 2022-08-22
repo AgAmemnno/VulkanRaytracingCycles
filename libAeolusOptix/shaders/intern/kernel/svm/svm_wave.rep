@@ -1,0 +1,24 @@
+~<
+  float f = svm_wave((NodeWaveType)type_offset,
+                     (NodeWaveBandsDirection)bands_dir_offset,
+                     (NodeWaveRingsDirection)rings_dir_offset,
+                     (NodeWaveProfile)profile_offset,
+                     co * scale,
+                     distortion,
+                     detail,
+                     dscale,
+                     droughness,
+                     phase);
+>~                    
+~<
+  float f = svm_wave(NodeWaveType(type_offset),
+                     NodeWaveBandsDirection(bands_dir_offset),
+                     NodeWaveRingsDirection(rings_dir_offset),
+                     NodeWaveProfile(profile_offset),
+                     co * scale,
+                     distortion,
+                     detail,
+                     dscale,
+                     droughness,
+                     phase);
+>~ 

@@ -1,0 +1,6 @@
+#include "kernel/kernel_color.h"1$#include "kernel/kernel_color.h.glsl"
+/ (pow_4_i * i_fac_2);1$/ (float(pow_4_i) * float(i_fac_2));
+float4 *Ap)1$float4 Ap[4])
+float *angles)1$float angles[6])
+&sd->lcg_state1$sd.lcg_state
+LABEL_GLOSSY | ((p == 0) ? LABEL_REFLECT : LABEL_TRANSMIT);1$int( LABEL_GLOSSY | ((p == 0) ? LABEL_REFLECT : LABEL_TRANSMIT));

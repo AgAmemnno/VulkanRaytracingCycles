@@ -1,0 +1,23 @@
+        kg, state.rng_hash, state, sample_rsv, num_samples, PRNG_BEVEL_U, (disk_u), (disk_v));2$        kg, uint(state.rng_hash), state, int(sample_rsv), int(num_samples), int(PRNG_BEVEL_U), (disk_u), (disk_v));
+<~
+    if (flags & NODE_AO_ONLY_LOCAL) {
+      if (!scene_intersect_local(kg, &ray, NULL, sd->object, NULL, 0)) {
+        unoccluded++;
+      }
+    }
+    else {
+~>
+<~
+#ifdef _BVH_LOCAL_
+    if (flags & NODE_AO_ONLY_LOCAL) {
+      if (!scene_intersect_local(kg, &ray,local_isect_null , sd->object, null_uint, 0)) {
+        unoccluded++;
+      }
+    }
+    else 
+#endif
+     {
+~>                                                        
+/ num_samples;2$ / float(num_samples);
+  float ao = svm_ao(kg, sd, normal, state, dist, samples, flags);1$  float ao = svm_ao(kg, sd, normal, state, dist, int(samples), int(flags));
+  

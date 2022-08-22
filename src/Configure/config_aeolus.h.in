@@ -1,0 +1,42 @@
+#pragma once
+#ifndef   AEOLUS_CONFIG_H
+#define   AEOLUS_CONFIG_H
+
+#cmakedefine  CMAKE_MODE_TEST
+
+#cmakedefine  ENABLED_VULKAN_OPTIX
+#cmakedefine  ENABLED_VULKAN_DEBUG
+#cmakedefine  ENABLED_VULKAN_OVR 
+#cmakedefine  ENABLED_VULKAN_HEADLESS
+#cmakedefine  ENABLED_VULKAN_OPENCL
+
+#define VERSION_NO  "${APP_VERSION}"
+
+
+
+
+
+#cmakedefine  INCLUDE_MATERIAL_VKVIDEO
+
+#define CURRENT_BASE_DIR    "@CURRENT_BASE_DIR@"
+
+#cmakedefine  DEFAULT_PATH_USE
+
+#ifdef DEFAULT_PATH_USE 
+#define AEOLUS_BASE_DIR   "D:\\C\\Aeoluslibrary"
+#define AEOLUS_DATA_DIR  AEOLUS_BASE_DIR
+#define LOG_THREAD_FILE   "D:/Python/Aeolus/aeolus/sample/log/" 
+#else
+#define AEOLUS_BASE_DIR    "@AEOLUS_BASE_DIR@"
+#define AEOLUS_DATA_DIR   AEOLUS_BASE_DIR
+#define LOG_THREAD_FILE    "@LOG_THREAD_FILE@"
+#endif
+
+#define INCLUDE_PATH         AEOLUS_BASE_DIR "\\libthreepy\\src"
+#define COMSHADER_PATH   AEOLUS_DATA_DIR "\\data\\shaders\\"
+#define IMAGE_PATH             AEOLUS_DATA_DIR  "\\data\\images\\"
+#define MODEL_PATH            AEOLUS_DATA_DIR "\\data\\models\\"
+
+#define Log_THREAD_FILE  LOG_THREAD_FILE
+#endif
+

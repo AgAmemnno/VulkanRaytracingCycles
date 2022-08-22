@@ -1,0 +1,10 @@
+SD_EXTINCTION;1$int(SD_EXTINCTION);
+sd->flag & SD_EXTINCTION1$bool(sd.flag & SD_EXTINCTION)
+return SD_SCATTER;1$return int(SD_SCATTER);
+(const ShaderClosure *a, const ShaderClosure *b)1$(const ShaderClosure *volume_a, const ShaderClosure *volume_b)
+if (pdf) {1$if (bool(pdf)) {
+&T, &B);1$T, B);
+LABEL_VOLUME_SCATTER;1$int(LABEL_VOLUME_SCATTER);
+                                              &domega_in->dx,1$                                              domega_in.dx,
+                                              &domega_in->dy,1$                                              domega_in.dy,
+LABEL_NONE;1$int(LABEL_NONE);       

@@ -1,0 +1,2 @@
+sd->flag |= SD_EMISSION;1$sd.flag |= int(SD_EMISSION);
+sd->flag & SD_EMISSION1$bool(sd.flag & SD_EMISSION)

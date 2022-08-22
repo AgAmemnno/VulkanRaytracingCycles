@@ -1,0 +1,42 @@
+{
+  "name": "opttest",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "openimageio",
+    "opencolorio",
+    "yaml-cpp",
+    "libpng",
+    "boost-filesystem",
+    "boost-regex",
+    "boost-system",
+    "boost-thread",
+    "boost-chrono",
+    "boost-locale",
+    "boost-date-time",
+    "tbb",
+    "tinyxml",
+    "tiff",
+    "opensubdiv",
+    "liblzma",
+    "libjpeg-turbo",
+    "pthreads",
+    "hiredis",
+    "vulkan",
+    "python3"
+  ],
+  "builtin-baseline": "e99d9a4facea9d7e15a91212364d7a12762b7512",
+  "overrides": [
+    {
+      "name": "openimageio",
+      "version": "2.1.16.0#4"
+    },
+    {
+      "name": "yaml-cpp",
+      "version": "0.6.3"
+    },
+    {
+      "name": "opencolorio",
+      "version": "1.1.1"
+    }
+  ]
+}

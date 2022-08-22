@@ -1,0 +1,5 @@
+\([\s]*([a-zA-Z]+)[\s]*\)[\s]*([a-zA-Z_0-9\.\-\>]+)([\s\);\n])(.*)REG$\1(\2)\3\4
+\([\s]*([a-zA-Z]+)[\s]*\)[\s]*([a-zA-Z_0-9\.\-\>]+)([\s\);\n])(.*)REG$\1(\2)\3\4
+int offset = sd.shader & SHADER_MASK;2$int offset = int(sd.shader & SHADER_MASK);
+while (1) {1$  while (true) {
+offset (=|\+=) node.([x|y|z|w]);REGP$offset \1 int(node.\2);

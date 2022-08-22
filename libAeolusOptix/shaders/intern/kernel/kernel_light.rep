@@ -1,0 +1,41 @@
+const ccl_global KernelLight *klight = &1$const ccl_global KernelLight klight = 
+klight->area.axisu[0]1$AreaLight_axisu0(klight)
+klight->area.axisu[1]1$AreaLight_axisu1(klight)
+klight->area.axisu[2]1$AreaLight_axisu2(klight)
+klight->area.invarea1$AreaLight_invarea(klight) 
+klight->area.axisv[0]1$AreaLight_axisv0(klight) 
+klight->area.axisv[1]1$AreaLight_axisv1(klight) 
+klight->area.axisv[2]1$AreaLight_axisv2(klight) 
+klight->area.pad1$AreaLight_pad1(klight)
+klight->area.dir[0]1$AreaLight_dir0(klight)
+klight->area.dir[1]1$AreaLight_dir1(klight)
+klight->area.dir[2]1$AreaLight_dir2(klight)
+klight->area.axisu[0]1$AreaLight_axisu0(klight)
+klight->distant.radius1$DistantLight_radius(klight)
+klight->distant.cosangle1$DistantLight_cosangle(klight)
+klight->distant.invarea1$DistantLight_invarea(klight) 
+klight->distant.pad1$DistantLight_pad(klight) 
+klight->spot.radius1$SpotLight_radius(klight)
+klight->spot.invarea1$SpotLight_invarea(klight) 
+klight->spot.spot_angle1$SpotLight_spot_angle(klight)
+klight->spot.spot_smooth1$SpotLight_spot_smooth(klight)
+klight->spot.dir[0]1$SpotLight_dir0(klight)
+klight->spot.dir[1]1$SpotLight_dir1(klight)
+klight->spot.dir[2]1$SpotLight_dir2(klight)
+\([\s]*([a-zA-Z]+)[\s]*\)[\s]*([a-zA-Z_0-9\.\-\>]+)([\s\);\n]+)REG$\1(\2)\3
+(ls->shader & SHADER_USE_MIS)1$bool(ls.shader & SHADER_USE_MIS)
+kernel_tex_fetch(__object_flag, object)1$int(kernel_tex_fetch(_object_flag, object))
+object_flag & SD_OBJECT_HAS_VERTEX_MOTION1$bool(object_flag & SD_OBJECT_HAS_VERTEX_MOTION)
+float time,float3 V[3]2$float time,inout float3 V[3]
+object_flag & SD_OBJECT_TRANSFORM_APPLIED1$bool(object_flag & SD_OBJECT_TRANSFORM_APPLIED)
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REG$(\1)\2\3
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REG$(\1)\2\3
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REG$(\1)\2\3
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REG$(\1)\2\3
+object_flag & SD_OBJECT_NEGATIVE_SCALE_APPLIED1$bool(object_flag & SD_OBJECT_NEGATIVE_SCALE_APPLIED)
+ls->shader = kernel_tex_fetch(__tri_shader, prim);1$ls.shader = int(kernel_tex_fetch(_tri_shader, prim));
+ |= SHADER_USE_MIS;1$ |= int(SHADER_USE_MIS);
+const ccl_global KernelLightDistribution *kdistribution = &kernel_tex_fetch(1$ const ccl_global KernelLightDistribution kdistribution = kernel_tex_fetch(
+kdistribution->mesh_light.object_id1$LightDistribution_mesh_light_object_id(kdistribution)
+kdistribution->mesh_light.shader_flag1$LightDistribution_mesh_light_shader_flag(kdistribution)
+kdistribution->lamp.size1$LightDistribution_lamp_size(kdistribution)

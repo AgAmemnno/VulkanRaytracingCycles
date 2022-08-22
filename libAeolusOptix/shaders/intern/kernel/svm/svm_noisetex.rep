@@ -1,0 +1,7 @@
+<~
+    default:
+      kernel_assert(0);
+~>
+<~
+/*default*/
+~>

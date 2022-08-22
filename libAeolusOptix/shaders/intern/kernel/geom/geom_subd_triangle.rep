@@ -1,0 +1,19 @@
+int patch = subd_triangle_patch(kg, sd);1$int patch = int(subd_triangle_patch(kg, sd));
+data.y & 0xffff;1$int(data.y & 0xffff);
+\([\s]*([a-zA-Z]+)[\s]*\)[\s]*([a-zA-Z_0-9\.\-\>]+)([\s\);\n])(.*)REG$\1(\2)\3\4
+\([\s]*([a-zA-Z]+)[\s]*\)[\s]*\(((?>[^\(\)]+|(?R))+)\)(.*)REGEX$\1(\2)\3
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REG$(\1)\2\3
+&([a-zA-Z_0-9\-\>\.]+)([\s\,\)]{1})(.*)REG$(\1)\2\3
+if (dx)1$if (!isNULL(dx))
+if (dy)1$if (!isNULL(dy))
+if (dx || dy)1$if (!isNULL(dx) || !isNULL(dy))
+if (dx2)1$if (!isNULL2(dx2))
+if (dy2)1$if (!isNULL2(dy2))
+if (dx2 || dy2)1$if (!isNULL2(dx2) || !isNULL2(dy2))
+if (dx3)1$if (!isNULL3(dx3))
+if (dy3)1$if (!isNULL3(dy3))
+if (dx3 || dy3)1$if (!isNULL3(dx3) || !isNULL3(dy3))
+if (dx4)1$if (!isNULL4(dx4))
+if (dy4)1$if (!isNULL4(dy4))
+if (dx4 || dy4)1$if (!isNULL4(dx4) || !isNULL4(dy4))
+desc.flags & ATTR_SUBDIVIDED1$bool(desc.flags & ATTR_SUBDIVIDED)

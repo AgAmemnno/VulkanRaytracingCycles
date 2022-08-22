@@ -1,0 +1,63 @@
+inout float lam,2$inout float lam[9],
+~<
+ccl_device float3 sky_radiance_preetham(inout KernelGlobals kg,
+                                        float3 dir,
+                                        float sunphi,
+                                        float suntheta,
+                                        float radiance_x,
+                                        float radiance_y,
+                                        float radiance_z,
+                                        inout float config_x,
+                                        inout float config_y,
+                                        inout float config_z)
+>~                                      
+~<
+ccl_device float3 sky_radiance_preetham(inout KernelGlobals kg,
+                                        float3 dir,
+                                        float sunphi,
+                                        float suntheta,
+                                        float radiance_x,
+                                        float radiance_y,
+                                        float radiance_z,
+                                        inout float config_x[9],
+                                        inout float config_y[9],
+                                        inout float config_z[9])
+>~   
+inout float configuration,2$inout float configuration[9],
+~<
+ccl_device float3 sky_radiance_hosek(inout KernelGlobals kg,
+                                     float3 dir,
+                                     float sunphi,
+                                     float suntheta,
+                                     float radiance_x,
+                                     float radiance_y,
+                                     float radiance_z,
+                                     inout float config_x,
+                                     inout float config_y,
+                                     inout float config_z)
+>~
+~<
+ccl_device float3 sky_radiance_hosek(inout KernelGlobals kg,
+                                     float3 dir,
+                                     float sunphi,
+                                     float suntheta,
+                                     float radiance_x,
+                                     float radiance_y,
+                                     float radiance_z,
+                                     inout float config_x[9],
+                                     inout float config_y[9],
+                                     inout float config_z[9])
+>~
+~<
+ccl_device float3 sky_radiance_nishita(inout KernelGlobals kg,
+                                       float3 dir,
+                                       inout float nishita_data,
+                                       uint texture_id)
+>~ 
+~<
+ccl_device float3 sky_radiance_nishita(inout KernelGlobals kg,
+                                       float3 dir,
+                                       inout float nishita_data[10],
+                                       uint texture_id)
+>~                                          
+int sky_model = node.w;2$int sky_model = int(node.w);

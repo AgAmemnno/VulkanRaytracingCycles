@@ -1,0 +1,1541 @@
+(if[\s]*)(\(|\([\s]*![\s]*\()[\s]*([A-Za-z0-9_\.]+)[\s]+\&[\s]+([A-Za-z0-9_]+)([\s\)]+)(([^!=].)*)\nREGP$\1\2bool(\3 & \4)\5\6\n
+(if[\s]*)(\(|\([\s]*![\s]*\()[\s]*([A-Za-z0-9_\.]+)[\s]+\&[\s]+([A-Za-z0-9_]+)([\s\)]+)(([^!=].)*)\nREGP$\1\2bool(\3 & \4)\5\6\n
+
+~<
+  sd.object = (isect.object == OBJECT_NONE) ? kernel_tex_fetch(_prim_object, isect.prim) :
+                                                isect.object;
+>~
+~<
+  sd.object = (isect.object == OBJECT_NONE) ? int(kernel_tex_fetch(_prim_object, isect.prim)) :
+                                                isect.object;
+>~
+
+~<
+ccl_device_inline void shader_merge_closures(inout ShaderData sd)
+{
+  /* merge identical closures, better when we sample a single closure at a time */
+  for (int i = 0; i < sd.num_closure; i++) {
+    ShaderClosure *sci = &sd.closure[i];
+
+    for (int j = i + 1; j < sd.num_closure; j++) {
+      ShaderClosure *scj = &sd.closure[j];
+
+      if (sci.type != scj.type)
+        continue;
+      if (!bsdf_merge(sci, scj))
+        continue;
+
+      sci.weight += scj.weight;
+      sci.sample_weight += scj.sample_weight;
+
+      int size = sd.num_closure - (j + 1);
+      if (size > 0) {
+        for (int k = 0; k < size; k++) {
+          scj[k] = scj[k + 1];
+        }
+      }
+
+      sd.num_closure--;
+      kernel_assert(sd.num_closure >= 0);
+      j--;
+    }
+  }
+}
+>~
+~<
+ccl_device_inline void shader_merge_closures(inout ShaderData sd)
+{
+  /* merge identical closures, better when we sample a single closure at a time */
+  for (int i = 0; i < sd.num_closure; i++) {
+    for (int j = i + 1; j < sd.num_closure; j++) {
+      if (sd.closure[i].type != sd.closure[j].type)
+        continue;
+      if (!bsdf_merge(sd.closure[i], sd.closure[j]))
+        continue;
+
+      sd.closure[i].weight += sd.closure[j].weight;
+      sd.closure[i].sample_weight += sd.closure[j].sample_weight;
+
+      int size = sd.num_closure - (j + 1);
+      if (size > 0) {
+        for (int k = 0; k < size; k++) {
+          sd.closure[j + k ] = sd.closure[j + k + 1];
+        }
+      }
+
+      sd.num_closure--;
+      kernel_assert(sd.num_closure >= 0);
+      j--;
+    }
+  }
+}
+>~
+~<
+ccl_device_inline void shader_prepare_closures(inout ShaderData sd, ccl_addr_space inout PathState state)
+{
+  /* We can likely also do defensive sampling at deeper bounces, particularly
+   * for cases like a perfect mirror but possibly also others. This will need
+   * a good heuristic. */
+  if (state.bounce + state.transparent_bounce == 0 && sd.num_closure > 1) {
+    float sum = 0.0f;
+
+    for (int i = 0; i < sd.num_closure; i++) {
+      ShaderClosure *sc = &sd.closure[i];
+      if (CLOSURE_IS_BSDF_OR_BSSRDF(sc.type)) {
+        sum += sc.sample_weight;
+      }
+    }
+
+    for (int i = 0; i < sd.num_closure; i++) {
+      ShaderClosure *sc = &sd.closure[i];
+      if (CLOSURE_IS_BSDF_OR_BSSRDF(sc.type)) {
+        sc.sample_weight = max(sc.sample_weight, 0.125f * sum);
+      }
+    }
+  }
+}
+>~
+~<
+ccl_device_inline void shader_prepare_closures(inout ShaderData sd, ccl_addr_space inout PathState state)
+{
+  /* We can likely also do defensive sampling at deeper bounces, particularly
+   * for cases like a perfect mirror but possibly also others. This will need
+   * a good heuristic. */
+  if (state.bounce + state.transparent_bounce == 0 && sd.num_closure > 1) {
+    float sum = 0.0f;
+
+    for (int i = 0; i < sd.num_closure; i++) {
+      if (CLOSURE_IS_BSDF_OR_BSSRDF(sd.closure[i].type)) {
+        sum += sd.closure[i].sample_weight;
+      }
+    }
+
+    for (int i = 0; i < sd.num_closure; i++) {
+      if (CLOSURE_IS_BSDF_OR_BSSRDF(sd.closure[i].type)) {
+        sd.closure[i].sample_weight = max(sd.closure[i].sample_weight, 0.125f * sum);
+      }
+    }
+  }
+}
+>~
+~<
+ccl_device_inline void _shader_bsdf_multi_eval(inout KernelGlobals kg,
+                                               inout ShaderData sd,
+                                               const float3 omega_in,
+                                               inout float pdf,
+                                               in ShaderClosure skip_sc,
+                                               inout BsdfEval result_eval,
+                                               float sum_pdf,
+                                               float sum_sample_weight)
+{
+  /* this is the veach one-sample model with balance heuristic, some pdf
+   * factors drop out when using balance heuristic weighting */
+  for (int i = 0; i < sd.num_closure; i++) {
+    in ShaderClosure sc = &sd.closure[i];
+
+    if (sc != skip_sc && CLOSURE_IS_BSDF(sc.type)) {
+      float bsdf_pdf = 0.0f;
+      float3 eval = bsdf_eval(kg, sd, sc, omega_in, (bsdf_pdf));
+
+
+      if (bsdf_pdf != 0.0f) {
+        bsdf_eval_accum(result_eval, sc.type, eval * sc.weight, 1.0f);
+        sum_pdf += bsdf_pdf * sc.sample_weight;
+      }
+
+      sum_sample_weight += sc.sample_weight;
+    }
+  }
+
+  pdf = (sum_sample_weight > 0.0f) ? sum_pdf / sum_sample_weight : 0.0f;
+}
+>~
+~<
+ccl_device_inline void _shader_bsdf_multi_eval(inout KernelGlobals kg,
+                                               inout ShaderData sd,
+                                               const float3 omega_in,
+                                               inout float pdf,
+                                               in ShaderClosure skip_sc,
+                                               inout BsdfEval result_eval,
+                                               float sum_pdf,
+                                               float sum_sample_weight)
+{
+  /* this is the veach one-sample model with balance heuristic, some pdf
+   * factors drop out when using balance heuristic weighting */
+  for (int i = 0; i < sd.num_closure; i++) {
+    if (!eq_ShaderClosure(sd.closure[i],skip_sc) && CLOSURE_IS_BSDF(sd.closure[i].type)) {
+      float bsdf_pdf = 0.0f;
+      float3 eval = bsdf_eval(kg, sd, sd.closure[i], omega_in, (bsdf_pdf));
+      if (bsdf_pdf != 0.0f) {
+        bsdf_eval_accum(result_eval, sd.closure[i].type, eval * sd.closure[i].weight, 1.0f);
+        sum_pdf += bsdf_pdf * sd.closure[i].sample_weight;
+      }
+      sum_sample_weight += sd.closure[i].sample_weight;
+    }
+  }
+  pdf = (sum_sample_weight > 0.0f) ? sum_pdf / sum_sample_weight : 0.0f;
+}
+>~
+~<
+ccl_device_inline void _shader_bsdf_multi_eval_branched(inout KernelGlobals kg,
+                                                        inout ShaderData sd,
+                                                        const float3 omega_in,
+                                                        inout BsdfEval result_eval,
+                                                        float light_pdf,
+                                                        bool use_mis)
+{
+  for (int i = 0; i < sd.num_closure; i++) {
+    in ShaderClosure sc = &sd.closure[i];
+    if (CLOSURE_IS_BSDF(sc.type)) {
+      float bsdf_pdf = 0.0f;
+      float3 eval = bsdf_eval(kg, sd, sc, omega_in, (bsdf_pdf));
+
+      if (bsdf_pdf != 0.0f) {
+        float mis_weight = use_mis ? power_heuristic(light_pdf, bsdf_pdf) : 1.0f;
+        bsdf_eval_accum(result_eval, sc.type, eval * sc.weight, mis_weight);
+      }
+    }
+  }
+}
+>~
+~<
+ccl_device_inline void _shader_bsdf_multi_eval_branched(inout KernelGlobals kg,
+                                                        inout ShaderData sd,
+                                                        const float3 omega_in,
+                                                        inout BsdfEval result_eval,
+                                                        float light_pdf,
+                                                        bool use_mis)
+{
+  for (int i = 0; i < sd.num_closure; i++) {
+    if (CLOSURE_IS_BSDF(sd.closure[i].type)) {
+      float bsdf_pdf = 0.0f;
+      float3 eval = bsdf_eval(kg, sd, sd.closure[i], omega_in, (bsdf_pdf));
+      if (bsdf_pdf != 0.0f) {
+        float mis_weight = use_mis ? power_heuristic(light_pdf, bsdf_pdf) : 1.0f;
+        bsdf_eval_accum(result_eval, sd.closure[i].type, eval * sd.closure[i].weight, mis_weight);
+      }
+    }
+  }
+}
+>~
+if (kernel_data.integrator.branched)2$if(bool(kernel_data.integrator.branched))
+_shader_bsdf_multi_eval(kg, sd, omega_in, (pdf), NULL, eval, 0.0f, 0.0f);2$ _shader_bsdf_multi_eval(kg, sd, omega_in, (pdf), null_sc, eval, 0.0f, 0.0f);
+~<
+ccl_device_inline const ShaderClosure *shader_bsdf_pick(inout ShaderData sd, inout float randu)
+{
+  /* Note the sampling here must match shader_bssrdf_pick,
+   * since we reuse the same random number. */
+  int sampled = 0;
+
+  if (sd.num_closure > 1) {
+    /* Pick a BSDF or based on sample weights. */
+    float sum = 0.0f;
+
+    for (int i = 0; i < sd.num_closure; i++) {
+      in ShaderClosure sc = &sd.closure[i];
+
+      if (CLOSURE_IS_BSDF_OR_BSSRDF(sc.type)) {
+        sum += sc.sample_weight;
+      }
+    }
+
+    float r = (randu) * sum;
+    float partial_sum = 0.0f;
+
+    for (int i = 0; i < sd.num_closure; i++) {
+      in ShaderClosure sc = &sd.closure[i];
+
+      if (CLOSURE_IS_BSDF_OR_BSSRDF(sc.type)) {
+        float next_sum = partial_sum + sc.sample_weight;
+
+        if (r < next_sum) {
+          sampled = i;
+
+          /* Rescale to reuse for direction sample, to better preserve stratification. */
+          randu = (r - partial_sum) / sc.sample_weight;
+          break;
+        }
+
+        partial_sum = next_sum;
+      }
+    }
+  }
+
+  in ShaderClosure sc = &sd.closure[sampled];
+  return CLOSURE_IS_BSDF(sc.type) ? sc : NULL;
+}
+>~
+~<
+ccl_device_inline int shader_bsdf_pick(inout ShaderData sd, inout float randu)
+{
+  /* Note the sampling here must match shader_bssrdf_pick,
+   * since we reuse the same random number. */
+  int sampled = 0;
+
+  if (sd.num_closure > 1) {
+    /* Pick a BSDF or based on sample weights. */
+    float sum = 0.0f;
+
+    for (int i = 0; i < sd.num_closure; i++) {
+      if (CLOSURE_IS_BSDF_OR_BSSRDF(sd.closure[i].type)) {
+        sum += sd.closure[i].sample_weight;
+      }
+    }
+
+    float r = (randu) * sum;
+    float partial_sum = 0.0f;
+
+    for (int i = 0; i < sd.num_closure; i++) {
+      if (CLOSURE_IS_BSDF_OR_BSSRDF(sd.closure[i].type)) {
+        float next_sum = partial_sum + sd.closure[i].sample_weight;
+
+        if (r < next_sum) {
+          sampled = i;
+
+          /* Rescale to reuse for direction sample, to better preserve stratification. */
+          randu = (r - partial_sum) / sd.closure[i].sample_weight;
+          break;
+        }
+
+        partial_sum = next_sum;
+      }
+    }
+  }
+
+     return  CLOSURE_IS_BSDF(sd.closure[sampled].type)  ? sampled :-1;
+}
+>~
+~<
+ccl_device_inline int shader_bsdf_sample(inout KernelGlobals kg,
+                                         inout ShaderData sd,
+                                         float randu,
+                                         float randv,
+                                         inout BsdfEval bsdf_eval,
+                                         inout float3 omega_in,
+                                         inout differential3 domega_in,
+                                         inout float pdf)
+{
+  PROFILING_INIT(kg, PROFILING_CLOSURE_SAMPLE);
+
+  in ShaderClosure sc = shader_bsdf_pick(sd, (randu));
+
+  if (sc == NULL) {
+    pdf = 0.0f;
+    return LABEL_NONE;
+  }
+
+  /* BSSRDF should already have been handled elsewhere. */
+  kernel_assert(CLOSURE_IS_BSDF(sc.type));
+
+  int label;
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  pdf = 0.0f;
+  label = bsdf_sample(kg, sd, sc, randu, randv, (eval), omega_in, domega_in, pdf);
+
+
+  if (pdf != 0.0f) {
+    bsdf_eval_init(bsdf_eval, sc.type, eval * sc.weight, kernel_data.film.use_light_pass);
+
+    if (sd.num_closure > 1) {
+      float sweight = sc.sample_weight;
+      _shader_bsdf_multi_eval(kg, sd, omega_in, pdf, sc, bsdf_eval, pdf * sweight, sweight);
+    }
+  }
+
+  return label;
+}
+>~
+
+~<
+ccl_device_inline int shader_bsdf_sample(inout KernelGlobals kg,
+                                         inout ShaderData sd,
+                                         float randu,
+                                         float randv,
+                                         inout BsdfEval bsdf_eval,
+                                         inout float3 omega_in,
+                                         inout differential3 domega_in,
+                                         inout float pdf)
+{
+  PROFILING_INIT(kg, PROFILING_CLOSURE_SAMPLE);
+
+  int sampled = shader_bsdf_pick(sd, (randu));
+
+  if (sampled == -1) {
+    pdf = 0.0f;
+    return int(LABEL_NONE);
+  }
+  
+  /* BSSRDF should already have been handled elsewhere. */
+  kernel_assert(CLOSURE_IS_BSDF(sd.closure[sampled].type));
+
+  int label;
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  pdf = 0.0f;
+  label = bsdf_sample(kg, sd, sd.closure[sampled], randu, randv, (eval), omega_in, domega_in, pdf);
+
+
+  if (pdf != 0.0f) {
+    bsdf_eval_init(bsdf_eval, sd.closure[sampled].type, eval * sd.closure[sampled].weight, kernel_data.film.use_light_pass);
+
+    if (sd.num_closure > 1) {
+      float sweight = sd.closure[sampled].sample_weight;
+      _shader_bsdf_multi_eval(kg, sd, omega_in, pdf, sd.closure[sampled], bsdf_eval, pdf * sweight, sweight);
+    }
+  }
+
+  return label;
+}
+>~
+
+~<
+ccl_device_inline const ShaderClosure *shader_bssrdf_pick(inout ShaderData sd,
+                                                          ccl_addr_space inout float3 throughput,
+                                                          inout float randu)
+{
+  /* Note the sampling here must match shader_bsdf_pick,
+   * since we reuse the same random number. */
+  int sampled = 0;
+
+  if (sd.num_closure > 1) {
+    /* Pick a BSDF or BSSRDF or based on sample weights. */
+    float sum_bsdf = 0.0f;
+    float sum_bssrdf = 0.0f;
+
+    for (int i = 0; i < sd.num_closure; i++) {
+      in ShaderClosure sc = &sd.closure[i];
+
+      if (CLOSURE_IS_BSDF(sc.type)) {
+        sum_bsdf += sc.sample_weight;
+      }
+      else if (CLOSURE_IS_BSSRDF(sc.type)) {
+        sum_bssrdf += sc.sample_weight;
+      }
+    }
+
+    float r = (randu) * (sum_bsdf + sum_bssrdf);
+    float partial_sum = 0.0f;
+
+    for (int i = 0; i < sd.num_closure; i++) {
+      in ShaderClosure sc = &sd.closure[i];
+
+      if (CLOSURE_IS_BSDF_OR_BSSRDF(sc.type)) {
+        float next_sum = partial_sum + sc.sample_weight;
+
+        if (r < next_sum) {
+          if (CLOSURE_IS_BSDF(sc.type)) {
+            throughput *= (sum_bsdf + sum_bssrdf) / sum_bsdf;
+            return NULL;
+          }
+          else {
+            throughput *= (sum_bsdf + sum_bssrdf) / sum_bssrdf;
+            sampled = i;
+
+            /* Rescale to reuse for direction sample, to better preserve stratification. */
+            randu = (r - partial_sum) / sc.sample_weight;
+            break;
+          }
+        }
+
+        partial_sum = next_sum;
+      }
+    }
+  }
+
+  in ShaderClosure sc = &sd.closure[sampled];
+  return CLOSURE_IS_BSSRDF(sc.type) ? sc : NULL;
+}
+>~
+~<
+ccl_device_inline int shader_bssrdf_pick(inout ShaderData sd,
+                                                          ccl_addr_space inout float3 throughput,
+                                                          inout float randu)
+{
+  /* Note the sampling here must match shader_bsdf_pick,
+   * since we reuse the same random number. */
+  int sampled = 0;
+
+  if (sd.num_closure > 1) {
+    /* Pick a BSDF or BSSRDF or based on sample weights. */
+    float sum_bsdf = 0.0f;
+    float sum_bssrdf = 0.0f;
+
+    for (int i = 0; i < sd.num_closure; i++) {
+     
+      if (CLOSURE_IS_BSDF(sd.closure[i].type)) {
+        sum_bsdf += sd.closure[i].sample_weight;
+      }
+      else if (CLOSURE_IS_BSSRDF(sd.closure[i].type)) {
+        sum_bssrdf += sd.closure[i].sample_weight;
+      }
+    }
+
+    float r = (randu) * (sum_bsdf + sum_bssrdf);
+    float partial_sum = 0.0f;
+
+    for (int i = 0; i < sd.num_closure; i++) {
+    
+
+      if (CLOSURE_IS_BSDF_OR_BSSRDF(sd.closure[i].type)) {
+        float next_sum = partial_sum + sd.closure[i].sample_weight;
+
+        if (r < next_sum) {
+          if (CLOSURE_IS_BSDF(sd.closure[i].type)) {
+            throughput *= (sum_bsdf + sum_bssrdf) / sum_bsdf;
+            return NULL;
+          }
+          else {
+            throughput *= (sum_bsdf + sum_bssrdf) / sum_bssrdf;
+            sampled = i;
+
+            /* Rescale to reuse for direction sample, to better preserve stratification. */
+            randu = (r - partial_sum) / sd.closure[i].sample_weight;
+            break;
+          }
+        }
+
+        partial_sum = next_sum;
+      }
+    }
+  }
+  return CLOSURE_IS_BSSRDF(sd.closure[sampled].type) ? sampled : -1;
+}
+>~
+~<
+ccl_device float shader_bsdf_average_roughness(inout ShaderData sd)
+{
+  float roughness = 0.0f;
+  float sum_weight = 0.0f;
+
+  for (int i = 0; i < sd.num_closure; i++) {
+    ShaderClosure *sc = &sd.closure[i];
+
+    if (CLOSURE_IS_BSDF(sc.type)) {
+      /* sqrt once to undo the squaring from multiplying roughness on the
+       * two axes, and once for the squared roughness convention. */
+      float weight = fabsf(average(sc.weight));
+      roughness += weight * sqrtf(safe_sqrtf(bsdf_get_roughness_squared(sc)));
+      sum_weight += weight;
+    }
+  }
+
+  return (sum_weight > 0.0f) ? roughness / sum_weight : 0.0f;
+}
+>~
+~<
+ccl_device float shader_bsdf_average_roughness(inout ShaderData sd)
+{
+  float roughness = 0.0f;
+  float sum_weight = 0.0f;
+
+  for (int i = 0; i < sd.num_closure; i++) {
+    if (CLOSURE_IS_BSDF(sd.closure[i].type)) {
+      /* sqrt once to undo the squaring from multiplying roughness on the
+       * two axes, and once for the squared roughness convention. */
+      float weight = fabsf(average(sd.closure[i].weight));
+      roughness += weight * sqrtf(safe_sqrtf(bsdf_get_roughness_squared(sd.closure[i])));
+      sum_weight += weight;
+    }
+  }
+  return (sum_weight > 0.0f) ? roughness / sum_weight : 0.0f;
+}
+>~
+~<
+ccl_device void shader_bsdf_blur(inout KernelGlobals kg, inout ShaderData sd, float roughness)
+{
+  for (int i = 0; i < sd.num_closure; i++) {
+    ShaderClosure *sc = &sd.closure[i];
+
+    if (CLOSURE_IS_BSDF(sc.type))
+      bsdf_blur(kg, sc, roughness);
+  }
+}
+>~
+~<
+ccl_device void shader_bsdf_blur(inout KernelGlobals kg, inout ShaderData sd, float roughness)
+{
+  for (int i = 0; i < sd.num_closure; i++) {
+    if (CLOSURE_IS_BSDF(sd.closure[i].type))
+      bsdf_blur(kg, sd.closure[i], roughness);
+  }
+}
+>~
+
+
+sd.object_flag = kernel_tex_fetch(_object_flag, sd.object);2$sd.object_flag = int(kernel_tex_fetch(_object_flag, sd.object));
+sd.prim = kernel_tex_fetch(_prim_index, isect.prim);2$sd.prim = int(kernel_tex_fetch(_prim_index, isect.prim));
+sd.shader = kernel_tex_fetch(_tri_shader, sd.prim);2$sd.shader = int(kernel_tex_fetch(_tri_shader, sd.prim));
+if (backfacing) {2$if (bool(backfacing)) {
+sd.flag |= SD_BACKFACING;2$sd.flag |= int(SD_BACKFACING);
+const bool backfacing = sd.flag & SD_BACKFACING;2$const bool backfacing = bool(sd.flag & SD_BACKFACING);
+sd.type = PRIMITIVE_([A-Z]+);REGP$sd.type = int(PRIMITIVE_\1);
+sd.object_flag |= kernel_tex_fetch(_object_flag, sd.object);2$sd.object_flag |= int(kernel_tex_fetch(_object_flag, sd.object));
+sd.object_flag & SD_OBJECT_TRANSFORM_APPLIED2$bool(sd.object_flag & SD_OBJECT_TRANSFORM_APPLIED)
+triangle_point_normal(kg, object, prim, u, v, (P), (Ng), &shader);2$triangle_point_normal(kg, object, prim, u, v, (P), (Ng), shader);
+shader |= SHADER_SMOOTH_NORMAL;2$shader |= int(SHADER_SMOOTH_NORMAL);
+!(kernel_tex_fetch(_object_flag, object) & SD_OBJECT_TRANSFORM_APPLIED),2$!bool(kernel_tex_fetch(_object_flag, object) & SD_OBJECT_TRANSFORM_APPLIED),
+~<
+ccl_device void shader_bsdf_disable_transparency(inout KernelGlobals kg, inout ShaderData sd)
+{
+  if (bool(sd.flag & SD_TRANSPARENT)) {
+
+    for (int i = 0; i < sd.num_closure; i++) {
+      ShaderClosure *sc = &sd.closure[i];
+
+      if (sc.type == CLOSURE_BSDF_TRANSPARENT_ID) {
+        sc.sample_weight = 0.0f;
+        sc.weight = make_float3(0.0f, 0.0f, 0.0f);
+      }
+    }
+
+    sd.flag &= ~SD_TRANSPARENT;
+  }
+}
+>~
+~<
+ccl_device void shader_bsdf_disable_transparency(inout KernelGlobals kg, inout ShaderData sd)
+{
+  if (bool(sd.flag & SD_TRANSPARENT)) {
+
+    for (int i = 0; i < sd.num_closure; i++) {
+
+      if (sd.closure[i].type == CLOSURE_BSDF_TRANSPARENT_ID) {
+        sd.closure[i].sample_weight = 0.0f;
+        sd.closure[i].weight = make_float3(0.0f, 0.0f, 0.0f);
+      }
+    }
+
+    sd.flag &= int(~SD_TRANSPARENT);
+  }
+}
+>~
+
+
+~<
+ccl_device float3 shader_bsdf_diffuse(inout KernelGlobals kg, inout ShaderData sd)
+{
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  for (int i = 0; i < sd.num_closure; i++) {
+    ShaderClosure *sc = &sd.closure[i];
+
+    if (CLOSURE_IS_BSDF_DIFFUSE(sc.type) || CLOSURE_IS_BSSRDF(sc.type) ||
+        CLOSURE_IS_BSDF_BSSRDF(sc.type))
+      eval += sc.weight;
+  }
+
+  return eval;
+}
+>~
+~<
+ccl_device float3 shader_bsdf_diffuse(inout KernelGlobals kg, inout ShaderData sd)
+{
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  for (int i = 0; i < sd.num_closure; i++) {
+
+    if (CLOSURE_IS_BSDF_DIFFUSE(sd.closure[i].type) || CLOSURE_IS_BSSRDF(sd.closure[i].type) ||
+        CLOSURE_IS_BSDF_BSSRDF(sd.closure[i].type))
+      eval += sd.closure[i].weight;
+  }
+
+  return eval;
+}
+>~
+
+~<
+ccl_device float3 shader_bsdf_glossy(inout KernelGlobals kg, inout ShaderData sd)
+{
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  for (int i = 0; i < sd.num_closure; i++) {
+    ShaderClosure *sc = &sd.closure[i];
+
+    if (CLOSURE_IS_BSDF_GLOSSY(sc.type))
+      eval += sc.weight;
+  }
+
+  return eval;
+}
+
+ccl_device float3 shader_bsdf_transmission(inout KernelGlobals kg, inout ShaderData sd)
+{
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  for (int i = 0; i < sd.num_closure; i++) {
+    ShaderClosure *sc = &sd.closure[i];
+
+    if (CLOSURE_IS_BSDF_TRANSMISSION(sc.type))
+      eval += sc.weight;
+  }
+
+  return eval;
+}
+
+ccl_device float3 shader_bsdf_average_normal(inout KernelGlobals kg, inout ShaderData sd)
+{
+  float3 N = make_float3(0.0f, 0.0f, 0.0f);
+
+  for (int i = 0; i < sd.num_closure; i++) {
+    ShaderClosure *sc = &sd.closure[i];
+    if (CLOSURE_IS_BSDF_OR_BSSRDF(sc.type))
+      N += sc.N * fabsf(average(sc.weight));
+  }
+
+  return (is_zero(N)) ? sd.N : normalize(N);
+}
+
+ccl_device float3 shader_bsdf_ao(inout KernelGlobals kg, inout ShaderData sd, float ao_factor, inout float3 N_)
+{
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+  float3 N = make_float3(0.0f, 0.0f, 0.0f);
+
+  for (int i = 0; i < sd.num_closure; i++) {
+    ShaderClosure *sc = &sd.closure[i];
+
+    if (CLOSURE_IS_BSDF_DIFFUSE(sc.type)) {
+      const DiffuseBsdf *bsdf = (const DiffuseBsdf *)sc;
+      eval += sc.weight * ao_factor;
+      N += bsdf.N * fabsf(average(sc.weight));
+    }
+  }
+
+  N_ = (is_zero(N)) ? sd.N : normalize(N);
+  return eval;
+}
+>~
+~<
+ccl_device float3 shader_bsdf_glossy(inout KernelGlobals kg, inout ShaderData sd)
+{
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  for (int i = 0; i < sd.num_closure; i++) {
+
+    if (CLOSURE_IS_BSDF_GLOSSY(sd.closure[i].type))
+      eval += sd.closure[i].weight;
+  }
+
+  return eval;
+}
+
+ccl_device float3 shader_bsdf_transmission(inout KernelGlobals kg, inout ShaderData sd)
+{
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  for (int i = 0; i < sd.num_closure; i++) {
+
+    if (CLOSURE_IS_BSDF_TRANSMISSION(sd.closure[i].type))
+      eval += sd.closure[i].weight;
+  }
+
+  return eval;
+}
+
+ccl_device float3 shader_bsdf_average_normal(inout KernelGlobals kg, inout ShaderData sd)
+{
+  float3 N = make_float3(0.0f, 0.0f, 0.0f);
+
+  for (int i = 0; i < sd.num_closure; i++) {
+    if (CLOSURE_IS_BSDF_OR_BSSRDF(sd.closure[i].type))
+      N += sd.closure[i].N * fabsf(average(sd.closure[i].weight));
+  }
+
+  return (is_zero(N)) ? sd.N : normalize(N);
+}
+
+ccl_device float3 shader_bsdf_ao(inout KernelGlobals kg, inout ShaderData sd, float ao_factor, inout float3 N_)
+{
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+  float3 N = make_float3(0.0f, 0.0f, 0.0f);
+
+  for (int i = 0; i < sd.num_closure; i++) {
+
+    if (CLOSURE_IS_BSDF_DIFFUSE(sd.closure[i].type)) {
+      eval += sd.closure[i].weight * ao_factor;
+      N += sd.closure[i].N * fabsf(average(sd.closure[i].weight));
+    }
+  }
+
+  N_ = (is_zero(N)) ? sd.N : normalize(N);
+  return eval;
+}
+>~
+
+~<
+#ifdef _SUBSURFACE_
+ccl_device float3 shader_bssrdf_sum(inout ShaderData sd, inout float3 N_, inout float texture_blur_)
+{
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+  float3 N = make_float3(0.0f, 0.0f, 0.0f);
+  float texture_blur = 0.0f, weight_sum = 0.0f;
+
+  for (int i = 0; i < sd.num_closure; i++) {
+    ShaderClosure *sc = &sd.closure[i];
+
+    if (CLOSURE_IS_BSSRDF(sc.type)) {
+      const Bssrdf *bssrdf = (const Bssrdf *)sc;
+      float avg_weight = fabsf(average(sc.weight));
+
+      N += bssrdf.N * avg_weight;
+      eval += sc.weight;
+      texture_blur += bssrdf.texture_blur * avg_weight;
+      weight_sum += avg_weight;
+    }
+  }
+
+  if (N_)
+    N_ = (is_zero(N)) ? sd.N : normalize(N);
+
+  if (texture_blur_)
+    texture_blur_ = safe_divide(texture_blur, weight_sum);
+
+  return eval;
+}
+#endif /* _SUBSURFACE_ */
+>~
+~<
+#ifdef _SUBSURFACE_
+ccl_device float3 shader_bssrdf_sum(inout ShaderData sd, inout float3 N_, inout float texture_blur_)
+{
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+  float3 N = make_float3(0.0f, 0.0f, 0.0f);
+  float texture_blur = 0.0f, weight_sum = 0.0f;
+
+  for (int i = 0; i < sd.num_closure; i++) {
+
+    if (CLOSURE_IS_BSSRDF(sd.closure[i].type)) {
+      //const Bssrdf *bssrdf = (const Bssrdf *)sc;
+      float avg_weight = fabsf(average(sd.closure[i].weight));
+
+      N += sd.closure[i].N * avg_weight;
+      eval += sd.closure[i].weight;
+      texture_blur += Bssrdf_texture_blur(sd.closure[i]) * avg_weight;
+      weight_sum += avg_weight;
+    }
+  }
+
+  if (bool(N_))
+    N_ = (is_zero(N)) ? sd.N : normalize(N);
+
+  if (bool(texture_blur_))
+    texture_blur_ = safe_divide(texture_blur, weight_sum);
+
+  return eval;
+}
+#endif /* _SUBSURFACE_ */
+>~
+int shader_index = shader & SHADER_MASK;2$int shader_index = int(shader & SHADER_MASK);
+~<
+/* Holdout */
+
+ccl_device float3 shader_holdout_apply(inout KernelGlobals kg, inout ShaderData sd)
+{
+  float3 weight = make_float3(0.0f, 0.0f, 0.0f);
+
+  /* For objects marked as holdout, preserve transparency and remove all other
+   * closures, replacing them with a holdout weight. */
+  if (bool(sd.object_flag & SD_OBJECT_HOLDOUT_MASK)) {
+
+    if ((sd.flag & SD_TRANSPARENT) && !(sd.flag & SD_HAS_ONLY_VOLUME)) {
+      weight = make_float3(1.0f, 1.0f, 1.0f) - sd.closure_transparent_extinction;
+
+      for (int i = 0; i < sd.num_closure; i++) {
+        ShaderClosure *sc = &sd.closure[i];
+        if (!CLOSURE_IS_BSDF_TRANSPARENT(sc.type)) {
+          sc.type = NBUILTIN_CLOSURES;
+        }
+      }
+
+      sd.flag &= ~(SD_CLOSURE_FLAGS - (SD_TRANSPARENT | SD_BSDF));
+    }
+    else {
+      weight = make_float3(1.0f, 1.0f, 1.0f);
+    }
+  }
+  else {
+    for (int i = 0; i < sd.num_closure; i++) {
+      ShaderClosure *sc = &sd.closure[i];
+      if (CLOSURE_IS_HOLDOUT(sc.type)) {
+        weight += sc.weight;
+      }
+    }
+  }
+
+  return weight;
+}
+
+/* Surface Evaluation */
+
+ccl_device void shader_eval_surface(inout KernelGlobals kg,
+                                    inout ShaderData sd,
+                                    ccl_addr_space inout PathState state,
+                                    ccl_global inout float buffer,
+                                    int path_flag)
+{
+  PROFILING_INIT(kg, PROFILING_SHADER_EVAL);
+
+  /* If path is being terminated, we are tracing a shadow ray or evaluating
+   * emission, then we don't need to store closures. The emission and shadow
+   * shader data also do not have a closure array to save GPU memory. */
+  int max_closures;
+  if (path_flag & (PATH_RAY_TERMINATE | PATH_RAY_SHADOW | PATH_RAY_EMISSION)) {
+    max_closures = 0;
+  }
+  else {
+    max_closures = kernel_data.integrator.max_closures;
+  }
+
+  sd.num_closure = 0;
+  sd.num_closure_left = max_closures;
+
+#ifdef _OSL_
+  if (kg.osl) {
+    if (sd.object == OBJECT_NONE && sd.lamp == LAMP_NONE) {
+      OSLShader::eval_background(kg, sd, state, path_flag);
+    }
+    else {
+      OSLShader::eval_surface(kg, sd, state, path_flag);
+    }
+  }
+  else
+#endif
+  {
+#ifdef _SVM_
+    svm_eval_nodes(kg, sd, state, buffer, SHADER_TYPE_SURFACE, path_flag);
+#else
+    if (sd.object == OBJECT_NONE) {
+      sd.closure_emission_background = make_float3(0.8f, 0.8f, 0.8f);
+      sd.flag |= SD_EMISSION;
+    }
+    else {
+      DiffuseBsdf *bsdf = (DiffuseBsdf *)bsdf_alloc(
+          sd, sizeof(DiffuseBsdf), make_float3(0.8f, 0.8f, 0.8f));
+      if (bsdf != NULL) {
+        bsdf.N = sd.N;
+        sd.flag |= bsdf_diffuse_setup(bsdf);
+      }
+    }
+#endif
+  }
+
+  if (bool(sd.flag & SD_BSDF_NEEDS_LCG)) {
+
+    sd.lcg_state = lcg_state_init_addrspace(state, 0xb4bc3953);
+  }
+}
+>~
+~<
+/* Holdout */
+
+ccl_device float3 shader_holdout_apply(inout KernelGlobals kg, inout ShaderData sd)
+{
+  float3 weight = make_float3(0.0f, 0.0f, 0.0f);
+
+  /* For objects marked as holdout, preserve transparency and remove all other
+   * closures, replacing them with a holdout weight. */
+  if (bool(sd.object_flag & SD_OBJECT_HOLDOUT_MASK)) {
+
+    if (bool(sd.flag & SD_TRANSPARENT) && !bool(sd.flag & SD_HAS_ONLY_VOLUME)) {
+      weight = make_float3(1.0f, 1.0f, 1.0f) - sd.closure_transparent_extinction;
+
+      for (int i = 0; i < sd.num_closure; i++) {
+        if (!CLOSURE_IS_BSDF_TRANSPARENT(sd.closure[i].type)) {
+          sd.closure[i].type = NBUILTIN_CLOSURES;
+        }
+      }
+
+      sd.flag &= int(~(SD_CLOSURE_FLAGS - (SD_TRANSPARENT | SD_BSDF)));
+    }
+    else {
+      weight = make_float3(1.0f, 1.0f, 1.0f);
+    }
+  }
+  else {
+    for (int i = 0; i < sd.num_closure; i++) {
+      if (CLOSURE_IS_HOLDOUT(sd.closure[i].type)) {
+        weight += sd.closure[i].weight;
+      }
+    }
+  }
+
+  return weight;
+}
+
+/* Surface Evaluation */
+
+ccl_device void shader_eval_surface(inout KernelGlobals kg,
+                                    inout ShaderData sd,
+                                    ccl_addr_space inout PathState state,
+                                    inout int buffer_ofs,
+                                    int path_flag)
+{
+  PROFILING_INIT(kg, PROFILING_SHADER_EVAL);
+
+  /* If path is being terminated, we are tracing a shadow ray or evaluating
+   * emission, then we don't need to store closures. The emission and shadow
+   * shader data also do not have a closure array to save GPU memory. */
+  int max_closures;
+  if (bool(path_flag & (PATH_RAY_TERMINATE | PATH_RAY_SHADOW | PATH_RAY_EMISSION))) {
+    max_closures = 0;
+  }
+  else {
+    max_closures = kernel_data.integrator.max_closures;
+  }
+
+  sd.num_closure = 0;
+  sd.num_closure_left = max_closures;
+
+#ifdef _OSL_
+  if (kg.osl) {
+    if (sd.object == OBJECT_NONE && sd.lamp == LAMP_NONE) {
+      OSLShader::eval_background(kg, sd, state, path_flag);
+    }
+    else {
+      OSLShader::eval_surface(kg, sd, state, path_flag);
+    }
+  }
+  else
+#endif
+  {
+#ifdef _SVM_
+    svm_eval_nodes(kg, sd, state, buffer_ofs, SHADER_TYPE_SURFACE, path_flag);
+#else
+    if (sd.object == OBJECT_NONE) {
+      sd.closure_emission_background = make_float3(0.8f, 0.8f, 0.8f);
+      sd.flag |= SD_EMISSION;
+    }
+    else {
+      //DiffuseBsdf *bsdf = (DiffuseBsdf *)bsdf_alloc(sd, sizeof(DiffuseBsdf), make_float3(0.8f, 0.8f, 0.8f));
+      int n = bsdf_alloc( sd, sizeof_DiffuseBsdf , make_float3(0.8f, 0.8f, 0.8f));
+      if (n >= 0) {
+        sd.closure[n].N = sd.N;
+        sd.flag |= bsdf_diffuse_setup(sd.closure[n]);
+      }
+    }
+#endif
+  }
+
+  if (bool(sd.flag & SD_BSDF_NEEDS_LCG)) {
+
+    sd.lcg_state = lcg_state_init_addrspace(state, 0xb4bc3953);
+  }
+}
+>~
+~<
+/* Volume */
+
+#ifdef _VOLUME_
+
+ccl_device_inline void _shader_volume_phase_multi_eval(in ShaderData sd,
+                                                       const float3 omega_in,
+                                                       inout float pdf,
+                                                       int skip_phase,
+                                                       inout BsdfEval result_eval,
+                                                       float sum_pdf,
+                                                       float sum_sample_weight)
+{
+  for (int i = 0; i < sd.num_closure; i++) {
+    if (i == skip_phase)
+      continue;
+
+    in ShaderClosure sc = &sd.closure[i];
+
+    if (CLOSURE_IS_PHASE(sc.type)) {
+      float phase_pdf = 0.0f;
+      float3 eval = volume_phase_eval(sd, sc, omega_in, (phase_pdf));
+
+
+      if (phase_pdf != 0.0f) {
+        bsdf_eval_accum(result_eval, sc.type, eval, 1.0f);
+        sum_pdf += phase_pdf * sc.sample_weight;
+      }
+
+      sum_sample_weight += sc.sample_weight;
+    }
+  }
+
+  pdf = (sum_sample_weight > 0.0f) ? sum_pdf / sum_sample_weight : 0.0f;
+}
+
+ccl_device void shader_volume_phase_eval(
+    inout KernelGlobals kg, in ShaderData sd, const float3 omega_in, inout BsdfEval eval, inout float pdf)
+{
+  PROFILING_INIT(kg, PROFILING_CLOSURE_VOLUME_EVAL);
+
+  bsdf_eval_init(
+      eval, NBUILTIN_CLOSURES, make_float3(0.0f, 0.0f, 0.0f), kernel_data.film.use_light_pass);
+
+  _shader_volume_phase_multi_eval(sd, omega_in, pdf, -1, eval, 0.0f, 0.0f);
+}
+
+ccl_device int shader_volume_phase_sample(inout KernelGlobals kg,
+                                          in ShaderData sd,
+                                          float randu,
+                                          float randv,
+                                          inout BsdfEval phase_eval,
+                                          inout float3 omega_in,
+                                          inout differential3 domega_in,
+                                          inout float pdf)
+{
+  PROFILING_INIT(kg, PROFILING_CLOSURE_VOLUME_SAMPLE);
+
+  int sampled = 0;
+
+  if (sd.num_closure > 1) {
+    /* pick a phase closure based on sample weights */
+    float sum = 0.0f;
+
+    for (sampled = 0; sampled < sd.num_closure; sampled++) {
+      in ShaderClosure sc = &sd.closure[sampled];
+
+      if (CLOSURE_IS_PHASE(sc.type))
+        sum += sc.sample_weight;
+    }
+
+    float r = randu * sum;
+    float partial_sum = 0.0f;
+
+    for (sampled = 0; sampled < sd.num_closure; sampled++) {
+      in ShaderClosure sc = &sd.closure[sampled];
+
+      if (CLOSURE_IS_PHASE(sc.type)) {
+        float next_sum = partial_sum + sc.sample_weight;
+
+        if (r <= next_sum) {
+          /* Rescale to reuse for BSDF direction sample. */
+          randu = (r - partial_sum) / sc.sample_weight;
+          break;
+        }
+
+        partial_sum = next_sum;
+      }
+    }
+
+    if (sampled == sd.num_closure) {
+      pdf = 0.0f;
+      return LABEL_NONE;
+    }
+  }
+
+  /* todo: this isn't quite correct, we don't weight anisotropy properly
+   * depending on color channels, even if this is perhaps not a common case */
+  in ShaderClosure sc = &sd.closure[sampled];
+  int label;
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  pdf = 0.0f;
+  label = volume_phase_sample(sd, sc, randu, randv, (eval), omega_in, domega_in, pdf);
+
+
+  if (pdf != 0.0f) {
+    bsdf_eval_init(phase_eval, sc.type, eval, kernel_data.film.use_light_pass);
+  }
+
+  return label;
+}
+
+ccl_device int shader_phase_sample_closure(inout KernelGlobals kg,
+                                           in ShaderData sd,
+                                           in ShaderClosure sc,
+                                           float randu,
+                                           float randv,
+                                           inout BsdfEval phase_eval,
+                                           inout float3 omega_in,
+                                           inout differential3 domega_in,
+                                           inout float pdf)
+{
+  PROFILING_INIT(kg, PROFILING_CLOSURE_VOLUME_SAMPLE);
+
+  int label;
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  pdf = 0.0f;
+  label = volume_phase_sample(sd, sc, randu, randv, (eval), omega_in, domega_in, pdf);
+
+
+  if (pdf != 0.0f)
+    bsdf_eval_init(phase_eval, sc.type, eval, kernel_data.film.use_light_pass);
+
+  return label;
+}
+
+/* Volume Evaluation */
+
+ccl_device_inline void shader_eval_volume(inout KernelGlobals kg,
+                                          inout ShaderData sd,
+                                          ccl_addr_space inout PathState state,
+                                          ccl_addr_space inout VolumeStack stack,
+                                          int path_flag)
+{
+  /* If path is being terminated, we are tracing a shadow ray or evaluating
+   * emission, then we don't need to store closures. The emission and shadow
+   * shader data also do not have a closure array to save GPU memory. */
+  int max_closures;
+  if (path_flag & (PATH_RAY_TERMINATE | PATH_RAY_SHADOW | PATH_RAY_EMISSION)) {
+    max_closures = 0;
+  }
+  else {
+    max_closures = kernel_data.integrator.max_closures;
+  }
+
+  /* reset closures once at the start, we will be accumulating the closures
+   * for all volumes in the stack into a single array of closures */
+  sd.num_closure = 0;
+  sd.num_closure_left = max_closures;
+  sd.flag = 0;
+  sd.object_flag = 0;
+
+  for (int i = 0; stack[i].shader != SHADER_NONE; i++) {
+    /* setup shaderdata from stack. it's mostly setup already in
+     * shader_setup_from_volume, this switching should be quick */
+    sd.object = stack[i].object;
+    sd.lamp = LAMP_NONE;
+    sd.shader = stack[i].shader;
+
+    sd.flag &= ~SD_SHADER_FLAGS;
+    sd.flag |= kernel_tex_fetch(_shaders, (sd.shader & SHADER_MASK)).flags;
+    sd.object_flag &= ~SD_OBJECT_FLAGS;
+
+    if (sd.object != OBJECT_NONE) {
+      sd.object_flag |= int(kernel_tex_fetch(_object_flag, sd.object));
+
+
+#  ifdef _OBJECT_MOTION_
+      /* todo: this is inefficient for motion blur, we should be
+       * caching matrices instead of recomputing them each step */
+      shader_setup_object_transforms(kg, sd, sd.time);
+#  endif
+    }
+
+    /* evaluate shader */
+#  ifdef _SVM_
+#    ifdef _OSL_
+    if (kg.osl) {
+      OSLShader::eval_volume(kg, sd, state, path_flag);
+    }
+    else
+#    endif
+    {
+      svm_eval_nodes(kg, sd, state, NULL, SHADER_TYPE_VOLUME, path_flag);
+    }
+#  endif
+
+    /* merge closures to avoid exceeding number of closures limit */
+    if (i > 0)
+      shader_merge_closures(sd);
+  }
+}
+
+#endif /* _VOLUME_ */
+>~
+
+~<
+/* Volume */
+
+#ifdef _VOLUME_
+
+ccl_device_inline void _shader_volume_phase_multi_eval(in ShaderData sd,
+                                                       const float3 omega_in,
+                                                       inout float pdf,
+                                                       int skip_phase,
+                                                       inout BsdfEval result_eval,
+                                                       float sum_pdf,
+                                                       float sum_sample_weight)
+{
+  for (int i = 0; i < sd.num_closure; i++) {
+    if (i == skip_phase)
+      continue;
+
+    if (CLOSURE_IS_PHASE(sd.closure[i].type)) {
+      float phase_pdf = 0.0f;
+      float3 eval = volume_phase_eval(sd, sd.closure[i], omega_in, (phase_pdf));
+
+
+      if (phase_pdf != 0.0f) {
+        bsdf_eval_accum(result_eval, sd.closure[i].type, eval, 1.0f);
+        sum_pdf += phase_pdf * sd.closure[i].sample_weight;
+      }
+
+      sum_sample_weight += sd.closure[i].sample_weight;
+    }
+  }
+
+  pdf = (sum_sample_weight > 0.0f) ? sum_pdf / sum_sample_weight : 0.0f;
+}
+
+ccl_device void shader_volume_phase_eval(
+    inout KernelGlobals kg, in ShaderData sd, const float3 omega_in, inout BsdfEval eval, inout float pdf)
+{
+  PROFILING_INIT(kg, PROFILING_CLOSURE_VOLUME_EVAL);
+
+  bsdf_eval_init(
+      eval, NBUILTIN_CLOSURES, make_float3(0.0f, 0.0f, 0.0f), kernel_data.film.use_light_pass);
+
+  _shader_volume_phase_multi_eval(sd, omega_in, pdf, -1, eval, 0.0f, 0.0f);
+}
+
+ccl_device int shader_volume_phase_sample(inout KernelGlobals kg,
+                                          in ShaderData sd,
+                                          float randu,
+                                          float randv,
+                                          inout BsdfEval phase_eval,
+                                          inout float3 omega_in,
+                                          inout differential3 domega_in,
+                                          inout float pdf)
+{
+  PROFILING_INIT(kg, PROFILING_CLOSURE_VOLUME_SAMPLE);
+
+  int sampled = 0;
+
+  if (sd.num_closure > 1) {
+    /* pick a phase closure based on sample weights */
+    float sum = 0.0f;
+
+    for (sampled = 0; sampled < sd.num_closure; sampled++) {
+
+      if (CLOSURE_IS_PHASE(sd.closure[sampled].type))
+        sum += sd.closure[sampled].sample_weight;
+    }
+
+    float r = randu * sum;
+    float partial_sum = 0.0f;
+
+    for (sampled = 0; sampled < sd.num_closure; sampled++) {
+      if (CLOSURE_IS_PHASE(sd.closure[sampled].type)) {
+        float next_sum = partial_sum + sd.closure[sampled].sample_weight;
+
+        if (r <= next_sum) {
+          /* Rescale to reuse for BSDF direction sample. */
+          randu = (r - partial_sum) / sd.closure[sampled].sample_weight;
+          break;
+        }
+
+        partial_sum = next_sum;
+      }
+    }
+
+    if (sampled == sd.num_closure) {
+      pdf = 0.0f;
+      return LABEL_NONE;
+    }
+  }
+
+  /* todo: this isn't quite correct, we don't weight anisotropy properly
+   * depending on color channels, even if this is perhaps not a common case */
+
+  int label;
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  pdf = 0.0f;
+  label = volume_phase_sample(sd, sd.closure[sampled], randu, randv, (eval), omega_in, domega_in, pdf);
+
+
+  if (pdf != 0.0f) {
+    bsdf_eval_init(phase_eval, sd.closure[sampled].type, eval, kernel_data.film.use_light_pass);
+  }
+
+  return label;
+}
+
+ccl_device int shader_phase_sample_closure(inout KernelGlobals kg,
+                                           in ShaderData sd,
+                                           in ShaderClosure sc,
+                                           float randu,
+                                           float randv,
+                                           inout BsdfEval phase_eval,
+                                           inout float3 omega_in,
+                                           inout differential3 domega_in,
+                                           inout float pdf)
+{
+  PROFILING_INIT(kg, PROFILING_CLOSURE_VOLUME_SAMPLE);
+
+  int label;
+  float3 eval = make_float3(0.0f, 0.0f, 0.0f);
+
+  pdf = 0.0f;
+  label = volume_phase_sample(sd, sc, randu, randv, (eval), omega_in, domega_in, pdf);
+
+
+  if (pdf != 0.0f)
+    bsdf_eval_init(phase_eval, sc.type, eval, kernel_data.film.use_light_pass);
+
+  return label;
+}
+
+/* Volume Evaluation */
+
+ccl_device_inline void shader_eval_volume(inout KernelGlobals kg,
+                                          inout ShaderData sd,
+                                          ccl_addr_space inout PathState state,
+                                          ccl_addr_space inout VolumeStack stack,
+                                          int path_flag)
+{
+  /* If path is being terminated, we are tracing a shadow ray or evaluating
+   * emission, then we don't need to store closures. The emission and shadow
+   * shader data also do not have a closure array to save GPU memory. */
+  int max_closures;
+  if (path_flag & (PATH_RAY_TERMINATE | PATH_RAY_SHADOW | PATH_RAY_EMISSION)) {
+    max_closures = 0;
+  }
+  else {
+    max_closures = kernel_data.integrator.max_closures;
+  }
+
+  /* reset closures once at the start, we will be accumulating the closures
+   * for all volumes in the stack into a single array of closures */
+  sd.num_closure = 0;
+  sd.num_closure_left = max_closures;
+  sd.flag = 0;
+  sd.object_flag = 0;
+
+  for (int i = 0; stack[i].shader != SHADER_NONE; i++) {
+    /* setup shaderdata from stack. it's mostly setup already in
+     * shader_setup_from_volume, this switching should be quick */
+    sd.object = stack[i].object;
+    sd.lamp = LAMP_NONE;
+    sd.shader = stack[i].shader;
+
+    sd.flag &= ~SD_SHADER_FLAGS;
+    sd.flag |= kernel_tex_fetch(_shaders, (sd.shader & SHADER_MASK)).flags;
+    sd.object_flag &= ~SD_OBJECT_FLAGS;
+
+    if (sd.object != OBJECT_NONE) {
+      sd.object_flag |= int(kernel_tex_fetch(_object_flag, sd.object));
+
+
+#  ifdef _OBJECT_MOTION_
+      /* todo: this is inefficient for motion blur, we should be
+       * caching matrices instead of recomputing them each step */
+      shader_setup_object_transforms(kg, sd, sd.time);
+#  endif
+    }
+
+    /* evaluate shader */
+#  ifdef _SVM_
+#    ifdef _OSL_
+    if (kg.osl) {
+      OSLShader::eval_volume(kg, sd, state, path_flag);
+    }
+    else
+#    endif
+    {
+      svm_eval_nodes(kg, sd, state, NULL, SHADER_TYPE_VOLUME, path_flag);
+    }
+#  endif
+
+    /* merge closures to avoid exceeding number of closures limit */
+    if (i > 0)
+      shader_merge_closures(sd);
+  }
+}
+
+#endif /* _VOLUME_ */
+>~
+
+
+~<
+/* Displacement Evaluation */
+
+ccl_device void shader_eval_displacement(inout KernelGlobals kg,
+                                         inout ShaderData sd,
+                                         ccl_addr_space inout PathState state)
+{
+  sd.num_closure = 0;
+  sd.num_closure_left = 0;
+
+  /* this will modify sd.P */
+#ifdef _SVM_
+#  ifdef _OSL_
+  if (kg.osl)
+    OSLShader::eval_displacement(kg, sd, state);
+  else
+#  endif
+  {
+    svm_eval_nodes(kg, sd, state, NULL, SHADER_TYPE_DISPLACEMENT, 0);
+  }
+#endif
+}
+
+/* Transparent Shadows */
+
+#ifdef _TRANSPARENT_SHADOWS_
+ccl_device bool shader_transparent_shadow(inout KernelGlobals kg, inout Intersection isect)
+{
+  int prim = kernel_tex_fetch(_prim_index, isect.prim);
+  int shader = 0;
+
+#  ifdef _HAIR_
+  if (bool(isect.type & PRIMITIVE_ALL_TRIANGLE)) {
+
+#  endif
+    shader = kernel_tex_fetch(_tri_shader, prim);
+#  ifdef _HAIR_
+  }
+  else {
+    float4 str = kernel_tex_fetch(_curves, prim);
+    shader = _float_as_int(str.z);
+  }
+#  endif
+  int flag = kernel_tex_fetch(_shaders, (shader & SHADER_MASK)).flags;
+
+  return (flag & SD_HAS_TRANSPARENT_SHADOW) != 0;
+}
+#endif /* _TRANSPARENT_SHADOWS_ */
+>~
+
+
+
+
+
+
+~<
+/* Displacement Evaluation */
+
+ccl_device void shader_eval_displacement(inout KernelGlobals kg,
+                                         inout ShaderData sd,
+                                         ccl_addr_space inout PathState state)
+{
+  sd.num_closure = 0;
+  sd.num_closure_left = 0;
+
+  /* this will modify sd.P */
+#ifdef _SVM_
+#  ifdef _OSL_
+  if (kg.osl)
+    OSLShader::eval_displacement(kg, sd, state);
+  else
+#  endif
+  {
+    svm_eval_nodes(kg, sd, state, NULL, SHADER_TYPE_DISPLACEMENT, 0);
+  }
+#endif
+}
+
+/* Transparent Shadows */
+
+#ifdef _TRANSPARENT_SHADOWS_
+ccl_device bool shader_transparent_shadow(inout KernelGlobals kg, inout Intersection isect)
+{
+  int prim = int(kernel_tex_fetch(_prim_index, isect.prim));
+  int shader = 0;
+
+#  ifdef _HAIR_
+  if (bool(isect.type & PRIMITIVE_ALL_TRIANGLE)) {
+
+#  endif
+    shader = int(kernel_tex_fetch(_tri_shader, prim));
+#  ifdef _HAIR_
+  }
+  else {
+    float4 str = kernel_tex_fetch(_curves, prim);
+    shader = _float_as_int(str.z);
+  }
+#  endif
+  int flag = kernel_tex_fetch(_shaders, (shader & SHADER_MASK)).flags;
+
+  return (flag & SD_HAS_TRANSPARENT_SHADOW) != 0;
+}
+#endif /* _TRANSPARENT_SHADOWS_ */
+
+>~
