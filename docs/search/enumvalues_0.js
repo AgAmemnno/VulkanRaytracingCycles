@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['all_0',['ALL',['../_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4ab1d5eac4b1dca480c8056eaea7663b7a',1,'Context1Vk.h']]],
+  ['allocation_5fcreate_5fcan_5fbecome_5flost_5fbit_1',['ALLOCATION_CREATE_CAN_BECOME_LOST_BIT',['../namespacevkmm.html#a3f0ebe38415be25c21d99ce603190ff6a93a81a6d4737180a944f32d3debb9115',1,'vkmm']]],
+  ['allocation_5fcreate_5fcan_5fmake_5fother_5flost_5fbit_2',['ALLOCATION_CREATE_CAN_MAKE_OTHER_LOST_BIT',['../namespacevkmm.html#a3f0ebe38415be25c21d99ce603190ff6ad0f394a128c8cd0648c86b64adcd043a',1,'vkmm']]],
+  ['allocation_5fcreate_5fdedicated_5fmemory_5fbit_3',['ALLOCATION_CREATE_DEDICATED_MEMORY_BIT',['../namespacevkmm.html#a3f0ebe38415be25c21d99ce603190ff6afb48a3c7d5babbfd6216c1d3759d1254',1,'vkmm']]],
+  ['allocation_5fcreate_5fflag_5fbits_5fmax_5fenum_4',['ALLOCATION_CREATE_FLAG_BITS_MAX_ENUM',['../namespacevkmm.html#a3f0ebe38415be25c21d99ce603190ff6a30806700bd0de5261ad4e79c35ff5a90',1,'vkmm']]],
+  ['allocation_5fcreate_5fmapped_5fbit_5',['ALLOCATION_CREATE_MAPPED_BIT',['../namespacevkmm.html#a3f0ebe38415be25c21d99ce603190ff6a506eb061d833063d33b5b27f47c2185c',1,'vkmm']]],
+  ['allocation_5fcreate_5fnever_5fallocate_5fbit_6',['ALLOCATION_CREATE_NEVER_ALLOCATE_BIT',['../namespacevkmm.html#a3f0ebe38415be25c21d99ce603190ff6a989c58c950dd41358c6ea0544c362d93',1,'vkmm']]],
+  ['allocation_5fcreate_5fupper_5faddress_5fbit_7',['ALLOCATION_CREATE_UPPER_ADDRESS_BIT',['../namespacevkmm.html#a3f0ebe38415be25c21d99ce603190ff6a6fa34ad5228c997f8beb87a37bad7f3b',1,'vkmm']]],
+  ['allocation_5fcreate_5fuser_5fdata_5fcopy_5fstring_5fbit_8',['ALLOCATION_CREATE_USER_DATA_COPY_STRING_BIT',['../namespacevkmm.html#a3f0ebe38415be25c21d99ce603190ff6a9b0a76028f7f6690ff10204334576684',1,'vkmm']]],
+  ['allocation_5ftype_5fblock_9',['ALLOCATION_TYPE_BLOCK',['../structvkmm_1_1_allocation___t.html#a1c61d39101ce6323ab4ca9d95b32d0aba26468b3e47bb390ac8ae26daaa16b473',1,'vkmm::Allocation_T']]],
+  ['allocation_5ftype_5fblock_5fdedicated_10',['ALLOCATION_TYPE_BLOCK_DEDICATED',['../structvkmm_1_1_allocation___t.html#a1c61d39101ce6323ab4ca9d95b32d0abaf1053e4f1f0605c58b0859e9c6483f26',1,'vkmm::Allocation_T']]],
+  ['allocation_5ftype_5fdedicated_11',['ALLOCATION_TYPE_DEDICATED',['../structvkmm_1_1_allocation___t.html#a1c61d39101ce6323ab4ca9d95b32d0abaaf97e8012a74ed2d9c564cb5f8b23d32',1,'vkmm::Allocation_T']]],
+  ['allocation_5ftype_5fnone_12',['ALLOCATION_TYPE_NONE',['../structvkmm_1_1_allocation___t.html#a1c61d39101ce6323ab4ca9d95b32d0abae958bcb926400477d45ad7183d98e2d3',1,'vkmm::Allocation_T']]],
+  ['allocator_5fcreate_5fexternally_5fsynchronized_5fbit_13',['ALLOCATOR_CREATE_EXTERNALLY_SYNCHRONIZED_BIT',['../namespacevkmm.html#ad8c018725e18ffbcf0ce02abd261e770a8750b68b276e80e7dd3f828349f8fa22',1,'vkmm']]],
+  ['allocator_5fcreate_5fflag_5fbits_5fmax_5fenum_14',['ALLOCATOR_CREATE_FLAG_BITS_MAX_ENUM',['../namespacevkmm.html#ad8c018725e18ffbcf0ce02abd261e770a361375960ee706803dbb3bc812f09d9f',1,'vkmm']]],
+  ['allocator_5fcreate_5fkhr_5fdedicated_5fallocation_5fbit_15',['ALLOCATOR_CREATE_KHR_DEDICATED_ALLOCATION_BIT',['../namespacevkmm.html#ad8c018725e18ffbcf0ce02abd261e770ae12701fc3af67343c6f6ad5eec40ea53',1,'vkmm']]]
+];

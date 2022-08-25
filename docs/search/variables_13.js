@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['ubo_0',['ubo',['../struct___pool_size.html#ab1407a4182e704c25a45ac7c5a73497c',1,'_PoolSize::ubo()'],['../struct_uniform_vk.html#a5bb0c98e99578648533bf2e84366b48d',1,'UniformVk::ubo()']]],
+  ['uni_1',['UNI',['../vthreepy__const_8h.html#aeaa3a7d8013af89b126a090aa4adaff1',1,'vthreepy_const.h']]],
+  ['unusedbytes_2',['unusedBytes',['../structvkmm_1_1_stat_info.html#aef233da928bf4045c9dfca77d5830ead',1,'vkmm::StatInfo::unusedBytes()'],['../struct_temperance_stat_info.html#a56e30f55abfc36a8bd888cea3a5d4ee0',1,'TemperanceStatInfo::unusedBytes()']]],
+  ['unusedrangecount_3',['unusedRangeCount',['../structvkmm_1_1_stat_info.html#a511b0f09320a111132e90a47a27e315a',1,'vkmm::StatInfo::unusedRangeCount()'],['../structvkmm_1_1_pool_stats.html#a3c4280abb2bb0f65fbd6afeabefaf9e4',1,'vkmm::PoolStats::unusedRangeCount()'],['../struct_temperance_stat_info.html#a7c2bca1a499a54596edcf39c309cec2d',1,'TemperanceStatInfo::unusedRangeCount()']]],
+  ['unusedrangesizeavg_4',['unusedRangeSizeAvg',['../structvkmm_1_1_stat_info.html#ad34edf68be70a975d7a083dc31f5694a',1,'vkmm::StatInfo::unusedRangeSizeAvg()'],['../struct_temperance_stat_info.html#a57cef6bbf7547c99731a8141faebd4c1',1,'TemperanceStatInfo::unusedRangeSizeAvg()']]],
+  ['unusedrangesizemax_5',['unusedRangeSizeMax',['../structvkmm_1_1_stat_info.html#a6c090547891a445281c820506e5d8c02',1,'vkmm::StatInfo::unusedRangeSizeMax()'],['../structvkmm_1_1_pool_stats.html#a7602bacb05e3b85ec49c752738a63968',1,'vkmm::PoolStats::unusedRangeSizeMax()'],['../struct_temperance_stat_info.html#a27229ac1abefdea4958c79835fde7ed7',1,'TemperanceStatInfo::unusedRangeSizeMax()']]],
+  ['unusedrangesizemin_6',['unusedRangeSizeMin',['../structvkmm_1_1_stat_info.html#a3c24426016dbceeade5ad28ede10f9c7',1,'vkmm::StatInfo::unusedRangeSizeMin()'],['../struct_temperance_stat_info.html#a215e17e41426e3094b4e80baab069e2e',1,'TemperanceStatInfo::unusedRangeSizeMin()']]],
+  ['unusedsize_7',['unusedSize',['../structvkmm_1_1_pool_stats.html#a38820a530fc8e0d157e9254f2248bd8e',1,'vkmm::PoolStats']]],
+  ['upd_8',['Upd',['../struct_uniform_vk.html#aeea18c193a5b30c39d4f57c951ffca22',1,'UniformVk']]],
+  ['usage_9',['usage',['../structvkmm_1_1_allocation_create_info.html#a7910a94914d93b440135e2514842d536',1,'vkmm::AllocationCreateInfo']]],
+  ['usedbytes_10',['usedBytes',['../structvkmm_1_1_stat_info.html#a8d442ba17d34aac0463fce915ca82b20',1,'vkmm::StatInfo::usedBytes()'],['../struct_temperance_stat_info.html#aaa7727bcc76247025e3e8f4b8f748814',1,'TemperanceStatInfo::usedBytes()']]],
+  ['ut_11',['UT',['../vthreepy__const_8h.html#ac1baee23fadf1a2dce270af261750611',1,'vthreepy_const.h']]],
+  ['uth_12',['uth',['../struct_visible_objects_vk.html#adbf5f214f18b97a7c5c268de03f7fe39',1,'VisibleObjectsVk']]],
+  ['utt_13',['UTT',['../vthreepy__const_8h.html#a19c0f0ebd0914bfc08eefbf8d17a07b8',1,'vthreepy_const.h']]],
+  ['uttt_14',['UTTT',['../vthreepy__const_8h.html#af8c9278355185140ed8cc2fa3733b146',1,'vthreepy_const.h']]],
+  ['uut_15',['UUT',['../vthreepy__const_8h.html#a47c591da7ab377c47b4ce51074c5eb14',1,'vthreepy_const.h']]],
+  ['uutt_16',['UUTT',['../vthreepy__const_8h.html#a8e2ca55424c2deda54e599f4fd477620',1,'vthreepy_const.h']]]
+];

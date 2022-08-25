@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['ubo_0',['ubo',['../struct___pool_size.html#ab1407a4182e704c25a45ac7c5a73497c',1,'_PoolSize::ubo()'],['../struct_uniform_vk.html#a5bb0c98e99578648533bf2e84366b48d',1,'UniformVk::ubo()']]],
+  ['undefined_5ftype_1',['UNDEFINED_TYPE',['../vthreepy__types_8h.html#ac2fe2a78f68e0139b2bddaa8cebd6bec',1,'vthreepy_types.h']]],
+  ['undo_2',['Undo',['../struct_bache.html#a3c9cb2d96d9f22ca33ebccb7b9011969',1,'Bache']]],
+  ['uni_3',['UNI',['../vthreepy__const_8h.html#aeaa3a7d8013af89b126a090aa4adaff1',1,'vthreepy_const.h']]],
+  ['uniform_5fh_4',['UNIFORM_H',['../_uniforms_vk_8h.html#a74c850da8e88a635e728b4d4343649a7',1,'UniformsVk.h']]],
+  ['uniformsvk_2ecpp_5',['UniformsVk.cpp',['../_uniforms_vk_8cpp.html',1,'']]],
+  ['uniformsvk_2eh_6',['UniformsVk.h',['../_uniforms_vk_8h.html',1,'']]],
+  ['uniformvk_7',['UniformVk',['../struct_uniform_vk.html',1,'UniformVk'],['../struct_uniform_vk.html#a1df6b63560ea37f466920badc2c7001c',1,'UniformVk::UniformVk()'],['../struct_uniform_vk.html#ac9cdf230967af7fecce919ccb3b8839f',1,'UniformVk::UniformVk(long id, long version, VkDeviceSize size)'],['../struct_uniform_vk.html#a39e083631514d8451f6f412d9ac1d5ca',1,'UniformVk::UniformVk(const UniformVk &amp;)=delete'],['../vthreepy__types_8h.html#a59e0885f8357d749b145ce6c4ec4994e',1,'UniformVk():&#160;vthreepy_types.h']]],
+  ['unmap_8',['Unmap',['../structvkmm_1_1_allocator___t.html#a45acc41c204faa509d847343cf809695',1,'vkmm::Allocator_T']]],
+  ['unmapmemory_9',['UnmapMemory',['../namespacevkmm.html#a8d15c4cae9dad4e457d1c4180d8f7612',1,'vkmm']]],
+  ['unusedbytes_10',['unusedBytes',['../structvkmm_1_1_stat_info.html#aef233da928bf4045c9dfca77d5830ead',1,'vkmm::StatInfo::unusedBytes()'],['../struct_temperance_stat_info.html#a56e30f55abfc36a8bd888cea3a5d4ee0',1,'TemperanceStatInfo::unusedBytes()']]],
+  ['unusedrangecount_11',['unusedRangeCount',['../structvkmm_1_1_stat_info.html#a511b0f09320a111132e90a47a27e315a',1,'vkmm::StatInfo::unusedRangeCount()'],['../structvkmm_1_1_pool_stats.html#a3c4280abb2bb0f65fbd6afeabefaf9e4',1,'vkmm::PoolStats::unusedRangeCount()'],['../struct_temperance_stat_info.html#a7c2bca1a499a54596edcf39c309cec2d',1,'TemperanceStatInfo::unusedRangeCount()']]],
+  ['unusedrangesizeavg_12',['unusedRangeSizeAvg',['../structvkmm_1_1_stat_info.html#ad34edf68be70a975d7a083dc31f5694a',1,'vkmm::StatInfo::unusedRangeSizeAvg()'],['../struct_temperance_stat_info.html#a57cef6bbf7547c99731a8141faebd4c1',1,'TemperanceStatInfo::unusedRangeSizeAvg()']]],
+  ['unusedrangesizemax_13',['unusedRangeSizeMax',['../struct_temperance_stat_info.html#a27229ac1abefdea4958c79835fde7ed7',1,'TemperanceStatInfo::unusedRangeSizeMax()'],['../structvkmm_1_1_stat_info.html#a6c090547891a445281c820506e5d8c02',1,'vkmm::StatInfo::unusedRangeSizeMax()'],['../structvkmm_1_1_pool_stats.html#a7602bacb05e3b85ec49c752738a63968',1,'vkmm::PoolStats::unusedRangeSizeMax()']]],
+  ['unusedrangesizemin_14',['unusedRangeSizeMin',['../structvkmm_1_1_stat_info.html#a3c24426016dbceeade5ad28ede10f9c7',1,'vkmm::StatInfo::unusedRangeSizeMin()'],['../struct_temperance_stat_info.html#a215e17e41426e3094b4e80baab069e2e',1,'TemperanceStatInfo::unusedRangeSizeMin()']]],
+  ['unusedsize_15',['unusedSize',['../structvkmm_1_1_pool_stats.html#a38820a530fc8e0d157e9254f2248bd8e',1,'vkmm::PoolStats']]],
+  ['upd_16',['Upd',['../struct_uniform_vk.html#aeea18c193a5b30c39d4f57c951ffca22',1,'UniformVk']]],
+  ['usage_17',['usage',['../structvkmm_1_1_allocation_create_info.html#a7910a94914d93b440135e2514842d536',1,'vkmm::AllocationCreateInfo']]],
+  ['usedbytes_18',['usedBytes',['../structvkmm_1_1_stat_info.html#a8d442ba17d34aac0463fce915ca82b20',1,'vkmm::StatInfo::usedBytes()'],['../struct_temperance_stat_info.html#aaa7727bcc76247025e3e8f4b8f748814',1,'TemperanceStatInfo::usedBytes()']]],
+  ['ut_19',['UT',['../vthreepy__const_8h.html#ac1baee23fadf1a2dce270af261750611',1,'vthreepy_const.h']]],
+  ['uth_20',['uth',['../struct_visible_objects_vk.html#adbf5f214f18b97a7c5c268de03f7fe39',1,'VisibleObjectsVk']]],
+  ['utt_21',['UTT',['../vthreepy__const_8h.html#a19c0f0ebd0914bfc08eefbf8d17a07b8',1,'vthreepy_const.h']]],
+  ['uttt_22',['UTTT',['../vthreepy__const_8h.html#af8c9278355185140ed8cc2fa3733b146',1,'vthreepy_const.h']]],
+  ['uut_23',['UUT',['../vthreepy__const_8h.html#a47c591da7ab377c47b4ce51074c5eb14',1,'vthreepy_const.h']]],
+  ['uutt_24',['UUTT',['../vthreepy__const_8h.html#a8e2ca55424c2deda54e599f4fd477620',1,'vthreepy_const.h']]]
+];
