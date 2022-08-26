@@ -113,7 +113,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00354">354</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00358">358</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa30093133457ce8f68fbc0a3b210f748" name="aa30093133457ce8f68fbc0a3b210f748"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa30093133457ce8f68fbc0a3b210f748">&#9670;&nbsp;</a></span>PvSvk()</h2>
@@ -138,10 +138,10 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00358">358</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  358</span>:<a class="code hl_variable" href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">pipeline</a>(VK_NULL_HANDLE), <a class="code hl_variable" href="struct_pv_svk.html#af2f3d27e1a69358bd9abbbc13bfbdb70">shaderModules</a>({}) {};</div>
-<div class="ttc" id="astruct_pv_svk_html_ae502496a6273fcd847191d5f42cbe992"><div class="ttname"><a href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">PvSvk::pipeline</a></div><div class="ttdeci">VkPipeline pipeline</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00356">vthreepy_types.h:356</a></div></div>
-<div class="ttc" id="astruct_pv_svk_html_af2f3d27e1a69358bd9abbbc13bfbdb70"><div class="ttname"><a href="struct_pv_svk.html#af2f3d27e1a69358bd9abbbc13bfbdb70">PvSvk::shaderModules</a></div><div class="ttdeci">std::vector&lt; VkShaderModule &gt; shaderModules</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00357">vthreepy_types.h:357</a></div></div>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00362">362</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  362</span>:<a class="code hl_variable" href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">pipeline</a>(VK_NULL_HANDLE), <a class="code hl_variable" href="struct_pv_svk.html#af2f3d27e1a69358bd9abbbc13bfbdb70">shaderModules</a>({}) {};</div>
+<div class="ttc" id="astruct_pv_svk_html_ae502496a6273fcd847191d5f42cbe992"><div class="ttname"><a href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">PvSvk::pipeline</a></div><div class="ttdeci">VkPipeline pipeline</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00360">vthreepy_types.h:360</a></div></div>
+<div class="ttc" id="astruct_pv_svk_html_af2f3d27e1a69358bd9abbbc13bfbdb70"><div class="ttname"><a href="struct_pv_svk.html#af2f3d27e1a69358bd9abbbc13bfbdb70">PvSvk::shaderModules</a></div><div class="ttdeci">std::vector&lt; VkShaderModule &gt; shaderModules</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00361">vthreepy_types.h:361</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -169,19 +169,19 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00359">359</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  359</span>                    {</div>
-<div class="line"><span class="lineno">  360</span> </div>
-<div class="line"><span class="lineno">  361</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">pipeline</a> != VK_NULL_HANDLE) {</div>
-<div class="line"><span class="lineno">  362</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; shaderModule : <a class="code hl_variable" href="struct_pv_svk.html#af2f3d27e1a69358bd9abbbc13bfbdb70">shaderModules</a>)</div>
-<div class="line"><span class="lineno">  363</span>            {</div>
-<div class="line"><span class="lineno">  364</span>                vkDestroyShaderModule($device, shaderModule, <span class="keyword">nullptr</span>);</div>
-<div class="line"><span class="lineno">  365</span>            };</div>
-<div class="line"><span class="lineno">  366</span>            vkDestroyPipeline($device, <a class="code hl_variable" href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">pipeline</a>, <span class="keyword">nullptr</span>);</div>
-<div class="line"><span class="lineno">  367</span>            <a class="code hl_variable" href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">pipeline</a> = VK_NULL_HANDLE;</div>
-<div class="line"><span class="lineno">  368</span>        };</div>
-<div class="line"><span class="lineno">  369</span> </div>
-<div class="line"><span class="lineno">  370</span>    };</div>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00363">363</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  363</span>                    {</div>
+<div class="line"><span class="lineno">  364</span> </div>
+<div class="line"><span class="lineno">  365</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">pipeline</a> != VK_NULL_HANDLE) {</div>
+<div class="line"><span class="lineno">  366</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; shaderModule : <a class="code hl_variable" href="struct_pv_svk.html#af2f3d27e1a69358bd9abbbc13bfbdb70">shaderModules</a>)</div>
+<div class="line"><span class="lineno">  367</span>            {</div>
+<div class="line"><span class="lineno">  368</span>                vkDestroyShaderModule($device, shaderModule, <span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">  369</span>            };</div>
+<div class="line"><span class="lineno">  370</span>            vkDestroyPipeline($device, <a class="code hl_variable" href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">pipeline</a>, <span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="lineno">  371</span>            <a class="code hl_variable" href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">pipeline</a> = VK_NULL_HANDLE;</div>
+<div class="line"><span class="lineno">  372</span>        };</div>
+<div class="line"><span class="lineno">  373</span> </div>
+<div class="line"><span class="lineno">  374</span>    };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -208,10 +208,10 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00371">371</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  371</span>                   {</div>
-<div class="line"><span class="lineno">  372</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">pipeline</a> != VK_NULL_HANDLE;</div>
-<div class="line"><span class="lineno">  373</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00375">375</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  375</span>                   {</div>
+<div class="line"><span class="lineno">  376</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="struct_pv_svk.html#ae502496a6273fcd847191d5f42cbe992">pipeline</a> != VK_NULL_HANDLE;</div>
+<div class="line"><span class="lineno">  377</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -228,7 +228,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00356">356</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00360">360</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
 
 </div>
 </div>
@@ -244,7 +244,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00357">357</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00361">361</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
 
 </div>
 </div>

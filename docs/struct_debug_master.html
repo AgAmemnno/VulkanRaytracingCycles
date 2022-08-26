@@ -176,7 +176,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class T&gt;<br />
 struct DebugMaster&lt; T &gt;</div>
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00704">704</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00712">712</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae237dc6e0799f51831e9a6096be06d53" name="ae237dc6e0799f51831e9a6096be06d53"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae237dc6e0799f51831e9a6096be06d53">&#9670;&nbsp;</a></span>beginLabel()</h2>
@@ -214,14 +214,14 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00754">754</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  755</span>    {</div>
-<div class="line"><span class="lineno">  756</span>        <span class="keywordflow">if</span> (s_enabled)</div>
-<div class="line"><span class="lineno">  757</span>        {</div>
-<div class="line"><span class="lineno">  758</span>            VkDebugUtilsLabelEXT s{ VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT, <span class="keyword">nullptr</span>, label.c_str(), {1.0f, 1.0f, 1.0f, 1.0f} };</div>
-<div class="line"><span class="lineno">  759</span>            vkCmdBeginDebugUtilsLabelEXT(cmdBuf, &amp;s);</div>
-<div class="line"><span class="lineno">  760</span>        }</div>
-<div class="line"><span class="lineno">  761</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00762">762</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  763</span>    {</div>
+<div class="line"><span class="lineno">  764</span>        <span class="keywordflow">if</span> (s_enabled)</div>
+<div class="line"><span class="lineno">  765</span>        {</div>
+<div class="line"><span class="lineno">  766</span>            VkDebugUtilsLabelEXT s{ VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT, <span class="keyword">nullptr</span>, label.c_str(), {1.0f, 1.0f, 1.0f, 1.0f} };</div>
+<div class="line"><span class="lineno">  767</span>            vkCmdBeginDebugUtilsLabelEXT(cmdBuf, &amp;s);</div>
+<div class="line"><span class="lineno">  768</span>        }</div>
+<div class="line"><span class="lineno">  769</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -251,13 +251,13 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00762">762</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  763</span>    {</div>
-<div class="line"><span class="lineno">  764</span>        <span class="keywordflow">if</span> (s_enabled)</div>
-<div class="line"><span class="lineno">  765</span>        {</div>
-<div class="line"><span class="lineno">  766</span>            vkCmdEndDebugUtilsLabelEXT(cmdBuf);</div>
-<div class="line"><span class="lineno">  767</span>        }</div>
-<div class="line"><span class="lineno">  768</span>}</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00770">770</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  771</span>    {</div>
+<div class="line"><span class="lineno">  772</span>        <span class="keywordflow">if</span> (s_enabled)</div>
+<div class="line"><span class="lineno">  773</span>        {</div>
+<div class="line"><span class="lineno">  774</span>            vkCmdEndDebugUtilsLabelEXT(cmdBuf);</div>
+<div class="line"><span class="lineno">  775</span>        }</div>
+<div class="line"><span class="lineno">  776</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -287,11 +287,11 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00710">710</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  711</span>    {</div>
-<div class="line"><span class="lineno">  712</span>        <a class="code hl_variable" href="struct_debug_master.html#a2b335e3d6d4e89262d27bf6bed1cb35e">dbgIgnoreMessages</a>.insert(msgID);</div>
-<div class="line"><span class="lineno">  713</span>    }</div>
-<div class="ttc" id="astruct_debug_master_html_a2b335e3d6d4e89262d27bf6bed1cb35e"><div class="ttname"><a href="struct_debug_master.html#a2b335e3d6d4e89262d27bf6bed1cb35e">DebugMaster::dbgIgnoreMessages</a></div><div class="ttdeci">std::unordered_set&lt; int32_t &gt; dbgIgnoreMessages</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00709">Context1Vk.h:709</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00718">718</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  719</span>    {</div>
+<div class="line"><span class="lineno">  720</span>        <a class="code hl_variable" href="struct_debug_master.html#a2b335e3d6d4e89262d27bf6bed1cb35e">dbgIgnoreMessages</a>.insert(msgID);</div>
+<div class="line"><span class="lineno">  721</span>    }</div>
+<div class="ttc" id="astruct_debug_master_html_a2b335e3d6d4e89262d27bf6bed1cb35e"><div class="ttname"><a href="struct_debug_master.html#a2b335e3d6d4e89262d27bf6bed1cb35e">DebugMaster::dbgIgnoreMessages</a></div><div class="ttdeci">std::unordered_set&lt; int32_t &gt; dbgIgnoreMessages</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00717">Context1Vk.h:717</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -331,14 +331,14 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00769">769</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  770</span>    {</div>
-<div class="line"><span class="lineno">  771</span>        <span class="keywordflow">if</span> (s_enabled)</div>
-<div class="line"><span class="lineno">  772</span>        {</div>
-<div class="line"><span class="lineno">  773</span>            VkDebugUtilsLabelEXT s{ VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT, <span class="keyword">nullptr</span>, label.c_str(), {1.0f, 1.0f, 1.0f, 1.0f} };</div>
-<div class="line"><span class="lineno">  774</span>            vkCmdInsertDebugUtilsLabelEXT(cmdBuf, &amp;s);</div>
-<div class="line"><span class="lineno">  775</span>        }</div>
-<div class="line"><span class="lineno">  776</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00777">777</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  778</span>    {</div>
+<div class="line"><span class="lineno">  779</span>        <span class="keywordflow">if</span> (s_enabled)</div>
+<div class="line"><span class="lineno">  780</span>        {</div>
+<div class="line"><span class="lineno">  781</span>            VkDebugUtilsLabelEXT s{ VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT, <span class="keyword">nullptr</span>, label.c_str(), {1.0f, 1.0f, 1.0f, 1.0f} };</div>
+<div class="line"><span class="lineno">  782</span>            vkCmdInsertDebugUtilsLabelEXT(cmdBuf, &amp;s);</div>
+<div class="line"><span class="lineno">  783</span>        }</div>
+<div class="line"><span class="lineno">  784</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -378,8 +378,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00811">811</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  811</span>{ <span class="keywordflow">return</span> ScopedCmdLabel(cmdBuf, label); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00819">819</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  819</span>{ <span class="keywordflow">return</span> ScopedCmdLabel(cmdBuf, label); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -409,8 +409,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00716">716</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  716</span>{ s_enabled = state; }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00724">724</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  724</span>{ s_enabled = state; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -456,14 +456,14 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00718">718</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  719</span>    {</div>
-<div class="line"><span class="lineno">  720</span>        <span class="keywordflow">if</span> (s_enabled)</div>
-<div class="line"><span class="lineno">  721</span>        {</div>
-<div class="line"><span class="lineno">  722</span>            VkDebugUtilsObjectNameInfoEXT s{ VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT, <span class="keyword">nullptr</span>, t, object, name.c_str() };</div>
-<div class="line"><span class="lineno">  723</span>            vkSetDebugUtilsObjectNameEXT($device, &amp;s);</div>
-<div class="line"><span class="lineno">  724</span>        }</div>
-<div class="line"><span class="lineno">  725</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00726">726</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  727</span>    {</div>
+<div class="line"><span class="lineno">  728</span>        <span class="keywordflow">if</span> (s_enabled)</div>
+<div class="line"><span class="lineno">  729</span>        {</div>
+<div class="line"><span class="lineno">  730</span>            VkDebugUtilsObjectNameInfoEXT s{ VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT, <span class="keyword">nullptr</span>, t, object, name.c_str() };</div>
+<div class="line"><span class="lineno">  731</span>            vkSetDebugUtilsObjectNameEXT($device, &amp;s);</div>
+<div class="line"><span class="lineno">  732</span>        }</div>
+<div class="line"><span class="lineno">  733</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -503,9 +503,9 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00730">730</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  730</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_BUFFER); }</div>
-<div class="ttc" id="astruct_debug_master_html_a93b4e53f86ba5a71de4ee6a44c792fe2"><div class="ttname"><a href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">DebugMaster::setObjectName</a></div><div class="ttdeci">void setObjectName(const uint64_t object, const std::string &amp;name, VkObjectType t)</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00718">Context1Vk.h:718</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00738">738</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  738</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_BUFFER); }</div>
+<div class="ttc" id="astruct_debug_master_html_a93b4e53f86ba5a71de4ee6a44c792fe2"><div class="ttname"><a href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">DebugMaster::setObjectName</a></div><div class="ttdeci">void setObjectName(const uint64_t object, const std::string &amp;name, VkObjectType t)</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00726">Context1Vk.h:726</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -545,8 +545,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00731">731</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  731</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_BUFFER_VIEW); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00739">739</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  739</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_BUFFER_VIEW); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -586,8 +586,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00732">732</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  732</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_COMMAND_BUFFER); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00740">740</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  740</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_COMMAND_BUFFER); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -627,8 +627,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00733">733</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  733</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_COMMAND_POOL); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00741">741</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  741</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_COMMAND_POOL); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -668,8 +668,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00734">734</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  734</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_DESCRIPTOR_POOL); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00742">742</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  742</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_DESCRIPTOR_POOL); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -709,8 +709,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00735">735</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  735</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_DESCRIPTOR_SET); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00743">743</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  743</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_DESCRIPTOR_SET); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -750,8 +750,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00736">736</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  736</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00744">744</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  744</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -791,8 +791,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00737">737</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  737</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_DEVICE_MEMORY); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00745">745</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  745</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_DEVICE_MEMORY); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -832,8 +832,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00738">738</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  738</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_FRAMEBUFFER); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00746">746</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  746</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_FRAMEBUFFER); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -873,8 +873,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00739">739</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  739</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_IMAGE); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00747">747</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  747</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_IMAGE); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -914,8 +914,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00740">740</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  740</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_IMAGE_VIEW); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00748">748</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  748</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_IMAGE_VIEW); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -955,8 +955,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00741">741</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  741</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_PIPELINE); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00749">749</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  749</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_PIPELINE); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -996,8 +996,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00742">742</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  742</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_PIPELINE_LAYOUT); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00750">750</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  750</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_PIPELINE_LAYOUT); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1037,8 +1037,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00743">743</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  743</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_QUERY_POOL); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00751">751</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  751</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_QUERY_POOL); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1078,8 +1078,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00744">744</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  744</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_QUEUE); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00752">752</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  752</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_QUEUE); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1119,8 +1119,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00745">745</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  745</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_RENDER_PASS); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00753">753</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  753</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_RENDER_PASS); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1160,8 +1160,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00746">746</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  746</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_SAMPLER); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00754">754</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  754</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_SAMPLER); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1201,8 +1201,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00747">747</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  747</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_SEMAPHORE); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00755">755</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  755</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_SEMAPHORE); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1242,8 +1242,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00748">748</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  748</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_SHADER_MODULE); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00756">756</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  756</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_SHADER_MODULE); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1283,8 +1283,8 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00749">749</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  749</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_SWAPCHAIN_KHR); }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00757">757</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  757</span>{ <a class="code hl_function" href="struct_debug_master.html#a93b4e53f86ba5a71de4ee6a44c792fe2">setObjectName</a>((uint64_t)<span class="keywordtype">object</span>, name, VK_OBJECT_TYPE_SWAPCHAIN_KHR); }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1303,7 +1303,7 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00706">706</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00714">714</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 
 </div>
 </div>
@@ -1321,7 +1321,7 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00709">709</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00717">717</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 
 </div>
 </div>
@@ -1339,7 +1339,7 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00708">708</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00716">716</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 
 </div>
 </div>
@@ -1357,7 +1357,7 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00707">707</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00715">715</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 
 </div>
 </div>

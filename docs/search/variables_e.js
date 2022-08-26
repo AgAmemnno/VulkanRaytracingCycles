@@ -10,6 +10,6 @@ var searchData=
   ['origin_7',['origin',['../structray_1_1_a_smemory.html#addb8c225d1a76d6544de7a4990931f18',1,'ray::ASmemory']]],
   ['otank_8',['otank',['../_images_vk_8cpp.html#aa0bd471f59491dd7b3823b3fa9929892',1,'otank():&#160;ImagesVk.cpp'],['../working__mm_8h.html#aa0bd471f59491dd7b3823b3fa9929892',1,'otank():&#160;working_mm.h']]],
   ['overlap_9',['overlap',['../structinfo_1_1_blend___a_d_v.html#a862d664fc86bd9bb34cc4a447482dc5b',1,'info::Blend_ADV']]],
-  ['overlay_10',['overlay',['../struct_context0_vk_1_1_settings.html#acd2fe2dad9ebb69c313d5999f5a194ff',1,'Context0Vk::Settings::overlay()'],['../struct_window_vk.html#a5fe94001a5d2fc7e220dacce4a3f6357',1,'WindowVk::overlay()']]],
+  ['overlay_10',['overlay',['../struct_context_ex_vk_1_1_settings.html#a66c680445625494490c9c5e56efb9c40',1,'ContextExVk::Settings::overlay()'],['../struct_window_vk.html#a5fe94001a5d2fc7e220dacce4a3f6357',1,'WindowVk::overlay()']]],
   ['owner_11',['owner',['../struct_cache_vk.html#a49ef598f9e8d0f5922e47c905437db8d',1,'CacheVk']]]
 ];

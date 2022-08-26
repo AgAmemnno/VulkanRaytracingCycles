@@ -63,7 +63,7 @@ var annotated_dup =
     [ "Bache", "struct_bache.html", "struct_bache" ],
     [ "CacheVk", "struct_cache_vk.html", "struct_cache_vk" ],
     [ "CLambda", "struct_c_lambda.html", null ],
-    [ "Context0Vk", "struct_context0_vk.html", "struct_context0_vk" ],
+    [ "ContextExVk", "struct_context_ex_vk.html", "struct_context_ex_vk" ],
     [ "DebugMaster", "struct_debug_master.html", "struct_debug_master" ],
     [ "DescriptorVk", "struct_descriptor_vk.html", "struct_descriptor_vk" ],
     [ "DeviceMasterVk", "struct_device_master_vk.html", "struct_device_master_vk" ],

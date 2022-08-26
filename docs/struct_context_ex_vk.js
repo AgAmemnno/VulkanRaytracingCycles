@@ -1,0 +1,26 @@
+var struct_context_ex_vk =
+[
+    [ "Settings", "struct_context_ex_vk_1_1_settings.html", "struct_context_ex_vk_1_1_settings" ],
+    [ "ContextExVk", "struct_context_ex_vk.html#a658b2fce51710b879812c05c09848cbd", null ],
+    [ "~ContextExVk", "struct_context_ex_vk.html#a8d481c802dc2f30f049a5a7f5fa98bea", null ],
+    [ "configuration", "struct_context_ex_vk.html#a85c55d679ed1ff88b6195c2e4cc768bc", null ],
+    [ "createDebug", "struct_context_ex_vk.html#a6a5d40a0a903a9645a6b802f77a8773b", null ],
+    [ "createInstance", "struct_context_ex_vk.html#a69bffce5da38c084ffd6f2f815f36078", null ],
+    [ "destroyInstance", "struct_context_ex_vk.html#a3d75f0e9cbd99cccdd888c56a8f5455f", null ],
+    [ "initialize", "struct_context_ex_vk.html#a8c7996d08371cf81f2bc57670eaf5123", null ],
+    [ "set$", "struct_context_ex_vk.html#a2ef9fd861cd2cee25ceb3cca09d66330", null ],
+    [ "shutdown", "struct_context_ex_vk.html#afc5f343146bcb03941baada6a2e59c58", null ],
+    [ "appInfo", "struct_context_ex_vk.html#a8550e9e90dec5e3b56ad2597b52ef3d9", null ],
+    [ "config", "struct_context_ex_vk.html#aa0edf53e4c693136297a05d7ab91ad09", null ],
+    [ "deb", "struct_context_ex_vk.html#a79278e61ccdf72ae62e9ff0fca781fa3", null ],
+    [ "debug_report_callback", "struct_context_ex_vk.html#af1d1efe4ce73754c399b013d38bb7770", null ],
+    [ "depthFormat", "struct_context_ex_vk.html#a26611843da1dd5bdaa6d78aef2ca1927", null ],
+    [ "device", "struct_context_ex_vk.html#a27ba405a78b3dfa94ac8de5e45b68825", null ],
+    [ "deviceCreatepNextChain", "struct_context_ex_vk.html#ac4a08fdf6e323939688c7921a73e3b4c", null ],
+    [ "h", "struct_context_ex_vk.html#aa09a5833b9d3b9e3f9ce79302593acb0", null ],
+    [ "instance", "struct_context_ex_vk.html#acbf80a0243e0e2a80fda6db507464c28", null ],
+    [ "settings", "struct_context_ex_vk.html#a21eb700280824d010cdfe8798df48b69", null ],
+    [ "submitInfo", "struct_context_ex_vk.html#a3a1bfd8ef35bd463f9f6e68388f5afdf", null ],
+    [ "type", "struct_context_ex_vk.html#a7a895a1e9fd109b8342f41ab347546dd", null ],
+    [ "w", "struct_context_ex_vk.html#a5d99761b3c1d9b5e04ed038bcf0d6e4a", null ]
+];

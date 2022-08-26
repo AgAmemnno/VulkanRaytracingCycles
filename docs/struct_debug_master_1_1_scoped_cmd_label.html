@@ -106,7 +106,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;class T&gt;<br />
 struct DebugMaster&lt; T &gt;::ScopedCmdLabel</div>
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00780">780</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00788">788</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a61c8aad5a2e9c70761cb2b47fda0e56b" name="a61c8aad5a2e9c70761cb2b47fda0e56b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a61c8aad5a2e9c70761cb2b47fda0e56b">&#9670;&nbsp;</a></span>ScopedCmdLabel()</h2>
@@ -144,15 +144,15 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00782">782</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  783</span>            : m_cmdBuf(cmdBuf)</div>
-<div class="line"><span class="lineno">  784</span>        {</div>
-<div class="line"><span class="lineno">  785</span>            <span class="keywordflow">if</span> (s_enabled)</div>
-<div class="line"><span class="lineno">  786</span>            {</div>
-<div class="line"><span class="lineno">  787</span>                VkDebugUtilsLabelEXT s{ VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT, <span class="keyword">nullptr</span>, label.c_str(), {1.0f, 1.0f, 1.0f, 1.0f} };</div>
-<div class="line"><span class="lineno">  788</span>                vkCmdBeginDebugUtilsLabelEXT(cmdBuf, &amp;s);</div>
-<div class="line"><span class="lineno">  789</span>            }</div>
-<div class="line"><span class="lineno">  790</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00790">790</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  791</span>            : m_cmdBuf(cmdBuf)</div>
+<div class="line"><span class="lineno">  792</span>        {</div>
+<div class="line"><span class="lineno">  793</span>            <span class="keywordflow">if</span> (s_enabled)</div>
+<div class="line"><span class="lineno">  794</span>            {</div>
+<div class="line"><span class="lineno">  795</span>                VkDebugUtilsLabelEXT s{ VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT, <span class="keyword">nullptr</span>, label.c_str(), {1.0f, 1.0f, 1.0f, 1.0f} };</div>
+<div class="line"><span class="lineno">  796</span>                vkCmdBeginDebugUtilsLabelEXT(cmdBuf, &amp;s);</div>
+<div class="line"><span class="lineno">  797</span>            }</div>
+<div class="line"><span class="lineno">  798</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -181,13 +181,13 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00791">791</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  792</span>        {</div>
-<div class="line"><span class="lineno">  793</span>            <span class="keywordflow">if</span> (s_enabled)</div>
-<div class="line"><span class="lineno">  794</span>            {</div>
-<div class="line"><span class="lineno">  795</span>                vkCmdEndDebugUtilsLabelEXT(m_cmdBuf);</div>
-<div class="line"><span class="lineno">  796</span>            }</div>
-<div class="line"><span class="lineno">  797</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00799">799</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  800</span>        {</div>
+<div class="line"><span class="lineno">  801</span>            <span class="keywordflow">if</span> (s_enabled)</div>
+<div class="line"><span class="lineno">  802</span>            {</div>
+<div class="line"><span class="lineno">  803</span>                vkCmdEndDebugUtilsLabelEXT(m_cmdBuf);</div>
+<div class="line"><span class="lineno">  804</span>            }</div>
+<div class="line"><span class="lineno">  805</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -218,14 +218,14 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00798">798</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  799</span>        {</div>
-<div class="line"><span class="lineno">  800</span>            <span class="keywordflow">if</span> (s_enabled)</div>
-<div class="line"><span class="lineno">  801</span>            {</div>
-<div class="line"><span class="lineno">  802</span>                VkDebugUtilsLabelEXT s{ VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT, <span class="keyword">nullptr</span>, label.c_str(), {1.0f, 1.0f, 1.0f, 1.0f} };</div>
-<div class="line"><span class="lineno">  803</span>                vkCmdInsertDebugUtilsLabelEXT(m_cmdBuf, &amp;s);</div>
-<div class="line"><span class="lineno">  804</span>            }</div>
-<div class="line"><span class="lineno">  805</span>        }</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00806">806</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  807</span>        {</div>
+<div class="line"><span class="lineno">  808</span>            <span class="keywordflow">if</span> (s_enabled)</div>
+<div class="line"><span class="lineno">  809</span>            {</div>
+<div class="line"><span class="lineno">  810</span>                VkDebugUtilsLabelEXT s{ VK_STRUCTURE_TYPE_DEBUG_UTILS_LABEL_EXT, <span class="keyword">nullptr</span>, label.c_str(), {1.0f, 1.0f, 1.0f, 1.0f} };</div>
+<div class="line"><span class="lineno">  811</span>                vkCmdInsertDebugUtilsLabelEXT(m_cmdBuf, &amp;s);</div>
+<div class="line"><span class="lineno">  812</span>            }</div>
+<div class="line"><span class="lineno">  813</span>        }</div>
 </div><!-- fragment -->
 </div>
 </div>

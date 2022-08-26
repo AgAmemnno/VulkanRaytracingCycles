@@ -16,7 +16,7 @@ var searchData=
   ['allocbach_13',['allocBach',['../struct_uniform_vk.html#a908788b18c6e597230f30039aef6d62e',1,'UniformVk']]],
   ['allocinfo_14',['allocInfo',['../struct_immidiate_cmd_pool.html#a6dbfdb31d30ada8d2ed4e8533d615a94',1,'ImmidiateCmdPool::allocInfo()'],['../structvkmm_1_1_memory_vk.html#aa26e275cfb02b2d51233f70f6e33faa0',1,'vkmm::MemoryVk::allocInfo()']]],
   ['any_15',['any',['../structfront_1_1hq__elem.html#ad939be80f06830032a10bd0743cea289',1,'front::hq_elem']]],
-  ['appinfo_16',['appInfo',['../struct_context0_vk.html#af3b3e7004eee11ecef29dcdead491977',1,'Context0Vk']]],
+  ['appinfo_16',['appInfo',['../struct_context_ex_vk.html#a8550e9e90dec5e3b56ad2597b52ef3d9',1,'ContextExVk']]],
   ['asinfo_17',['asInfo',['../structray_1_1_acceleration_structure.html#ac98838a03de265495b68fc20d214ec28',1,'ray::AccelerationStructure']]],
   ['asmap_18',['asmap',['../struct_rt_objects_vk_1_1_as_cache.html#a992726ddf58c5003f538c222b947fb61',1,'RtObjectsVk::AsCache']]],
   ['astruct_19',['astruct',['../structray_1_1_acceleration_structure.html#a7c7a59e17a1abf786add600644e75b50',1,'ray::AccelerationStructure']]]

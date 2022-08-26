@@ -28,7 +28,7 @@ var searchData=
   ['otank_25',['otank',['../_images_vk_8cpp.html#aa0bd471f59491dd7b3823b3fa9929892',1,'otank():&#160;ImagesVk.cpp'],['../working__mm_8h.html#aa0bd471f59491dd7b3823b3fa9929892',1,'otank():&#160;working_mm.h']]],
   ['other_26',['other',['../structfront_1_1local__counting__allocator_1_1rebind.html#aaa84e4fcd8b8e3ade1f633ef434dace7',1,'front::local_counting_allocator::rebind::other()'],['../structfront_1_1debug__allocator_1_1rebind.html#a9163a9bbd362d47fb96ff09c39c73c8d',1,'front::debug_allocator::rebind::other()'],['../structfront_1_1debug__allocator_3_01void_00_01_allocator_01_4_1_1rebind.html#a9701439f2e53393962e14e0e204058c4',1,'front::debug_allocator&lt; void, Allocator &gt;::rebind::other()']]],
   ['overlap_27',['overlap',['../structinfo_1_1_blend___a_d_v.html#a862d664fc86bd9bb34cc4a447482dc5b',1,'info::Blend_ADV']]],
-  ['overlay_28',['overlay',['../struct_context0_vk_1_1_settings.html#acd2fe2dad9ebb69c313d5999f5a194ff',1,'Context0Vk::Settings::overlay()'],['../struct_window_vk.html#a5fe94001a5d2fc7e220dacce4a3f6357',1,'WindowVk::overlay()']]],
+  ['overlay_28',['overlay',['../struct_context_ex_vk_1_1_settings.html#a66c680445625494490c9c5e56efb9c40',1,'ContextExVk::Settings::overlay()'],['../struct_window_vk.html#a5fe94001a5d2fc7e220dacce4a3f6357',1,'WindowVk::overlay()']]],
   ['ovr_29',['OVR',['../vthreepy__types_8h.html#a27fe49d68683275398e31800bffc7390',1,'vthreepy_types.h']]],
   ['ovrvk_30',['OVRVK',['../vthreepy__types_8h.html#a85fa9d39e0cda0712c094eba7ddd933c',1,'vthreepy_types.h']]],
   ['owner_31',['owner',['../struct_cache_vk.html#a49ef598f9e8d0f5922e47c905437db8d',1,'CacheVk']]],
