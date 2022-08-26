@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('rtobject_vk_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,17 +84,12 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">rtobjectVk.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="rtobject_vk_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;pch_mm.h&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;working_mm.h&quot;</span></div>
+<a href="rtobject_vk_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="pch__mm_8h.html">pch_mm.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="working__mm_8h.html">working_mm.h</a>&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">using namespace  </span><a class="code hl_namespace" href="namespaceray.html">ray</a>;</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="struct_rt_objects_vk.html#a89055d6f7e91e677640a2783ad0b2941">    5</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="struct_rt_objects_vk.html#a89055d6f7e91e677640a2783ad0b2941">RtObjectsVk::probeMemorySizeAS</a>(<a class="code hl_struct" href="structray_1_1_acceleration_structure.html">AccelerationStructure</a>&amp; accel) {</div>
@@ -136,7 +154,7 @@ $(function() {
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="struct_rt_objects_vk.html#a92dc76841451726e8e4c46b38c087355">   64</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="struct_rt_objects_vk.html#a92dc76841451726e8e4c46b38c087355">RtObjectsVk::createShaderBindingTable</a>(T&amp; sbt, VkPipeline pipe, uint32_t groupN) {</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="struct_rt_objects_vk.html#a52c7e5b03ac55427cf319b0382b907f4">vobjVk</a> == <span class="keyword">nullptr</span>) {</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">if</span> (!$tank.takeout(<a class="code hl_variable" href="struct_rt_objects_vk.html#a52c7e5b03ac55427cf319b0382b907f4">vobjVk</a>, 0)) {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            log_bad(<span class="stringliteral">&quot; not found  VisibleObjectVk.&quot;</span>);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot; not found  VisibleObjectVk.&quot;</span>);</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        };</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    };</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
@@ -417,7 +435,7 @@ $(function() {
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="struct_rt_objects_vk.html#a08d1320608d23ec31c8821d73811dc88">objVk</a> == <span class="keyword">nullptr</span>) {</div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        <span class="keywordflow">if</span> (!$tank.takeout(<a class="code hl_variable" href="struct_rt_objects_vk.html#a08d1320608d23ec31c8821d73811dc88">objVk</a>, 0)) {</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>            log_bad(<span class="stringliteral">&quot; not found  ObjectVk.&quot;</span>);</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>            <a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot; not found  ObjectVk.&quot;</span>);</div>
 <div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>        };</div>
 <div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    };</div>
 <div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
@@ -538,11 +556,13 @@ $(function() {
 <div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span> </div>
 <div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span> </div>
 <div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span> </div>
+<div class="ttc" id="alog_8hpp_html_a0a8f190cbf66caba9750b487aa06d7f3"><div class="ttname"><a href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a></div><div class="ttdeci">#define log_bad(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00037">log.hpp:37</a></div></div>
 <div class="ttc" id="anamespaceray_html"><div class="ttname"><a href="namespaceray.html">ray</a></div><div class="ttdef"><b>Definition:</b> <a href="_object_vk_8h_source.html#l01421">ObjectVk.h:1421</a></div></div>
 <div class="ttc" id="anamespacevkmm_html_a3f0ebe38415be25c21d99ce603190ff6afb48a3c7d5babbfd6216c1d3759d1254"><div class="ttname"><a href="namespacevkmm.html#a3f0ebe38415be25c21d99ce603190ff6afb48a3c7d5babbfd6216c1d3759d1254">vkmm::ALLOCATION_CREATE_DEDICATED_MEMORY_BIT</a></div><div class="ttdeci">@ ALLOCATION_CREATE_DEDICATED_MEMORY_BIT</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8h_source.html#l00609">AllocatorVk.h:609</a></div></div>
 <div class="ttc" id="anamespacevkmm_html_a485c39ebf7c2090c82c410512a375ac7a3d0e1e02c67791ea1a1ae5250d40cdec"><div class="ttname"><a href="namespacevkmm.html#a485c39ebf7c2090c82c410512a375ac7a3d0e1e02c67791ea1a1ae5250d40cdec">vkmm::MEMORY_USAGE_GPU_ONLY</a></div><div class="ttdeci">@ MEMORY_USAGE_GPU_ONLY</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8h_source.html#l00601">AllocatorVk.h:601</a></div></div>
 <div class="ttc" id="anamespacevkmm_html_a76c22f3abff1f72312567e70f9541e6c"><div class="ttname"><a href="namespacevkmm.html#a76c22f3abff1f72312567e70f9541e6c">vkmm::DestroyBuffer</a></div><div class="ttdeci">void DestroyBuffer(Allocator allocator, VkBuffer buffer, Allocation allocation)</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8cpp_source.html#l01030">AllocatorVk.cpp:1030</a></div></div>
 <div class="ttc" id="anamespacevkmm_html_ac932044854a33ef974c4515effe659e2"><div class="ttname"><a href="namespacevkmm.html#ac932044854a33ef974c4515effe659e2">vkmm::CreateBuffer</a></div><div class="ttdeci">VkResult CreateBuffer(Allocator allocator, const VkBufferCreateInfo *pBufferCreateInfo, AllocationCreateInfo &amp;pAllocationCreateInfo, VkBuffer *pBuffer, Allocation *pAllocation, AllocationInfo *pAllocationInfo)</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8cpp_source.html#l00934">AllocatorVk.cpp:934</a></div></div>
+<div class="ttc" id="apch__mm_8h_html"><div class="ttname"><a href="pch__mm_8h.html">pch_mm.h</a></div></div>
 <div class="ttc" id="astruct_immidiate_buffer_cmd_html"><div class="ttname"><a href="struct_immidiate_buffer_cmd.html">ImmidiateBufferCmd</a></div><div class="ttdef"><b>Definition:</b> <a href="_cmd_pool_vk_8h_source.html#l00152">CmdPoolVk.h:152</a></div></div>
 <div class="ttc" id="astruct_objects_vk_html_a7ebc48f65ffcc11bf4406d02b7d98c3c"><div class="ttname"><a href="struct_objects_vk.html#a7ebc48f65ffcc11bf4406d02b7d98c3c">ObjectsVk::$createBuffer$</a></div><div class="ttdeci">bool $createBuffer$(T &amp;bach, VkMemoryPropertyFlags memTy)</div><div class="ttdef"><b>Definition:</b> <a href="_object_vk_8h_source.html#l00441">ObjectVk.h:441</a></div></div>
 <div class="ttc" id="astruct_objects_vk_html_ac98218fd441549b116afd0c3ebe9ba0e"><div class="ttname"><a href="struct_objects_vk.html#ac98218fd441549b116afd0c3ebe9ba0e">ObjectsVk::DeleteMB</a></div><div class="ttdeci">bool DeleteMB(Geom &amp;hach)</div><div class="ttdef"><b>Definition:</b> <a href="_object_vk_8h_source.html#l01017">ObjectVk.h:1017</a></div></div>
@@ -590,10 +610,15 @@ $(function() {
 <div class="ttc" id="astructvkmm_1_1_allocation_create_info_html_a7910a94914d93b440135e2514842d536"><div class="ttname"><a href="structvkmm_1_1_allocation_create_info.html#a7910a94914d93b440135e2514842d536">vkmm::AllocationCreateInfo::usage</a></div><div class="ttdeci">MemoryUsage usage</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8h_source.html#l00631">AllocatorVk.h:631</a></div></div>
 <div class="ttc" id="astructvkmm_1_1_allocation_create_info_html_aff3d0f29024cf24715a04f08d6a9f8e2"><div class="ttname"><a href="structvkmm_1_1_allocation_create_info.html#aff3d0f29024cf24715a04f08d6a9f8e2">vkmm::AllocationCreateInfo::name</a></div><div class="ttdeci">char name[16]</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8h_source.html#l00642">AllocatorVk.h:642</a></div></div>
 <div class="ttc" id="avthreepy__types_8h_html_a47382e7dea8329b2a3f2503a25f7ff90"><div class="ttname"><a href="vthreepy__types_8h.html#a47382e7dea8329b2a3f2503a25f7ff90">instance</a></div><div class="ttdeci">#define instance</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00114">vthreepy_types.h:114</a></div></div>
+<div class="ttc" id="aworking__mm_8h_html"><div class="ttname"><a href="working__mm_8h.html">working_mm.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li><li class="navelem"><a class="el" href="rtobject_vk_8cpp.html">rtobjectVk.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

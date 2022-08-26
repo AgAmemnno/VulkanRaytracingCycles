@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('struct_iache.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,7 +84,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -207,7 +229,8 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="incomplete_8h_source.html#l00059">59</a> of file <a class="el" href="incomplete_8h_source.html">incomplete.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   59</span>{ log_once(<span class="stringliteral">&quot; Call  destructor   Iache   \n&quot;</span>); };</div>
+<div class="fragment"><div class="line"><span class="lineno">   59</span>{ <a class="code hl_define" href="log_8hpp.html#a2ca6400202aff996e5ec2da3debff38f">log_once</a>(<span class="stringliteral">&quot; Call  destructor   Iache   \n&quot;</span>); };</div>
+<div class="ttc" id="alog_8hpp_html_a2ca6400202aff996e5ec2da3debff38f"><div class="ttname"><a href="log_8hpp.html#a2ca6400202aff996e5ec2da3debff38f">log_once</a></div><div class="ttdeci">#define log_once(...)</div><div class="ttdoc">DELETE ALL ^((?!\w).)*log_once(.*; ^((?!\w).)*log_once((.* )+?.*;.</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00013">log.hpp:13</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -241,7 +264,7 @@ template&lt;class I &gt; </div>
 <p class="definition">Definition at line <a class="el" href="incomplete_8h_source.html#l00107">107</a> of file <a class="el" href="incomplete_8h_source.html">incomplete.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  107</span>                       {</div>
 <div class="line"><span class="lineno">  108</span>        <span class="keywordtype">long</span> cnt = InterlockedDecrement(&amp;<a class="code hl_variable" href="struct_iache.html#ab44ae9de1741098aa1f15567607fcb0f">refCnt</a>);</div>
-<div class="line"><span class="lineno">  109</span>        log_once(<span class="stringliteral">&quot; Decrement  Iache  %d   \n&quot;</span>, cnt);</div>
+<div class="line"><span class="lineno">  109</span>        <a class="code hl_define" href="log_8hpp.html#a2ca6400202aff996e5ec2da3debff38f">log_once</a>(<span class="stringliteral">&quot; Decrement  Iache  %d   \n&quot;</span>, cnt);</div>
 <div class="line"><span class="lineno">  110</span>        <span class="keywordflow">if</span> (cnt == 0) {</div>
 <div class="line"><span class="lineno">  111</span>            im-&gt;$Delete(&amp;<a class="code hl_variable" href="struct_iache.html#ad3970065f6f0cebebce27a8ec49f5a78">hach</a>);</div>
 <div class="line"><span class="lineno">  112</span>        }</div>
@@ -276,11 +299,12 @@ template&lt;class I &gt; </div>
 <p class="definition">Definition at line <a class="el" href="incomplete_8h_source.html#l00062">62</a> of file <a class="el" href="incomplete_8h_source.html">incomplete.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   63</span>    {</div>
 <div class="line"><span class="lineno">   64</span>        <span class="keywordflow">if</span> (this-&gt;<a class="code hl_variable" href="struct_iache.html#aab9c556ac04f50da06acd59db9059299">hash</a> == <a class="code hl_variable" href="struct_iache.html#aab9c556ac04f50da06acd59db9059299">hash</a>) <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="struct_iache.html#ab44ae9de1741098aa1f15567607fcb0f">refCnt</a> &gt; 0)log_bad(<span class="stringliteral">&quot;Iache  reference exists. you lost the hash.  \n&quot;</span>);</div>
+<div class="line"><span class="lineno">   65</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="struct_iache.html#ab44ae9de1741098aa1f15567607fcb0f">refCnt</a> &gt; 0)<a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot;Iache  reference exists. you lost the hash.  \n&quot;</span>);</div>
 <div class="line"><span class="lineno">   66</span>        this-&gt;<a class="code hl_function" href="struct_iache.html#a149d9a954b92d9bd71847733ef02b719">~Iache</a>();</div>
 <div class="line"><span class="lineno">   67</span>        <span class="keyword">new</span> (<span class="keyword">this</span>) <a class="code hl_function" href="struct_iache.html#ac024322701bacfb4ae9e1bd84d6a83a2">Iache</a>(<a class="code hl_variable" href="struct_iache.html#aab9c556ac04f50da06acd59db9059299">hash</a>);</div>
 <div class="line"><span class="lineno">   68</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><span class="lineno">   69</span>    };</div>
+<div class="ttc" id="alog_8hpp_html_a0a8f190cbf66caba9750b487aa06d7f3"><div class="ttname"><a href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a></div><div class="ttdeci">#define log_bad(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00037">log.hpp:37</a></div></div>
 <div class="ttc" id="astruct_iache_html_a149d9a954b92d9bd71847733ef02b719"><div class="ttname"><a href="struct_iache.html#a149d9a954b92d9bd71847733ef02b719">Iache::~Iache</a></div><div class="ttdeci">~Iache()</div><div class="ttdef"><b>Definition:</b> <a href="incomplete_8h_source.html#l00059">incomplete.h:59</a></div></div>
 <div class="ttc" id="astruct_iache_html_ac024322701bacfb4ae9e1bd84d6a83a2"><div class="ttname"><a href="struct_iache.html#ac024322701bacfb4ae9e1bd84d6a83a2">Iache::Iache</a></div><div class="ttdeci">Iache()</div><div class="ttdef"><b>Definition:</b> <a href="incomplete_8h_source.html#l00057">incomplete.h:57</a></div></div>
 </div><!-- fragment -->
@@ -315,10 +339,10 @@ template&lt;class T &gt; </div>
 <p class="definition">Definition at line <a class="el" href="incomplete_8h_source.html#l00071">71</a> of file <a class="el" href="incomplete_8h_source.html">incomplete.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   72</span>    {</div>
 <div class="line"><span class="lineno">   73</span> </div>
-<div class="line"><span class="lineno">   74</span>        log_once(<span class="stringliteral">&quot; Call Swap  Iache  %d    %x &lt;=&gt; %x  ,  %x &lt;=&gt; %x \n&quot;</span>, <a class="code hl_variable" href="struct_iache.html#ab44ae9de1741098aa1f15567607fcb0f">refCnt</a>, this-&gt;<a class="code hl_variable" href="struct_iache.html#ad3970065f6f0cebebce27a8ec49f5a78">hach</a>.<a class="code hl_variable" href="struct_hache.html#a55d6ece49f34755604930b7c967c4cdb">id</a>, iach.hach.id, this-&gt;hash, iach.hash);</div>
+<div class="line"><span class="lineno">   74</span>        <a class="code hl_define" href="log_8hpp.html#a2ca6400202aff996e5ec2da3debff38f">log_once</a>(<span class="stringliteral">&quot; Call Swap  Iache  %d    %x &lt;=&gt; %x  ,  %x &lt;=&gt; %x \n&quot;</span>, <a class="code hl_variable" href="struct_iache.html#ab44ae9de1741098aa1f15567607fcb0f">refCnt</a>, this-&gt;<a class="code hl_variable" href="struct_iache.html#ad3970065f6f0cebebce27a8ec49f5a78">hach</a>.<a class="code hl_variable" href="struct_hache.html#a55d6ece49f34755604930b7c967c4cdb">id</a>, iach.hach.id, this-&gt;hash, iach.hash);</div>
 <div class="line"><span class="lineno">   75</span> </div>
 <div class="line"><span class="lineno">   76</span>        <span class="keywordflow">if</span> (this-&gt;<a class="code hl_variable" href="struct_iache.html#aab9c556ac04f50da06acd59db9059299">hash</a> == iach.hash) <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="struct_iache.html#ab44ae9de1741098aa1f15567607fcb0f">refCnt</a> &gt; 0)log_bad(<span class="stringliteral">&quot;Iache  reference exists. you lost the hash.  \n&quot;</span>);</div>
+<div class="line"><span class="lineno">   77</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="struct_iache.html#ab44ae9de1741098aa1f15567607fcb0f">refCnt</a> &gt; 0)<a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot;Iache  reference exists. you lost the hash.  \n&quot;</span>);</div>
 <div class="line"><span class="lineno">   78</span>        this-&gt;<a class="code hl_function" href="struct_iache.html#a149d9a954b92d9bd71847733ef02b719">~Iache</a>();</div>
 <div class="line"><span class="lineno">   79</span>        <span class="keyword">new</span> (<span class="keyword">this</span>) <a class="code hl_function" href="struct_iache.html#ac024322701bacfb4ae9e1bd84d6a83a2">Iache</a>(iach.hash);</div>
 <div class="line"><span class="lineno">   80</span>        this-&gt;<a class="code hl_variable" href="struct_iache.html#ad3970065f6f0cebebce27a8ec49f5a78">hach</a>.<a class="code hl_variable" href="struct_hache.html#a55d6ece49f34755604930b7c967c4cdb">id</a> = iach.hach.id;</div>
@@ -326,7 +350,7 @@ template&lt;class T &gt; </div>
 <div class="line"><span class="lineno">   82</span>        this-&gt;<a class="code hl_variable" href="struct_iache.html#abe0523f2c2da97f71bacf095a41d16c2">multisample</a> = iach.multisample;</div>
 <div class="line"><span class="lineno">   83</span>        this-&gt;<a class="code hl_variable" href="struct_iache.html#ab44ae9de1741098aa1f15567607fcb0f">refCnt</a> = iach.refCnt;</div>
 <div class="line"><span class="lineno">   84</span>        this-&gt;<a class="code hl_variable" href="struct_iache.html#a1c844687ed908eccf1cb597056bc8a4c">vkI</a> = iach.vkI;</div>
-<div class="line"><span class="lineno">   85</span>        log_once(<span class="stringliteral">&quot; Call Swap  view %x   id  %x  hash  %x  version %x\n&quot;</span>, this-&gt;<a class="code hl_variable" href="struct_iache.html#a1c844687ed908eccf1cb597056bc8a4c">vkI</a>, this-&gt;<a class="code hl_variable" href="struct_iache.html#ad3970065f6f0cebebce27a8ec49f5a78">hach</a>.<a class="code hl_variable" href="struct_hache.html#a55d6ece49f34755604930b7c967c4cdb">id</a>, this-&gt;hach.hash, this-&gt;hach.version);</div>
+<div class="line"><span class="lineno">   85</span>        <a class="code hl_define" href="log_8hpp.html#a2ca6400202aff996e5ec2da3debff38f">log_once</a>(<span class="stringliteral">&quot; Call Swap  view %x   id  %x  hash  %x  version %x\n&quot;</span>, this-&gt;<a class="code hl_variable" href="struct_iache.html#a1c844687ed908eccf1cb597056bc8a4c">vkI</a>, this-&gt;<a class="code hl_variable" href="struct_iache.html#ad3970065f6f0cebebce27a8ec49f5a78">hach</a>.<a class="code hl_variable" href="struct_hache.html#a55d6ece49f34755604930b7c967c4cdb">id</a>, this-&gt;hach.hash, this-&gt;hach.version);</div>
 <div class="line"><span class="lineno">   86</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><span class="lineno">   87</span>    };</div>
 <div class="ttc" id="astruct_hache_html_a55d6ece49f34755604930b7c967c4cdb"><div class="ttname"><a href="struct_hache.html#a55d6ece49f34755604930b7c967c4cdb">Hache::id</a></div><div class="ttdeci">long id</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00438">vthreepy_types.h:438</a></div></div>
@@ -537,9 +561,13 @@ template&lt;class T &gt; </div>
 <li><a class="el" href="incomplete_8h_source.html">incomplete.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="struct_iache.html">Iache</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

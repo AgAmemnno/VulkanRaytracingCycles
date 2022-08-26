@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_allocator_vk_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,18 +84,13 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">AllocatorVk.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="_allocator_vk_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;pch_mm.h&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;working_mm.h&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="pch__mm_8h.html">pch_mm.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="working__mm_8h.html">working_mm.h</a>&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">extern</span> <a class="code hl_struct" href="structfront_1_1_schedule.html">front::Schedule</a>         <a class="code hl_variable" href="_allocator_vk_8cpp.html#a559629485e1d0ab3a468ffb32e06fddb">sch</a>;</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">extern</span> <a class="code hl_struct" href="structvk_d_s_l_mem.html">vkDSLMem</a> <a class="code hl_variable" href="_allocator_vk_8cpp.html#a160bfc640ca7ca0da509e9a64ebc0f08">DSL</a>;</div>
@@ -238,17 +256,17 @@ $(function() {
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        redisReply* reply;</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        reply = (redisReply*)redisCommand(c, <span class="stringliteral">&quot;SELECT %d&quot;</span>, n);</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        RD_CHECK(reply);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <a class="code hl_define" href="pch__mm_8h.html#af843ba64786ab0d783ab640ae8a807a9">RD_CHECK</a>(reply);</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        freeReplyObject(reply);</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        reply = (redisReply*)redisCommand(c, <span class="stringliteral">&quot;FLUSHDB&quot;</span>);</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        RD_CHECK(reply);</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <a class="code hl_define" href="pch__mm_8h.html#af843ba64786ab0d783ab640ae8a807a9">RD_CHECK</a>(reply);</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        freeReplyObject(reply);</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    }</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordtype">void</span> hpushf(<span class="keyword">const</span>  <span class="keywordtype">char</span>* file, <span class="keywordtype">int</span> line, <span class="keyword">enum</span> LOG_LEVEL level, <span class="keyword">const</span>  <span class="keywordtype">char</span>* fmt, ...)</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordtype">void</span> hpushf(<span class="keyword">const</span>  <span class="keywordtype">char</span>* file, <span class="keywordtype">int</span> line, <span class="keyword">enum</span> <a class="code hl_enumeration" href="log_8hpp.html#aa5a9053636a30269210c54e734e0d583">LOG_LEVEL</a> level, <span class="keyword">const</span>  <span class="keywordtype">char</span>* fmt, ...)</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    {</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <span class="keywordtype">char</span> message[512] = { 0 };</div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        va_list args;</div>
@@ -260,20 +278,20 @@ $(function() {
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        sprintf_s(key, <span class="stringliteral">&quot;%s:%d %s &quot;</span>, file, line, log_label(level));</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        RD_CHECK( ((redisReply*) redisCommand(c, <span class="stringliteral">&quot;HMSET ALLOCATE_LOG  %s  %s&quot;</span>, key,message)) );</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <a class="code hl_define" href="pch__mm_8h.html#af843ba64786ab0d783ab640ae8a807a9">RD_CHECK</a>( ((redisReply*) redisCommand(c, <span class="stringliteral">&quot;HMSET ALLOCATE_LOG  %s  %s&quot;</span>, key,message)) );</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    }</div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordtype">void</span> hpush(<span class="keyword">const</span>  <span class="keywordtype">char</span>* file, <span class="keywordtype">int</span> line, <span class="keyword">enum</span> LOG_LEVEL level, <span class="keyword">const</span>  <span class="keywordtype">char</span>* rep)</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordtype">void</span> hpush(<span class="keyword">const</span>  <span class="keywordtype">char</span>* file, <span class="keywordtype">int</span> line, <span class="keyword">enum</span> <a class="code hl_enumeration" href="log_8hpp.html#aa5a9053636a30269210c54e734e0d583">LOG_LEVEL</a> level, <span class="keyword">const</span>  <span class="keywordtype">char</span>* rep)</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    {</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <span class="keywordtype">char</span> key[128] = { 0 };</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        sprintf_s(key, <span class="stringliteral">&quot;%s:%d %s &quot;</span>, file, line, log_label(level));</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        RD_CHECK(((redisReply*)redisCommand(c, <span class="stringliteral">&quot;HMSET ALLOCATE_LOG  %s  %s&quot;</span>, rep,key)));</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <a class="code hl_define" href="pch__mm_8h.html#af843ba64786ab0d783ab640ae8a807a9">RD_CHECK</a>(((redisReply*)redisCommand(c, <span class="stringliteral">&quot;HMSET ALLOCATE_LOG  %s  %s&quot;</span>, rep,key)));</div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
@@ -348,7 +366,7 @@ $(function() {
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            <span class="keywordflow">if</span> (it != v.end())</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            {</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span><span class="preprocessor">#ifdef USE_HIREDIS</span></div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>                rlog.hpush(__FILE__, __LINE__, LOG_TRACE, value.__rep__(<span class="keyword">true</span>));</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>                rlog.hpush(__FILE__, __LINE__, <a class="code hl_enumvalue" href="log_8hpp.html#aa5a9053636a30269210c54e734e0d583a5b76dd51db62558b1952158ba38b723f">LOG_TRACE</a>, value.__rep__(<span class="keyword">true</span>));</div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>              <span class="comment">// v.erase(it);</span></div>
 <div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
@@ -379,7 +397,7 @@ $(function() {
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    {</div>
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        vec.insert(vec.begin() + index, item);</div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="preprocessor">#ifdef USE_HIREDIS</span></div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>        rlog.hpush(__FILE__, __LINE__, LOG_TRACE,item.__rep__());</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>        rlog.hpush(__FILE__, __LINE__, <a class="code hl_enumvalue" href="log_8hpp.html#aa5a9053636a30269210c54e734e0d583a5b76dd51db62558b1952158ba38b723f">LOG_TRACE</a>,item.__rep__());</div>
 <div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    }</div>
@@ -1376,7 +1394,7 @@ $(function() {
 <div class="line"><a id="l01329" name="l01329"></a><span class="lineno"> 1329</span>        <span class="keywordtype">bool</span> dedicated = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01330" name="l01330"></a><span class="lineno"> 1330</span>        <span class="keywordflow">if</span> (memTypeIndex == 2 || memTypeIndex == 3 || memTypeIndex == 0) {</div>
 <div class="line"><a id="l01331" name="l01331"></a><span class="lineno"> 1331</span>            <span class="keywordflow">if</span> (<a class="code hl_define" href="_memory_vk_8h.html#a3681248cab002049a231269fab84de70">HOST_VISIBLE_SINGLE_ALLO_MAX</a> &lt; size) {</div>
-<div class="line"><a id="l01332" name="l01332"></a><span class="lineno"> 1332</span>                log_bad(<span class="stringliteral">&quot;memory out of range \n&quot;</span>);</div>
+<div class="line"><a id="l01332" name="l01332"></a><span class="lineno"> 1332</span>                <a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot;memory out of range \n&quot;</span>);</div>
 <div class="line"><a id="l01333" name="l01333"></a><span class="lineno"> 1333</span>            }</div>
 <div class="line"><a id="l01334" name="l01334"></a><span class="lineno"> 1334</span>        }</div>
 <div class="line"><a id="l01335" name="l01335"></a><span class="lineno"> 1335</span> </div>
@@ -1869,7 +1887,7 @@ $(function() {
 <div class="line"><a id="l01825" name="l01825"></a><span class="lineno"> 1825</span> </div>
 <div class="line"><a id="l01826" name="l01826"></a><span class="lineno"> 1826</span>            <span class="keywordflow">if</span> (t == x.<a class="code hl_variable" href="structfront_1_1_synco.html#a61a07ccfd7639ad923bd97c647c58cbd">name</a> &amp;&amp; No == <span class="keywordtype">int</span>(x.<a class="code hl_variable" href="structfront_1_1_synco.html#af43b1646caabe0797ce9c4a93f25e1a3">id</a> - <span class="charliteral">&#39;0&#39;</span>)) <span class="keywordflow">return</span> x;</div>
 <div class="line"><a id="l01827" name="l01827"></a><span class="lineno"> 1827</span>        };</div>
-<div class="line"><a id="l01828" name="l01828"></a><span class="lineno"> 1828</span>        log_bad(<span class="stringliteral">&quot;your order is invalid.  name %c   id %d  \n&quot;</span>, t, No);</div>
+<div class="line"><a id="l01828" name="l01828"></a><span class="lineno"> 1828</span>        <a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot;your order is invalid.  name %c   id %d  \n&quot;</span>, t, No);</div>
 <div class="line"><a id="l01829" name="l01829"></a><span class="lineno"> 1829</span>        <span class="keywordflow">return</span>  *(<span class="keyword">const</span> <a class="code hl_struct" href="structfront_1_1_synco.html">tankType</a>*)0;</div>
 <div class="line"><a id="l01830" name="l01830"></a><span class="lineno"> 1830</span> </div>
 <div class="line"><a id="l01831" name="l01831"></a><span class="lineno"> 1831</span>    };</div>
@@ -1924,7 +1942,7 @@ $(function() {
 <div class="line"><a id="l01880" name="l01880"></a><span class="lineno"> 1880</span>                        <span class="keywordflow">if</span> (<a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#afa1537d49694aa861884312166de813e">idx</a> != 0 &amp;&amp; <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a7584663bcbea03e78fe14568d9549644">desfuture</a>[<a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#afa1537d49694aa861884312166de813e">idx</a>].valid()) {</div>
 <div class="line"><a id="l01881" name="l01881"></a><span class="lineno"> 1881</span>                            <span class="keywordtype">bool</span> res = <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a7584663bcbea03e78fe14568d9549644">desfuture</a>[<a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#afa1537d49694aa861884312166de813e">idx</a>].get();</div>
 <div class="line"><a id="l01882" name="l01882"></a><span class="lineno"> 1882</span>                            <span class="keywordflow">if</span> (!res) {</div>
-<div class="line"><a id="l01883" name="l01883"></a><span class="lineno"> 1883</span>                                log_warning(<span class="stringliteral">&quot;you dont know whether or not nip in the bud.&quot;</span>);</div>
+<div class="line"><a id="l01883" name="l01883"></a><span class="lineno"> 1883</span>                                <a class="code hl_define" href="log_8hpp.html#a5f2c72e6f2dc833f040b39ee7597d944">log_warning</a>(<span class="stringliteral">&quot;you dont know whether or not nip in the bud.&quot;</span>);</div>
 <div class="line"><a id="l01884" name="l01884"></a><span class="lineno"> 1884</span>                            };</div>
 <div class="line"><a id="l01885" name="l01885"></a><span class="lineno"> 1885</span>                        }</div>
 <div class="line"><a id="l01886" name="l01886"></a><span class="lineno"> 1886</span>                        <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a530c6f443f187192ee42062d97270162">_total</a>++;</div>
@@ -1933,7 +1951,7 @@ $(function() {
 <div class="line"><a id="l01889" name="l01889"></a><span class="lineno"> 1889</span>                }</div>
 <div class="line"><a id="l01890" name="l01890"></a><span class="lineno"> 1890</span>            };</div>
 <div class="line"><a id="l01891" name="l01891"></a><span class="lineno"> 1891</span> </div>
-<div class="line"><a id="l01892" name="l01892"></a><span class="lineno"> 1892</span>            log_debug(<span class="stringliteral">&quot;Nip in the Bud  Ternimate.   %u  &lt;&gt;  %u     size  % zu  \n&quot;</span>, <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a530c6f443f187192ee42062d97270162">_total</a>, <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a9ba3445a05476a795d0b85fd585a1762">budsNums</a>.load(), <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a7584663bcbea03e78fe14568d9549644">desfuture</a>.size());</div>
+<div class="line"><a id="l01892" name="l01892"></a><span class="lineno"> 1892</span>            <a class="code hl_define" href="log_8hpp.html#aa77e596ef13d2f0f75d0ac9540ed358d">log_debug</a>(<span class="stringliteral">&quot;Nip in the Bud  Ternimate.   %u  &lt;&gt;  %u     size  % zu  \n&quot;</span>, <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a530c6f443f187192ee42062d97270162">_total</a>, <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a9ba3445a05476a795d0b85fd585a1762">budsNums</a>.load(), <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a7584663bcbea03e78fe14568d9549644">desfuture</a>.size());</div>
 <div class="line"><a id="l01893" name="l01893"></a><span class="lineno"> 1893</span>            <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#ad46fb35b826d3b817e90b1d83c69cc69">buds</a>.<a class="code hl_function" href="classfront_1_1bonqueue.html#abcd922dad2feb61affe4e2366be32209">push</a>(12345);</div>
 <div class="line"><a id="l01894" name="l01894"></a><span class="lineno"> 1894</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l01895" name="l01895"></a><span class="lineno"> 1895</span> </div>
@@ -1964,7 +1982,7 @@ $(function() {
 <div class="line"><a id="l01921" name="l01921"></a><span class="lineno"> 1921</span>        }</div>
 <div class="line"><a id="l01922" name="l01922"></a><span class="lineno"> 1922</span>        <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l01923" name="l01923"></a><span class="lineno"> 1923</span>            LeaveCriticalSection(&amp;sectAlloc);</div>
-<div class="line"><a id="l01924" name="l01924"></a><span class="lineno"> 1924</span>            log_bad(<span class="stringliteral">&quot;Killer  failed to allocate. \n&quot;</span>);</div>
+<div class="line"><a id="l01924" name="l01924"></a><span class="lineno"> 1924</span>            <a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot;Killer  failed to allocate. \n&quot;</span>);</div>
 <div class="line"><a id="l01925" name="l01925"></a><span class="lineno"> 1925</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l01926" name="l01926"></a><span class="lineno"> 1926</span>        }</div>
 <div class="line"><a id="l01927" name="l01927"></a><span class="lineno"> 1927</span> </div>
@@ -2028,7 +2046,7 @@ $(function() {
 <div class="line"><a id="l01985" name="l01985"></a><span class="lineno"> 1985</span> </div>
 <div class="line"><a id="l01986" name="l01986"></a><span class="lineno"> 1986</span>                uint32_t fin = <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#ad46fb35b826d3b817e90b1d83c69cc69">buds</a>.<a class="code hl_function" href="classfront_1_1bonqueue.html#aca7111547d96cab319dde2eb92beab56">nip</a>();</div>
 <div class="line"><a id="l01987" name="l01987"></a><span class="lineno"> 1987</span>                <span class="keywordflow">if</span> (!(fin == 12345 ||  fin == 0) ){</div>
-<div class="line"><a id="l01988" name="l01988"></a><span class="lineno"> 1988</span>                    log_bad(<span class="stringliteral">&quot;Nip Not at All Buds. total %u   fin   %u    last  %u  \n&quot;</span>, <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a530c6f443f187192ee42062d97270162">_total</a>, fin, <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a9ba3445a05476a795d0b85fd585a1762">budsNums</a>.load());</div>
+<div class="line"><a id="l01988" name="l01988"></a><span class="lineno"> 1988</span>                    <a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot;Nip Not at All Buds. total %u   fin   %u    last  %u  \n&quot;</span>, <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a530c6f443f187192ee42062d97270162">_total</a>, fin, <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a9ba3445a05476a795d0b85fd585a1762">budsNums</a>.load());</div>
 <div class="line"><a id="l01989" name="l01989"></a><span class="lineno"> 1989</span>                }</div>
 <div class="line"><a id="l01990" name="l01990"></a><span class="lineno"> 1990</span> </div>
 <div class="line"><a id="l01991" name="l01991"></a><span class="lineno"> 1991</span> </div>
@@ -2039,13 +2057,13 @@ $(function() {
 <div class="line"><a id="l01996" name="l01996"></a><span class="lineno"> 1996</span>                ssize_t N = (killer.size &gt; killer.idx) ? killer.idx : killer.size;</div>
 <div class="line"><a id="l01997" name="l01997"></a><span class="lineno"> 1997</span>                for (ssize_t <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#afa1537d49694aa861884312166de813e">idx</a> = 0; <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#afa1537d49694aa861884312166de813e">idx</a> &lt; N; <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#afa1537d49694aa861884312166de813e">idx</a>++) {</div>
 <div class="line"><a id="l01999" name="l01999"></a><span class="lineno"> 1999</span>                    <span class="keywordflow">if</span> (!<a class="code hl_function" href="structfront_1_1_deallocator_vk.html#aad8210487d9b2d1a44b9e9ef1741f7a8">KillForce</a>(<a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#afa1537d49694aa861884312166de813e">idx</a>)) {</div>
-<div class="line"><a id="l02000" name="l02000"></a><span class="lineno"> 2000</span>                        log_bad(<span class="stringliteral">&quot;killer failed to kill.\n&quot;</span>);</div>
+<div class="line"><a id="l02000" name="l02000"></a><span class="lineno"> 2000</span>                        <a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot;killer failed to kill.\n&quot;</span>);</div>
 <div class="line"><a id="l02001" name="l02001"></a><span class="lineno"> 2001</span>                    };</div>
 <div class="line"><a id="l02002" name="l02002"></a><span class="lineno"> 2002</span>                }</div>
 <div class="line"><a id="l02003" name="l02003"></a><span class="lineno"> 2003</span>            }</div>
 <div class="line"><a id="l02004" name="l02004"></a><span class="lineno"> 2004</span> </div>
 <div class="line"><a id="l02005" name="l02005"></a><span class="lineno"> 2005</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [k, th] : <a class="code hl_variable" href="structfront_1_1_deallocator_vk.html#a86f09c07819233c319d08e118917df5d">beginThreads</a>) {</div>
-<div class="line"><a id="l02006" name="l02006"></a><span class="lineno"> 2006</span>                log_info(<span class="stringliteral">&quot;Holocaust  Close  Threads           %s  \n&quot;</span>, k.c_str());</div>
+<div class="line"><a id="l02006" name="l02006"></a><span class="lineno"> 2006</span>                <a class="code hl_define" href="log_8hpp.html#aa1cfe5444875c8eca0ea6f6993977d6d">log_info</a>(<span class="stringliteral">&quot;Holocaust  Close  Threads           %s  \n&quot;</span>, k.c_str());</div>
 <div class="line"><a id="l02007" name="l02007"></a><span class="lineno"> 2007</span>                CloseHandle(th);</div>
 <div class="line"><a id="l02008" name="l02008"></a><span class="lineno"> 2008</span>            };</div>
 <div class="line"><a id="l02009" name="l02009"></a><span class="lineno"> 2009</span> </div>
@@ -2160,6 +2178,12 @@ $(function() {
 <div class="ttc" id="aclassfront_1_1bonqueue_html_aca7111547d96cab319dde2eb92beab56"><div class="ttname"><a href="classfront_1_1bonqueue.html#aca7111547d96cab319dde2eb92beab56">front::bonqueue::nip</a></div><div class="ttdeci">T nip()</div><div class="ttdef"><b>Definition:</b> <a href="_signal_vk_8h_source.html#l00071">SignalVk.h:71</a></div></div>
 <div class="ttc" id="aclassfront_1_1bonqueue_html_af2b4e3935ef3f937c71947a84f259044"><div class="ttname"><a href="classfront_1_1bonqueue.html#af2b4e3935ef3f937c71947a84f259044">front::bonqueue::produce</a></div><div class="ttdeci">uint32_t produce</div><div class="ttdef"><b>Definition:</b> <a href="_signal_vk_8h_source.html#l00031">SignalVk.h:31</a></div></div>
 <div class="ttc" id="aclassvkmm_1_1_stl_allocator_html"><div class="ttname"><a href="classvkmm_1_1_stl_allocator.html">vkmm::StlAllocator</a></div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8h_source.html#l00875">AllocatorVk.h:876</a></div></div>
+<div class="ttc" id="alog_8hpp_html_a0a8f190cbf66caba9750b487aa06d7f3"><div class="ttname"><a href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a></div><div class="ttdeci">#define log_bad(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00037">log.hpp:37</a></div></div>
+<div class="ttc" id="alog_8hpp_html_a5f2c72e6f2dc833f040b39ee7597d944"><div class="ttname"><a href="log_8hpp.html#a5f2c72e6f2dc833f040b39ee7597d944">log_warning</a></div><div class="ttdeci">#define log_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00035">log.hpp:35</a></div></div>
+<div class="ttc" id="alog_8hpp_html_aa1cfe5444875c8eca0ea6f6993977d6d"><div class="ttname"><a href="log_8hpp.html#aa1cfe5444875c8eca0ea6f6993977d6d">log_info</a></div><div class="ttdeci">#define log_info(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00034">log.hpp:34</a></div></div>
+<div class="ttc" id="alog_8hpp_html_aa5a9053636a30269210c54e734e0d583"><div class="ttname"><a href="log_8hpp.html#aa5a9053636a30269210c54e734e0d583">LOG_LEVEL</a></div><div class="ttdeci">LOG_LEVEL</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00045">log.hpp:45</a></div></div>
+<div class="ttc" id="alog_8hpp_html_aa5a9053636a30269210c54e734e0d583a5b76dd51db62558b1952158ba38b723f"><div class="ttname"><a href="log_8hpp.html#aa5a9053636a30269210c54e734e0d583a5b76dd51db62558b1952158ba38b723f">LOG_TRACE</a></div><div class="ttdeci">@ LOG_TRACE</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00046">log.hpp:46</a></div></div>
+<div class="ttc" id="alog_8hpp_html_aa77e596ef13d2f0f75d0ac9540ed358d"><div class="ttname"><a href="log_8hpp.html#aa77e596ef13d2f0f75d0ac9540ed358d">log_debug</a></div><div class="ttdeci">#define log_debug(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00027">log.hpp:27</a></div></div>
 <div class="ttc" id="anamespacefront_html"><div class="ttname"><a href="namespacefront.html">front</a></div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8cpp_source.html#l01784">AllocatorVk.cpp:1784</a></div></div>
 <div class="ttc" id="anamespacefront_html_a06e850c701fd43ab5d72dd391f088a84"><div class="ttname"><a href="namespacefront.html#a06e850c701fd43ab5d72dd391f088a84">front::asignable</a></div><div class="ttdeci">void asignable(T &amp;dst, const T &amp;src)</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8h_source.html#l01599">AllocatorVk.h:1599</a></div></div>
 <div class="ttc" id="anamespacefront_html_a25250955183760ec8f28e664b925fd92"><div class="ttname"><a href="namespacefront.html#a25250955183760ec8f28e664b925fd92">front::tbbALMap</a></div><div class="ttdeci">tbb::concurrent_unordered_map&lt; std::string, vkmm::Allocation, std::hash&lt; std::string &gt;, std::equal_to&lt; std::string &gt;, tbbTAllocator &gt; tbbALMap</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8h_source.html#l01457">AllocatorVk.h:1457</a></div></div>
@@ -2199,6 +2223,8 @@ $(function() {
 <div class="ttc" id="anamespacevkmm_html_af13fe7d0e291f535f45a5f306b721f74"><div class="ttname"><a href="namespacevkmm.html#af13fe7d0e291f535f45a5f306b721f74">vkmm::CreateAllocator</a></div><div class="ttdeci">VkResult CreateAllocator(const AllocatorCreateInfo *pCreateInfo, Allocator *pAllocator)</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8cpp_source.html#l00228">AllocatorVk.cpp:228</a></div></div>
 <div class="ttc" id="anamespacevkmm_html_afff914a40f73475bdfc7931e145923a8"><div class="ttname"><a href="namespacevkmm.html#afff914a40f73475bdfc7931e145923a8">vkmm::SuballocationType</a></div><div class="ttdeci">SuballocationType</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8h_source.html#l00738">AllocatorVk.h:739</a></div></div>
 <div class="ttc" id="anamespacevkmm_html_afff914a40f73475bdfc7931e145923a8a0cf37647cb309a1678b1f69609dd00f1"><div class="ttname"><a href="namespacevkmm.html#afff914a40f73475bdfc7931e145923a8a0cf37647cb309a1678b1f69609dd00f1">vkmm::SUBALLOCATION_TYPE_BUFFER</a></div><div class="ttdeci">@ SUBALLOCATION_TYPE_BUFFER</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8h_source.html#l00742">AllocatorVk.h:742</a></div></div>
+<div class="ttc" id="apch__mm_8h_html"><div class="ttname"><a href="pch__mm_8h.html">pch_mm.h</a></div></div>
+<div class="ttc" id="apch__mm_8h_html_af843ba64786ab0d783ab640ae8a807a9"><div class="ttname"><a href="pch__mm_8h.html#af843ba64786ab0d783ab640ae8a807a9">RD_CHECK</a></div><div class="ttdeci">#define RD_CHECK(X)</div><div class="ttdef"><b>Definition:</b> <a href="pch__mm_8h_source.html#l00100">pch_mm.h:100</a></div></div>
 <div class="ttc" id="astructfront_1_1_deallocator_vk_html_a0a2c308bf2a974944167800ae47b919f"><div class="ttname"><a href="structfront_1_1_deallocator_vk.html#a0a2c308bf2a974944167800ae47b919f">front::DeallocatorVk::AllocFuture</a></div><div class="ttdeci">uint32_t AllocFuture()</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8cpp_source.html#l01898">AllocatorVk.cpp:1898</a></div></div>
 <div class="ttc" id="astructfront_1_1_deallocator_vk_html_a1947e1c5778a07c7e6f207f8b8655ed5"><div class="ttname"><a href="structfront_1_1_deallocator_vk.html#a1947e1c5778a07c7e6f207f8b8655ed5">front::DeallocatorVk::AllocKiller</a></div><div class="ttdeci">bool AllocKiller(ssize_t idx, ssize_t reserve)</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8cpp_source.html#l01905">AllocatorVk.cpp:1905</a></div></div>
 <div class="ttc" id="astructfront_1_1_deallocator_vk_html_a216bdc1ab2abdb0fc2fd71019514e576"><div class="ttname"><a href="structfront_1_1_deallocator_vk.html#a216bdc1ab2abdb0fc2fd71019514e576">front::DeallocatorVk::~DeallocatorVk</a></div><div class="ttdeci">~DeallocatorVk()</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8cpp_source.html#l02024">AllocatorVk.cpp:2024</a></div></div>
@@ -2310,10 +2336,15 @@ $(function() {
 <div class="ttc" id="astructvkmm_1_1_vk_m_a_info_html_a783ebd2213d6639d811c0069855976ed"><div class="ttname"><a href="structvkmm_1_1_vk_m_a_info.html#a783ebd2213d6639d811c0069855976ed">vkmm::VkMAInfo::append</a></div><div class="ttdeci">void append(T *&amp;info)</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8h_source.html#l00481">AllocatorVk.h:481</a></div></div>
 <div class="ttc" id="avthreepy__types_8h_html_a661447a7b8e19d0f98c60b4416d96fa2"><div class="ttname"><a href="vthreepy__types_8h.html#a661447a7b8e19d0f98c60b4416d96fa2">allocator</a></div><div class="ttdeci">#define allocator</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00128">vthreepy_types.h:128</a></div></div>
 <div class="ttc" id="avthreepy__types_8h_html_aef7a21434149483dce8523b156145dfa"><div class="ttname"><a href="vthreepy__types_8h.html#aef7a21434149483dce8523b156145dfa">FLUSH_TYPE</a></div><div class="ttdeci">#define FLUSH_TYPE</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00014">vthreepy_types.h:14</a></div></div>
+<div class="ttc" id="aworking__mm_8h_html"><div class="ttname"><a href="working__mm_8h.html">working_mm.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li><li class="navelem"><a class="el" href="_allocator_vk_8cpp.html">AllocatorVk.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

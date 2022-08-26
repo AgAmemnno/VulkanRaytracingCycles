@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_context1_vk_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,27 +84,22 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">Context1Vk.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_context1_vk_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;pch_mm.h&quot;</span></div>
+<a href="_context1_vk_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="pch__mm_8h.html">pch_mm.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#ifdef AEOLUS_EXE</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;stdafx.h&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_context1_vk_8h.html">Context1Vk.h</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;util/log.hpp&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="log_8hpp.html">util/log.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#else</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;types.hpp&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="_context1_vk_8h.html">Context1Vk.h</a>&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;ext/extensions_vk.hpp&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="extensions__vk_8hpp.html">ext/extensions_vk.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
@@ -114,7 +132,7 @@ $(function() {
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        }</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!itr.optional)</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            log_warning(<span class="stringliteral">&quot;VK_ERROR_EXTENSION_NOT_PRESENT: %s - %d\n&quot;</span>, itr.name, itr.version);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <a class="code hl_define" href="log_8hpp.html#a5f2c72e6f2dc833f040b39ee7597d944">log_warning</a>(<span class="stringliteral">&quot;VK_ERROR_EXTENSION_NOT_PRESENT: %s - %d\n&quot;</span>, itr.name, itr.version);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keywordflow">return</span> VK_ERROR_EXTENSION_NOT_PRESENT;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        }</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
@@ -207,7 +225,7 @@ $(function() {
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="preprocessor">#ifdef  ENABLED_VULKAN_OVR </span></div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">if</span> (!vr::VRCompositor())</div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    {</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        log_bad(<span class="stringliteral">&quot;Unable to init VR runtime&quot;</span>);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot;Unable to init VR runtime&quot;</span>);</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    }</div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
@@ -257,14 +275,14 @@ $(function() {
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    VkResult err;</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    err = <a class="code hl_function" href="struct_context0_vk.html#a69bffce5da38c084ffd6f2f815f36078">createInstance</a>(<a class="code hl_variable" href="struct_context0_vk.html#aa5ee8777d4443d161f91069aabd7960d">settings</a>.<a class="code hl_variable" href="struct_context0_vk_1_1_settings.html#a7019b4342ccc64c37d4f51fc9f03fb63">validation</a>);</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="keywordflow">if</span> (err) {</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        log_vkabad(err, <span class="stringliteral">&quot;Could not create Vulkan instance :  %s  \n&quot;</span>);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <a class="code hl_define" href="log_8hpp.html#a46132557e6bdaab620a73df3aa3c4adb">log_vkabad</a>(err, <span class="stringliteral">&quot;Could not create Vulkan instance :  %s  \n&quot;</span>);</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    };</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    assert(<a class="code hl_variable" href="struct_context0_vk.html#acba57e6db7a6d5b637be54c2e1f466ea">device</a>.<a class="code hl_function" href="struct_device_master_vk.html#a5729b7801979070f125a3c17fc4bd85f">setupPhysicalDevice</a>(<a class="code hl_variable" href="struct_context0_vk.html#a7cbc110507b141db81d9c0f226de65ec">instance</a>));</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    VK_CHECK_RESULT(<a class="code hl_variable" href="struct_context0_vk.html#acba57e6db7a6d5b637be54c2e1f466ea">device</a>.<a class="code hl_function" href="struct_device_master_vk.html#abcda0cb156f92cee866fb91cd8f6fa73">createLogicalDevice</a>(<a class="code hl_variable" href="struct_context0_vk.html#af3b3e7004eee11ecef29dcdead491977">appInfo</a>))</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    </div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    load_VK_EXTENSION_SUBSET(<a class="code hl_variable" href="struct_context0_vk.html#a7cbc110507b141db81d9c0f226de65ec">instance</a>, vkGetInstanceProcAddr, <a class="code hl_variable" href="struct_context0_vk.html#acba57e6db7a6d5b637be54c2e1f466ea">device</a>.<a class="code hl_variable" href="struct_device_master_vk.html#a35ec5e3e3e6ebd6858666380e9b7ca84">logical</a>, vkGetDeviceProcAddr);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <a class="code hl_function" href="extensions__vk_8cpp.html#acd80eb6c68ba0356400279450d76bffb">load_VK_EXTENSION_SUBSET</a>(<a class="code hl_variable" href="struct_context0_vk.html#a7cbc110507b141db81d9c0f226de65ec">instance</a>, vkGetInstanceProcAddr, <a class="code hl_variable" href="struct_context0_vk.html#acba57e6db7a6d5b637be54c2e1f466ea">device</a>.<a class="code hl_variable" href="struct_device_master_vk.html#a35ec5e3e3e6ebd6858666380e9b7ca84">logical</a>, vkGetDeviceProcAddr);</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
@@ -660,7 +678,7 @@ $(function() {
 <div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span> </div>
 <div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>        res = ((PFN_vkCreateDebugReportCallbackEXT)vkGetInstanceProcAddr(<a class="code hl_variable" href="struct_context0_vk.html#a7cbc110507b141db81d9c0f226de65ec">instance</a>, <span class="stringliteral">&quot;vkCreateDebugReportCallbackEXT&quot;</span>))(<a class="code hl_variable" href="struct_context0_vk.html#a7cbc110507b141db81d9c0f226de65ec">instance</a>, &amp;callback1, <span class="keyword">nullptr</span>, &amp;cb1);</div>
 <div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>         <span class="keywordflow">if</span> (res != VK_SUCCESS) {</div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>             log_bad(<span class="stringliteral">&quot; Failed to create DebugReport\n &quot;</span>);</div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>             <a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot; Failed to create DebugReport\n &quot;</span>);</div>
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>         }</div>
 <div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>            <span class="comment">// Debug reporting system</span></div>
 <div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>            <span class="comment">// Setup our pointers to the VK_EXT_debug_utils commands</span></div>
@@ -742,6 +760,13 @@ $(function() {
 <div class="ttc" id="a_context1_vk_8h_html_a0a1ecd7f00fae6a6733935109a15669b"><div class="ttname"><a href="_context1_vk_8h.html#a0a1ecd7f00fae6a6733935109a15669b">VK_EXAMPLE_DATA_DIR</a></div><div class="ttdeci">#define VK_EXAMPLE_DATA_DIR</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00041">Context1Vk.h:41</a></div></div>
 <div class="ttc" id="a_context1_vk_8h_html_a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a977cc667a6db29d9dd079d6b6d3b8e9b"><div class="ttname"><a href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a977cc667a6db29d9dd079d6b6d3b8e9b">External</a></div><div class="ttdeci">@ External</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00700">Context1Vk.h:700</a></div></div>
 <div class="ttc" id="a_context1_vk_8h_html_aa775116810ab00b3b4f1dd0a5a7c404a"><div class="ttname"><a href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a></div><div class="ttdeci">#define log_ctx(...)</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00035">Context1Vk.h:35</a></div></div>
+<div class="ttc" id="aextensions__vk_8cpp_html_acd80eb6c68ba0356400279450d76bffb"><div class="ttname"><a href="extensions__vk_8cpp.html#acd80eb6c68ba0356400279450d76bffb">load_VK_EXTENSION_SUBSET</a></div><div class="ttdeci">void load_VK_EXTENSION_SUBSET(VkInstance instance, PFN_vkGetInstanceProcAddr getInstanceProcAddr, VkDevice device, PFN_vkGetDeviceProcAddr getDeviceProcAddr)</div><div class="ttdef"><b>Definition:</b> <a href="extensions__vk_8cpp_source.html#l01456">extensions_vk.cpp:1456</a></div></div>
+<div class="ttc" id="aextensions__vk_8hpp_html"><div class="ttname"><a href="extensions__vk_8hpp.html">extensions_vk.hpp</a></div></div>
+<div class="ttc" id="alog_8hpp_html"><div class="ttname"><a href="log_8hpp.html">log.hpp</a></div></div>
+<div class="ttc" id="alog_8hpp_html_a0a8f190cbf66caba9750b487aa06d7f3"><div class="ttname"><a href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a></div><div class="ttdeci">#define log_bad(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00037">log.hpp:37</a></div></div>
+<div class="ttc" id="alog_8hpp_html_a46132557e6bdaab620a73df3aa3c4adb"><div class="ttname"><a href="log_8hpp.html#a46132557e6bdaab620a73df3aa3c4adb">log_vkabad</a></div><div class="ttdeci">#define log_vkabad(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00038">log.hpp:38</a></div></div>
+<div class="ttc" id="alog_8hpp_html_a5f2c72e6f2dc833f040b39ee7597d944"><div class="ttname"><a href="log_8hpp.html#a5f2c72e6f2dc833f040b39ee7597d944">log_warning</a></div><div class="ttdeci">#define log_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00035">log.hpp:35</a></div></div>
+<div class="ttc" id="apch__mm_8h_html"><div class="ttname"><a href="pch__mm_8h.html">pch_mm.h</a></div></div>
 <div class="ttc" id="astruct___vkformat_html_a27ae8c3fda8b998e2f7bf613eeec8f77"><div class="ttname"><a href="struct___vkformat.html#a27ae8c3fda8b998e2f7bf613eeec8f77">_Vkformat::COLORSPACE</a></div><div class="ttdeci">VkColorSpaceKHR COLORSPACE</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00089">vthreepy_types.h:89</a></div></div>
 <div class="ttc" id="astruct___vkformat_html_a463b35d4e0eb44b278ae9f201a024c39"><div class="ttname"><a href="struct___vkformat.html#a463b35d4e0eb44b278ae9f201a024c39">_Vkformat::COLORFORMAT_VR</a></div><div class="ttdeci">VkFormat COLORFORMAT_VR</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00091">vthreepy_types.h:91</a></div></div>
 <div class="ttc" id="astruct___vkformat_html_a96ba596cb2ca922995f3171c0fb5f140"><div class="ttname"><a href="struct___vkformat.html#a96ba596cb2ca922995f3171c0fb5f140">_Vkformat::COLORFORMAT</a></div><div class="ttdeci">VkFormat COLORFORMAT</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00088">vthreepy_types.h:88</a></div></div>
@@ -803,9 +828,13 @@ $(function() {
 <div class="ttc" id="avthreepy__types_8h_html_acea1fa21e7b771f987c02f13a0fb5d4c"><div class="ttname"><a href="vthreepy__types_8h.html#acea1fa21e7b771f987c02f13a0fb5d4c">__queueFamilyIndices</a></div><div class="ttdeci">queueFamilyIndices __queueFamilyIndices</div></div>
 <div class="ttc" id="avthreepy__types_8h_html_ae2fda8859e12165aeda509a17512572c"><div class="ttname"><a href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a></div><div class="ttdeci">#define ctx</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00123">vthreepy_types.h:123</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li><li class="navelem"><a class="el" href="_context1_vk_8cpp.html">Context1Vk.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

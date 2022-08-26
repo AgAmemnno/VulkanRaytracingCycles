@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['poolcreateflagbits_0',['PoolCreateFlagBits',['../namespacevkmm.html#a753e3316f7e01a5f6169e4c469e088c2',1,'vkmm']]]
+  ['memoryusage_0',['MemoryUsage',['../namespacevkmm.html#a485c39ebf7c2090c82c410512a375ac7',1,'vkmm']]]
 ];

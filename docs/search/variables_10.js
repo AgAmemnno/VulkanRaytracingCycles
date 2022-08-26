@@ -1,12 +1,13 @@
 var searchData=
 [
-  ['rasterization_0',['Rasterization',['../struct_pipeline_state_create_info_vk.html#a2c8541299ca2732c2debebd07e818e29',1,'PipelineStateCreateInfoVk']]],
-  ['raytracingproperties_1',['rayTracingProperties',['../struct_rt_objects_vk.html#a2b24011172e8fe79d2fb3d20edfb6ee1',1,'RtObjectsVk']]],
-  ['redlight_2',['RedLight',['../unionfront_1_1_sema_phore.html#a65cc00a90d92fef0fae9c17815fc6d0b',1,'front::SemaPhore']]],
-  ['refcnt_3',['refCnt',['../struct_mache.html#aa74af7aa7e2d52095dad53d87ecce01e',1,'Mache::refCnt()'],['../struct_iache.html#ab44ae9de1741098aa1f15567607fcb0f',1,'Iache::refCnt()'],['../struct_bache.html#a6ea8864c1b785cdb312bb19f0b06289b',1,'Bache::refCnt()']]],
-  ['req_4',['req',['../structray_1_1_a_smemory.html#a63eb3ac90829a9261ca3fcf96c91af50',1,'ray::ASmemory']]],
-  ['reqalign_5',['reqAlign',['../struct_mache.html#a493882e3dcb43b667a6febe462d7b229',1,'Mache::reqAlign()'],['../struct_bache.html#ab69ddfc60d7212bd27e2e4f76bed04f9',1,'Bache::reqAlign()'],['../struct_tex_bache.html#ae20d079f0ac1d561f81b111b9ce54e98',1,'TexBache::reqAlign()'],['../struct_sto_bache.html#a0f486c21913553991cc9f6be26adc2f7',1,'StoBache::reqAlign()'],['../struct_sto_bache_array.html#a2bf3ca32a3719ee88135c41ec6b4d67e',1,'StoBacheArray::reqAlign()']]],
-  ['reqsize_6',['reqSize',['../struct_mache.html#afb81028c30b3da582911a0150238f55f',1,'Mache::reqSize()'],['../struct_bache.html#aa81b2c4177e8dc86b259835d91cff499',1,'Bache::reqSize()'],['../struct_tex_bache.html#aa9ce2e132a3f065e1baa7a5b424ee4bd',1,'TexBache::reqSize()'],['../struct_sto_bache.html#a820cf05b17e4b0d7567edaeb96ceae40',1,'StoBache::reqSize()'],['../struct_sto_bache_array.html#a409cf060c30a010430e5f497862653ea',1,'StoBacheArray::reqSize()']]],
-  ['requiredeviceextensions_7',['requireDeviceExtensions',['../struct_device_master_vk.html#ab3473c2e5984413c326bbe04855456b6',1,'DeviceMasterVk']]],
-  ['requiredflags_8',['requiredFlags',['../structvkmm_1_1_allocation_create_info.html#a1c1bf9b81f92382bc034768af487d162',1,'vkmm::AllocationCreateInfo']]]
+  ['queue_0',['queue',['../struct_immidiate_cmd_pool.html#a81e73ac3569ec89eec0934dc044c0570',1,'ImmidiateCmdPool::queue()'],['../struct_queue_g_t_vk.html#ad18a06308428d066eb2fed07c425e3f1',1,'QueueGTVk::queue()']]],
+  ['queue_5f_1',['queue_',['../classfront_1_1bonqueue.html#a61c14bef0c02fab71735fb841f3b27e0',1,'front::bonqueue']]],
+  ['queuefamilyindices_2',['queueFamilyIndices',['../struct_device_master_vk.html#a463d4b69792656b496a4e036b940b7ea',1,'DeviceMasterVk']]],
+  ['queuefamilyproperties_3',['queueFamilyProperties',['../struct_device_master_vk.html#ac045007e048e5e33f866c51a3eb3f0b8',1,'DeviceMasterVk']]],
+  ['queueim_4',['queueIM',['../struct_queue_g_t_vk.html#ad42f44bbd2a03d13452c49abc8c9ea56',1,'QueueGTVk']]],
+  ['queueol_5',['queueOL',['../struct_queue_g_t_vk.html#ab2dc5bac15a3e6b1d806576d11262566',1,'QueueGTVk']]],
+  ['queues_6',['queues',['../struct_queue_g_t_vk.html#ad7c421280e009c1c26bd56702c803b98',1,'QueueGTVk']]],
+  ['queuetr_7',['queueTR',['../struct_queue_g_t_vk.html#a113f1afc1a977d37561b809d07b81b56',1,'QueueGTVk']]],
+  ['queuevr_8',['queueVR',['../struct_queue_g_t_vk.html#a40ad589c08fcf26d4d9fb4f0080f01b5',1,'QueueGTVk']]],
+  ['qvillage_9',['Qvillage',['../struct_device_master_vk.html#a5b8bd2c97ed2c251c5b671b3397b172a',1,'DeviceMasterVk']]]
 ];

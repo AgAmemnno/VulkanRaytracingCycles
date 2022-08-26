@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_signal_vk_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +84,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">SignalVk.h</div></div>
 </div><!--header-->
@@ -75,8 +93,8 @@ $(function() {
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifndef SIGNAL_VK_H</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="_signal_vk_8h.html#a0d990f880a7612fbbb34598108deb46b">    5</a></span><span class="preprocessor">#define SIGNAL_VK_H</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;pch_mm.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;working_mm.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="pch__mm_8h.html">pch_mm.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="working__mm_8h.html">working_mm.h</a>&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefront.html">front</a> {</div>
@@ -107,7 +125,7 @@ $(function() {
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <a class="code hl_variable" href="classfront_1_1bonqueue.html#af2b4e3935ef3f937c71947a84f259044">produce</a> = 0;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="keywordflow">while</span> (<a class="code hl_variable" href="classfront_1_1bonqueue.html#a61c14bef0c02fab71735fb841f3b27e0">queue_</a>.size()) {</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                T ret = std::move(<a class="code hl_variable" href="classfront_1_1bonqueue.html#a61c14bef0c02fab71735fb841f3b27e0">queue_</a>.front());</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                log_warning(<span class="stringliteral">&quot; bonqueue reset::  last of buds. [%d] \n &quot;</span>, (<span class="keywordtype">int</span>)ret);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                <a class="code hl_define" href="log_8hpp.html#a5f2c72e6f2dc833f040b39ee7597d944">log_warning</a>(<span class="stringliteral">&quot; bonqueue reset::  last of buds. [%d] \n &quot;</span>, (<span class="keywordtype">int</span>)ret);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                <a class="code hl_variable" href="classfront_1_1bonqueue.html#a61c14bef0c02fab71735fb841f3b27e0">queue_</a>.pop();</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            }</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        };</div>
@@ -472,7 +490,9 @@ $(function() {
 <div class="ttc" id="aclassfront_1_1bonqueue_html_abcd922dad2feb61affe4e2366be32209"><div class="ttname"><a href="classfront_1_1bonqueue.html#abcd922dad2feb61affe4e2366be32209">front::bonqueue::push</a></div><div class="ttdeci">void push(T val)</div><div class="ttdef"><b>Definition:</b> <a href="_signal_vk_8h_source.html#l00043">SignalVk.h:43</a></div></div>
 <div class="ttc" id="aclassfront_1_1bonqueue_html_aca7111547d96cab319dde2eb92beab56"><div class="ttname"><a href="classfront_1_1bonqueue.html#aca7111547d96cab319dde2eb92beab56">front::bonqueue::nip</a></div><div class="ttdeci">T nip()</div><div class="ttdef"><b>Definition:</b> <a href="_signal_vk_8h_source.html#l00071">SignalVk.h:71</a></div></div>
 <div class="ttc" id="aclassfront_1_1bonqueue_html_af2b4e3935ef3f937c71947a84f259044"><div class="ttname"><a href="classfront_1_1bonqueue.html#af2b4e3935ef3f937c71947a84f259044">front::bonqueue::produce</a></div><div class="ttdeci">uint32_t produce</div><div class="ttdef"><b>Definition:</b> <a href="_signal_vk_8h_source.html#l00031">SignalVk.h:31</a></div></div>
+<div class="ttc" id="alog_8hpp_html_a5f2c72e6f2dc833f040b39ee7597d944"><div class="ttname"><a href="log_8hpp.html#a5f2c72e6f2dc833f040b39ee7597d944">log_warning</a></div><div class="ttdeci">#define log_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00035">log.hpp:35</a></div></div>
 <div class="ttc" id="anamespacefront_html"><div class="ttname"><a href="namespacefront.html">front</a></div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8cpp_source.html#l01784">AllocatorVk.cpp:1784</a></div></div>
+<div class="ttc" id="apch__mm_8h_html"><div class="ttname"><a href="pch__mm_8h.html">pch_mm.h</a></div></div>
 <div class="ttc" id="astructfront_1_1_critical_hole_html"><div class="ttname"><a href="structfront_1_1_critical_hole.html">front::CriticalHole</a></div><div class="ttdef"><b>Definition:</b> <a href="_signal_vk_8h_source.html#l00365">SignalVk.h:365</a></div></div>
 <div class="ttc" id="astructfront_1_1_critical_hole_html_a04da8138414ee1714fe048582bcc85af"><div class="ttname"><a href="structfront_1_1_critical_hole.html#a04da8138414ee1714fe048582bcc85af">front::CriticalHole::start</a></div><div class="ttdeci">void start()</div><div class="ttdef"><b>Definition:</b> <a href="_signal_vk_8cpp_source.html#l00009">SignalVk.cpp:9</a></div></div>
 <div class="ttc" id="astructfront_1_1_critical_hole_html_a124280568946b884aed875b02bc5facf"><div class="ttname"><a href="structfront_1_1_critical_hole.html#a124280568946b884aed875b02bc5facf">front::CriticalHole::numMole</a></div><div class="ttdeci">long numMole</div><div class="ttdef"><b>Definition:</b> <a href="_signal_vk_8h_source.html#l00370">SignalVk.h:370</a></div></div>
@@ -540,10 +560,15 @@ $(function() {
 <div class="ttc" id="aunionfront_1_1_sema_phore_html"><div class="ttname"><a href="unionfront_1_1_sema_phore.html">front::SemaPhore</a></div><div class="ttdef"><b>Definition:</b> <a href="_signal_vk_8h_source.html#l00013">SignalVk.h:13</a></div></div>
 <div class="ttc" id="aunionfront_1_1_sema_phore_html_a65cc00a90d92fef0fae9c17815fc6d0b"><div class="ttname"><a href="unionfront_1_1_sema_phore.html#a65cc00a90d92fef0fae9c17815fc6d0b">front::SemaPhore::RedLight</a></div><div class="ttdeci">HANDLE RedLight</div><div class="ttdef"><b>Definition:</b> <a href="_signal_vk_8h_source.html#l00015">SignalVk.h:15</a></div></div>
 <div class="ttc" id="aunionfront_1_1_sema_phore_html_add0b0a3c8245462bb56215a58569e500"><div class="ttname"><a href="unionfront_1_1_sema_phore.html#add0b0a3c8245462bb56215a58569e500">front::SemaPhore::BlueLight</a></div><div class="ttdeci">HANDLE BlueLight</div><div class="ttdef"><b>Definition:</b> <a href="_signal_vk_8h_source.html#l00014">SignalVk.h:14</a></div></div>
+<div class="ttc" id="aworking__mm_8h_html"><div class="ttname"><a href="working__mm_8h.html">working_mm.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li><li class="navelem"><a class="el" href="_signal_vk_8h.html">SignalVk.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

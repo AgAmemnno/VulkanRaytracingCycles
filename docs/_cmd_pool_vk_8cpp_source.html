@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_cmd_pool_vk_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,17 +84,12 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">CmdPoolVk.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_cmd_pool_vk_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;pch_mm.h&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;working_mm.h&quot;</span></div>
+<a href="_cmd_pool_vk_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="pch__mm_8h.html">pch_mm.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="working__mm_8h.html">working_mm.h</a>&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
@@ -321,7 +339,7 @@ $(function() {
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <a class="code hl_struct" href="struct_context0_vk.html">ContextVk</a>* <a class="code hl_define" href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a> = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
 <div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keywordflow">if</span> (!$tank.takeout(<a class="code hl_define" href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a>, 0)) {</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        log_bad(<span class="stringliteral">&quot; not found  ContextVk.&quot;</span>);</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot; not found  ContextVk.&quot;</span>);</div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    };</div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keyword">static</span> uint32_t qid = 0;</div>
@@ -1026,6 +1044,8 @@ $(function() {
 <div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span><span class="keyword">template</span> <span class="keyword">struct </span><a class="code hl_struct" href="struct_immidiate_r_t_cmd.html">ImmidiateRTCmd&lt;ImmidiateCmdPool3&gt;</a>;</div>
 <div class="ttc" id="a_cmd_pool_vk_8h_html_a19b2e408f2521ff4259452ad425251ee"><div class="ttname"><a href="_cmd_pool_vk_8h.html#a19b2e408f2521ff4259452ad425251ee">log_imcm</a></div><div class="ttdeci">#define log_imcm(...)</div><div class="ttdef"><b>Definition:</b> <a href="_cmd_pool_vk_8h_source.html#l00012">CmdPoolVk.h:12</a></div></div>
 <div class="ttc" id="a_images_vk_8h_html_a028aff2a2f489739cd0ce52d14e000ad"><div class="ttname"><a href="_images_vk_8h.html#a028aff2a2f489739cd0ce52d14e000ad">log_img</a></div><div class="ttdeci">#define log_img(...)</div><div class="ttdef"><b>Definition:</b> <a href="_images_vk_8h_source.html#l00014">ImagesVk.h:14</a></div></div>
+<div class="ttc" id="alog_8hpp_html_a0a8f190cbf66caba9750b487aa06d7f3"><div class="ttname"><a href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a></div><div class="ttdeci">#define log_bad(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00037">log.hpp:37</a></div></div>
+<div class="ttc" id="apch__mm_8h_html"><div class="ttname"><a href="pch__mm_8h.html">pch_mm.h</a></div></div>
 <div class="ttc" id="astruct_context0_vk_html"><div class="ttname"><a href="struct_context0_vk.html">Context0Vk</a></div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00825">Context1Vk.h:825</a></div></div>
 <div class="ttc" id="astruct_immidiate_cmd_html"><div class="ttname"><a href="struct_immidiate_cmd.html">ImmidiateCmd</a></div><div class="ttdef"><b>Definition:</b> <a href="_cmd_pool_vk_8h_source.html#l00304">CmdPoolVk.h:304</a></div></div>
 <div class="ttc" id="astruct_immidiate_cmd_html_a1797089d99f649c2d8f782ccc11ebbc9"><div class="ttname"><a href="struct_immidiate_cmd.html#a1797089d99f649c2d8f782ccc11ebbc9">ImmidiateCmd::bridgeMap</a></div><div class="ttdeci">bool bridgeMap(MIVSIvk &amp;_, void *src, VkImageLayout X)</div><div class="ttdef"><b>Definition:</b> <a href="_cmd_pool_vk_8cpp_source.html#l00352">CmdPoolVk.cpp:352</a></div></div>
@@ -1091,10 +1111,15 @@ $(function() {
 <div class="ttc" id="astruct_m_i_vvk_html_ac0052ca73579122d3ee0b13c10e55bdd"><div class="ttname"><a href="struct_m_i_vvk.html#ac0052ca73579122d3ee0b13c10e55bdd">MIVvk::l</a></div><div class="ttdeci">uint32_t l</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00321">vthreepy_types.h:321</a></div></div>
 <div class="ttc" id="astruct_m_i_vvk_html_ae7a99eb12b99ba657d0ef86bebdfe2d1"><div class="ttname"><a href="struct_m_i_vvk.html#ae7a99eb12b99ba657d0ef86bebdfe2d1">MIVvk::Info</a></div><div class="ttdeci">VkDescriptorImageInfo Info</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00325">vthreepy_types.h:325</a></div></div>
 <div class="ttc" id="avthreepy__types_8h_html_ae2fda8859e12165aeda509a17512572c"><div class="ttname"><a href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a></div><div class="ttdeci">#define ctx</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00123">vthreepy_types.h:123</a></div></div>
+<div class="ttc" id="aworking__mm_8h_html"><div class="ttname"><a href="working__mm_8h.html">working_mm.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li><li class="navelem"><a class="el" href="_cmd_pool_vk_8cpp.html">CmdPoolVk.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

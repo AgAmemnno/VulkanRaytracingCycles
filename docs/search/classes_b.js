@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['objectsvk_0',['ObjectsVk',['../struct_objects_vk.html',1,'']]],
-  ['osyncotank_1',['oSyncoTank',['../structfront_1_1o_synco_tank.html',1,'front']]]
+  ['nativeparallelfortask_0',['NativeParallelForTask',['../class_native_parallel_for_task.html',1,'']]],
+  ['noassign_1',['NoAssign',['../class_no_assign.html',1,'']]],
+  ['nocopy_2',['NoCopy',['../class_no_copy.html',1,'']]]
 ];

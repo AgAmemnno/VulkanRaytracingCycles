@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['types_0',['types',['../namespacetypes.html',1,'']]]
+  ['ray_0',['ray',['../namespaceray.html',1,'']]]
 ];

@@ -1,20 +1,12 @@
 var searchData=
 [
-  ['ubo_0',['ubo',['../struct___pool_size.html#ab1407a4182e704c25a45ac7c5a73497c',1,'_PoolSize::ubo()'],['../struct_uniform_vk.html#a5bb0c98e99578648533bf2e84366b48d',1,'UniformVk::ubo()']]],
-  ['uni_1',['UNI',['../vthreepy__const_8h.html#aeaa3a7d8013af89b126a090aa4adaff1',1,'vthreepy_const.h']]],
-  ['unusedbytes_2',['unusedBytes',['../structvkmm_1_1_stat_info.html#aef233da928bf4045c9dfca77d5830ead',1,'vkmm::StatInfo::unusedBytes()'],['../struct_temperance_stat_info.html#a56e30f55abfc36a8bd888cea3a5d4ee0',1,'TemperanceStatInfo::unusedBytes()']]],
-  ['unusedrangecount_3',['unusedRangeCount',['../structvkmm_1_1_stat_info.html#a511b0f09320a111132e90a47a27e315a',1,'vkmm::StatInfo::unusedRangeCount()'],['../structvkmm_1_1_pool_stats.html#a3c4280abb2bb0f65fbd6afeabefaf9e4',1,'vkmm::PoolStats::unusedRangeCount()'],['../struct_temperance_stat_info.html#a7c2bca1a499a54596edcf39c309cec2d',1,'TemperanceStatInfo::unusedRangeCount()']]],
-  ['unusedrangesizeavg_4',['unusedRangeSizeAvg',['../structvkmm_1_1_stat_info.html#ad34edf68be70a975d7a083dc31f5694a',1,'vkmm::StatInfo::unusedRangeSizeAvg()'],['../struct_temperance_stat_info.html#a57cef6bbf7547c99731a8141faebd4c1',1,'TemperanceStatInfo::unusedRangeSizeAvg()']]],
-  ['unusedrangesizemax_5',['unusedRangeSizeMax',['../structvkmm_1_1_stat_info.html#a6c090547891a445281c820506e5d8c02',1,'vkmm::StatInfo::unusedRangeSizeMax()'],['../structvkmm_1_1_pool_stats.html#a7602bacb05e3b85ec49c752738a63968',1,'vkmm::PoolStats::unusedRangeSizeMax()'],['../struct_temperance_stat_info.html#a27229ac1abefdea4958c79835fde7ed7',1,'TemperanceStatInfo::unusedRangeSizeMax()']]],
-  ['unusedrangesizemin_6',['unusedRangeSizeMin',['../structvkmm_1_1_stat_info.html#a3c24426016dbceeade5ad28ede10f9c7',1,'vkmm::StatInfo::unusedRangeSizeMin()'],['../struct_temperance_stat_info.html#a215e17e41426e3094b4e80baab069e2e',1,'TemperanceStatInfo::unusedRangeSizeMin()']]],
-  ['unusedsize_7',['unusedSize',['../structvkmm_1_1_pool_stats.html#a38820a530fc8e0d157e9254f2248bd8e',1,'vkmm::PoolStats']]],
-  ['upd_8',['Upd',['../struct_uniform_vk.html#aeea18c193a5b30c39d4f57c951ffca22',1,'UniformVk']]],
-  ['usage_9',['usage',['../structvkmm_1_1_allocation_create_info.html#a7910a94914d93b440135e2514842d536',1,'vkmm::AllocationCreateInfo']]],
-  ['usedbytes_10',['usedBytes',['../structvkmm_1_1_stat_info.html#a8d442ba17d34aac0463fce915ca82b20',1,'vkmm::StatInfo::usedBytes()'],['../struct_temperance_stat_info.html#aaa7727bcc76247025e3e8f4b8f748814',1,'TemperanceStatInfo::usedBytes()']]],
-  ['ut_11',['UT',['../vthreepy__const_8h.html#ac1baee23fadf1a2dce270af261750611',1,'vthreepy_const.h']]],
-  ['uth_12',['uth',['../struct_visible_objects_vk.html#adbf5f214f18b97a7c5c268de03f7fe39',1,'VisibleObjectsVk']]],
-  ['utt_13',['UTT',['../vthreepy__const_8h.html#a19c0f0ebd0914bfc08eefbf8d17a07b8',1,'vthreepy_const.h']]],
-  ['uttt_14',['UTTT',['../vthreepy__const_8h.html#af8c9278355185140ed8cc2fa3733b146',1,'vthreepy_const.h']]],
-  ['uut_15',['UUT',['../vthreepy__const_8h.html#a47c591da7ab377c47b4ce51074c5eb14',1,'vthreepy_const.h']]],
-  ['uutt_16',['UUTT',['../vthreepy__const_8h.html#a8e2ca55424c2deda54e599f4fd477620',1,'vthreepy_const.h']]]
+  ['t_0',['T',['../struct_queue_g_t_vk_1_1_size.html#a35fb8a735eb3ce866280bd8b4332801a',1,'QueueGTVk::Size']]],
+  ['t16bitstorage_1',['t16BitStorage',['../struct_vulkan_features_1_1_features11_old.html#a3f98ec2e074f095392e93bf0deaa2c7a',1,'VulkanFeatures::Features11Old']]],
+  ['tempera_2',['Tempera',['../_cache_vk_8h.html#ad26c9be3bb68e1a0ef39d1db0b355721',1,'CacheVk.h']]],
+  ['tex_3',['tex',['../struct___pool_size.html#ad1e6ff5f8771bd761a5500f634a7beb7',1,'_PoolSize']]],
+  ['tex_4',['TEX',['../vthreepy__const_8h.html#ac8db39a27673b6092ebcff0bb4ce1e88',1,'vthreepy_const.h']]],
+  ['total_5',['total',['../structvkmm_1_1_stats.html#a8e13f1a82d068f1ae855e9295cd0e479',1,'vkmm::Stats']]],
+  ['transform_6',['transform',['../structray_1_1_vk_geometry_instance_n_v.html#a97c005f677e146bc4006257e49546f97',1,'ray::VkGeometryInstanceNV::transform()'],['../structray_1_1_instance.html#a7d8eaa22e51ba960868398f8367cc6c7',1,'ray::Instance::transform()']]],
+  ['ty_7',['ty',['../structvk_p_v_i_sci_mem.html#ab38ca1a588bd181a16d67fcacc6b692b',1,'vkPVISciMem']]],
+  ['type_8',['type',['../struct_context0_vk.html#ab5bde41a1ea965d91fac3f3e8fad2fb5',1,'Context0Vk::type()'],['../struct_mache.html#a3a41d9f8a808a6cd9df0f6eb99ff858a',1,'Mache::type()'],['../struct_iache.html#a093453bdde40ea3fba9a1cb3361fbbc9',1,'Iache::type()'],['../struct_bache.html#ae048c9823cbe9b6cf7543d75b96911e8',1,'Bache::type()'],['../structvk_p_v_i_sci.html#ac012e77da0d2f8f00198d48fc63d9c58',1,'vkPVISci::type()'],['../structvk_d_s_l.html#adeb500d7493bd8cb2e12abcf3bcc850e',1,'vkDSL::type()'],['../struct_uniform_vk_1_1_desc.html#a782216e0531a30edcc26779a48fac160',1,'UniformVk::Desc::type()']]]
 ];

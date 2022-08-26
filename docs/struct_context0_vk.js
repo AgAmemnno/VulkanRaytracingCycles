@@ -1,0 +1,26 @@
+var struct_context0_vk =
+[
+    [ "Settings", "struct_context0_vk_1_1_settings.html", "struct_context0_vk_1_1_settings" ],
+    [ "Context0Vk", "struct_context0_vk.html#a321524e246092441f29899c97ff7bd01", null ],
+    [ "~Context0Vk", "struct_context0_vk.html#af7327f363c9a9368aca6259a01fe0399", null ],
+    [ "configuration", "struct_context0_vk.html#a85c55d679ed1ff88b6195c2e4cc768bc", null ],
+    [ "createDebug", "struct_context0_vk.html#a6a5d40a0a903a9645a6b802f77a8773b", null ],
+    [ "createInstance", "struct_context0_vk.html#a69bffce5da38c084ffd6f2f815f36078", null ],
+    [ "destroyInstance", "struct_context0_vk.html#a3d75f0e9cbd99cccdd888c56a8f5455f", null ],
+    [ "initialize", "struct_context0_vk.html#a8c7996d08371cf81f2bc57670eaf5123", null ],
+    [ "set$", "struct_context0_vk.html#a2ef9fd861cd2cee25ceb3cca09d66330", null ],
+    [ "shutdown", "struct_context0_vk.html#afc5f343146bcb03941baada6a2e59c58", null ],
+    [ "appInfo", "struct_context0_vk.html#af3b3e7004eee11ecef29dcdead491977", null ],
+    [ "config", "struct_context0_vk.html#a7445a9840728513da6272d53a8ef576a", null ],
+    [ "deb", "struct_context0_vk.html#a4dc48c40b54b02c55c7ef892b400dd3b", null ],
+    [ "debug_report_callback", "struct_context0_vk.html#a7b8ee7b95cfbbfa034dac6827d5ac38c", null ],
+    [ "depthFormat", "struct_context0_vk.html#a3cffb636842994571ee3f2884cd40713", null ],
+    [ "device", "struct_context0_vk.html#acba57e6db7a6d5b637be54c2e1f466ea", null ],
+    [ "deviceCreatepNextChain", "struct_context0_vk.html#a8f7a924ba59809776042f2ee3d327a78", null ],
+    [ "h", "struct_context0_vk.html#a866cff0f474c62bff19232837e848166", null ],
+    [ "instance", "struct_context0_vk.html#a7cbc110507b141db81d9c0f226de65ec", null ],
+    [ "settings", "struct_context0_vk.html#aa5ee8777d4443d161f91069aabd7960d", null ],
+    [ "submitInfo", "struct_context0_vk.html#a81a2037b8dfd87e0fd86fc7c0fe60bfa", null ],
+    [ "type", "struct_context0_vk.html#ab5bde41a1ea965d91fac3f3e8fad2fb5", null ],
+    [ "w", "struct_context0_vk.html#afd5c10f76fb2f56cc836f87a33b5d87d", null ]
+];

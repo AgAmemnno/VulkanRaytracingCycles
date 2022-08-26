@@ -16,10 +16,14 @@ var searchData=
   ['entering_13',['entering',['../structfront_1_1heap_q.html#abb72de707232d70bc460df9490b22554',1,'front::heapQ']]],
   ['entry_14',['entry',['../structspecial.html#a01fb9126033ceb1a5d41d1e01e23d974',1,'special']]],
   ['erase_15',['erase',['../struct_visible_objects_vk.html#a28f4d06e20dea415dae4e608ecdae772',1,'VisibleObjectsVk']]],
-  ['escape_16',['escape',['../structfront_1_1_schedule.html#ac4971db10529d03d8f0deac0ab94528c',1,'front::Schedule::escape()'],['../structfront_1_1_critical_hole.html#a7bac1f844e65f751ea6a9db9791bc1b3',1,'front::CriticalHole::escape()']]],
-  ['escapeid_17',['escapeID',['../structfront_1_1_schedule.html#aebeb379390da1c5a84c4c413de37fc7d',1,'front::Schedule']]],
-  ['excl_18',['excl',['../struct_bache.html#a7c1ba8359b6e7a967acefdbc573a0821',1,'Bache']]],
-  ['extensionentry_19',['ExtensionEntry',['../struct_extension_entry.html',1,'ExtensionEntry'],['../struct_extension_entry.html#adf45fdb39b81325de6aaecfb74706d0c',1,'ExtensionEntry::ExtensionEntry()']]],
-  ['extensionsupported_20',['extensionSupported',['../struct_device_master_vk.html#a7de46c65e7b51de574573a8b5a456534',1,'DeviceMasterVk']]],
-  ['external_21',['External',['../_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a977cc667a6db29d9dd079d6b6d3b8e9b',1,'Context1Vk.h']]]
+  ['errorstring_16',['errorString',['../log_8cpp.html#a488e09434175527e91abcb26584d9c88',1,'errorString(VkResult errorCode):&#160;log.cpp'],['../log_8hpp.html#a488e09434175527e91abcb26584d9c88',1,'errorString(VkResult errorCode):&#160;log.cpp']]],
+  ['escape_17',['escape',['../structfront_1_1_schedule.html#ac4971db10529d03d8f0deac0ab94528c',1,'front::Schedule::escape()'],['../structfront_1_1_critical_hole.html#a7bac1f844e65f751ea6a9db9791bc1b3',1,'front::CriticalHole::escape()']]],
+  ['escapeid_18',['escapeID',['../structfront_1_1_schedule.html#aebeb379390da1c5a84c4c413de37fc7d',1,'front::Schedule']]],
+  ['excl_19',['excl',['../struct_bache.html#a7c1ba8359b6e7a967acefdbc573a0821',1,'Bache']]],
+  ['exitfatal_20',['exitFatal',['../log_8cpp.html#a3812be3f811f2695843026c372271469',1,'exitFatal():&#160;log.cpp'],['../log_8hpp.html#a3812be3f811f2695843026c372271469',1,'exitFatal():&#160;log.cpp']]],
+  ['extensionentry_21',['ExtensionEntry',['../struct_extension_entry.html',1,'ExtensionEntry'],['../struct_extension_entry.html#adf45fdb39b81325de6aaecfb74706d0c',1,'ExtensionEntry::ExtensionEntry()']]],
+  ['extensions_5fvk_2ecpp_22',['extensions_vk.cpp',['../extensions__vk_8cpp.html',1,'']]],
+  ['extensions_5fvk_2ehpp_23',['extensions_vk.hpp',['../extensions__vk_8hpp.html',1,'']]],
+  ['extensionsupported_24',['extensionSupported',['../struct_device_master_vk.html#a7de46c65e7b51de574573a8b5a456534',1,'DeviceMasterVk']]],
+  ['external_25',['External',['../_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a977cc667a6db29d9dd079d6b6d3b8e9b',1,'Context1Vk.h']]]
 ];

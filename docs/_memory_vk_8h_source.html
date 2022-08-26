@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_memory_vk_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +84,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">MemoryVk.h</div></div>
 </div><!--header-->
@@ -73,7 +91,7 @@ $(function() {
 <a href="_memory_vk_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef MEMORYVK_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="_memory_vk_8h.html#a17428bd903de288a71a97bb78401e456">    3</a></span><span class="preprocessor">#define MEMORYVK_H</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;pch_mm.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="pch__mm_8h.html">pch_mm.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="incomplete_8h.html">incomplete.h</a>&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
@@ -257,6 +275,7 @@ $(function() {
 <div class="ttc" id="anamespacevkmm_html_a76c22f3abff1f72312567e70f9541e6c"><div class="ttname"><a href="namespacevkmm.html#a76c22f3abff1f72312567e70f9541e6c">vkmm::DestroyBuffer</a></div><div class="ttdeci">void DestroyBuffer(Allocator allocator, VkBuffer buffer, Allocation allocation)</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8cpp_source.html#l01030">AllocatorVk.cpp:1030</a></div></div>
 <div class="ttc" id="anamespacevkmm_html_a8d15c4cae9dad4e457d1c4180d8f7612"><div class="ttname"><a href="namespacevkmm.html#a8d15c4cae9dad4e457d1c4180d8f7612">vkmm::UnmapMemory</a></div><div class="ttdeci">void UnmapMemory(Allocator allocator, Allocation allocation)</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8cpp_source.html#l00252">AllocatorVk.cpp:252</a></div></div>
 <div class="ttc" id="anamespacevkmm_html_ac932044854a33ef974c4515effe659e2"><div class="ttname"><a href="namespacevkmm.html#ac932044854a33ef974c4515effe659e2">vkmm::CreateBuffer</a></div><div class="ttdeci">VkResult CreateBuffer(Allocator allocator, const VkBufferCreateInfo *pBufferCreateInfo, AllocationCreateInfo &amp;pAllocationCreateInfo, VkBuffer *pBuffer, Allocation *pAllocation, AllocationInfo *pAllocationInfo)</div><div class="ttdef"><b>Definition:</b> <a href="_allocator_vk_8cpp_source.html#l00934">AllocatorVk.cpp:934</a></div></div>
+<div class="ttc" id="apch__mm_8h_html"><div class="ttname"><a href="pch__mm_8h.html">pch_mm.h</a></div></div>
 <div class="ttc" id="astruct_temperance_html"><div class="ttname"><a href="struct_temperance.html">Temperance</a></div><div class="ttdef"><b>Definition:</b> <a href="_cache_vk_8h_source.html#l00015">CacheVk.h:15</a></div></div>
 <div class="ttc" id="astruct_temperance_html_a039b6bdf372dce76e03d42bfc512908b"><div class="ttname"><a href="struct_temperance.html#a039b6bdf372dce76e03d42bfc512908b">Temperance::memory</a></div><div class="ttdeci">long memory</div><div class="ttdef"><b>Definition:</b> <a href="_cache_vk_8h_source.html#l00027">CacheVk.h:27</a></div></div>
 <div class="ttc" id="astruct_temperance_html_ac24f2c987315986efe269cb7337a9067"><div class="ttname"><a href="struct_temperance.html#ac24f2c987315986efe269cb7337a9067">Temperance::limits</a></div><div class="ttdeci">struct Temperance::@10 limits</div></div>
@@ -292,9 +311,13 @@ $(function() {
 <div class="ttc" id="astructvkmm_1_1_memory_vk_html_addcfa54bcfc5bf087f4b0e5969a53484"><div class="ttname"><a href="structvkmm_1_1_memory_vk.html#addcfa54bcfc5bf087f4b0e5969a53484">vkmm::MemoryVk::createBuffer</a></div><div class="ttdeci">void createBuffer(const char *name, VkDeviceSize size, VkBufferUsageFlags bflags, MemoryUsage mflag, T cb)</div><div class="ttdef"><b>Definition:</b> <a href="_memory_vk_8h_source.html#l00086">MemoryVk.h:86</a></div></div>
 <div class="ttc" id="astructvkmm_1_1_memory_vk_html_ae73fcf5af158884c5abac1f17c4b7700"><div class="ttname"><a href="structvkmm_1_1_memory_vk.html#ae73fcf5af158884c5abac1f17c4b7700">vkmm::MemoryVk::initialize</a></div><div class="ttdeci">void initialize()</div><div class="ttdef"><b>Definition:</b> <a href="_memory_vk_8h_source.html#l00136">MemoryVk.h:136</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li><li class="navelem"><a class="el" href="_memory_vk_8h.html">MemoryVk.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

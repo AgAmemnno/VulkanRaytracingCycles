@@ -7,6 +7,8 @@ var searchData=
   ['enterattr_4',['enterAttr',['../structvk_p_v_i_sci_mem.html#ac2bd07afd622bec3e2950c24c11b5442',1,'vkPVISciMem']]],
   ['entergeom_5',['enterGeom',['../structvk_p_v_i_sci_mem.html#af2b1420cb693231841c169e8f30a5931',1,'vkPVISciMem']]],
   ['erase_6',['erase',['../struct_visible_objects_vk.html#a28f4d06e20dea415dae4e608ecdae772',1,'VisibleObjectsVk']]],
-  ['extensionentry_7',['ExtensionEntry',['../struct_extension_entry.html#adf45fdb39b81325de6aaecfb74706d0c',1,'ExtensionEntry']]],
-  ['extensionsupported_8',['extensionSupported',['../struct_device_master_vk.html#a7de46c65e7b51de574573a8b5a456534',1,'DeviceMasterVk']]]
+  ['errorstring_7',['errorString',['../log_8cpp.html#a488e09434175527e91abcb26584d9c88',1,'errorString(VkResult errorCode):&#160;log.cpp'],['../log_8hpp.html#a488e09434175527e91abcb26584d9c88',1,'errorString(VkResult errorCode):&#160;log.cpp']]],
+  ['exitfatal_8',['exitFatal',['../log_8cpp.html#a3812be3f811f2695843026c372271469',1,'exitFatal():&#160;log.cpp'],['../log_8hpp.html#a3812be3f811f2695843026c372271469',1,'exitFatal():&#160;log.cpp']]],
+  ['extensionentry_9',['ExtensionEntry',['../struct_extension_entry.html#adf45fdb39b81325de6aaecfb74706d0c',1,'ExtensionEntry']]],
+  ['extensionsupported_10',['extensionSupported',['../struct_device_master_vk.html#a7de46c65e7b51de574573a8b5a456534',1,'DeviceMasterVk']]]
 ];

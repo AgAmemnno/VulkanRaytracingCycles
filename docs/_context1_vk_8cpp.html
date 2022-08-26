@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_context1_vk_8cpp.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +84,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
@@ -73,10 +91,10 @@ $(function() {
   <div class="headertitle"><div class="title">Context1Vk.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;pch_mm.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="pch__mm_8h_source.html">pch_mm.h</a>&quot;</code><br />
 <code>#include &quot;types.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>&quot;</code><br />
-<code>#include &quot;ext/extensions_vk.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="extensions__vk_8hpp_source.html">ext/extensions_vk.hpp</a>&quot;</code><br />
 </div>
 <p><a href="_context1_vk_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -129,9 +147,10 @@ Functions</h2></td></tr>
 <div class="line">    if( ppEnableLayerExtensionNames != <span class="keywordtype">nullptr</span>)delete[] ppEnableLayerExtensionNames;\</div>
 <div class="line">if (Res != VK_SUCCESS)\</div>
 <div class="line">{ \</div>
-<div class="line">    log__bad(__FILE__, __LINE__, LOG_BAD, __VA_ARGS__);\</div>
+<div class="line">    log__bad(__FILE__, __LINE__, <a class="code hl_enumvalue" href="log_8hpp.html#aa5a9053636a30269210c54e734e0d583a4ae51389daf9cf51feccaabbce169b33">LOG_BAD</a>, __VA_ARGS__);\</div>
 <div class="line">}\</div>
 <div class="line">    return Res;</div>
+<div class="ttc" id="alog_8hpp_html_aa5a9053636a30269210c54e734e0d583a4ae51389daf9cf51feccaabbce169b33"><div class="ttname"><a href="log_8hpp.html#aa5a9053636a30269210c54e734e0d583a4ae51389daf9cf51feccaabbce169b33">LOG_BAD</a></div><div class="ttdeci">@ LOG_BAD</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00053">log.hpp:53</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -400,13 +419,14 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   45</span>        }</div>
 <div class="line"><span class="lineno">   46</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!itr.optional)</div>
 <div class="line"><span class="lineno">   47</span>        {</div>
-<div class="line"><span class="lineno">   48</span>            log_warning(<span class="stringliteral">&quot;VK_ERROR_EXTENSION_NOT_PRESENT: %s - %d\n&quot;</span>, itr.name, itr.version);</div>
+<div class="line"><span class="lineno">   48</span>            <a class="code hl_define" href="log_8hpp.html#a5f2c72e6f2dc833f040b39ee7597d944">log_warning</a>(<span class="stringliteral">&quot;VK_ERROR_EXTENSION_NOT_PRESENT: %s - %d\n&quot;</span>, itr.name, itr.version);</div>
 <div class="line"><span class="lineno">   49</span>            <span class="keywordflow">return</span> VK_ERROR_EXTENSION_NOT_PRESENT;</div>
 <div class="line"><span class="lineno">   50</span>        }</div>
 <div class="line"><span class="lineno">   51</span>    }</div>
 <div class="line"><span class="lineno">   52</span> </div>
 <div class="line"><span class="lineno">   53</span>    <span class="keywordflow">return</span> VK_SUCCESS;</div>
 <div class="line"><span class="lineno">   54</span>};</div>
+<div class="ttc" id="alog_8hpp_html_a5f2c72e6f2dc833f040b39ee7597d944"><div class="ttname"><a href="log_8hpp.html#a5f2c72e6f2dc833f040b39ee7597d944">log_warning</a></div><div class="ttdeci">#define log_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00035">log.hpp:35</a></div></div>
 <div class="ttc" id="avthreepy__types_8h_html_a497bc2fce901db395d194b04e1eb5322"><div class="ttname"><a href="vthreepy__types_8h.html#a497bc2fce901db395d194b04e1eb5322">properties</a></div><div class="ttdeci">#define properties</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00120">vthreepy_types.h:120</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -460,7 +480,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  141</span><span class="preprocessor">#ifdef  ENABLED_VULKAN_OVR </span></div>
 <div class="line"><span class="lineno">  142</span>    <span class="keywordflow">if</span> (!vr::VRCompositor())</div>
 <div class="line"><span class="lineno">  143</span>    {</div>
-<div class="line"><span class="lineno">  144</span>        log_bad(<span class="stringliteral">&quot;Unable to init VR runtime&quot;</span>);</div>
+<div class="line"><span class="lineno">  144</span>        <a class="code hl_define" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(<span class="stringliteral">&quot;Unable to init VR runtime&quot;</span>);</div>
 <div class="line"><span class="lineno">  145</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><span class="lineno">  146</span>    }</div>
 <div class="line"><span class="lineno">  147</span> </div>
@@ -502,13 +522,18 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">  183</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><span class="lineno">  184</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">  185</span>}</div>
+<div class="ttc" id="alog_8hpp_html_a0a8f190cbf66caba9750b487aa06d7f3"><div class="ttname"><a href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a></div><div class="ttdeci">#define log_bad(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00037">log.hpp:37</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li><li class="navelem"><a class="el" href="_context1_vk_8cpp.html">Context1Vk.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

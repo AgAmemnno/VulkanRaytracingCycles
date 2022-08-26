@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_attachments_vk_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,18 +84,13 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">AttachmentsVk.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="_attachments_vk_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;pch_mm.h&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;working_mm.h&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="pch__mm_8h.html">pch_mm.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="working__mm_8h.html">working_mm.h</a>&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="struct_attachments_vk.html#a55366baf361fde15644a0c18514c5c74">    6</a></span><a class="code hl_function" href="struct_attachments_vk.html#a55366baf361fde15644a0c18514c5c74">AttachmentsVk::AttachmentsVk</a>(uint32_t w, uint32_t h, uint32_t multisample) :w(w), h(h), multisample(multisample) {</div>
@@ -279,6 +297,7 @@ $(function() {
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>};</div>
 <div class="ttc" id="a_attachments_vk_8h_html_a82f32106556a4f491181f861cd02cedf"><div class="ttname"><a href="_attachments_vk_8h.html#a82f32106556a4f491181f861cd02cedf">log_ata</a></div><div class="ttdeci">#define log_ata(...)</div><div class="ttdef"><b>Definition:</b> <a href="_attachments_vk_8h_source.html#l00011">AttachmentsVk.h:11</a></div></div>
+<div class="ttc" id="apch__mm_8h_html"><div class="ttname"><a href="pch__mm_8h.html">pch_mm.h</a></div></div>
 <div class="ttc" id="astruct_attachments_vk_html_a1490e475d17906f48325b023a5000f48"><div class="ttname"><a href="struct_attachments_vk.html#a1490e475d17906f48325b023a5000f48">AttachmentsVk::member</a></div><div class="ttdeci">MIVvk member[5]</div><div class="ttdef"><b>Definition:</b> <a href="_attachments_vk_8h_source.html#l00032">AttachmentsVk.h:32</a></div></div>
 <div class="ttc" id="astruct_attachments_vk_html_a27eb17b3296d9294f4358bbad967a6db"><div class="ttname"><a href="struct_attachments_vk.html#a27eb17b3296d9294f4358bbad967a6db">AttachmentsVk::createMultiViewColorDepthWithResolution</a></div><div class="ttdeci">void createMultiViewColorDepthWithResolution()</div><div class="ttdef"><b>Definition:</b> <a href="_attachments_vk_8cpp_source.html#l00016">AttachmentsVk.cpp:16</a></div></div>
 <div class="ttc" id="astruct_attachments_vk_html_a4b8fdd7e6983834e3785d7938a4e22a8"><div class="ttname"><a href="struct_attachments_vk.html#a4b8fdd7e6983834e3785d7938a4e22a8">AttachmentsVk::w</a></div><div class="ttdeci">uint32_t w</div><div class="ttdef"><b>Definition:</b> <a href="_attachments_vk_8h_source.html#l00016">AttachmentsVk.h:16</a></div></div>
@@ -299,10 +318,15 @@ $(function() {
 <div class="ttc" id="astruct_m_i_vvk_html_a2243fb75c6ceb05462f32e230ec082b2"><div class="ttname"><a href="struct_m_i_vvk.html#a2243fb75c6ceb05462f32e230ec082b2">MIVvk::image</a></div><div class="ttdeci">VkImage image</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00323">vthreepy_types.h:323</a></div></div>
 <div class="ttc" id="astruct_m_i_vvk_html_aa04c99f88e823b179b792feb8efa3477"><div class="ttname"><a href="struct_m_i_vvk.html#aa04c99f88e823b179b792feb8efa3477">MIVvk::view</a></div><div class="ttdeci">VkImageView view</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00324">vthreepy_types.h:324</a></div></div>
 <div class="ttc" id="astruct_m_i_vvk_html_afb927bd9bd951ef23c89566e21f7c4d1"><div class="ttname"><a href="struct_m_i_vvk.html#afb927bd9bd951ef23c89566e21f7c4d1">MIVvk::memory</a></div><div class="ttdeci">VkDeviceMemory memory</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00322">vthreepy_types.h:322</a></div></div>
+<div class="ttc" id="aworking__mm_8h_html"><div class="ttname"><a href="working__mm_8h.html">working_mm.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li><li class="navelem"><a class="el" href="_attachments_vk_8cpp.html">AttachmentsVk.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>

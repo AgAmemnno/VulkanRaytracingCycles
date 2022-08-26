@@ -1,0 +1,26 @@
+var struct_immidiate_cmd_pool =
+[
+    [ "alloc", "struct_immidiate_cmd_pool.html#ae3890a92db5dd204552785a9be65f06d", null ],
+    [ "allocStaging", "struct_immidiate_cmd_pool.html#ae4d8999968a3d74d0c32a71f4e45b1f1", null ],
+    [ "allocStaging", "struct_immidiate_cmd_pool.html#a4f068a54e062798cba66181bb1269cb5", null ],
+    [ "begin", "struct_immidiate_cmd_pool.html#ab5e112f186ebc4d30be122a0425adfbd", null ],
+    [ "createCommandPool", "struct_immidiate_cmd_pool.html#a4f4e4535dcfe6e330055866b00ab2b0e", null ],
+    [ "destroyCommandPool", "struct_immidiate_cmd_pool.html#a5bc203a4a501dcc6e4b8faec6ffe827d", null ],
+    [ "end", "struct_immidiate_cmd_pool.html#a257834104e466d6bd70cf70343effd75", null ],
+    [ "free", "struct_immidiate_cmd_pool.html#a121b68c2128dcafa8b65fb25e6e55cef", null ],
+    [ "freeStaging", "struct_immidiate_cmd_pool.html#a5567b4519b95b05db64711531c48a1b0", null ],
+    [ "submit", "struct_immidiate_cmd_pool.html#acdf8dc4215ada9d197fb01eb92ebb27d", null ],
+    [ "wait", "struct_immidiate_cmd_pool.html#a5b187c56db2599fa931aa0f721dfb8cb", null ],
+    [ "allocInfo", "struct_immidiate_cmd_pool.html#a6dbfdb31d30ada8d2ed4e8533d615a94", null ],
+    [ "buffer", "struct_immidiate_cmd_pool.html#ac657ae2c5179267ed4a16e7691b677e2", null ],
+    [ "bufferCreateInfo", "struct_immidiate_cmd_pool.html#a89b373296d51c450e3280426a1e0f635", null ],
+    [ "cmd", "struct_immidiate_cmd_pool.html#a374cd03711f033e03e0462ee9b8d3f99", null ],
+    [ "cmdPool", "struct_immidiate_cmd_pool.html#a8a9e4f3a0c99ed5ac061a8823cf65a83", null ],
+    [ "commit", "struct_immidiate_cmd_pool.html#a8fc0d29b13c6958f2cb9073398055c53", null ],
+    [ "data", "struct_immidiate_cmd_pool.html#a6ce947b913b89e102eb84ed94b531ef5", null ],
+    [ "memory", "struct_immidiate_cmd_pool.html#a00a9a4d45ded590805b6842721596c85", null ],
+    [ "memReqs", "struct_immidiate_cmd_pool.html#aef6704610c59e1f8b7ff5e87ac4564cf", null ],
+    [ "Nums", "struct_immidiate_cmd_pool.html#a64eaa3ae34776d2a460003817bb7504e", null ],
+    [ "queue", "struct_immidiate_cmd_pool.html#a81e73ac3569ec89eec0934dc044c0570", null ],
+    [ "staging", "struct_immidiate_cmd_pool.html#a967251ece0a81b0a6032db4da628438c", null ]
+];

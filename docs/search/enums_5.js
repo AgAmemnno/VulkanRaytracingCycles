@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['suballocationtype_0',['SuballocationType',['../namespacevkmm.html#afff914a40f73475bdfc7931e145923a8',1,'vkmm']]]
+  ['poolcreateflagbits_0',['PoolCreateFlagBits',['../namespacevkmm.html#a753e3316f7e01a5f6169e4c469e088c2',1,'vkmm']]]
 ];

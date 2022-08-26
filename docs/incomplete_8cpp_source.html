@@ -9,10 +9,16 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -47,6 +53,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('incomplete_8cpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,18 +84,13 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">incomplete.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="incomplete_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;pch_mm.h&quot;</span></div>
+<a href="incomplete_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="pch__mm_8h.html">pch_mm.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;types.hpp&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;working_mm.h&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="working__mm_8h.html">working_mm.h</a>&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="incomplete_8h.html">aeolus/incomplete.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
@@ -182,6 +200,7 @@ $(function() {
 <div class="ttc" id="anamespacearth_html_af9d1c6a47b2179bc6ae254b754fb963b"><div class="ttname"><a href="namespacearth.html#af9d1c6a47b2179bc6ae254b754fb963b">arth::INPUT_String</a></div><div class="ttdeci">std::string INPUT_String(arth::INPUT type)</div><div class="ttdef"><b>Definition:</b> <a href="incomplete_8cpp_source.html#l00086">incomplete.cpp:86</a></div></div>
 <div class="ttc" id="anamespacebrunch_html"><div class="ttname"><a href="namespacebrunch.html">brunch</a></div><div class="ttdef"><b>Definition:</b> <a href="incomplete_8cpp_source.html#l00056">incomplete.cpp:56</a></div></div>
 <div class="ttc" id="anamespacebrunch_html_a5a667c1e1763486d3a2ca1bf6dbb89f7"><div class="ttname"><a href="namespacebrunch.html#a5a667c1e1763486d3a2ca1bf6dbb89f7">brunch::createComputePipeline</a></div><div class="ttdeci">void createComputePipeline(VkPipeline &amp;pipe, const char *shader, VkPipelineLayout draft, VkPipelineCache cache, VkSpecializationInfo *specializationInfo)</div><div class="ttdef"><b>Definition:</b> <a href="incomplete_8cpp_source.html#l00058">incomplete.cpp:58</a></div></div>
+<div class="ttc" id="apch__mm_8h_html"><div class="ttname"><a href="pch__mm_8h.html">pch_mm.h</a></div></div>
 <div class="ttc" id="astruct_bache_html"><div class="ttname"><a href="struct_bache.html">Bache</a></div><div class="ttdef"><b>Definition:</b> <a href="incomplete_8h_source.html#l00117">incomplete.h:117</a></div></div>
 <div class="ttc" id="astruct_bache_html_a6a7fa1ba1a24edf5bc9a00f944c01981"><div class="ttname"><a href="struct_bache.html#a6a7fa1ba1a24edf5bc9a00f944c01981">Bache::align</a></div><div class="ttdeci">VkDeviceSize align</div><div class="ttdef"><b>Definition:</b> <a href="incomplete_8h_source.html#l00123">incomplete.h:123</a></div></div>
 <div class="ttc" id="astruct_bache_html_aa4fe82bf832c4e3fdd3ca1d032334fc8"><div class="ttname"><a href="struct_bache.html#aa4fe82bf832c4e3fdd3ca1d032334fc8">Bache::Bache</a></div><div class="ttdeci">Bache()</div><div class="ttdef"><b>Definition:</b> <a href="incomplete_8cpp_source.html#l00007">incomplete.cpp:7</a></div></div>
@@ -190,10 +209,15 @@ $(function() {
 <div class="ttc" id="astruct_bache_html_af8d5665e3f03c2510cfca46b785668b6"><div class="ttname"><a href="struct_bache.html#af8d5665e3f03c2510cfca46b785668b6">Bache::operator=</a></div><div class="ttdeci">Bache &amp; operator=(const Bache &amp;other)</div><div class="ttdef"><b>Definition:</b> <a href="incomplete_8cpp_source.html#l00041">incomplete.cpp:41</a></div></div>
 <div class="ttc" id="astruct_hache_html_a8b54c9cf27b6a51fb570c321098bd124"><div class="ttname"><a href="struct_hache.html#a8b54c9cf27b6a51fb570c321098bd124">Hache::hash</a></div><div class="ttdeci">size_t hash</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00440">vthreepy_types.h:440</a></div></div>
 <div class="ttc" id="avthreepy__const_8h_html_ab909d707055e5e53f42a548e9f487e22"><div class="ttname"><a href="vthreepy__const_8h.html#ab909d707055e5e53f42a548e9f487e22">LayoutType</a></div><div class="ttdeci">std::string_view LayoutType</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__const_8h_source.html#l00032">vthreepy_const.h:32</a></div></div>
+<div class="ttc" id="aworking__mm_8h_html"><div class="ttname"><a href="working__mm_8h.html">working_mm.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_b0644e762c64e695295a4b4e374bba64.html">VulkanRaytracingCycles</a></li><li class="navelem"><a class="el" href="dir_ccf0a3597f9e3dc11901d9904ae9239e.html">libvkmm</a></li><li class="navelem"><a class="el" href="dir_409a94dcc82a905497c16d3ac1453485.html">src</a></li><li class="navelem"><a class="el" href="dir_f98de78b468fcab91dd0da927fd4bb65.html">aeolus</a></li><li class="navelem"><a class="el" href="incomplete_8cpp.html">incomplete.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+  </ul>
+</div>
 </body>
 </html>
