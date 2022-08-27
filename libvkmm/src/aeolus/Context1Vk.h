@@ -914,13 +914,29 @@ struct ContextExVk {
 	struct {
 		uint32_t w, h;
 	}config;
+	
+	// ----------------------------------------------------------------------
+	// Construction, initialization, and destruction
+	// ----------------------------------------------------------------------
 
+	/**
+	* \brief construct ContextExVk.
+	* \param w: window width
+	* \param w: window height
+	*/
 	ContextExVk(uint32_t w, uint32_t h) :config({ w,h }) {};
 	~ContextExVk() {
 		shutdown();
 	};
 
 
+	/**
+	* \brief Set Extern Global Variables.
+	* 
+	* 
+	* @emoji :zap: 
+	* named by prefix $.
+	*/
 	void set$();
 
 	bool    initialize();
