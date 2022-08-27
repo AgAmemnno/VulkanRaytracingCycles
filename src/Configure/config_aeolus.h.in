@@ -11,11 +11,7 @@
 #cmakedefine  ENABLED_VULKAN_OPENCL
 
 #define VERSION_NO  "${APP_VERSION}"
-
-
-
-
-
+#define GPU_DEVICE_ID  "${GPU_DEVICE_ID}"
 #cmakedefine  INCLUDE_MATERIAL_VKVIDEO
 
 #define CURRENT_BASE_DIR    "@CURRENT_BASE_DIR@"
@@ -23,13 +19,14 @@
 #cmakedefine  DEFAULT_PATH_USE
 
 #ifdef DEFAULT_PATH_USE 
-#define AEOLUS_BASE_DIR   "D:\\C\\Aeoluslibrary"
+#define AEOLUS_BASE_DIR   
 #define AEOLUS_DATA_DIR  AEOLUS_BASE_DIR
-#define LOG_THREAD_FILE   "D:/Python/Aeolus/aeolus/sample/log/" 
+#define LOG_THREAD_FILE   
 #else
 #define AEOLUS_BASE_DIR    "@AEOLUS_BASE_DIR@"
 #define AEOLUS_DATA_DIR   AEOLUS_BASE_DIR
 #define LOG_THREAD_FILE    "@LOG_THREAD_FILE@"
+#define AEOLUS_SHADER_BP_DEF    "@AEOLUS_SHADER_BP_DEF@"
 #endif
 
 #define INCLUDE_PATH         AEOLUS_BASE_DIR "\\libthreepy\\src"
