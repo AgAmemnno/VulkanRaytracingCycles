@@ -1,3 +1,4 @@
+message("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ cmake opttest $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
 
 set(targ "opttest")
 current_dir_modify(TRUE)
@@ -7,6 +8,8 @@ current_dir_modify(TRUE)
     warning_sup(${_WARNINGS})
 
  append_optTest(${targ})
+ #version DEPRECATED std::allocator
+add_definitions(-D_HAS_DEPRECATED_ALLOCATOR_MEMBERS)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -91,3 +94,5 @@ set_target_properties(${targ} PROPERTIES LINK_FLAGS "/ignore:4217")
     COMMAND ${CMAKE_COMMAND} -E copy   ${SRC_FILES}   ${OutputDir}
 )
 add_dependencies(${targ} copyDll)
+
+message("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ cmake opttest done $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")

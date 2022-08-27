@@ -16,6 +16,8 @@
 
 #ifndef __UTIL_DEBUG2_H__
 #define __UTIL_DEBUG2_H__
+
+#include "config_aeolus.h"
 #include "util/util_logging.h"
 #include "util/util_string.h"
 
@@ -81,7 +83,11 @@ static std::unordered_map<std::string, int>   eSTAT = {
     {"kernel_path_surface_bounce",22}
 };
 
-#include "D:\\C\\Aeoluslibrary\\libAeolusOptix\\shaders\\intern\\kernel\\prof\\bp_def.h"
+
+
+
+#include  AEOLUS_SHADER_BP_DEF
+
 
 /*
 ///float3

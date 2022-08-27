@@ -64,6 +64,7 @@ list(APPEND CREATOR_DEF
 
 
 message("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ cmake libAeolusOptix add cycles  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+
     add_subdirectory(cycles)
     add_subdirectory(aeolus_device/device)
     include_directories( ${LIB_DIR}/libAeolusOptix/aeolus_device)
