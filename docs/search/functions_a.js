@@ -11,7 +11,7 @@ var searchData=
   ['init_8',['init',['../struct_temperance.html#a0882361774f4ca2c12e36d2ad9a008a6',1,'Temperance']]],
   ['initblockallocation_9',['InitBlockAllocation',['../structvkmm_1_1_allocation___t.html#ac3749dcd66eafded8ebd28e033ee558a',1,'vkmm::Allocation_T']]],
   ['initdedicatedallocation_10',['InitDedicatedAllocation',['../structvkmm_1_1_allocation___t.html#adf9d317f83bf07961308cb5b52230f2b',1,'vkmm::Allocation_T']]],
-  ['initialize_11',['initialize',['../struct_context0_vk.html#a8c7996d08371cf81f2bc57670eaf5123',1,'Context0Vk::initialize()'],['../structvkmm_1_1_memory_vk.html#ae73fcf5af158884c5abac1f17c4b7700',1,'vkmm::MemoryVk::initialize()']]],
+  ['initialize_11',['initialize',['../struct_context_ex_vk.html#ae94e47b2031111b801425f82c5e7b1ab',1,'ContextExVk::initialize()'],['../structvkmm_1_1_memory_vk.html#ae73fcf5af158884c5abac1f17c4b7700',1,'vkmm::MemoryVk::initialize()']]],
   ['initlost_12',['InitLost',['../structvkmm_1_1_allocation___t.html#a0d99611086732e2052fb8d18b19ee9ac',1,'vkmm::Allocation_T']]],
   ['input_5fstring_13',['INPUT_String',['../namespacearth.html#af9d1c6a47b2179bc6ae254b754fb963b',1,'arth']]],
   ['insertlabel_14',['insertLabel',['../struct_debug_master.html#af32a3db38def0e0dfd6c14e3207f7cf5',1,'DebugMaster']]],

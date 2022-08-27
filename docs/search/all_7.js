@@ -32,7 +32,7 @@ var searchData=
   ['freestaging_29',['freeStaging',['../struct_immidiate_cmd_pool.html#a5567b4519b95b05db64711531c48a1b0',1,'ImmidiateCmdPool']]],
   ['freevulkanmemory_30',['FreeVulkanMemory',['../structvkmm_1_1_allocator___t.html#ade3a9d1e99c19b97d1c5e6697ab27172',1,'vkmm::Allocator_T']]],
   ['front_31',['front',['../namespacefront.html',1,'']]],
-  ['fullscreen_32',['fullscreen',['../struct_context0_vk_1_1_settings.html#ad10a890e2d11dfdbb1dc67a63e695b81',1,'Context0Vk::Settings::fullscreen()'],['../struct_window_vk.html#ad3b89d0a6e91d8b152442e5061b24faa',1,'WindowVk::fullscreen()'],['../global_8hpp.html#adc359d0ba0a207e69da999c40bf762c8',1,'fullscreen():&#160;global.hpp']]],
+  ['fullscreen_32',['fullscreen',['../struct_context_ex_vk_1_1_settings.html#aec14d18a7cbf7fe3f14dd3e60951b3dc',1,'ContextExVk::Settings::fullscreen()'],['../struct_window_vk.html#ad3b89d0a6e91d8b152442e5061b24faa',1,'WindowVk::fullscreen()'],['../global_8hpp.html#adc359d0ba0a207e69da999c40bf762c8',1,'fullscreen():&#160;global.hpp']]],
   ['fullscreen_5ftoggle_33',['fullscreen_toggle',['../global_8hpp.html#a2950ffe20faa9babb7485a04d2f3598d',1,'global.hpp']]],
   ['futtype_34',['futType',['../structfront_1_1_deallocator_vk.html#a7d7cc5343bc8f50058f0f92bbc1e5867',1,'front::DeallocatorVk']]],
   ['garbage_35',['garbage',['../namespacefront_1_1garbage.html',1,'front']]]

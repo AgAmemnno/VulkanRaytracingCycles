@@ -123,9 +123,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_debug_master_1_1_scoped_cmd_label.html">DebugMaster&lt; T &gt;::ScopedCmdLabel</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_context0_vk.html">Context0Vk</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_context_ex_vk.html">ContextExVk</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_context0_vk_1_1_settings.html">Context0Vk::Settings</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_context_ex_vk_1_1_settings.html">ContextExVk::Settings</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -134,6 +134,8 @@ Macros</h2></td></tr>
 <tr class="separator:a831f069e9b51851db9fea32f2a23b87b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad33d696d8f053214e3e751289e82a64b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_context1_vk_8h.html#ad33d696d8f053214e3e751289e82a64b">VK_ENABLE_DebugPrint</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:ad33d696d8f053214e3e751289e82a64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3a604ae584d77f5773bd77c5c75d4bc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_context1_vk_8h.html#af3a604ae584d77f5773bd77c5c75d4bc">ENABLED_VULKAN_OPTIX</a></td></tr>
+<tr class="separator:af3a604ae584d77f5773bd77c5c75d4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa775116810ab00b3b4f1dd0a5a7c404a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(...)&#160;&#160;&#160;<a class="el" href="log_8hpp.html#a5c50b8e52549c244bcba5d2f589070fe">log_out</a>(__FILE__, __LINE__, <a class="el" href="log_8hpp.html#aa5a9053636a30269210c54e734e0d583a6e98ff471e3ce6c4ef2d75c37ee51837">LOG_INFO</a>, __VA_ARGS__)</td></tr>
 <tr class="separator:aa775116810ab00b3b4f1dd0a5a7c404a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94e46499e7b49aa264b7ad65c754b972"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_context1_vk_8h.html#a94e46499e7b49aa264b7ad65c754b972">GetCTX</a>(c)&#160;&#160;&#160;{if (c == nullptr) {if (!$tank.takeout(c, 0)) {<a class="el" href="log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3">log_bad</a>(&quot; not found  CTX.&quot;);};}};</td></tr>
@@ -183,7 +185,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00040">40</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00043">43</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 
 </div>
 </div>
@@ -203,6 +205,22 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af3a604ae584d77f5773bd77c5c75d4bc" name="af3a604ae584d77f5773bd77c5c75d4bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3a604ae584d77f5773bd77c5c75d4bc">&#9670;&nbsp;</a></span>ENABLED_VULKAN_OPTIX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ENABLED_VULKAN_OPTIX</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00015">15</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+
+</div>
+</div>
 <a id="a94e46499e7b49aa264b7ad65c754b972" name="a94e46499e7b49aa264b7ad65c754b972"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a94e46499e7b49aa264b7ad65c754b972">&#9670;&nbsp;</a></span>GetCTX</h2>
 
@@ -219,7 +237,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00037">37</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00040">40</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 
 </div>
 </div>
@@ -239,7 +257,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00035">35</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00038">38</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 
 </div>
 </div>
@@ -272,7 +290,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00824">824</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00827">827</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 
 </div>
 </div>
@@ -288,7 +306,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00084">84</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00087">87</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 
 </div>
 </div>
@@ -304,7 +322,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00085">85</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00088">88</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
 
 </div>
 </div>
@@ -326,15 +344,15 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a1e7ba9fddacf1076e0fc6ad0b6d0b8e4ab1d5eac4b1dca480c8056eaea7663b7a" name="a1e7ba9fddacf1076e0fc6ad0b6d0b8e4ab1d5eac4b1dca480c8056eaea7663b7a"></a>ALL&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00703">703</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  703</span>              {</div>
-<div class="line"><span class="lineno">  704</span>      <a class="code hl_enumvalue" href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a4f11aa9e8bd8db9e80ffaf711d4ccdfa">Prime</a>,</div>
-<div class="line"><span class="lineno">  705</span>      <a class="code hl_enumvalue" href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a977cc667a6db29d9dd079d6b6d3b8e9b">External</a>,</div>
-<div class="line"><span class="lineno">  706</span>      <a class="code hl_enumvalue" href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4ab1d5eac4b1dca480c8056eaea7663b7a">ALL</a></div>
-<div class="line"><span class="lineno">  707</span>};</div>
-<div class="ttc" id="a_context1_vk_8h_html_a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a4f11aa9e8bd8db9e80ffaf711d4ccdfa"><div class="ttname"><a href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a4f11aa9e8bd8db9e80ffaf711d4ccdfa">Prime</a></div><div class="ttdeci">@ Prime</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00704">Context1Vk.h:704</a></div></div>
-<div class="ttc" id="a_context1_vk_8h_html_a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a977cc667a6db29d9dd079d6b6d3b8e9b"><div class="ttname"><a href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a977cc667a6db29d9dd079d6b6d3b8e9b">External</a></div><div class="ttdeci">@ External</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00705">Context1Vk.h:705</a></div></div>
-<div class="ttc" id="a_context1_vk_8h_html_a1e7ba9fddacf1076e0fc6ad0b6d0b8e4ab1d5eac4b1dca480c8056eaea7663b7a"><div class="ttname"><a href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4ab1d5eac4b1dca480c8056eaea7663b7a">ALL</a></div><div class="ttdeci">@ ALL</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00707">Context1Vk.h:706</a></div></div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8h_source.html#l00706">706</a> of file <a class="el" href="_context1_vk_8h_source.html">Context1Vk.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  706</span>              {</div>
+<div class="line"><span class="lineno">  707</span>      <a class="code hl_enumvalue" href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a4f11aa9e8bd8db9e80ffaf711d4ccdfa">Prime</a>,</div>
+<div class="line"><span class="lineno">  708</span>      <a class="code hl_enumvalue" href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a977cc667a6db29d9dd079d6b6d3b8e9b">External</a>,</div>
+<div class="line"><span class="lineno">  709</span>      <a class="code hl_enumvalue" href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4ab1d5eac4b1dca480c8056eaea7663b7a">ALL</a></div>
+<div class="line"><span class="lineno">  710</span>};</div>
+<div class="ttc" id="a_context1_vk_8h_html_a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a4f11aa9e8bd8db9e80ffaf711d4ccdfa"><div class="ttname"><a href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a4f11aa9e8bd8db9e80ffaf711d4ccdfa">Prime</a></div><div class="ttdeci">@ Prime</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00707">Context1Vk.h:707</a></div></div>
+<div class="ttc" id="a_context1_vk_8h_html_a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a977cc667a6db29d9dd079d6b6d3b8e9b"><div class="ttname"><a href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4a977cc667a6db29d9dd079d6b6d3b8e9b">External</a></div><div class="ttdeci">@ External</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00708">Context1Vk.h:708</a></div></div>
+<div class="ttc" id="a_context1_vk_8h_html_a1e7ba9fddacf1076e0fc6ad0b6d0b8e4ab1d5eac4b1dca480c8056eaea7663b7a"><div class="ttname"><a href="_context1_vk_8h.html#a1e7ba9fddacf1076e0fc6ad0b6d0b8e4ab1d5eac4b1dca480c8056eaea7663b7a">ALL</a></div><div class="ttdeci">@ ALL</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00710">Context1Vk.h:709</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
