@@ -2005,6 +2005,7 @@ public:
 
 
 		float HitRecordBuffer[4] = { 0.1f,0.0f,0.1f,1.f };
+		
 
 		uint32_t rayGenSize = rayTracingProperties.shaderGroupBaseAlignment;
 		uint32_t missSize = rayTracingProperties.shaderGroupBaseAlignment;
@@ -2069,8 +2070,9 @@ public:
 
 		createDraft();
 
-		typedef float HitRecordBuffer[4];
-
+		//typedef float HitRecordBuffer[4];
+		
+		typedef  std::array<float, 4> HitRecordBuffer;
 
 		std::vector<HitRecordBuffer> hit2(2);
 		hit2[0][0] = 0.5f, hit2[0][1] = 0.0f, hit2[0][2] = 0.1f, hit2[0][3] = 1.f;
@@ -2419,8 +2421,8 @@ public:
 
 		createDraft();
 
-		typedef float HitRecordBuffer[4];
-
+		//typedef float HitRecordBuffer[4];
+		typedef  std::array<float, 4> HitRecordBuffer;
 
 		std::vector<HitRecordBuffer> hit2(2);
 		hit2[0][0] = 0.5f, hit2[0][1] = 0.0f, hit2[0][2] = 0.1f, hit2[0][3] = 1.f;

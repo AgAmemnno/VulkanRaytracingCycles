@@ -157,8 +157,16 @@ template<class T>
 		now = std::chrono::high_resolution_clock::now();
 		printf("Submit RT   execution Critical    time    %.5f    milli second      result   %u   Sleeping  3 second.... \n ", (float)(std::chrono::duration<double, std::milli>(now - start).count()), (UINT)result);
 
-		//Sleep(10);
-		
+
+		if (!((result == VK_SUCCESS) || (result == VK_SUBOPTIMAL_KHR))) {
+			if (result == VK_ERROR_OUT_OF_DATE_KHR) {
+				printf("Next Frame Error or Suboptimal  \n");
+				return;
+			}
+			else {
+				VK_CHECK_RESULT(result);
+			}
+		}
 		swapchain->CommandLoop( *postmat[0], swapchain->current.frame);
 		swapchain->submit(&swapchain->drawCmdBuffers[swapchain->current.frame]);
 
