@@ -3,7 +3,9 @@
 #ifndef CONTEXT1_VK_H
 #define CONTEXT1_VK_H
 #include "types.hpp"
-
+#ifndef ENABLED_VULKAN_OPTIX
+#define ENABLED_VULKAN_OPTIX
+#endif
 #define   VK_ENABLE_DebugPrint 1
 
 //#define NSIGHT_DEBUG
