@@ -217,42 +217,42 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8cpp_source.html#l00438">438</a> of file <a class="el" href="_context1_vk_8cpp_source.html">Context1Vk.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  440</span>                     {</div>
-<div class="line"><span class="lineno">  441</span>    std::ostringstream message;</div>
-<div class="line"><span class="lineno">  442</span> </div>
-<div class="line"><span class="lineno">  443</span>    <span class="keywordflow">if</span> (msgFlags &amp; VK_DEBUG_REPORT_ERROR_BIT_EXT) {</div>
-<div class="line"><span class="lineno">  444</span>        message &lt;&lt; <span class="stringliteral">&quot;ERROR: &quot;</span>;</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8cpp_source.html#l00426">426</a> of file <a class="el" href="_context1_vk_8cpp_source.html">Context1Vk.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  428</span>                     {</div>
+<div class="line"><span class="lineno">  429</span>    std::ostringstream message;</div>
+<div class="line"><span class="lineno">  430</span> </div>
+<div class="line"><span class="lineno">  431</span>    <span class="keywordflow">if</span> (msgFlags &amp; VK_DEBUG_REPORT_ERROR_BIT_EXT) {</div>
+<div class="line"><span class="lineno">  432</span>        message &lt;&lt; <span class="stringliteral">&quot;ERROR: &quot;</span>;</div>
+<div class="line"><span class="lineno">  433</span>    }</div>
+<div class="line"><span class="lineno">  434</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (msgFlags &amp; VK_DEBUG_REPORT_WARNING_BIT_EXT) {</div>
+<div class="line"><span class="lineno">  435</span>        message &lt;&lt; <span class="stringliteral">&quot;WARNING: &quot;</span>;</div>
+<div class="line"><span class="lineno">  436</span>    }</div>
+<div class="line"><span class="lineno">  437</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (msgFlags &amp; VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT) {</div>
+<div class="line"><span class="lineno">  438</span>        message &lt;&lt; <span class="stringliteral">&quot;PERFORMANCE WARNING: &quot;</span>;</div>
+<div class="line"><span class="lineno">  439</span>    }</div>
+<div class="line"><span class="lineno">  440</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (msgFlags &amp; VK_DEBUG_REPORT_INFORMATION_BIT_EXT) {</div>
+<div class="line"><span class="lineno">  441</span>        message &lt;&lt; <span class="stringliteral">&quot;INFO: &quot;</span>;</div>
+<div class="line"><span class="lineno">  442</span>    }</div>
+<div class="line"><span class="lineno">  443</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (msgFlags &amp; VK_DEBUG_REPORT_DEBUG_BIT_EXT) {</div>
+<div class="line"><span class="lineno">  444</span>        message &lt;&lt; <span class="stringliteral">&quot;DEBUG: &quot;</span>;</div>
 <div class="line"><span class="lineno">  445</span>    }</div>
-<div class="line"><span class="lineno">  446</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (msgFlags &amp; VK_DEBUG_REPORT_WARNING_BIT_EXT) {</div>
-<div class="line"><span class="lineno">  447</span>        message &lt;&lt; <span class="stringliteral">&quot;WARNING: &quot;</span>;</div>
-<div class="line"><span class="lineno">  448</span>    }</div>
-<div class="line"><span class="lineno">  449</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (msgFlags &amp; VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT) {</div>
-<div class="line"><span class="lineno">  450</span>        message &lt;&lt; <span class="stringliteral">&quot;PERFORMANCE WARNING: &quot;</span>;</div>
-<div class="line"><span class="lineno">  451</span>    }</div>
-<div class="line"><span class="lineno">  452</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (msgFlags &amp; VK_DEBUG_REPORT_INFORMATION_BIT_EXT) {</div>
-<div class="line"><span class="lineno">  453</span>        message &lt;&lt; <span class="stringliteral">&quot;INFO: &quot;</span>;</div>
-<div class="line"><span class="lineno">  454</span>    }</div>
-<div class="line"><span class="lineno">  455</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (msgFlags &amp; VK_DEBUG_REPORT_DEBUG_BIT_EXT) {</div>
-<div class="line"><span class="lineno">  456</span>        message &lt;&lt; <span class="stringliteral">&quot;DEBUG: &quot;</span>;</div>
-<div class="line"><span class="lineno">  457</span>    }</div>
-<div class="line"><span class="lineno">  458</span>    message &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; pLayerPrefix &lt;&lt; <span class="stringliteral">&quot;] Code &quot;</span> &lt;&lt; msgCode &lt;&lt; <span class="stringliteral">&quot; : &quot;</span> &lt;&lt; pMsg;</div>
-<div class="line"><span class="lineno">  459</span> </div>
-<div class="line"><span class="lineno">  460</span><span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><span class="lineno">  461</span>    MessageBoxA(NULL, message.str().c_str(), <span class="stringliteral">&quot;Alert&quot;</span>, MB_OK);</div>
-<div class="line"><span class="lineno">  462</span><span class="preprocessor">#else</span></div>
-<div class="line"><span class="lineno">  463</span>    std::cout &lt;&lt; message.str() &lt;&lt; std::endl;</div>
-<div class="line"><span class="lineno">  464</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  465</span> </div>
-<div class="line"><span class="lineno">  466</span>    <span class="comment">/*</span></div>
-<div class="line"><span class="lineno">  467</span><span class="comment">     * false indicates that layer should not bail-out of an</span></div>
-<div class="line"><span class="lineno">  468</span><span class="comment">     * API call that had validation failures. This may mean that the</span></div>
-<div class="line"><span class="lineno">  469</span><span class="comment">     * app dies inside the driver due to invalid parameter(s).</span></div>
-<div class="line"><span class="lineno">  470</span><span class="comment">     * That&#39;s what would happen without validation layers, so we&#39;ll</span></div>
-<div class="line"><span class="lineno">  471</span><span class="comment">     * keep that behavior here.</span></div>
-<div class="line"><span class="lineno">  472</span><span class="comment">     */</span></div>
-<div class="line"><span class="lineno">  473</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  474</span>}</div>
+<div class="line"><span class="lineno">  446</span>    message &lt;&lt; <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; pLayerPrefix &lt;&lt; <span class="stringliteral">&quot;] Code &quot;</span> &lt;&lt; msgCode &lt;&lt; <span class="stringliteral">&quot; : &quot;</span> &lt;&lt; pMsg;</div>
+<div class="line"><span class="lineno">  447</span> </div>
+<div class="line"><span class="lineno">  448</span><span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><span class="lineno">  449</span>    MessageBoxA(NULL, message.str().c_str(), <span class="stringliteral">&quot;Alert&quot;</span>, MB_OK);</div>
+<div class="line"><span class="lineno">  450</span><span class="preprocessor">#else</span></div>
+<div class="line"><span class="lineno">  451</span>    std::cout &lt;&lt; message.str() &lt;&lt; std::endl;</div>
+<div class="line"><span class="lineno">  452</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  453</span> </div>
+<div class="line"><span class="lineno">  454</span>    <span class="comment">/*</span></div>
+<div class="line"><span class="lineno">  455</span><span class="comment">     * false indicates that layer should not bail-out of an</span></div>
+<div class="line"><span class="lineno">  456</span><span class="comment">     * API call that had validation failures. This may mean that the</span></div>
+<div class="line"><span class="lineno">  457</span><span class="comment">     * app dies inside the driver due to invalid parameter(s).</span></div>
+<div class="line"><span class="lineno">  458</span><span class="comment">     * That&#39;s what would happen without validation layers, so we&#39;ll</span></div>
+<div class="line"><span class="lineno">  459</span><span class="comment">     * keep that behavior here.</span></div>
+<div class="line"><span class="lineno">  460</span><span class="comment">     */</span></div>
+<div class="line"><span class="lineno">  461</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  462</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -294,65 +294,65 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_context1_vk_8cpp_source.html#l00477">477</a> of file <a class="el" href="_context1_vk_8cpp_source.html">Context1Vk.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  481</span>{</div>
-<div class="line"><span class="lineno">  482</span>    <a class="code hl_class" href="struct_debug_master.html">DebugMaster1</a>* <a class="code hl_define" href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a> = <span class="keyword">reinterpret_cast&lt;</span><a class="code hl_class" href="struct_debug_master.html">DebugMaster1</a>*<span class="keyword">&gt;</span>(userData);</div>
-<div class="line"><span class="lineno">  483</span> </div>
-<div class="line"><span class="lineno">  484</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a>-&gt;dbgIgnoreMessages.find(callbackData-&gt;messageIdNumber) != <a class="code hl_define" href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a>-&gt;dbgIgnoreMessages.end()) <span class="keywordflow">return</span> VK_FALSE;</div>
-<div class="line"><span class="lineno">  485</span> </div>
-<div class="line"><span class="lineno">  486</span>    <span class="comment">// repeating nvprintfLevel to help with breakpoints : so we can selectively break right after the print</span></div>
-<div class="line"><span class="lineno">  487</span>    <span class="keywordflow">if</span> (messageSeverity &amp; VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT)</div>
+<p class="definition">Definition at line <a class="el" href="_context1_vk_8cpp_source.html#l00465">465</a> of file <a class="el" href="_context1_vk_8cpp_source.html">Context1Vk.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  469</span>{</div>
+<div class="line"><span class="lineno">  470</span>    <a class="code hl_class" href="struct_debug_master.html">DebugMaster1</a>* <a class="code hl_define" href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a> = <span class="keyword">reinterpret_cast&lt;</span><a class="code hl_class" href="struct_debug_master.html">DebugMaster1</a>*<span class="keyword">&gt;</span>(userData);</div>
+<div class="line"><span class="lineno">  471</span> </div>
+<div class="line"><span class="lineno">  472</span>    <span class="keywordflow">if</span> (<a class="code hl_define" href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a>-&gt;dbgIgnoreMessages.find(callbackData-&gt;messageIdNumber) != <a class="code hl_define" href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a>-&gt;dbgIgnoreMessages.end()) <span class="keywordflow">return</span> VK_FALSE;</div>
+<div class="line"><span class="lineno">  473</span> </div>
+<div class="line"><span class="lineno">  474</span>    <span class="comment">// repeating nvprintfLevel to help with breakpoints : so we can selectively break right after the print</span></div>
+<div class="line"><span class="lineno">  475</span>    <span class="keywordflow">if</span> (messageSeverity &amp; VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT)</div>
+<div class="line"><span class="lineno">  476</span>    {</div>
+<div class="line"><span class="lineno">  477</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;VERBOSE: %s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
+<div class="line"><span class="lineno">  478</span>    }</div>
+<div class="line"><span class="lineno">  479</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (messageSeverity &amp; VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT)</div>
+<div class="line"><span class="lineno">  480</span>    {</div>
+<div class="line"><span class="lineno">  481</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;INFO: %s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
+<div class="line"><span class="lineno">  482</span>    }</div>
+<div class="line"><span class="lineno">  483</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (messageSeverity &amp; VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT)</div>
+<div class="line"><span class="lineno">  484</span>    {</div>
+<div class="line"><span class="lineno">  485</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;WARNING: %s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
+<div class="line"><span class="lineno">  486</span>    }</div>
+<div class="line"><span class="lineno">  487</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (messageSeverity &amp; VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT)</div>
 <div class="line"><span class="lineno">  488</span>    {</div>
-<div class="line"><span class="lineno">  489</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;VERBOSE: %s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
+<div class="line"><span class="lineno">  489</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;ERROR: %s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
 <div class="line"><span class="lineno">  490</span>    }</div>
-<div class="line"><span class="lineno">  491</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (messageSeverity &amp; VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT)</div>
+<div class="line"><span class="lineno">  491</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (messageType &amp; VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT)</div>
 <div class="line"><span class="lineno">  492</span>    {</div>
-<div class="line"><span class="lineno">  493</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;INFO: %s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
+<div class="line"><span class="lineno">  493</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;GENERAL: %s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
 <div class="line"><span class="lineno">  494</span>    }</div>
-<div class="line"><span class="lineno">  495</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (messageSeverity &amp; VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT)</div>
+<div class="line"><span class="lineno">  495</span>    <span class="keywordflow">else</span></div>
 <div class="line"><span class="lineno">  496</span>    {</div>
-<div class="line"><span class="lineno">  497</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;WARNING: %s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
+<div class="line"><span class="lineno">  497</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;%s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
 <div class="line"><span class="lineno">  498</span>    }</div>
-<div class="line"><span class="lineno">  499</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (messageSeverity &amp; VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT)</div>
-<div class="line"><span class="lineno">  500</span>    {</div>
-<div class="line"><span class="lineno">  501</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;ERROR: %s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
-<div class="line"><span class="lineno">  502</span>    }</div>
-<div class="line"><span class="lineno">  503</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (messageType &amp; VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT)</div>
+<div class="line"><span class="lineno">  499</span> </div>
+<div class="line"><span class="lineno">  500</span>    <span class="comment">// this seems redundant with the info already in callbackData-&gt;pMessage</span></div>
+<div class="line"><span class="lineno">  501</span><span class="preprocessor">#if 0</span></div>
+<div class="line"><span class="lineno">  502</span> </div>
+<div class="line"><span class="lineno">  503</span>    <span class="keywordflow">if</span> (callbackData-&gt;objectCount &gt; 0)</div>
 <div class="line"><span class="lineno">  504</span>    {</div>
-<div class="line"><span class="lineno">  505</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;GENERAL: %s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
-<div class="line"><span class="lineno">  506</span>    }</div>
-<div class="line"><span class="lineno">  507</span>    <span class="keywordflow">else</span></div>
-<div class="line"><span class="lineno">  508</span>    {</div>
-<div class="line"><span class="lineno">  509</span>        <a class="code hl_define" href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a>(<span class="stringliteral">&quot;%s \n --&gt; %s\n&quot;</span>, callbackData-&gt;pMessageIdName, callbackData-&gt;pMessage);</div>
-<div class="line"><span class="lineno">  510</span>    }</div>
-<div class="line"><span class="lineno">  511</span> </div>
-<div class="line"><span class="lineno">  512</span>    <span class="comment">// this seems redundant with the info already in callbackData-&gt;pMessage</span></div>
-<div class="line"><span class="lineno">  513</span><span class="preprocessor">#if 0</span></div>
-<div class="line"><span class="lineno">  514</span> </div>
-<div class="line"><span class="lineno">  515</span>    <span class="keywordflow">if</span> (callbackData-&gt;objectCount &gt; 0)</div>
-<div class="line"><span class="lineno">  516</span>    {</div>
-<div class="line"><span class="lineno">  517</span>        <span class="keywordflow">for</span> (uint32_t <span class="keywordtype">object</span> = 0; <span class="keywordtype">object</span> &lt; callbackData-&gt;objectCount; ++object)</div>
-<div class="line"><span class="lineno">  518</span>        {</div>
-<div class="line"><span class="lineno">  519</span>            std::string otype = ObjectTypeToString(callbackData-&gt;pObjects[<span class="keywordtype">object</span>].objectType);</div>
-<div class="line"><span class="lineno">  520</span>            LOGI(<span class="stringliteral">&quot; Object[%d] - Type %s, Value %p, Name \&quot;%s\&quot;\n&quot;</span>, <span class="keywordtype">object</span>, otype.c_str(),</div>
-<div class="line"><span class="lineno">  521</span>                (<span class="keywordtype">void</span>*)(callbackData-&gt;pObjects[<span class="keywordtype">object</span>].objectHandle), callbackData-&gt;pObjects[<span class="keywordtype">object</span>].pObjectName);</div>
-<div class="line"><span class="lineno">  522</span>        }</div>
+<div class="line"><span class="lineno">  505</span>        <span class="keywordflow">for</span> (uint32_t <span class="keywordtype">object</span> = 0; <span class="keywordtype">object</span> &lt; callbackData-&gt;objectCount; ++object)</div>
+<div class="line"><span class="lineno">  506</span>        {</div>
+<div class="line"><span class="lineno">  507</span>            std::string otype = ObjectTypeToString(callbackData-&gt;pObjects[<span class="keywordtype">object</span>].objectType);</div>
+<div class="line"><span class="lineno">  508</span>            LOGI(<span class="stringliteral">&quot; Object[%d] - Type %s, Value %p, Name \&quot;%s\&quot;\n&quot;</span>, <span class="keywordtype">object</span>, otype.c_str(),</div>
+<div class="line"><span class="lineno">  509</span>                (<span class="keywordtype">void</span>*)(callbackData-&gt;pObjects[<span class="keywordtype">object</span>].objectHandle), callbackData-&gt;pObjects[<span class="keywordtype">object</span>].pObjectName);</div>
+<div class="line"><span class="lineno">  510</span>        }</div>
+<div class="line"><span class="lineno">  511</span>    }</div>
+<div class="line"><span class="lineno">  512</span>    <span class="keywordflow">if</span> (callbackData-&gt;cmdBufLabelCount &gt; 0)</div>
+<div class="line"><span class="lineno">  513</span>    {</div>
+<div class="line"><span class="lineno">  514</span>        <span class="keywordflow">for</span> (uint32_t label = 0; label &lt; callbackData-&gt;cmdBufLabelCount; ++label)</div>
+<div class="line"><span class="lineno">  515</span>        {</div>
+<div class="line"><span class="lineno">  516</span>            LOGI(<span class="stringliteral">&quot; Label[%d] - %s { %f, %f, %f, %f}\n&quot;</span>, label, callbackData-&gt;pCmdBufLabels[label].pLabelName,</div>
+<div class="line"><span class="lineno">  517</span>                callbackData-&gt;pCmdBufLabels[label].color[0], callbackData-&gt;pCmdBufLabels[label].color[1],</div>
+<div class="line"><span class="lineno">  518</span>                callbackData-&gt;pCmdBufLabels[label].color[2], callbackData-&gt;pCmdBufLabels[label].color[3]);</div>
+<div class="line"><span class="lineno">  519</span>        }</div>
+<div class="line"><span class="lineno">  520</span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="lineno">  521</span>        <span class="comment">// Don&#39;t bail out, but keep going.</span></div>
+<div class="line"><span class="lineno">  522</span>        <span class="keywordflow">return</span> VK_FALSE;</div>
 <div class="line"><span class="lineno">  523</span>    }</div>
-<div class="line"><span class="lineno">  524</span>    <span class="keywordflow">if</span> (callbackData-&gt;cmdBufLabelCount &gt; 0)</div>
-<div class="line"><span class="lineno">  525</span>    {</div>
-<div class="line"><span class="lineno">  526</span>        <span class="keywordflow">for</span> (uint32_t label = 0; label &lt; callbackData-&gt;cmdBufLabelCount; ++label)</div>
-<div class="line"><span class="lineno">  527</span>        {</div>
-<div class="line"><span class="lineno">  528</span>            LOGI(<span class="stringliteral">&quot; Label[%d] - %s { %f, %f, %f, %f}\n&quot;</span>, label, callbackData-&gt;pCmdBufLabels[label].pLabelName,</div>
-<div class="line"><span class="lineno">  529</span>                callbackData-&gt;pCmdBufLabels[label].color[0], callbackData-&gt;pCmdBufLabels[label].color[1],</div>
-<div class="line"><span class="lineno">  530</span>                callbackData-&gt;pCmdBufLabels[label].color[2], callbackData-&gt;pCmdBufLabels[label].color[3]);</div>
-<div class="line"><span class="lineno">  531</span>        }</div>
-<div class="line"><span class="lineno">  532</span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="lineno">  533</span>        <span class="comment">// Don&#39;t bail out, but keep going.</span></div>
-<div class="line"><span class="lineno">  534</span>        <span class="keywordflow">return</span> VK_FALSE;</div>
-<div class="line"><span class="lineno">  535</span>    }</div>
-<div class="ttc" id="a_context1_vk_8h_html_aa775116810ab00b3b4f1dd0a5a7c404a"><div class="ttname"><a href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a></div><div class="ttdeci">#define log_ctx(...)</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00043">Context1Vk.h:43</a></div></div>
+<div class="ttc" id="a_context1_vk_8h_html_aa775116810ab00b3b4f1dd0a5a7c404a"><div class="ttname"><a href="_context1_vk_8h.html#aa775116810ab00b3b4f1dd0a5a7c404a">log_ctx</a></div><div class="ttdeci">#define log_ctx(...)</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00035">Context1Vk.h:35</a></div></div>
 <div class="ttc" id="astruct_debug_master_html"><div class="ttname"><a href="struct_debug_master.html">DebugMaster&lt; int &gt;</a></div></div>
-<div class="ttc" id="avthreepy__types_8h_html_ae2fda8859e12165aeda509a17512572c"><div class="ttname"><a href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a></div><div class="ttdeci">#define ctx</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00127">vthreepy_types.h:127</a></div></div>
+<div class="ttc" id="avthreepy__types_8h_html_ae2fda8859e12165aeda509a17512572c"><div class="ttname"><a href="vthreepy__types_8h.html#ae2fda8859e12165aeda509a17512572c">ctx</a></div><div class="ttdeci">#define ctx</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00123">vthreepy_types.h:123</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -427,7 +427,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="lineno">   53</span>    <span class="keywordflow">return</span> VK_SUCCESS;</div>
 <div class="line"><span class="lineno">   54</span>};</div>
 <div class="ttc" id="alog_8hpp_html_a5f2c72e6f2dc833f040b39ee7597d944"><div class="ttname"><a href="log_8hpp.html#a5f2c72e6f2dc833f040b39ee7597d944">log_warning</a></div><div class="ttdeci">#define log_warning(...)</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00035">log.hpp:35</a></div></div>
-<div class="ttc" id="avthreepy__types_8h_html_a497bc2fce901db395d194b04e1eb5322"><div class="ttname"><a href="vthreepy__types_8h.html#a497bc2fce901db395d194b04e1eb5322">properties</a></div><div class="ttdeci">#define properties</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00124">vthreepy_types.h:124</a></div></div>
+<div class="ttc" id="avthreepy__types_8h_html_a497bc2fce901db395d194b04e1eb5322"><div class="ttname"><a href="vthreepy__types_8h.html#a497bc2fce901db395d194b04e1eb5322">properties</a></div><div class="ttdeci">#define properties</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00120">vthreepy_types.h:120</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -445,17 +445,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >#define VK_EXAMPLE_DATA_DIR "D:/Python/threepy/cthreepy/src/vk/" define VK_EXAMPLE_DATA_DIR "D:/C/Vulkan/data/" </p>
 
 <p class="definition">Definition at line <a class="el" href="_context1_vk_8cpp_source.html#l00130">130</a> of file <a class="el" href="_context1_vk_8cpp_source.html">Context1Vk.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  131</span>{</div>
-<div class="line"><span class="lineno">  132</span><span class="preprocessor">#if defined(VK_EXAMPLE_DATA_DIR)</span></div>
-<div class="line"><span class="lineno">  133</span>    <span class="keywordflow">return</span> <a class="code hl_define" href="_context1_vk_8h.html#a0a1ecd7f00fae6a6733935109a15669b">VK_EXAMPLE_DATA_DIR</a>;</div>
+<div class="line"><span class="lineno">  132</span><span class="preprocessor">#if defined(COMSHADER_PATH)</span></div>
+<div class="line"><span class="lineno">  133</span>    <span class="keywordflow">return</span> COMSHADER_PATH;</div>
 <div class="line"><span class="lineno">  134</span><span class="preprocessor">#else</span></div>
 <div class="line"><span class="lineno">  135</span>    <span class="keywordflow">return</span> <span class="stringliteral">&quot;./../data/&quot;</span>;</div>
 <div class="line"><span class="lineno">  136</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">  137</span>}</div>
-<div class="ttc" id="a_context1_vk_8h_html_a0a1ecd7f00fae6a6733935109a15669b"><div class="ttname"><a href="_context1_vk_8h.html#a0a1ecd7f00fae6a6733935109a15669b">VK_EXAMPLE_DATA_DIR</a></div><div class="ttdeci">#define VK_EXAMPLE_DATA_DIR</div><div class="ttdef"><b>Definition:</b> <a href="_context1_vk_8h_source.html#l00049">Context1Vk.h:49</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

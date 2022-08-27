@@ -19,7 +19,7 @@ var searchData=
   ['destroy_16',['destroy',['../struct_attachments_vk.html#ab21a4bb5b417009f2ce9aff14edbf759',1,'AttachmentsVk::destroy()'],['../structvkmm_1_1_memory_vk.html#a0069df8bb64299da496ada68ee8a5408',1,'vkmm::MemoryVk::destroy()'],['../struct_objects_vk.html#aa1748231c4377ba7bcc548a8bbdc0ac3',1,'ObjectsVk::destroy()'],['../struct_visible_objects_vk.html#aa1abc506909ab11ce272543cede76121',1,'VisibleObjectsVk::destroy()'],['../structvk_d_s_l_mem.html#ae07d9ae061a24f03fdc065f562fd778a',1,'vkDSLMem::destroy()'],['../struct_descriptor_vk.html#ae8ce51ceec385a73787adb3ce43b6aa6',1,'DescriptorVk::destroy()']]],
   ['destroybuffer_17',['DestroyBuffer',['../namespacevkmm.html#a76c22f3abff1f72312567e70f9541e6c',1,'vkmm']]],
   ['destroycommandpool_18',['destroyCommandPool',['../struct_immidiate_cmd_pool.html#a5bc203a4a501dcc6e4b8faec6ffe827d',1,'ImmidiateCmdPool::destroyCommandPool()'],['../struct_device_master_vk.html#a72b9ed98d8f1444c713c55535cd94e4b',1,'DeviceMasterVk::destroyCommandPool()']]],
-  ['destroyinstance_19',['destroyInstance',['../struct_context_ex_vk.html#a3d75f0e9cbd99cccdd888c56a8f5455f',1,'ContextExVk']]],
+  ['destroyinstance_19',['destroyInstance',['../struct_context0_vk.html#a3d75f0e9cbd99cccdd888c56a8f5455f',1,'Context0Vk']]],
   ['destroylogicaldevice_20',['destroyLogicalDevice',['../struct_device_master_vk.html#a8a054c31f4dc7766968a6d75426fa9a5',1,'DeviceMasterVk']]],
   ['destroypool_21',['DestroyPool',['../structvkmm_1_1_allocator___t.html#abe254520a3e9bb18f58550896faebc2a',1,'vkmm::Allocator_T']]],
   ['destroypuddle_22',['destroyPuddle',['../struct_descriptor_vk.html#a87cb7dbec2f620c1f03cc74b5c5caf96',1,'DescriptorVk']]],

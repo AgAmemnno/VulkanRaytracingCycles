@@ -114,7 +114,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00460">460</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00456">456</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ac5aac8c96f5cd10834dd726661d7330b" name="ac5aac8c96f5cd10834dd726661d7330b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac5aac8c96f5cd10834dd726661d7330b">&#9670;&nbsp;</a></span>fn()</h2>
@@ -143,14 +143,14 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p >printf("  %s   \n", typeid(T).name());</p>
 
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00492">492</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  492</span>                                            {</div>
-<div class="line"><span class="lineno">  493</span>        <span class="keyword">static</span> <span class="keywordtype">void</span>* <a class="code hl_function" href="struct_c_lambda.html#ac5aac8c96f5cd10834dd726661d7330b">fn</a>;</div>
-<div class="line"><span class="lineno">  495</span>        <span class="keywordflow">if</span> (new_fn != <span class="keyword">nullptr</span>)</div>
-<div class="line"><span class="lineno">  496</span>            <a class="code hl_function" href="struct_c_lambda.html#ac5aac8c96f5cd10834dd726661d7330b">fn</a> = new_fn;</div>
-<div class="line"><span class="lineno">  497</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="struct_c_lambda.html#ac5aac8c96f5cd10834dd726661d7330b">fn</a>;</div>
-<div class="line"><span class="lineno">  498</span>    }</div>
-<div class="ttc" id="astruct_c_lambda_html_ac5aac8c96f5cd10834dd726661d7330b"><div class="ttname"><a href="struct_c_lambda.html#ac5aac8c96f5cd10834dd726661d7330b">CLambda::fn</a></div><div class="ttdeci">static void * fn(void *new_fn=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00492">vthreepy_types.h:492</a></div></div>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00488">488</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  488</span>                                            {</div>
+<div class="line"><span class="lineno">  489</span>        <span class="keyword">static</span> <span class="keywordtype">void</span>* <a class="code hl_function" href="struct_c_lambda.html#ac5aac8c96f5cd10834dd726661d7330b">fn</a>;</div>
+<div class="line"><span class="lineno">  491</span>        <span class="keywordflow">if</span> (new_fn != <span class="keyword">nullptr</span>)</div>
+<div class="line"><span class="lineno">  492</span>            <a class="code hl_function" href="struct_c_lambda.html#ac5aac8c96f5cd10834dd726661d7330b">fn</a> = new_fn;</div>
+<div class="line"><span class="lineno">  493</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="struct_c_lambda.html#ac5aac8c96f5cd10834dd726661d7330b">fn</a>;</div>
+<div class="line"><span class="lineno">  494</span>    }</div>
+<div class="ttc" id="astruct_c_lambda_html_ac5aac8c96f5cd10834dd726661d7330b"><div class="ttname"><a href="struct_c_lambda.html#ac5aac8c96f5cd10834dd726661d7330b">CLambda::fn</a></div><div class="ttdeci">static void * fn(void *new_fn=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00488">vthreepy_types.h:488</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -179,10 +179,10 @@ template&lt;typename Tret , typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00464">464</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  464</span>                                  {</div>
-<div class="line"><span class="lineno">  465</span>        <span class="keywordflow">return</span> (Tret)(*(T*)fn&lt;T&gt;())();</div>
-<div class="line"><span class="lineno">  466</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00460">460</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  460</span>                                  {</div>
+<div class="line"><span class="lineno">  461</span>        <span class="keywordflow">return</span> (Tret)(*(T*)fn&lt;T&gt;())();</div>
+<div class="line"><span class="lineno">  462</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -212,10 +212,10 @@ template&lt;typename Tret , typename T , typename ... In&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00471">471</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  471</span>                                                 {</div>
-<div class="line"><span class="lineno">  472</span>        <span class="keywordflow">return</span> (Tret)(*(T*)fn&lt;T&gt;())(arguments...);</div>
-<div class="line"><span class="lineno">  473</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00467">467</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  467</span>                                                 {</div>
+<div class="line"><span class="lineno">  468</span>        <span class="keywordflow">return</span> (Tret)(*(T*)fn&lt;T&gt;())(arguments...);</div>
+<div class="line"><span class="lineno">  469</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -245,13 +245,13 @@ template&lt;typename Tret  = void, typename ... In, typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00485">485</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  485</span>                          {</div>
-<div class="line"><span class="lineno">  486</span>        <span class="keyword">using </span>Tfp = Tret(*)(In ...);</div>
-<div class="line"><span class="lineno">  487</span>        fn&lt;T&gt;(&amp;t);</div>
-<div class="line"><span class="lineno">  488</span>        <span class="keywordflow">return</span> (Tfp)<a class="code hl_function" href="struct_c_lambda.html#af3278eae28fefc8fb6a6328b00413b7b">lambda_ptr_exec</a>&lt;Tret, T, In...&gt;;</div>
-<div class="line"><span class="lineno">  489</span>    }</div>
-<div class="ttc" id="astruct_c_lambda_html_af3278eae28fefc8fb6a6328b00413b7b"><div class="ttname"><a href="struct_c_lambda.html#af3278eae28fefc8fb6a6328b00413b7b">CLambda::lambda_ptr_exec</a></div><div class="ttdeci">static Tret lambda_ptr_exec()</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00464">vthreepy_types.h:464</a></div></div>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00481">481</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  481</span>                          {</div>
+<div class="line"><span class="lineno">  482</span>        <span class="keyword">using </span>Tfp = Tret(*)(In ...);</div>
+<div class="line"><span class="lineno">  483</span>        fn&lt;T&gt;(&amp;t);</div>
+<div class="line"><span class="lineno">  484</span>        <span class="keywordflow">return</span> (Tfp)<a class="code hl_function" href="struct_c_lambda.html#af3278eae28fefc8fb6a6328b00413b7b">lambda_ptr_exec</a>&lt;Tret, T, In...&gt;;</div>
+<div class="line"><span class="lineno">  485</span>    }</div>
+<div class="ttc" id="astruct_c_lambda_html_af3278eae28fefc8fb6a6328b00413b7b"><div class="ttname"><a href="struct_c_lambda.html#af3278eae28fefc8fb6a6328b00413b7b">CLambda::lambda_ptr_exec</a></div><div class="ttdeci">static Tret lambda_ptr_exec()</div><div class="ttdef"><b>Definition:</b> <a href="vthreepy__types_8h_source.html#l00460">vthreepy_types.h:460</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -281,12 +281,12 @@ template&lt;typename Tret  = void, typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00477">477</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  477</span>                           {</div>
-<div class="line"><span class="lineno">  478</span>        <span class="keyword">using </span>Tfp = Tret(*)(void);</div>
-<div class="line"><span class="lineno">  479</span>        fn&lt;T&gt;(&amp;t);</div>
-<div class="line"><span class="lineno">  480</span>        <span class="keywordflow">return</span> (Tfp)lambda_ptr_exec&lt;Tret, T&gt;;</div>
-<div class="line"><span class="lineno">  481</span>    }</div>
+<p class="definition">Definition at line <a class="el" href="vthreepy__types_8h_source.html#l00473">473</a> of file <a class="el" href="vthreepy__types_8h_source.html">vthreepy_types.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  473</span>                           {</div>
+<div class="line"><span class="lineno">  474</span>        <span class="keyword">using </span>Tfp = Tret(*)(void);</div>
+<div class="line"><span class="lineno">  475</span>        fn&lt;T&gt;(&amp;t);</div>
+<div class="line"><span class="lineno">  476</span>        <span class="keywordflow">return</span> (Tfp)lambda_ptr_exec&lt;Tret, T&gt;;</div>
+<div class="line"><span class="lineno">  477</span>    }</div>
 </div><!-- fragment -->
 </div>
 </div>

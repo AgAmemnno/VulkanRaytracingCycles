@@ -3,7 +3,7 @@ var searchData=
   ['_7eallocation_5ft_0',['~Allocation_T',['../structvkmm_1_1_allocation___t.html#ad6dc8140f192cba6ee7d3d5d1dfa9034',1,'vkmm::Allocation_T']]],
   ['_7eallocator_5ft_1',['~Allocator_T',['../structvkmm_1_1_allocator___t.html#a3f0e0900ed8725944954e1e1f83ff4f4',1,'vkmm::Allocator_T']]],
   ['_7ecachevk_2',['~CacheVk',['../struct_cache_vk.html#a5d73b6f7d341fcea45af4df64be7ead9',1,'CacheVk']]],
-  ['_7econtextexvk_3',['~ContextExVk',['../struct_context_ex_vk.html#a8d481c802dc2f30f049a5a7f5fa98bea',1,'ContextExVk']]],
+  ['_7econtext0vk_3',['~Context0Vk',['../struct_context0_vk.html#af7327f363c9a9368aca6259a01fe0399',1,'Context0Vk']]],
   ['_7edeallocatorvk_4',['~DeallocatorVk',['../structfront_1_1_deallocator_vk.html#a216bdc1ab2abdb0fc2fd71019514e576',1,'front::DeallocatorVk']]],
   ['_7edescriptorvk_5',['~DescriptorVk',['../struct_descriptor_vk.html#a7aa9f75abe45dc79e86c473dd7698869',1,'DescriptorVk']]],
   ['_7eheapq_6',['~heapQ',['../structfront_1_1heap_q.html#a2ad972cd1564e5b97bc894b87bb4745e',1,'front::heapQ']]],

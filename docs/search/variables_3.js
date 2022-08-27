@@ -19,7 +19,7 @@ var searchData=
   ['compare_16',['compare',['../structfront_1_1hq__elem.html#a152ff5a6010c600c6f9a245cdde12798',1,'front::hq_elem']]],
   ['compare2_17',['compare2',['../structfront_1_1hq__elem.html#ac03de7130c4da9270e9e042a9c523cfa',1,'front::hq_elem']]],
   ['compare3_18',['compare3',['../structfront_1_1hq__elem.html#a573ece35e25d7ebb2ad145c0fc063d65',1,'front::hq_elem']]],
-  ['config_19',['config',['../struct_context_ex_vk.html#aa0edf53e4c693136297a05d7ab91ad09',1,'ContextExVk']]],
+  ['config_19',['config',['../struct_context0_vk.html#a7445a9840728513da6272d53a8ef576a',1,'Context0Vk']]],
   ['consume_20',['consume',['../classfront_1_1bonqueue.html#a703c2032adb71052ff951e53f6465b8a',1,'front::bonqueue']]],
   ['count_21',['count',['../struct_m_bvk.html#a4240e2f0c0d55cfe11466bb198b04083',1,'MBvk::count()'],['../struct_m_i_bvk.html#ab2697d0af3ee0aeab263bcec6814a117',1,'MIBvk::count()']]],
   ['createdebugutilsmessengerext_22',['createDebugUtilsMessengerEXT',['../struct_debug_master.html#a43a2a171c226c350df886914ef46c825',1,'DebugMaster']]],

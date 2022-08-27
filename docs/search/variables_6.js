@@ -15,6 +15,6 @@ var searchData=
   ['framecounter_12',['frameCounter',['../struct_window_vk.html#a1e13f6275adee7ff50af69c2ecdbdd66',1,'WindowVk']]],
   ['frameinusecount_13',['frameInUseCount',['../structvkmm_1_1_allocator_create_info.html#a441aaab8d11facda0e79b46e735506d7',1,'vkmm::AllocatorCreateInfo::frameInUseCount()'],['../structvkmm_1_1_pool_create_info.html#aaefc8bfc1d8f53219f133788b44aad41',1,'vkmm::PoolCreateInfo::frameInUseCount()']]],
   ['frees_14',['frees',['../classfront_1_1local__counting__allocator.html#ad9cfa043a622b88af16a40efad45ca82',1,'front::local_counting_allocator']]],
-  ['fullscreen_15',['fullscreen',['../struct_context_ex_vk_1_1_settings.html#aec14d18a7cbf7fe3f14dd3e60951b3dc',1,'ContextExVk::Settings::fullscreen()'],['../struct_window_vk.html#ad3b89d0a6e91d8b152442e5061b24faa',1,'WindowVk::fullscreen()'],['../global_8hpp.html#adc359d0ba0a207e69da999c40bf762c8',1,'fullscreen():&#160;global.hpp']]],
+  ['fullscreen_15',['fullscreen',['../struct_context0_vk_1_1_settings.html#ad10a890e2d11dfdbb1dc67a63e695b81',1,'Context0Vk::Settings::fullscreen()'],['../struct_window_vk.html#ad3b89d0a6e91d8b152442e5061b24faa',1,'WindowVk::fullscreen()'],['../global_8hpp.html#adc359d0ba0a207e69da999c40bf762c8',1,'fullscreen():&#160;global.hpp']]],
   ['fullscreen_5ftoggle_16',['fullscreen_toggle',['../global_8hpp.html#a2950ffe20faa9babb7485a04d2f3598d',1,'global.hpp']]]
 ];

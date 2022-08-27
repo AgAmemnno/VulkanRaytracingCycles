@@ -66,7 +66,7 @@ var searchData=
   ['append_63',['append',['../structspecial.html#a1b05d34d07720aa311c867e30365a4cb',1,'special::append()'],['../structvkmm_1_1_vk_m_a_info.html#a783ebd2213d6639d811c0069855976ed',1,'vkmm::VkMAInfo::append()']]],
   ['append_5fpnext_64',['append_pNext',['../namespacevkmm.html#a813f00077f22b824b3647f104d2cf15a',1,'vkmm']]],
   ['appendalignscalar_65',['appendAlignScalar',['../namespace_desc_uniform.html#a494496edad2bd3ce40c00f978185534e',1,'DescUniform']]],
-  ['appinfo_66',['appInfo',['../struct_context_ex_vk.html#a8550e9e90dec5e3b56ad2597b52ef3d9',1,'ContextExVk']]],
+  ['appinfo_66',['appInfo',['../struct_context0_vk.html#af3b3e7004eee11ecef29dcdead491977',1,'Context0Vk']]],
   ['arth_67',['arth',['../namespacearth.html',1,'']]],
   ['ascache_68',['AsCache',['../struct_rt_objects_vk_1_1_as_cache.html',1,'RtObjectsVk']]],
   ['asignable_69',['asignable',['../namespacefront.html#a06e850c701fd43ab5d72dd391f088a84',1,'front']]],
