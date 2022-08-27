@@ -24,7 +24,7 @@
     "vulkan",
     "python3"
   ],
-  "builtin-baseline": "e99d9a4facea9d7e15a91212364d7a12762b7512",
+  "builtin-baseline": "9f643818c120f13fcbbb024b92ff74a6688a45e3",
   "overrides": [
     {
       "name": "openimageio",
