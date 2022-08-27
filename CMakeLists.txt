@@ -2,7 +2,7 @@
 project(CircusRender)
 cmake_minimum_required(VERSION 3.10.2)
 
-
+#git rev-parse HEAD
 # see "cmake --help-policy CMP0003"
 # So library linking is more sane
 cmake_policy(SET CMP0003 NEW)
@@ -59,7 +59,10 @@ set(BLENDER_ROOT  "libblender"   CACHE STRING  "blender root directory"  FORCE)
 
 set(AEOLUS_BASE_DIR  "${CMAKE_CURRENT_SOURCE_DIR}")
 set(LOG_THREAD_FILE  "${CMAKE_CURRENT_SOURCE_DIR}/log/")
+set(AEOLUS_SHADER_BP_DEF  "${CMAKE_CURRENT_SOURCE_DIR}/libAeolusOptix/shaders/intern/kernel/prof/bp_def.h")
 
+
+set(GPU_DEVICE_ID  1  CACHE STRING "GPU Device Enumerarion Number." FORCE)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/utils_macro.cmake)
 unset_cache_force()
@@ -129,8 +132,8 @@ if (${PROJECT_ALIAS} STREQUAL "x64-Debug")
    
      message("*****************************************")
 message("Python_ROOT " ${Python_ROOT})
-find_package(Python REQUIRED COMPONENTS Interpreter Development)
-
+#find_package(Python REQUIRED COMPONENTS Interpreter Development)
+find_package(Python REQUIRED COMPONENTS Development)
 message("Python_FOUND " ${Python_FOUND})
 message("Python_Interpreter_FOUND " ${Python_Interpreter_FOUND})
 message("Python_Development_FOUND " ${Python_Development_FOUND})
