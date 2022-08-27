@@ -54,7 +54,8 @@ add_definitions(-D_USE_MATH_DEFINES)
 add_definitions(-D_WINDLL)
 add_definitions(-D_MBCS)
 add_definitions(-DWITH_CIRCUS)
-
+#version DEPRECATED std::allocator
+add_definitions(-D_HAS_DEPRECATED_ALLOCATOR_MEMBERS)
 
 
 message("Define WITH_CIRCUS")

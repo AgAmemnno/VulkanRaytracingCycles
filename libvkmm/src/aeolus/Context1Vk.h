@@ -38,9 +38,7 @@
 
 
 #define  __defaultClearColor  { { 0.025f, 0.025f, 0.025f, 1.0f } }
-#define VK_EXAMPLE_DATA_DIR "D:\\C\\Aeoluslibrary\\data\\shaders\\"
-///#define VK_EXAMPLE_DATA_DIR "D:/Python/threepy/cthreepy/src/vk/"
-///#define VK_EXAMPLE_DATA_DIR "D:/C/Vulkan/data/"
+
 const std::string getAssetPath();
 
 bool GetVulkanInstanceExtensionsRequired(std::vector< std::string >& outInstanceExtensionList);
@@ -355,8 +353,15 @@ struct DeviceMasterVk {
 
 
 		requireDeviceExtensions.emplace_back(VK_KHR_MULTIVIEW_EXTENSION_NAME);
+		///TODO disappier Nv version 
+		/*
+		* 
 		static VkPhysicalDeviceMeshShaderFeaturesNV meshFeatures = { VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_FEATURES_NV };
 		requireDeviceExtensions.emplace_back(VK_NV_MESH_SHADER_EXTENSION_NAME,false,&meshFeatures);
+		*/
+
+
+
 		requireDeviceExtensions.emplace_back(VK_NV_RAY_TRACING_EXTENSION_NAME);
 		//requireDeviceExtensions.emplace_back(VK_KHR_RAY_TRACING_EXTENSION_NAME);
 		
@@ -412,7 +417,7 @@ VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES,
 		prop2.pNext = &pyid;
 		prop2.properties = prop;
 
-		uint32_t selectedDevice = 0;
+		uint32_t selectedDevice = static_cast<uint32_t>(std::stoul(GPU_DEVICE_ID));
 
 		for (uint32_t d = 0; d < gpuCount; d++) {
 

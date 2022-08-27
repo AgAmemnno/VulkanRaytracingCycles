@@ -129,8 +129,8 @@ void QueueGTVk::getQ(VkDevice logical) {
 
 const std::string getAssetPath()
 {
-#if defined(VK_EXAMPLE_DATA_DIR)
-	return VK_EXAMPLE_DATA_DIR;
+#if defined(COMSHADER_PATH)
+	return COMSHADER_PATH;
 #else
 	return "./../data/";
 #endif
@@ -254,18 +254,6 @@ void ContextVk::configuration(std::vector<std::string>& layerExtensions,std::vec
 		instanceExtensions.push_back(VK_KHR_SURFACE_EXTENSION_NAME);
 #if defined(_WIN32)
 		instanceExtensions.push_back(VK_KHR_WIN32_SURFACE_EXTENSION_NAME);
-#elif defined(VK_USE_PLATFORM_ANDROID_KHR)
-		instanceExtensions.push_back(VK_KHR_ANDROID_SURFACE_EXTENSION_NAME);
-#elif defined(_DIRECT2DISPLAY)
-		instanceExtensions.push_back(VK_KHR_DISPLAY_EXTENSION_NAME);
-#elif defined(VK_USE_PLATFORM_WAYLAND_KHR)
-		instanceExtensions.push_back(VK_KHR_WAYLAND_SURFACE_EXTENSION_NAME);
-#elif defined(VK_USE_PLATFORM_XCB_KHR)
-		instanceExtensions.push_back(VK_KHR_XCB_SURFACE_EXTENSION_NAME);
-#elif defined(VK_USE_PLATFORM_IOS_MVK)
-		instanceExtensions.push_back(VK_MVK_IOS_SURFACE_EXTENSION_NAME);
-#elif defined(VK_USE_PLATFORM_MACOS_MVK)
-		instanceExtensions.push_back(VK_MVK_MACOS_SURFACE_EXTENSION_NAME);
 #endif
 
 #endif
