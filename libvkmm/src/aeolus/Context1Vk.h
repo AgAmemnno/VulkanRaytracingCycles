@@ -922,7 +922,7 @@ struct ContextExVk {
 	/**
 	* \brief construct ContextExVk.
 	* \param w: window width
-	* \param w: window height
+	* \param h: window height
 	*/
 	ContextExVk(uint32_t w, uint32_t h) :config({ w,h }) {};
 	~ContextExVk() {
