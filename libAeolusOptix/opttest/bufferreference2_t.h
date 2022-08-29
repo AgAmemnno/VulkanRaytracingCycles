@@ -18,6 +18,14 @@ struct  ShaderClosure_MAX
 	ccl::float3 N;
 	float data[26];
 };
+
+/// <summary>
+/// 36*4 = 144 byte. 
+/// Packed to this size on the Shader side. 
+/// Probably the size of this struct is aligned at 160.
+/// </summary>
+const size_t ShaderClosure_MAX_Size = 144; 
+
 template<size_t Bs>
 struct  Pool_Block
 {
@@ -492,13 +500,14 @@ void allocateSC(Dty& dp,size_t sc_size) {
 
 	memVk.createBuffer("sc_pool", sc_size,
 		VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT_EXT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
-		vkmm::MEMORY_USAGE_GPU_ONLY,
-		//vkmm::MEMORY_USAGE_CPU_TO_GPU,
+		//vkmm::MEMORY_USAGE_GPU_ONLY,
+		vkmm::MEMORY_USAGE_CPU_TO_GPU,
 		[&]<class T3>(T3 & a) {
 
-		if (a.alloc->GetMemoryTypeIndex() == 1)
+		if ( (a.alloc->GetMemoryTypeIndex() == 1) | (a.alloc->GetMemoryTypeIndex() == 4) )
 		{
 			/// <summary>
+			/// !TODO Device Configuration
 			/// ShaderClosure  Pool Size  INIT 256MB.  
 			/// bufferReference   8B.  
 			/// </summary>
@@ -521,7 +530,7 @@ void allocateSC(Dty& dp,size_t sc_size) {
 				dp.endCmd();
 			}
 		}
-		else if ((a.alloc->GetMemoryTypeIndex() == 2) | (a.alloc->GetMemoryTypeIndex() == 4)) {
+		else if ((a.alloc->GetMemoryTypeIndex() == 2) ) {  //  (a.alloc->GetMemoryTypeIndex() == 4)) {
 			///  HostVisible    allocator pool ?
 			log_bad("Device Local  out of memory. you can use host visible . NIL \n");
 		};
@@ -556,6 +565,9 @@ auto  pushReferences2(T& bvh) {
 			if (dptr2 == nullptr)dptr2 = new DPTR2_t;
 			allocateSC(*dptr2,sc_size);
 		}
+
+
+
 #endif
 
 		return [&](VkCommandBuffer cmd, VkPipelineLayout draft) {

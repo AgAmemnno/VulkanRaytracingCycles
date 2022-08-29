@@ -194,6 +194,7 @@ CCL_NAMESPACE_BEGIN
 #undef _HAIR_
 #undef _VOLUME_
 #undef _VOLUME_SCATTER_
+
 #undef _OBJECT_MOTION_
 #undef _DENOISING_FEATURES_
 #define LOOKUP

@@ -30,6 +30,8 @@ void main()
     setDumpPixel();
 #endif
 
+
+
 if(sd.num_closure_left < 0){
 #ifdef  WITH_STAT_ALL
     rec_num = int(-sd.num_closure_left);
@@ -40,6 +42,7 @@ if(sd.num_closure_left < 0){
 #ifdef  WITH_STAT_ALL
     rec_num = int(sd.alloc_offset);
 #endif
+
  sd.alloc_offset   = sd.atomic_offset - 1;
  int flag          =  sd.num_closure;
  sd.num_closure    =   0;
@@ -47,5 +50,8 @@ if(sd.num_closure_left < 0){
  svm_eval_nodes(SHADER_TYPE_SURFACE, flag);
  
 }
+
+
+ return;
 
 }

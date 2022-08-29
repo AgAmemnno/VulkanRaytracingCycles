@@ -20,9 +20,6 @@
 #include "kernel/kernel_globals.h.glsl"
 SET_BG(4,inpu,outpu)
 
-
-
-
 #define CD_TYPE1_OUT sd
 #include "kernel/payload.glsl"
 

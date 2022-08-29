@@ -4,10 +4,13 @@
 #extension GL_NV_shader_sm_builtins: enable
 #extension GL_KHR_shader_subgroup_basic : enable
 
+
 #include "kernel_compat_vulkan.h.glsl"
 #define ENABLE_PROFI
+#define _NO_CAMERA_MOTION_
 #include "kernel/_kernel_types.h.glsl"
 #define TEST_MODE 
+
 
 
 #define SET_AS 0
@@ -24,24 +27,29 @@
 #define CD_TYPE1_OUT sd
 #define CD_TYPE2_OUT arg2
 #define SHADOW_CALLER2
+
 #ifdef _BVH_LOCAL_
 #define LHIT_CALLER
 #define MISS_THROUGH_CALLER
 #endif
+
 #include "kernel/payload.glsl"
 
 #include "kernel/kernel_differential.h.glsl"
 
-
-
 #define CALL_RNG
 #define RNG_Caller
 
-
 #include "kernel/kernel_random.h.glsl"
+
 #include "kernel/kernel_montecarlo.h.glsl"
 #include "kernel/kernel_projection.h.glsl"
+
+
 #include "kernel/kernel_camera.h.glsl"
+
+
+
 
 #include "kernel/bvh/bvh_utils.h.glsl"
 #include "kernel/geom/geom_object.h.glsl"
@@ -71,7 +79,6 @@
 #include "kernel/kernel_path_subsurface.h.glsl"
 #define PATH_CALLER
 #include "kernel/kernel_path.h.glsl"
-
 
   /* NOTE: Due to some vectorization code  non-finite origin point might
    * cause lots of false-positive intersections which will overflow traversal
@@ -180,17 +187,19 @@ bool kernel_path_scene_intersect(in Ray ray){
 void main()
 {  
 
-
-
-
 #ifdef  WITH_STAT_ALL
     setDumpPixel();
 #endif
+
+
 #ifdef ENABLE_PROFI
-  PROFI_IDX  = 12345;
-  //PROFI_HIT_IDX(gl_LaunchIDNV.x,gl_LaunchIDNV.y,arg.state.rng_hash, float(gl_PrimitiveID) );
+  PROFI_IDX  = int(gl_LaunchIDNV.x + gl_LaunchIDNV.y*512);
+  int atomic_offset  =  int(( ( gl_SMIDNV *  gl_WarpsPerSMNV  + gl_WarpIDNV ) * gl_SubgroupSize  +  gl_SubgroupInvocationID ) * MAX_CLOSURE);
+  PROFI_HIT_IDX(float(atomic_offset),float(gl_WarpIDNV),float(gl_SubgroupInvocationID), float(PROFI_IDX) );//float(gl_PrimitiveIDIn) );
 #endif
 
+
+  
   path_radiance_init();
 
   Ray ray;
@@ -199,27 +208,14 @@ void main()
   //TODO Tile Sampling
   kernel_path_trace_setup(int(gl_LaunchIDNV.x),int(gl_LaunchIDNV.y),sample_rsv,  rng_hash, ray);
    
-
-
-/* callable random
-  float lens_u = 0.0f, lens_v = 0.0f;
-  path_rng_2D(rng_hash, sample_rsv, 2, int(PRNG_LENS_U), lens_u, lens_v);
-
-
-    ivec2 dim = imageSize(image);
-    float alpha =1.f;
-    vec4 L_sum = vec4(lens_v,lens_v,lens_u,1);
-    imageStore(image, ivec2(int(gl_LaunchIDNV.x), int(uint(dim.y) - gl_LaunchIDNV.y)), vec4(L_sum.x, L_sum.y, L_sum.z, alpha));
-    return;
-*/
-
   if (ray.t == 0.0f)return;
 
   path_state_init(rng_hash,sample_rsv);
 
   /// global memory allocate SM divide
-  GSD.atomic_offset  =  int(( ( gl_SMIDNV *  gl_WarpsPerSMNV  + gl_WarpIDNV ) * gl_SubgroupSize  +  gl_SubgroupInvocationID ) * MAX_CLOSURE);
-  
+  //GSD.atomic_offset  =  int(( ( gl_SMIDNV *  gl_WarpsPerSMNV  + gl_WarpIDNV ) * gl_SubgroupSize  +  gl_SubgroupInvocationID ) * MAX_CLOSURE);
+  GSD.atomic_offset  =  int(( ( gl_SMIDNV *  32  + gl_WarpIDNV ) * gl_SubgroupSize  +  gl_SubgroupInvocationID ) * MAX_CLOSURE);
+ 
   GTHR  = vec4(1.);
 
 #  ifdef _SUBSURFACE_
@@ -231,8 +227,6 @@ void main()
       
       bool hit = kernel_path_scene_intersect(ray);
 
-
-
 #ifdef  WITH_STAT_ALL
             if(rec_num ==0){
                 if(!hit) CNT_ADD(CNT_MISS);
@@ -243,15 +237,7 @@ void main()
 #endif
 
       kernel_path_lamp_emission(ray);
-      
-    /*  
-    ivec2 dim = imageSize(image);
-    float alpha =1.f;
-    vec4 L_sum = vec4(GTHR.xyz,1);
-    imageStore(image, ivec2(int(gl_LaunchIDNV.x), int(uint(dim.y) - gl_LaunchIDNV.y)), vec4(L_sum.x, L_sum.y, L_sum.z, alpha));
-    shader_setup_from_ray(ray);
-    return;*/
-
+       
       if (!hit) {
           kernel_path_background(ray);
           break;
@@ -262,16 +248,28 @@ void main()
 #endif
           break;
       }
-        
+
           // Setup shader data.
           shader_setup_from_ray(ray);
+          
+
           // Skip most work for volume bounding surface. 
-          shader_eval_surface(GSTATE.flag);      
+          shader_eval_surface(GSTATE.flag); 
+         
+          /*
+          float4 val = {1.,0.,0.,1};
+          kernel_write_pass_float4_launchID(val)
+          //kernel_write_result(buffer_ofs_null,sample_rsv);
+          return;
+         */
+         
+
           shader_prepare_closures();
           // Apply shadow catcher, holdout, emission. 
           if (!kernel_path_shader_apply(ray)){     //   kg, &sd, state, ray, throughput, emission_sd, L, buffer)) {
             break;
           }
+
 
            // path termination. this is a strange place to put the termination, it's
           // mainly due to the mixed in MIS that we use. gives too many unneeded
@@ -291,6 +289,7 @@ void main()
             if (terminate >= probability)break;
             GTHR /= probability;
           }
+
 
           #ifdef _SUBSURFACE_
                   /* bssrdf scatter to a different location on the same object, replacing

@@ -196,12 +196,19 @@ ccl_device_noinline void svm_eval_nodes(
 {
 
   int offset = int(sd.shader & SHADER_MASK);
+
+   if( gl_LaunchIDNV.xy == uvec2(256, 256)){
+    uint4 node = read_node(offset);
+    debugPrintfEXT("Shader Eval offset  %v4u  %u  \n",node,sd.alloc_offset);
+   }
+
+
+
+
   while (true) {
     uint4 node = read_node(offset);
     switch (node.x) {     
       case NODE_END:
-
-
         return;
 #if NODES_GROUP(NODE_GROUP_LEVEL_0)
       case NODE_SHADER_JUMP: {

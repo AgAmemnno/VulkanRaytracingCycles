@@ -16,6 +16,8 @@
 
 CCL_NAMESPACE_BEGIN
 
+
+
 /* Perspective Camera */
 
 ccl_device float2 camera_sample_aperture( float u, float v)
@@ -38,6 +40,7 @@ ccl_device float2 camera_sample_aperture( float u, float v)
 
   return bokeh;
 }
+
 
 ccl_device void camera_sample_perspective(float raster_x,
                                           float raster_y,
@@ -518,5 +521,7 @@ ccl_device_inline float3 camera_world_to_ndc(inout KernelGlobals kg, inout Shade
     return make_float3(uv.x, uv.y, 0.0f);
   }
 }
+
+
 
 CCL_NAMESPACE_END

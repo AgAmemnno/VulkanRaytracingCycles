@@ -32,14 +32,16 @@
 
 #include "kernel/kernel_differential.h.glsl"
 
+
+
 #define CALL_RNG
 #define RNG_Caller
+
 
 #include "kernel/kernel_random.h.glsl"
 #include "kernel/kernel_montecarlo.h.glsl"
 #include "kernel/kernel_projection.h.glsl"
 #include "kernel/kernel_camera.h.glsl"
-
 
 #include "kernel/bvh/bvh_utils.h.glsl"
 #include "kernel/geom/geom_object.h.glsl"
@@ -200,6 +202,7 @@ void main()
 
   /// global memory allocate SM divide
   GSD.atomic_offset  =  int(( ( gl_SMIDNV *  gl_WarpsPerSMNV  + gl_WarpIDNV ) * gl_SubgroupSize  +  gl_SubgroupInvocationID ) * MAX_CLOSURE);
+  
   GTHR  = vec4(1.);
 
 #  ifdef _SUBSURFACE_

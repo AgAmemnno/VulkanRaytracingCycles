@@ -69,7 +69,7 @@ int main(int argc, char** argv)
 {
 	rj1();
 	rj2();
-	
+
 	/*using namespace OpenImageIO_v2_1;
 	//ustring ust("asdfadf");
 
@@ -97,11 +97,13 @@ std::string ustring::empty_std_string;
 #include "rapidjson/document.h"
 #include "rapidjson/istreamwrapper.h"
 using namespace rapidjson;
+vkmm::MemoryVk memVk;
+
 
 #include  "circusTest2.h"
 #include  "RedisUtils.h"
 RedisUtils bl;
-vkmm::MemoryVk memVk;
+
 #include  "BlTextures.h"
 #include  "bvh_vulkan.h"
 #include  "bufferreference2_t.h"

@@ -395,6 +395,73 @@ class CircusTest{
 				bool    no_render = false;
 
 		void Main();
+		template<class T>
+		int DumpSC(int sizeX = 512,int sizeY= 512)
+		{
+
+			uintptr_t sizeT = ShaderClosure_MAX_Size;
+			const char* file = AEOLUS_DATA_DIR "\\data\\profile\\weight.json";
+
+			auto dst = memVk.bamp["sc_pool"].alloc->GetMappedData();
+			auto scptr = (T*)((BYTE*)dst + sizeT * 2228224);
+
+
+
+			std::ofstream csv(file);
+#define FORMAT_WEIGHT csv << std::format("[ {:6.3f},  {:6.3f}, {:6.3f}, {:6.3f} ] ,\n",  scptr->weight.x, scptr->weight.y, scptr->weight.z, scptr->weight.w);
+#define FORMAT_WEIGHT_END csv << std::format("[ {:6.3f},  {:6.3f}, {:6.3f}, {:6.3f} ] ]\n",  scptr->weight.x, scptr->weight.y, scptr->weight.z, scptr->weight.w);
+			if (csv)
+			{
+				int idx = 0;
+				csv << "[\n";
+				for (int y = 0; y < sizeX; y++) {	
+					idx = sizeX * y;
+					for (int x = 0; x < sizeY; x++) {
+						//printf("INDEX  %d  X %d Y %d    [ %f , %f , %f  ,%f ] \n", idx, x, y, scptr->weight.x, scptr->weight.y, scptr->weight.z, scptr->weight.w);
+						if (y == sizeY - 1) {
+							if (x == sizeX - 1) FORMAT_WEIGHT_END
+							else  FORMAT_WEIGHT
+						}
+						else FORMAT_WEIGHT
+						
+						scptr  = (T*)((BYTE*)scptr + sizeT);
+						idx++;
+					}	
+				}
+			}
+			else {
+				printf("Error Not Found  Directory  %c \n", file);
+			}
+		
+			csv.close();
+#undef  FORMAT_WEIGHT
+#undef  FORMAT_WEIGHT_END
+			return 0;
+		}
+
+		template<class T>
+		int DumpSCByIndex(uintptr_t index)
+		{
+			uintptr_t sizeT = ShaderClosure_MAX_Size;
+			
+			const char* file = AEOLUS_DATA_DIR "\\data\\profile\\index.json";
+			auto dst = memVk.bamp["sc_pool"].alloc->GetMappedData();
+			auto scptr = (T*)((BYTE*)dst + sizeT * 2228224);
+			
+			std::ofstream csv(file);
+#define FORMAT_WEIGHT csv << std::format("[ {:6.3f},  {:6.3f}, {:6.3f}, {:6.3f} ]\n",  scptr->weight.x, scptr->weight.y, scptr->weight.z, scptr->weight.w);
+			if (csv)
+			{
+				scptr = (T*)((BYTE*)scptr + sizeT*index );
+			    FORMAT_WEIGHT
+			}
+			else {
+				printf("Error Not Found  Directory  %c \n", file);
+			}
+			csv.close();
+#undef  FORMAT_WEIGHT
+			return 0;
+		}
 
 		void SetUp() {
 			
@@ -673,7 +740,8 @@ class CircusTest{
 					if (nextFrame()) {
 
 						rtvk.submitSwapChain();
-
+						DumpSCByIndex<ShaderClosure_MAX>(512*512);
+						DumpSC<ShaderClosure_MAX>();
 					};
 					routine++;
 					eyeId = (eyeId + 1) % 2;
