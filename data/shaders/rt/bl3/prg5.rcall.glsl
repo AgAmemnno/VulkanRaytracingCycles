@@ -465,7 +465,7 @@ layout(buffer_reference, std430) readonly buffer _lights_
 layout(set = 2, binding = 0, std430) buffer KD
 {
     KernelData kernel_data;
-} _9260;
+} _9281;
 
 layout(push_constant, std430) uniform PushData
 {
@@ -973,7 +973,7 @@ uvec4 subd_triangle_patch_indices(int patch_rsv)
     return indices;
 }
 
-int mod(int x, int m)
+int _mod(int x, int m)
 {
     return ((x % m) + m) % m;
 }
@@ -1134,11 +1134,11 @@ vec2 subd_triangle_attribute_float2(AttributeDescriptor desc, inout vec2 dx2, in
                         corners[0] = int(data.z) + c_1;
                         int param_8 = c_1 + 1;
                         int param_9 = num_corners;
-                        corners[1] = int(data.z) + mod(param_8, param_9);
+                        corners[1] = int(data.z) + _mod(param_8, param_9);
                         corners[2] = int(data.w);
                         int param_10 = c_1 - 1;
                         int param_11 = num_corners;
-                        corners[3] = int(data.z) + mod(param_10, param_11);
+                        corners[3] = int(data.z) + _mod(param_10, param_11);
                     }
                     vec2 f0_1 = push.data_ptr._attributes_float2.data[corners[0] + desc.offset];
                     vec2 f1_1 = push.data_ptr._attributes_float2.data[corners[1] + desc.offset];
@@ -1668,11 +1668,11 @@ vec4 subd_triangle_attribute_float3(AttributeDescriptor desc, inout vec4 dx3, in
                         corners[0] = int(data.z) + c_1;
                         int param_8 = c_1 + 1;
                         int param_9 = num_corners;
-                        corners[1] = int(data.z) + mod(param_8, param_9);
+                        corners[1] = int(data.z) + _mod(param_8, param_9);
                         corners[2] = int(data.w);
                         int param_10 = c_1 - 1;
                         int param_11 = num_corners;
-                        corners[3] = int(data.z) + mod(param_10, param_11);
+                        corners[3] = int(data.z) + _mod(param_10, param_11);
                     }
                     vec4 f0_1 = float4_to_float3(push.data_ptr._attributes_float3.data[corners[0] + desc.offset]);
                     vec4 f1_1 = float4_to_float3(push.data_ptr._attributes_float3.data[corners[1] + desc.offset]);
@@ -2375,11 +2375,11 @@ float subd_triangle_attribute_float(AttributeDescriptor desc, inout float dx, in
                         corners[0] = int(data.z) + c_1;
                         int param_8 = c_1 + 1;
                         int param_9 = num_corners;
-                        corners[1] = int(data.z) + mod(param_8, param_9);
+                        corners[1] = int(data.z) + _mod(param_8, param_9);
                         corners[2] = int(data.w);
                         int param_10 = c_1 - 1;
                         int param_11 = num_corners;
-                        corners[3] = int(data.z) + mod(param_10, param_11);
+                        corners[3] = int(data.z) + _mod(param_10, param_11);
                     }
                     float f0_1 = push.data_ptr._attributes_float.data[corners[0] + desc.offset];
                     float f1_1 = push.data_ptr._attributes_float.data[corners[1] + desc.offset];
@@ -2836,11 +2836,11 @@ vec4 subd_triangle_attribute_float4(AttributeDescriptor desc, inout vec4 dx4, in
                 corners[0] = int(data.z) + c;
                 int param_7 = c + 1;
                 int param_8 = num_corners;
-                corners[1] = int(data.z) + mod(param_7, param_8);
+                corners[1] = int(data.z) + _mod(param_7, param_8);
                 corners[2] = int(data.w);
                 int param_9 = c - 1;
                 int param_10 = num_corners;
-                corners[3] = int(data.z) + mod(param_9, param_10);
+                corners[3] = int(data.z) + _mod(param_9, param_10);
             }
             u8vec4 param_11 = push.data_ptr._attributes_uchar4.data[corners[0] + desc.offset];
             vec4 f0 = color_uchar4_to_float4(param_11);
@@ -2987,7 +2987,8 @@ void svm_node_attr()
             vec2 _8637 = primitive_attribute_float2(desc, param_4, param_5);
             null_flt2 = param_4;
             null_flt2 = param_5;
-            ret = vec4(_8637.x, _8637.y, ret.z, ret.w);
+            ret.x = _8637.x;
+            ret.y = _8637.y;
         }
         else
         {
@@ -2995,19 +2996,19 @@ void svm_node_attr()
             {
                 vec4 param_6 = null_flt4;
                 vec4 param_7 = null_flt4;
-                vec4 _8653 = primitive_attribute_float4(desc, param_6, param_7);
+                vec4 _8655 = primitive_attribute_float4(desc, param_6, param_7);
                 null_flt4 = param_6;
                 null_flt4 = param_7;
-                ret = _8653;
+                ret = _8655;
             }
             else
             {
                 vec4 param_8 = null_flt3;
                 vec4 param_9 = null_flt3;
-                vec4 _8662 = primitive_attribute_float3(desc, param_8, param_9);
+                vec4 _8664 = primitive_attribute_float3(desc, param_8, param_9);
                 null_flt3 = param_8;
                 null_flt3 = param_9;
-                ret = _8662;
+                ret = _8664;
             }
         }
     }
@@ -3223,10 +3224,10 @@ void svm_node_attr_bump_dx()
     uint out_offset = 0u;
     uint param = type;
     uint param_1 = out_offset;
-    AttributeDescriptor _8684 = svm_node_attr_init(param, param_1);
+    AttributeDescriptor _8686 = svm_node_attr_init(param, param_1);
     type = param;
     out_offset = param_1;
-    AttributeDescriptor desc = _8684;
+    AttributeDescriptor desc = _8686;
     ioSD.object_flag = int(desc.type);
     ioSD.call_type = type;
     ioSD.offset = int(out_offset);
@@ -3236,18 +3237,20 @@ void svm_node_attr_bump_dx()
         float dx;
         float param_2 = dx;
         float param_3 = null_flt;
-        float _8708 = primitive_surface_attribute_float(desc, param_2, param_3);
+        float _8710 = primitive_surface_attribute_float(desc, param_2, param_3);
         dx = param_2;
         null_flt = param_3;
-        float f = _8708;
+        float f = _8710;
         if (type == 0u)
         {
             ret.x = f + dx;
         }
         else
         {
-            vec3 _8730 = vec3(f + dx, f + dx, f + dx);
-            ret = vec4(_8730.x, _8730.y, _8730.z, ret.w);
+            vec3 _8732 = vec3(f + dx, f + dx, f + dx);
+            ret.x = _8732.x;
+            ret.y = _8732.y;
+            ret.z = _8732.z;
         }
     }
     else
@@ -3257,18 +3260,20 @@ void svm_node_attr_bump_dx()
             vec2 dx_1;
             vec2 param_4 = dx_1;
             vec2 param_5 = null_flt2;
-            vec2 _8746 = primitive_attribute_float2(desc, param_4, param_5);
+            vec2 _8752 = primitive_attribute_float2(desc, param_4, param_5);
             dx_1 = param_4;
             null_flt2 = param_5;
-            vec2 f_1 = _8746;
+            vec2 f_1 = _8752;
             if (type == 0u)
             {
                 ret.x = f_1.x + dx_1.x;
             }
             else
             {
-                vec3 _8770 = vec3(f_1.x + dx_1.x, f_1.y + dx_1.y, 0.0);
-                ret = vec4(_8770.x, _8770.y, _8770.z, ret.w);
+                vec3 _8776 = vec3(f_1.x + dx_1.x, f_1.y + dx_1.y, 0.0);
+                ret.x = _8776.x;
+                ret.y = _8776.y;
+                ret.z = _8776.z;
             }
         }
         else
@@ -3278,10 +3283,10 @@ void svm_node_attr_bump_dx()
                 vec4 dx_2;
                 vec4 param_6 = dx_2;
                 vec4 param_7 = null_flt4;
-                vec4 _8786 = primitive_attribute_float4(desc, param_6, param_7);
+                vec4 _8796 = primitive_attribute_float4(desc, param_6, param_7);
                 dx_2 = param_6;
                 null_flt4 = param_7;
-                vec4 f_2 = _8786;
+                vec4 f_2 = _8796;
                 if (type == 0u)
                 {
                     ret.x = average(float4_to_float3(f_2 + dx_2));
@@ -3296,10 +3301,10 @@ void svm_node_attr_bump_dx()
                 vec4 dx_3;
                 vec4 param_8 = dx_3;
                 vec4 param_9 = null_flt4;
-                vec4 _8811 = primitive_surface_attribute_float3(desc, param_8, param_9);
+                vec4 _8821 = primitive_surface_attribute_float3(desc, param_8, param_9);
                 dx_3 = param_8;
                 null_flt4 = param_9;
-                vec4 f_3 = _8811;
+                vec4 f_3 = _8821;
                 if (type == 0u)
                 {
                     ret.x = average(f_3 + dx_3);
@@ -3323,10 +3328,10 @@ void svm_node_attr_bump_dy()
     uint out_offset = 0u;
     uint param = type;
     uint param_1 = out_offset;
-    AttributeDescriptor _8846 = svm_node_attr_init(param, param_1);
+    AttributeDescriptor _8856 = svm_node_attr_init(param, param_1);
     type = param;
     out_offset = param_1;
-    AttributeDescriptor desc = _8846;
+    AttributeDescriptor desc = _8856;
     ioSD.object_flag = int(desc.type);
     ioSD.call_type = type;
     ioSD.offset = int(out_offset);
@@ -3336,18 +3341,20 @@ void svm_node_attr_bump_dy()
         float param_2 = null_flt;
         float dy;
         float param_3 = dy;
-        float _8870 = primitive_surface_attribute_float(desc, param_2, param_3);
+        float _8880 = primitive_surface_attribute_float(desc, param_2, param_3);
         null_flt = param_2;
         dy = param_3;
-        float f = _8870;
+        float f = _8880;
         if (type == 0u)
         {
             ret.x = f + dy;
         }
         else
         {
-            vec3 _8892 = vec3(f + dy, f + dy, f + dy);
-            ret = vec4(_8892.x, _8892.y, _8892.z, ret.w);
+            vec3 _8902 = vec3(f + dy, f + dy, f + dy);
+            ret.x = _8902.x;
+            ret.y = _8902.y;
+            ret.z = _8902.z;
         }
     }
     else
@@ -3357,18 +3364,20 @@ void svm_node_attr_bump_dy()
             vec2 param_4 = null_flt2;
             vec2 dy_1;
             vec2 param_5 = dy_1;
-            vec2 _8908 = primitive_attribute_float2(desc, param_4, param_5);
+            vec2 _8922 = primitive_attribute_float2(desc, param_4, param_5);
             null_flt2 = param_4;
             dy_1 = param_5;
-            vec2 f_1 = _8908;
+            vec2 f_1 = _8922;
             if (type == 0u)
             {
                 ret.x = f_1.x + dy_1.x;
             }
             else
             {
-                vec3 _8932 = vec3(f_1.x + dy_1.x, f_1.y + dy_1.y, 0.0);
-                ret = vec4(_8932.x, _8932.y, _8932.z, ret.w);
+                vec3 _8946 = vec3(f_1.x + dy_1.x, f_1.y + dy_1.y, 0.0);
+                ret.x = _8946.x;
+                ret.y = _8946.y;
+                ret.z = _8946.z;
             }
         }
         else
@@ -3378,10 +3387,10 @@ void svm_node_attr_bump_dy()
                 vec4 param_6 = null_flt4;
                 vec4 dy_2;
                 vec4 param_7 = dy_2;
-                vec4 _8948 = primitive_attribute_float4(desc, param_6, param_7);
+                vec4 _8966 = primitive_attribute_float4(desc, param_6, param_7);
                 null_flt4 = param_6;
                 dy_2 = param_7;
-                vec4 f_2 = _8948;
+                vec4 f_2 = _8966;
                 if (type == 0u)
                 {
                     ret.x = average(float4_to_float3(f_2 + dy_2));
@@ -3396,10 +3405,10 @@ void svm_node_attr_bump_dy()
                 vec4 param_8 = null_flt4;
                 vec4 dy_3;
                 vec4 param_9 = dy_3;
-                vec4 _8973 = primitive_surface_attribute_float3(desc, param_8, param_9);
+                vec4 _8991 = primitive_surface_attribute_float3(desc, param_8, param_9);
                 null_flt4 = param_8;
                 dy_3 = param_9;
-                vec4 f_3 = _8973;
+                vec4 f_3 = _8991;
                 if (type == 0u)
                 {
                     ret.x = average(f_3 + dy_3);
@@ -3426,10 +3435,10 @@ void svm_node_vertex_color()
     {
         vec4 param_1 = null_flt4;
         vec4 param_2 = null_flt4;
-        vec4 _9071 = primitive_attribute_float4(descriptor, param_1, param_2);
+        vec4 _9092 = primitive_attribute_float4(descriptor, param_1, param_2);
         null_flt4 = param_1;
         null_flt4 = param_2;
-        vec4 vertex_color = _9071;
+        vec4 vertex_color = _9092;
         ioSD.N.x = vertex_color.x;
         ioSD.N.y = vertex_color.y;
         ioSD.N.z = vertex_color.z;
@@ -3448,10 +3457,10 @@ void svm_node_vertex_color_bump_dx()
         vec4 dx;
         vec4 param_1 = dx;
         vec4 param_2 = null_flt4;
-        vec4 _9111 = primitive_attribute_float4(descriptor, param_1, param_2);
+        vec4 _9132 = primitive_attribute_float4(descriptor, param_1, param_2);
         dx = param_1;
         null_flt4 = param_2;
-        vec4 vertex_color = _9111;
+        vec4 vertex_color = _9132;
         vertex_color += dx;
         ioSD.N.x = vertex_color.x;
         ioSD.N.y = vertex_color.y;
@@ -3471,10 +3480,10 @@ void svm_node_vertex_color_bump_dy()
         vec4 param_1 = null_flt4;
         vec4 dy;
         vec4 param_2 = dy;
-        vec4 _9154 = primitive_attribute_float4(descriptor, param_1, param_2);
+        vec4 _9175 = primitive_attribute_float4(descriptor, param_1, param_2);
         null_flt4 = param_1;
         dy = param_2;
-        vec4 vertex_color = _9154;
+        vec4 vertex_color = _9175;
         vertex_color += dy;
         ioSD.N.x = vertex_color.x;
         ioSD.N.y = vertex_color.y;
@@ -3494,11 +3503,13 @@ void svm_node_enter_bump_eval()
         vec4 param_1 = dPdx;
         vec4 dPdy;
         vec4 param_2 = dPdy;
-        vec4 _9019 = primitive_surface_attribute_float3(desc, param_1, param_2);
+        vec4 _9037 = primitive_surface_attribute_float3(desc, param_1, param_2);
         dPdx = param_1;
         dPdy = param_2;
-        vec4 P = _9019;
-        ioSD.N = vec4(P.xyz.x, P.xyz.y, P.xyz.z, ioSD.N.w);
+        vec4 P = _9037;
+        ioSD.N.x = P.xyz.x;
+        ioSD.N.y = P.xyz.y;
+        ioSD.N.z = P.xyz.z;
         ioSD.N.w = dPdx.x;
         ioSD.object_flag = floatBitsToInt(dPdx.y);
         ioSD.prim = floatBitsToInt(dPdx.z);

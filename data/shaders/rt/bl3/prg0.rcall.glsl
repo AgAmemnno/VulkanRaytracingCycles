@@ -722,12 +722,12 @@ layout(set = 2, binding = 1, std430) buffer KG
 layout(set = 2, binding = 0, std430) buffer KD
 {
     KernelData kernel_data;
-} _3108;
+} _3116;
 
 layout(set = 2, binding = 2, std430) buffer Alloc
 {
     int counter[1024];
-} _6338;
+} _6346;
 
 layout(push_constant, std430) uniform PushData
 {
@@ -791,9 +791,9 @@ bool ray_aligned_disk_intersect(vec4 ray_P, vec4 ray_D, float ray_t, vec4 disk_P
 {
     float disk_t;
     float param = disk_t;
-    vec4 _1126 = normalize_len(ray_P - disk_P, param);
+    vec4 _1134 = normalize_len(ray_P - disk_P, param);
     disk_t = param;
-    vec4 disk_N = _1126;
+    vec4 disk_N = _1134;
     float div = dot(ray_D.xyz, disk_N.xyz);
     if (div == 0.0)
     {
@@ -851,17 +851,17 @@ vec2 map_to_sphere(vec4 co)
     float v;
     if (l > 0.0)
     {
-        bool _873 = co.x == 0.0;
-        bool _878;
-        if (_873)
+        bool _881 = co.x == 0.0;
+        bool _886;
+        if (_881)
         {
-            _878 = co.y == 0.0;
+            _886 = co.y == 0.0;
         }
         else
         {
-            _878 = _873;
+            _886 = _881;
         }
-        if (_878)
+        if (_886)
         {
             u = 0.0;
         }
@@ -909,16 +909,16 @@ bool ray_quad_intersect(vec4 ray_P, vec4 ray_D, float ray_mint, float ray_maxt, 
     {
         return false;
     }
-    bool _1428;
+    bool _1436;
     if (ellipse)
     {
-        _1428 = ((u * u) + (v * v)) > 0.25;
+        _1436 = ((u * u) + (v * v)) > 0.25;
     }
     else
     {
-        _1428 = ellipse;
+        _1436 = ellipse;
     }
-    if (_1428)
+    if (_1436)
     {
         return false;
     }
@@ -941,7 +941,7 @@ bool ray_quad_intersect(vec4 ray_P, vec4 ray_D, float ray_mint, float ray_maxt, 
     return true;
 }
 
-vec4 cross(vec4 e1, vec4 e0)
+vec4 _cross(vec4 e1, vec4 e0)
 {
     return vec4(cross(e1.xyz, e0.xyz), 0.0);
 }
@@ -951,17 +951,17 @@ float rect_light_sample(vec4 P, inout vec4 light_p, vec4 axisu, vec4 axisv, floa
     vec4 corner = (light_p - (axisu * 0.5)) - (axisv * 0.5);
     float axisu_len;
     float param = axisu_len;
-    vec4 _2611 = normalize_len(axisu, param);
+    vec4 _2619 = normalize_len(axisu, param);
     axisu_len = param;
-    vec4 x = _2611;
+    vec4 x = _2619;
     float axisv_len;
     float param_1 = axisv_len;
-    vec4 _2618 = normalize_len(axisv, param_1);
+    vec4 _2626 = normalize_len(axisv, param_1);
     axisv_len = param_1;
-    vec4 y = _2618;
+    vec4 y = _2626;
     vec4 param_2 = x;
     vec4 param_3 = y;
-    vec4 z = cross(param_2, param_3);
+    vec4 z = _cross(param_2, param_3);
     vec4 dir = corner - P;
     float z0 = dot(dir.xyz, z.xyz);
     if (z0 > 0.0)
@@ -1005,16 +1005,16 @@ float rect_light_sample(vec4 P, inout vec4 light_p, vec4 axisu, vec4 axisv, floa
         float h1 = y1 / sqrt((d * d) + y1sq);
         float hv = h0 + (randv * (h1 - h0));
         float hv2 = hv * hv;
-        float _2858;
+        float _2866;
         if (hv2 < 0.999998986721038818359375)
         {
-            _2858 = (hv * d) / sqrt(1.0 - hv2);
+            _2866 = (hv * d) / sqrt(1.0 - hv2);
         }
         else
         {
-            _2858 = y1;
+            _2866 = y1;
         }
-        float yv = _2858;
+        float yv = _2866;
         light_p = ((P + (x * xu)) + (y * yv)) + (z * z0);
     }
     if (!(S == 0.0))
@@ -1029,38 +1029,38 @@ float rect_light_sample(vec4 P, inout vec4 light_p, vec4 axisu, vec4 axisv, floa
 
 bool lamp_light_eval(inout LightSample ls, int lamp, vec4 P, vec4 D, float t)
 {
-    KernelLight _5294;
-    _5294.type = push.data_ptr._lights.data[lamp].type;
-    _5294.co[0] = push.data_ptr._lights.data[lamp].co[0];
-    _5294.co[1] = push.data_ptr._lights.data[lamp].co[1];
-    _5294.co[2] = push.data_ptr._lights.data[lamp].co[2];
-    _5294.shader_id = push.data_ptr._lights.data[lamp].shader_id;
-    _5294.samples = push.data_ptr._lights.data[lamp].samples;
-    _5294.max_bounces = push.data_ptr._lights.data[lamp].max_bounces;
-    _5294.random = push.data_ptr._lights.data[lamp].random;
-    _5294.strength[0] = push.data_ptr._lights.data[lamp].strength[0];
-    _5294.strength[1] = push.data_ptr._lights.data[lamp].strength[1];
-    _5294.strength[2] = push.data_ptr._lights.data[lamp].strength[2];
-    _5294.pad1 = push.data_ptr._lights.data[lamp].pad1;
-    _5294.tfm.x = push.data_ptr._lights.data[lamp].tfm.x;
-    _5294.tfm.y = push.data_ptr._lights.data[lamp].tfm.y;
-    _5294.tfm.z = push.data_ptr._lights.data[lamp].tfm.z;
-    _5294.itfm.x = push.data_ptr._lights.data[lamp].itfm.x;
-    _5294.itfm.y = push.data_ptr._lights.data[lamp].itfm.y;
-    _5294.itfm.z = push.data_ptr._lights.data[lamp].itfm.z;
-    _5294.uni[0] = push.data_ptr._lights.data[lamp].uni[0];
-    _5294.uni[1] = push.data_ptr._lights.data[lamp].uni[1];
-    _5294.uni[2] = push.data_ptr._lights.data[lamp].uni[2];
-    _5294.uni[3] = push.data_ptr._lights.data[lamp].uni[3];
-    _5294.uni[4] = push.data_ptr._lights.data[lamp].uni[4];
-    _5294.uni[5] = push.data_ptr._lights.data[lamp].uni[5];
-    _5294.uni[6] = push.data_ptr._lights.data[lamp].uni[6];
-    _5294.uni[7] = push.data_ptr._lights.data[lamp].uni[7];
-    _5294.uni[8] = push.data_ptr._lights.data[lamp].uni[8];
-    _5294.uni[9] = push.data_ptr._lights.data[lamp].uni[9];
-    _5294.uni[10] = push.data_ptr._lights.data[lamp].uni[10];
-    _5294.uni[11] = push.data_ptr._lights.data[lamp].uni[11];
-    KernelLight klight = _5294;
+    KernelLight _5302;
+    _5302.type = push.data_ptr._lights.data[lamp].type;
+    _5302.co[0] = push.data_ptr._lights.data[lamp].co[0];
+    _5302.co[1] = push.data_ptr._lights.data[lamp].co[1];
+    _5302.co[2] = push.data_ptr._lights.data[lamp].co[2];
+    _5302.shader_id = push.data_ptr._lights.data[lamp].shader_id;
+    _5302.samples = push.data_ptr._lights.data[lamp].samples;
+    _5302.max_bounces = push.data_ptr._lights.data[lamp].max_bounces;
+    _5302.random = push.data_ptr._lights.data[lamp].random;
+    _5302.strength[0] = push.data_ptr._lights.data[lamp].strength[0];
+    _5302.strength[1] = push.data_ptr._lights.data[lamp].strength[1];
+    _5302.strength[2] = push.data_ptr._lights.data[lamp].strength[2];
+    _5302.pad1 = push.data_ptr._lights.data[lamp].pad1;
+    _5302.tfm.x = push.data_ptr._lights.data[lamp].tfm.x;
+    _5302.tfm.y = push.data_ptr._lights.data[lamp].tfm.y;
+    _5302.tfm.z = push.data_ptr._lights.data[lamp].tfm.z;
+    _5302.itfm.x = push.data_ptr._lights.data[lamp].itfm.x;
+    _5302.itfm.y = push.data_ptr._lights.data[lamp].itfm.y;
+    _5302.itfm.z = push.data_ptr._lights.data[lamp].itfm.z;
+    _5302.uni[0] = push.data_ptr._lights.data[lamp].uni[0];
+    _5302.uni[1] = push.data_ptr._lights.data[lamp].uni[1];
+    _5302.uni[2] = push.data_ptr._lights.data[lamp].uni[2];
+    _5302.uni[3] = push.data_ptr._lights.data[lamp].uni[3];
+    _5302.uni[4] = push.data_ptr._lights.data[lamp].uni[4];
+    _5302.uni[5] = push.data_ptr._lights.data[lamp].uni[5];
+    _5302.uni[6] = push.data_ptr._lights.data[lamp].uni[6];
+    _5302.uni[7] = push.data_ptr._lights.data[lamp].uni[7];
+    _5302.uni[8] = push.data_ptr._lights.data[lamp].uni[8];
+    _5302.uni[9] = push.data_ptr._lights.data[lamp].uni[9];
+    _5302.uni[10] = push.data_ptr._lights.data[lamp].uni[10];
+    _5302.uni[11] = push.data_ptr._lights.data[lamp].uni[11];
+    KernelLight klight = _5302;
     uint type = uint(klight.type);
     ls.type = type;
     ls.shader = klight.shader_id;
@@ -1116,10 +1116,10 @@ bool lamp_light_eval(inout LightSample ls, int lamp, vec4 P, vec4 D, float t)
             float param_4 = radius_1;
             vec4 param_5;
             float param_6;
-            bool _5420 = ray_aligned_disk_intersect(param, param_1, param_2, param_3, param_4, param_5, param_6);
+            bool _5428 = ray_aligned_disk_intersect(param, param_1, param_2, param_3, param_4, param_5, param_6);
             ls.P = param_5;
             ls.t = param_6;
-            if (!_5420)
+            if (!_5428)
             {
                 return false;
             }
@@ -1181,12 +1181,12 @@ bool lamp_light_eval(inout LightSample ls, int lamp, vec4 P, vec4 D, float t)
                 float param_21;
                 float param_22;
                 float param_23;
-                bool _5584 = ray_quad_intersect(param_12, param_13, param_14, param_15, param_16, param_17, param_18, param_19, param_20, param_21, param_22, param_23, param_24);
+                bool _5592 = ray_quad_intersect(param_12, param_13, param_14, param_15, param_16, param_17, param_18, param_19, param_20, param_21, param_22, param_23, param_24);
                 ls.P = param_20;
                 ls.t = param_21;
                 ls.u = param_22;
                 ls.v = param_23;
-                if (!_5584)
+                if (!_5592)
                 {
                     return false;
                 }
@@ -1206,9 +1206,9 @@ bool lamp_light_eval(inout LightSample ls, int lamp, vec4 P, vec4 D, float t)
                     float param_30 = 0.0;
                     float param_31 = 0.0;
                     bool param_32 = false;
-                    float _5626 = rect_light_sample(param_26, param_27, param_28, param_29, param_30, param_31, param_32);
+                    float _5634 = rect_light_sample(param_26, param_27, param_28, param_29, param_30, param_31, param_32);
                     light_P = param_27;
-                    ls.pdf = _5626;
+                    ls.pdf = _5634;
                 }
                 ls.eval_fac = 0.25 * invarea_2;
             }
@@ -1218,7 +1218,7 @@ bool lamp_light_eval(inout LightSample ls, int lamp, vec4 P, vec4 D, float t)
             }
         }
     }
-    ls.pdf *= _3108.kernel_data.integrator.pdf_lights;
+    ls.pdf *= _3116.kernel_data.integrator.pdf_lights;
     return true;
 }
 
@@ -1240,7 +1240,7 @@ void shader_setup_from_background(Ray ray)
     sd.N = -ray.D;
     sd.Ng = -ray.D;
     sd.I = -ray.D;
-    sd.shader = _3108.kernel_data.background.surface_shader;
+    sd.shader = _3116.kernel_data.background.surface_shader;
     sd.flag = push.data_ptr._shaders.data[uint(sd.shader) & 8388607u].flags;
     sd.object_flag = 0;
     sd.time = ray.time;
@@ -1280,16 +1280,16 @@ Transform transform_quick_inverse(inout Transform M)
         M.z.z += 9.9999999392252902907785028219223e-09;
         det = ((M.x.x * ((M.z.z * M.y.y) - (M.z.y * M.y.z))) - (M.y.x * ((M.z.z * M.x.y) - (M.z.y * M.x.z)))) + (M.z.x * ((M.y.z * M.x.y) - (M.y.y * M.x.z)));
     }
-    float _1703;
+    float _1711;
     if (!(det == 0.0))
     {
-        _1703 = 1.0 / det;
+        _1711 = 1.0 / det;
     }
     else
     {
-        _1703 = 0.0;
+        _1711 = 0.0;
     }
-    det = _1703;
+    det = _1711;
     vec4 Rx = vec4((M.z.z * M.y.y) - (M.z.y * M.y.z), (M.z.y * M.x.z) - (M.z.z * M.x.y), (M.y.z * M.x.y) - (M.y.y * M.x.z), 0.0) * det;
     vec4 Ry = vec4((M.z.x * M.y.z) - (M.z.z * M.y.x), (M.z.z * M.x.x) - (M.z.x * M.x.z), (M.y.x * M.x.z) - (M.y.z * M.x.x), 0.0) * det;
     vec4 Rz = vec4((M.z.y * M.y.x) - (M.z.x * M.y.y), (M.z.x * M.x.y) - (M.z.y * M.x.x), (M.y.y * M.x.x) - (M.y.x * M.x.y), 0.0) * det;
@@ -1305,21 +1305,21 @@ Transform object_fetch_transform(int object, uint type)
 {
     if (type == 1u)
     {
-        Transform _2200;
-        _2200.x = push.data_ptr._objects.data[object].itfm.x;
-        _2200.y = push.data_ptr._objects.data[object].itfm.y;
-        _2200.z = push.data_ptr._objects.data[object].itfm.z;
-        Transform _2199 = _2200;
-        return _2199;
+        Transform _2208;
+        _2208.x = push.data_ptr._objects.data[object].itfm.x;
+        _2208.y = push.data_ptr._objects.data[object].itfm.y;
+        _2208.z = push.data_ptr._objects.data[object].itfm.z;
+        Transform _2207 = _2208;
+        return _2207;
     }
     else
     {
-        Transform _2212;
-        _2212.x = push.data_ptr._objects.data[object].tfm.x;
-        _2212.y = push.data_ptr._objects.data[object].tfm.y;
-        _2212.z = push.data_ptr._objects.data[object].tfm.z;
-        Transform _2211 = _2212;
-        return _2211;
+        Transform _2220;
+        _2220.x = push.data_ptr._objects.data[object].tfm.x;
+        _2220.y = push.data_ptr._objects.data[object].tfm.y;
+        _2220.z = push.data_ptr._objects.data[object].tfm.z;
+        Transform _2219 = _2220;
+        return _2219;
     }
 }
 
@@ -1331,8 +1331,8 @@ void shader_setup_object_transforms(float time)
         float param_1 = time;
         sd.ob_tfm = object_fetch_transform_motion(param, param_1);
         Transform param_2 = sd.ob_tfm;
-        Transform _5707 = transform_quick_inverse(param_2);
-        sd.ob_itfm = _5707;
+        Transform _5715 = transform_quick_inverse(param_2);
+        sd.ob_itfm = _5715;
     }
     else
     {
@@ -1349,21 +1349,21 @@ Transform lamp_fetch_transform(int lamp, bool _inverse)
 {
     if (_inverse)
     {
-        Transform _2231;
-        _2231.x = push.data_ptr._lights.data[lamp].itfm.x;
-        _2231.y = push.data_ptr._lights.data[lamp].itfm.y;
-        _2231.z = push.data_ptr._lights.data[lamp].itfm.z;
-        Transform _2230 = _2231;
-        return _2230;
+        Transform _2239;
+        _2239.x = push.data_ptr._lights.data[lamp].itfm.x;
+        _2239.y = push.data_ptr._lights.data[lamp].itfm.y;
+        _2239.z = push.data_ptr._lights.data[lamp].itfm.z;
+        Transform _2238 = _2239;
+        return _2238;
     }
     else
     {
-        Transform _2244;
-        _2244.x = push.data_ptr._lights.data[lamp].tfm.x;
-        _2244.y = push.data_ptr._lights.data[lamp].tfm.y;
-        _2244.z = push.data_ptr._lights.data[lamp].tfm.z;
-        Transform _2243 = _2244;
-        return _2243;
+        Transform _2252;
+        _2252.x = push.data_ptr._lights.data[lamp].tfm.x;
+        _2252.y = push.data_ptr._lights.data[lamp].tfm.y;
+        _2252.z = push.data_ptr._lights.data[lamp].tfm.z;
+        Transform _2251 = _2252;
+        return _2251;
     }
 }
 
@@ -1620,7 +1620,7 @@ void shader_eval_surface(uint state_flag)
     }
     else
     {
-        max_closures = _3108.kernel_data.integrator.max_closures;
+        max_closures = _3116.kernel_data.integrator.max_closures;
     }
     sd.num_closure = int(state_flag);
     sd.num_closure_left = max_closures;
@@ -1661,25 +1661,25 @@ vec4 direct_emissive_eval(inout LightSample ls, vec4 I, differential3 dI, float 
     vec4 eval = vec4(0.0);
     int param = ls.shader;
     vec4 param_1 = eval;
-    bool _6312 = shader_constant_emission_eval(param, param_1);
+    bool _6320 = shader_constant_emission_eval(param, param_1);
     eval = param_1;
-    if (_6312)
+    if (_6320)
     {
-        bool _6318 = ls.prim != (-1);
-        bool _6328;
-        if (_6318)
+        bool _6326 = ls.prim != (-1);
+        bool _6336;
+        if (_6326)
         {
-            _6328 = dot(ls.Ng.xyz, I.xyz) < 0.0;
+            _6336 = dot(ls.Ng.xyz, I.xyz) < 0.0;
         }
         else
         {
-            _6328 = _6318;
+            _6336 = _6326;
         }
-        if (_6328)
+        if (_6336)
         {
             ls.Ng = -ls.Ng;
         }
-        int _6341 = atomicAdd(_6338.counter[44], 1);
+        int _6349 = atomicAdd(_6346.counter[44], 1);
     }
     else
     {
@@ -1695,7 +1695,7 @@ vec4 direct_emissive_eval(inout LightSample ls, vec4 I, differential3 dI, float 
             ray.dD = dI;
             Ray param_2 = ray;
             shader_setup_from_background(param_2);
-            int _6366 = atomicAdd(_6338.counter[45], 1);
+            int _6374 = atomicAdd(_6346.counter[45], 1);
         }
         else
         {
@@ -1709,7 +1709,7 @@ vec4 direct_emissive_eval(inout LightSample ls, vec4 I, differential3 dI, float 
             bool param_10 = false;
             int param_11 = ls.lamp;
             shader_setup_from_sample(ls.P, ls.Ng, I, param_3, param_4, param_5, param_6, param_7, param_8, param_9, param_10, param_11);
-            int _6399 = atomicAdd(_6338.counter[46], 1);
+            int _6407 = atomicAdd(_6346.counter[46], 1);
             ls.Ng = sd.Ng;
         }
         if (true)
@@ -1732,16 +1732,16 @@ vec4 direct_emissive_eval(inout LightSample ls, vec4 I, differential3 dI, float 
         }
         if (ls.type == 2u)
         {
-            vec4 _6438;
+            vec4 _6446;
             if ((uint(sd.flag) & 2u) != 0u)
             {
-                _6438 = sd.closure_emission_background;
+                _6446 = sd.closure_emission_background;
             }
             else
             {
-                _6438 = vec4(0.0);
+                _6446 = vec4(0.0);
             }
-            eval = _6438;
+            eval = _6446;
         }
         else
         {
@@ -1751,38 +1751,38 @@ vec4 direct_emissive_eval(inout LightSample ls, vec4 I, differential3 dI, float 
     eval *= ls.eval_fac;
     if (ls.lamp != (-1))
     {
-        KernelLight _6465;
-        _6465.type = push.data_ptr._lights.data[ls.lamp].type;
-        _6465.co[0] = push.data_ptr._lights.data[ls.lamp].co[0];
-        _6465.co[1] = push.data_ptr._lights.data[ls.lamp].co[1];
-        _6465.co[2] = push.data_ptr._lights.data[ls.lamp].co[2];
-        _6465.shader_id = push.data_ptr._lights.data[ls.lamp].shader_id;
-        _6465.samples = push.data_ptr._lights.data[ls.lamp].samples;
-        _6465.max_bounces = push.data_ptr._lights.data[ls.lamp].max_bounces;
-        _6465.random = push.data_ptr._lights.data[ls.lamp].random;
-        _6465.strength[0] = push.data_ptr._lights.data[ls.lamp].strength[0];
-        _6465.strength[1] = push.data_ptr._lights.data[ls.lamp].strength[1];
-        _6465.strength[2] = push.data_ptr._lights.data[ls.lamp].strength[2];
-        _6465.pad1 = push.data_ptr._lights.data[ls.lamp].pad1;
-        _6465.tfm.x = push.data_ptr._lights.data[ls.lamp].tfm.x;
-        _6465.tfm.y = push.data_ptr._lights.data[ls.lamp].tfm.y;
-        _6465.tfm.z = push.data_ptr._lights.data[ls.lamp].tfm.z;
-        _6465.itfm.x = push.data_ptr._lights.data[ls.lamp].itfm.x;
-        _6465.itfm.y = push.data_ptr._lights.data[ls.lamp].itfm.y;
-        _6465.itfm.z = push.data_ptr._lights.data[ls.lamp].itfm.z;
-        _6465.uni[0] = push.data_ptr._lights.data[ls.lamp].uni[0];
-        _6465.uni[1] = push.data_ptr._lights.data[ls.lamp].uni[1];
-        _6465.uni[2] = push.data_ptr._lights.data[ls.lamp].uni[2];
-        _6465.uni[3] = push.data_ptr._lights.data[ls.lamp].uni[3];
-        _6465.uni[4] = push.data_ptr._lights.data[ls.lamp].uni[4];
-        _6465.uni[5] = push.data_ptr._lights.data[ls.lamp].uni[5];
-        _6465.uni[6] = push.data_ptr._lights.data[ls.lamp].uni[6];
-        _6465.uni[7] = push.data_ptr._lights.data[ls.lamp].uni[7];
-        _6465.uni[8] = push.data_ptr._lights.data[ls.lamp].uni[8];
-        _6465.uni[9] = push.data_ptr._lights.data[ls.lamp].uni[9];
-        _6465.uni[10] = push.data_ptr._lights.data[ls.lamp].uni[10];
-        _6465.uni[11] = push.data_ptr._lights.data[ls.lamp].uni[11];
-        KernelLight klight = _6465;
+        KernelLight _6473;
+        _6473.type = push.data_ptr._lights.data[ls.lamp].type;
+        _6473.co[0] = push.data_ptr._lights.data[ls.lamp].co[0];
+        _6473.co[1] = push.data_ptr._lights.data[ls.lamp].co[1];
+        _6473.co[2] = push.data_ptr._lights.data[ls.lamp].co[2];
+        _6473.shader_id = push.data_ptr._lights.data[ls.lamp].shader_id;
+        _6473.samples = push.data_ptr._lights.data[ls.lamp].samples;
+        _6473.max_bounces = push.data_ptr._lights.data[ls.lamp].max_bounces;
+        _6473.random = push.data_ptr._lights.data[ls.lamp].random;
+        _6473.strength[0] = push.data_ptr._lights.data[ls.lamp].strength[0];
+        _6473.strength[1] = push.data_ptr._lights.data[ls.lamp].strength[1];
+        _6473.strength[2] = push.data_ptr._lights.data[ls.lamp].strength[2];
+        _6473.pad1 = push.data_ptr._lights.data[ls.lamp].pad1;
+        _6473.tfm.x = push.data_ptr._lights.data[ls.lamp].tfm.x;
+        _6473.tfm.y = push.data_ptr._lights.data[ls.lamp].tfm.y;
+        _6473.tfm.z = push.data_ptr._lights.data[ls.lamp].tfm.z;
+        _6473.itfm.x = push.data_ptr._lights.data[ls.lamp].itfm.x;
+        _6473.itfm.y = push.data_ptr._lights.data[ls.lamp].itfm.y;
+        _6473.itfm.z = push.data_ptr._lights.data[ls.lamp].itfm.z;
+        _6473.uni[0] = push.data_ptr._lights.data[ls.lamp].uni[0];
+        _6473.uni[1] = push.data_ptr._lights.data[ls.lamp].uni[1];
+        _6473.uni[2] = push.data_ptr._lights.data[ls.lamp].uni[2];
+        _6473.uni[3] = push.data_ptr._lights.data[ls.lamp].uni[3];
+        _6473.uni[4] = push.data_ptr._lights.data[ls.lamp].uni[4];
+        _6473.uni[5] = push.data_ptr._lights.data[ls.lamp].uni[5];
+        _6473.uni[6] = push.data_ptr._lights.data[ls.lamp].uni[6];
+        _6473.uni[7] = push.data_ptr._lights.data[ls.lamp].uni[7];
+        _6473.uni[8] = push.data_ptr._lights.data[ls.lamp].uni[8];
+        _6473.uni[9] = push.data_ptr._lights.data[ls.lamp].uni[9];
+        _6473.uni[10] = push.data_ptr._lights.data[ls.lamp].uni[10];
+        _6473.uni[11] = push.data_ptr._lights.data[ls.lamp].uni[11];
+        KernelLight klight = _6473;
         eval *= vec4(klight.strength[0], klight.strength[1], klight.strength[2], 0.0);
     }
     return eval;
@@ -1805,16 +1805,16 @@ void path_radiance_accum_emission(int state_flag, int state_bounce, vec4 through
         return;
     }
     vec4 contribution = throughput * value;
-    float _6143;
+    float _6151;
     if ((state_bounce - 1) > 0)
     {
-        _6143 = _3108.kernel_data.integrator.sample_clamp_indirect;
+        _6151 = _3116.kernel_data.integrator.sample_clamp_indirect;
     }
     else
     {
-        _6143 = _3108.kernel_data.integrator.sample_clamp_direct;
+        _6151 = _3116.kernel_data.integrator.sample_clamp_direct;
     }
-    float limit = _6143;
+    float limit = _6151;
     float sum = reduce_add(abs(contribution));
     if (sum > limit)
     {
@@ -1848,89 +1848,89 @@ void indirect_lamp_emission()
 {
     int state_flag = pay.state.flag;
     LightSample ls;
-    for (int lamp = 0; lamp < _3108.kernel_data.integrator.num_all_lights; lamp++)
+    for (int lamp = 0; lamp < _3116.kernel_data.integrator.num_all_lights; lamp++)
     {
         LightSample param = ls;
         int param_1 = lamp;
         vec4 param_2 = pay.ray.P;
         vec4 param_3 = pay.ray.D;
         float param_4 = pay.ray.t;
-        bool _6820 = lamp_light_eval(param, param_1, param_2, param_3, param_4);
+        bool _6828 = lamp_light_eval(param, param_1, param_2, param_3, param_4);
         ls = param;
-        if (!_6820)
+        if (!_6828)
         {
             continue;
         }
         if ((uint(ls.shader) & 260046848u) != 0u)
         {
-            bool _6837 = (uint(ls.shader) & 134217728u) != 0u;
-            bool _6844;
-            if (_6837)
+            bool _6845 = (uint(ls.shader) & 134217728u) != 0u;
+            bool _6852;
+            if (_6845)
             {
-                _6844 = (uint(state_flag) & 8u) != 0u;
+                _6852 = (uint(state_flag) & 8u) != 0u;
             }
             else
             {
-                _6844 = _6837;
+                _6852 = _6845;
             }
-            bool _6861;
-            if (!_6844)
+            bool _6869;
+            if (!_6852)
             {
-                bool _6852 = (uint(ls.shader) & 67108864u) != 0u;
-                bool _6860;
-                if (_6852)
+                bool _6860 = (uint(ls.shader) & 67108864u) != 0u;
+                bool _6868;
+                if (_6860)
                 {
-                    _6860 = (uint(state_flag) & 18u) == 18u;
+                    _6868 = (uint(state_flag) & 18u) == 18u;
                 }
                 else
                 {
-                    _6860 = _6852;
+                    _6868 = _6860;
                 }
-                _6861 = _6860;
+                _6869 = _6868;
             }
             else
             {
-                _6861 = _6844;
+                _6869 = _6852;
             }
-            bool _6877;
-            if (!_6861)
+            bool _6885;
+            if (!_6869)
             {
-                bool _6869 = (uint(ls.shader) & 33554432u) != 0u;
-                bool _6876;
-                if (_6869)
+                bool _6877 = (uint(ls.shader) & 33554432u) != 0u;
+                bool _6884;
+                if (_6877)
                 {
-                    _6876 = (uint(state_flag) & 4u) != 0u;
+                    _6884 = (uint(state_flag) & 4u) != 0u;
                 }
                 else
                 {
-                    _6876 = _6869;
+                    _6884 = _6877;
                 }
-                _6877 = _6876;
+                _6885 = _6884;
             }
             else
             {
-                _6877 = _6861;
+                _6885 = _6869;
             }
-            bool _6895;
-            if (!_6877)
+            bool _6903;
+            if (!_6885)
             {
-                bool _6886 = (uint(ls.shader) & 8388608u) != 0u;
-                bool _6894;
-                if (_6886)
+                bool _6894 = (uint(ls.shader) & 8388608u) != 0u;
+                bool _6902;
+                if (_6894)
                 {
-                    _6894 = (uint(state_flag) & 4096u) != 0u;
+                    _6902 = (uint(state_flag) & 4096u) != 0u;
                 }
                 else
                 {
-                    _6894 = _6886;
+                    _6902 = _6894;
                 }
-                _6895 = _6894;
+                _6903 = _6902;
             }
             else
             {
-                _6895 = _6877;
+                _6903 = _6885;
             }
-            if (_6895)
+            if (_6903)
             {
                 continue;
             }
@@ -1940,9 +1940,9 @@ void indirect_lamp_emission()
         differential3 param_7 = pay.ray.dD;
         float param_8 = ls.t;
         float param_9 = pay.ray.time;
-        vec4 _6915 = direct_emissive_eval(param_5, param_6, param_7, param_8, param_9);
+        vec4 _6923 = direct_emissive_eval(param_5, param_6, param_7, param_8, param_9);
         ls = param_5;
-        vec4 lamp_L = _6915;
+        vec4 lamp_L = _6923;
         if (!((uint(state_flag) & 16384u) != 0u))
         {
             float param_10 = pay.state.ray_pdf;
@@ -1961,9 +1961,9 @@ void indirect_lamp_emission()
 int light_distribution_sample(inout float randu)
 {
     int first = 0;
-    int _4217 = _3108.kernel_data.integrator.num_distribution + 1;
+    int _4225 = _3116.kernel_data.integrator.num_distribution + 1;
     float r = randu;
-    int len = _4217;
+    int len = _4225;
     do
     {
         int half_len = len >> 1;
@@ -1978,7 +1978,7 @@ int light_distribution_sample(inout float randu)
             len = (len - half_len) - 1;
         }
     } while (len > 0);
-    int index = clamp(first - 1, 0, _3108.kernel_data.integrator.num_distribution - 1);
+    int index = clamp(first - 1, 0, _3116.kernel_data.integrator.num_distribution - 1);
     float distr_min = push.data_ptr._light_distribution.data[index].totarea;
     float distr_max = push.data_ptr._light_distribution.data[index + 1].totarea;
     randu = (r - distr_min) / (distr_max - distr_min);
@@ -2045,27 +2045,27 @@ vec4 safe_normalize_len(vec4 a, inout float t)
 float fast_acosf(float x)
 {
     float f = abs(x);
-    float _1082;
+    float _1090;
     if (f < 1.0)
     {
-        _1082 = 1.0 - (1.0 - f);
+        _1090 = 1.0 - (1.0 - f);
     }
     else
     {
-        _1082 = 1.0;
+        _1090 = 1.0;
     }
-    float m = _1082;
+    float m = _1090;
     float a = sqrt(1.0 - m) * (1.57079637050628662109375 + (m * ((-0.21330098807811737060546875) + (m * (0.077980481088161468505859375 + (m * (-0.02164095081388950347900390625)))))));
-    float _1109;
+    float _1117;
     if (x < 0.0)
     {
-        _1109 = 3.1415927410125732421875 - a;
+        _1117 = 3.1415927410125732421875 - a;
     }
     else
     {
-        _1109 = a;
+        _1117 = a;
     }
-    return _1109;
+    return _1117;
 }
 
 float copysignf(float a, float b)
@@ -2196,7 +2196,7 @@ bool ray_triangle_intersect(vec4 ray_P, vec4 ray_dir, float ray_t, vec4 tri_a, v
     }
     vec4 param = e1;
     vec4 param_1 = e0;
-    vec4 Ng1 = cross(param, param_1);
+    vec4 Ng1 = _cross(param, param_1);
     vec4 Ng = Ng1 + Ng1;
     float den = dot(Ng.xyz, dir.xyz);
     if (den == 0.0)
@@ -2208,19 +2208,19 @@ bool ray_triangle_intersect(vec4 ray_P, vec4 ray_dir, float ray_t, vec4 tri_a, v
     float param_2 = T;
     int param_3 = sign_den;
     float sign_T = xor_signmask(param_2, param_3);
-    bool _1306 = sign_T < 0.0;
-    bool _1319;
-    if (!_1306)
+    bool _1314 = sign_T < 0.0;
+    bool _1327;
+    if (!_1314)
     {
         float param_4 = den;
         int param_5 = sign_den;
-        _1319 = sign_T > (ray_t * xor_signmask(param_4, param_5));
+        _1327 = sign_T > (ray_t * xor_signmask(param_4, param_5));
     }
     else
     {
-        _1319 = _1306;
+        _1327 = _1314;
     }
-    if (_1319)
+    if (_1327)
     {
         return false;
     }
@@ -2244,7 +2244,7 @@ float triangle_area(vec4 v1, vec4 v2, vec4 v3)
 
 float triangle_light_pdf_area(vec4 Ng, vec4 I, float t)
 {
-    float pdf = _3108.kernel_data.integrator.pdf_triangles;
+    float pdf = _3116.kernel_data.integrator.pdf_triangles;
     float cos_pi = abs(dot(Ng.xyz, I.xyz));
     if (cos_pi == 0.0)
     {
@@ -2260,9 +2260,9 @@ void triangle_light_sample(int prim, int object, float randu, float randv, float
     float param_2 = time;
     vec4 V[3];
     vec4 param_3[3] = V;
-    bool _4297 = triangle_world_space_vertices(param, param_1, param_2, param_3);
+    bool _4305 = triangle_world_space_vertices(param, param_1, param_2, param_3);
     V = param_3;
-    bool has_motion = _4297;
+    bool has_motion = _4305;
     vec4 e0 = V[1] - V[0];
     vec4 e1 = V[2] - V[0];
     vec4 e2 = V[2] - V[1];
@@ -2270,8 +2270,8 @@ void triangle_light_sample(int prim, int object, float randu, float randv, float
     vec4 N0 = vec4(cross(e0.xyz, e1.xyz), 0.0);
     float Nl = 0.0;
     float param_4 = Nl;
-    vec4 _4340 = safe_normalize_len(N0, param_4);
-    ls.Ng = _4340;
+    vec4 _4348 = safe_normalize_len(N0, param_4);
+    ls.Ng = _4348;
     float area = 0.5 * Nl;
     int object_flag = int(push.data_ptr._object_flag.data[object]);
     if ((uint(object_flag) & 8u) != 0u)
@@ -2309,8 +2309,8 @@ void triangle_light_sample(int prim, int object, float randu, float randv, float
         float solid_angle = ((alpha + beta) + gamma) - 3.1415927410125732421875;
         float cos_c = dot(A.xyz, B.xyz);
         float param_8 = alpha;
-        float _4509 = fast_sinf(param_8);
-        float sin_alpha = _4509;
+        float _4517 = fast_sinf(param_8);
+        float sin_alpha = _4517;
         float product = sin_alpha * cos_c;
         float phi = (randu * solid_angle) - alpha;
         float param_9 = phi;
@@ -2339,11 +2339,11 @@ void triangle_light_sample(int prim, int object, float randu, float randv, float
         float param_16;
         float param_17;
         float param_18;
-        bool _4638 = ray_triangle_intersect(param_13, param_14, param_15, V[0], V[1], V[2], param_16, param_17, param_18);
+        bool _4646 = ray_triangle_intersect(param_13, param_14, param_15, V[0], V[1], V[2], param_16, param_17, param_18);
         ls.u = param_16;
         ls.v = param_17;
         ls.t = param_18;
-        if (!_4638)
+        if (!_4646)
         {
             ls.pdf = 0.0;
             return;
@@ -2362,11 +2362,11 @@ void triangle_light_sample(int prim, int object, float randu, float randv, float
                 int param_20 = prim;
                 float param_21 = -1.0;
                 vec4 param_22[3] = V;
-                bool _4674 = triangle_world_space_vertices(param_19, param_20, param_21, param_22);
+                bool _4682 = triangle_world_space_vertices(param_19, param_20, param_21, param_22);
                 V = param_22;
                 area = triangle_area(V[0], V[1], V[2]);
             }
-            float pdf = area * _3108.kernel_data.integrator.pdf_triangles;
+            float pdf = area * _3116.kernel_data.integrator.pdf_triangles;
             ls.pdf = pdf / solid_angle;
         }
     }
@@ -2387,9 +2387,9 @@ void triangle_light_sample(int prim, int object, float randu, float randv, float
         float t_1 = (1.0 - u_1) - v_1;
         ls.P = ((V[0] * u_1) + (V[1] * v_1)) + (V[2] * t_1);
         float param_23 = ls.t;
-        vec4 _4739 = normalize_len(ls.P - P, param_23);
+        vec4 _4747 = normalize_len(ls.P - P, param_23);
         ls.t = param_23;
-        ls.D = _4739;
+        ls.D = _4747;
         float param_24 = ls.t;
         ls.pdf = triangle_light_pdf_area(ls.Ng, -ls.D, param_24);
         if (has_motion && (!(area == 0.0)))
@@ -2398,7 +2398,7 @@ void triangle_light_sample(int prim, int object, float randu, float randv, float
             int param_26 = prim;
             float param_27 = -1.0;
             vec4 param_28[3] = V;
-            bool _4766 = triangle_world_space_vertices(param_25, param_26, param_27, param_28);
+            bool _4774 = triangle_world_space_vertices(param_25, param_26, param_27, param_28);
             V = param_28;
             float area_pre = triangle_area(V[0], V[1], V[2]);
             ls.pdf = (ls.pdf * area_pre) / area;
@@ -2428,10 +2428,15 @@ void make_orthonormals(vec4 N, inout vec4 a, inout vec4 b)
     {
         a = vec4(N.z - N.y, N.x + N.z, (-N.y) - N.x, 0.0);
     }
-    vec3 _832 = normalize(a.xyz);
-    a = vec4(_832.x, _832.y, _832.z, a.w);
-    vec3 _839 = cross(N.xyz, a.xyz);
-    b = vec4(_839.x, _839.y, _839.z, b.w);
+    vec4 _830 = a;
+    vec3 _832 = normalize(_830.xyz);
+    a.x = _832.x;
+    a.y = _832.y;
+    a.z = _832.z;
+    vec3 _843 = cross(N.xyz, a.xyz);
+    b.x = _843.x;
+    b.y = _843.y;
+    b.z = _843.z;
 }
 
 void to_unit_disk(inout float x, inout float y)
@@ -2465,8 +2470,8 @@ vec4 disk_light_sample(vec4 v, float randu, float randv)
     vec4 param_4 = rv;
     float param_5 = randu;
     float param_6 = randv;
-    vec4 _2928 = ellipse_sample(param_3, param_4, param_5, param_6);
-    return _2928;
+    vec4 _2936 = ellipse_sample(param_3, param_4, param_5, param_6);
+    return _2936;
 }
 
 vec4 distant_light_sample(vec4 D, float radius, float randu, float randv)
@@ -2479,39 +2484,39 @@ vec4 distant_light_sample(vec4 D, float radius, float randu, float randv)
 
 bool background_portal_data_fetch_and_check_side(vec4 P, int index, inout vec4 lightpos, inout vec4 dir)
 {
-    int portal = _3108.kernel_data.background.portal_offset + index;
-    KernelLight _3485;
-    _3485.type = push.data_ptr._lights.data[portal].type;
-    _3485.co[0] = push.data_ptr._lights.data[portal].co[0];
-    _3485.co[1] = push.data_ptr._lights.data[portal].co[1];
-    _3485.co[2] = push.data_ptr._lights.data[portal].co[2];
-    _3485.shader_id = push.data_ptr._lights.data[portal].shader_id;
-    _3485.samples = push.data_ptr._lights.data[portal].samples;
-    _3485.max_bounces = push.data_ptr._lights.data[portal].max_bounces;
-    _3485.random = push.data_ptr._lights.data[portal].random;
-    _3485.strength[0] = push.data_ptr._lights.data[portal].strength[0];
-    _3485.strength[1] = push.data_ptr._lights.data[portal].strength[1];
-    _3485.strength[2] = push.data_ptr._lights.data[portal].strength[2];
-    _3485.pad1 = push.data_ptr._lights.data[portal].pad1;
-    _3485.tfm.x = push.data_ptr._lights.data[portal].tfm.x;
-    _3485.tfm.y = push.data_ptr._lights.data[portal].tfm.y;
-    _3485.tfm.z = push.data_ptr._lights.data[portal].tfm.z;
-    _3485.itfm.x = push.data_ptr._lights.data[portal].itfm.x;
-    _3485.itfm.y = push.data_ptr._lights.data[portal].itfm.y;
-    _3485.itfm.z = push.data_ptr._lights.data[portal].itfm.z;
-    _3485.uni[0] = push.data_ptr._lights.data[portal].uni[0];
-    _3485.uni[1] = push.data_ptr._lights.data[portal].uni[1];
-    _3485.uni[2] = push.data_ptr._lights.data[portal].uni[2];
-    _3485.uni[3] = push.data_ptr._lights.data[portal].uni[3];
-    _3485.uni[4] = push.data_ptr._lights.data[portal].uni[4];
-    _3485.uni[5] = push.data_ptr._lights.data[portal].uni[5];
-    _3485.uni[6] = push.data_ptr._lights.data[portal].uni[6];
-    _3485.uni[7] = push.data_ptr._lights.data[portal].uni[7];
-    _3485.uni[8] = push.data_ptr._lights.data[portal].uni[8];
-    _3485.uni[9] = push.data_ptr._lights.data[portal].uni[9];
-    _3485.uni[10] = push.data_ptr._lights.data[portal].uni[10];
-    _3485.uni[11] = push.data_ptr._lights.data[portal].uni[11];
-    KernelLight klight = _3485;
+    int portal = _3116.kernel_data.background.portal_offset + index;
+    KernelLight _3493;
+    _3493.type = push.data_ptr._lights.data[portal].type;
+    _3493.co[0] = push.data_ptr._lights.data[portal].co[0];
+    _3493.co[1] = push.data_ptr._lights.data[portal].co[1];
+    _3493.co[2] = push.data_ptr._lights.data[portal].co[2];
+    _3493.shader_id = push.data_ptr._lights.data[portal].shader_id;
+    _3493.samples = push.data_ptr._lights.data[portal].samples;
+    _3493.max_bounces = push.data_ptr._lights.data[portal].max_bounces;
+    _3493.random = push.data_ptr._lights.data[portal].random;
+    _3493.strength[0] = push.data_ptr._lights.data[portal].strength[0];
+    _3493.strength[1] = push.data_ptr._lights.data[portal].strength[1];
+    _3493.strength[2] = push.data_ptr._lights.data[portal].strength[2];
+    _3493.pad1 = push.data_ptr._lights.data[portal].pad1;
+    _3493.tfm.x = push.data_ptr._lights.data[portal].tfm.x;
+    _3493.tfm.y = push.data_ptr._lights.data[portal].tfm.y;
+    _3493.tfm.z = push.data_ptr._lights.data[portal].tfm.z;
+    _3493.itfm.x = push.data_ptr._lights.data[portal].itfm.x;
+    _3493.itfm.y = push.data_ptr._lights.data[portal].itfm.y;
+    _3493.itfm.z = push.data_ptr._lights.data[portal].itfm.z;
+    _3493.uni[0] = push.data_ptr._lights.data[portal].uni[0];
+    _3493.uni[1] = push.data_ptr._lights.data[portal].uni[1];
+    _3493.uni[2] = push.data_ptr._lights.data[portal].uni[2];
+    _3493.uni[3] = push.data_ptr._lights.data[portal].uni[3];
+    _3493.uni[4] = push.data_ptr._lights.data[portal].uni[4];
+    _3493.uni[5] = push.data_ptr._lights.data[portal].uni[5];
+    _3493.uni[6] = push.data_ptr._lights.data[portal].uni[6];
+    _3493.uni[7] = push.data_ptr._lights.data[portal].uni[7];
+    _3493.uni[8] = push.data_ptr._lights.data[portal].uni[8];
+    _3493.uni[9] = push.data_ptr._lights.data[portal].uni[9];
+    _3493.uni[10] = push.data_ptr._lights.data[portal].uni[10];
+    _3493.uni[11] = push.data_ptr._lights.data[portal].uni[11];
+    KernelLight klight = _3493;
     lightpos = vec4(klight.co[0], klight.co[1], klight.co[2], 0.0);
     dir = vec4(klight.uni[8], klight.uni[9], klight.uni[10], 0.0);
     if (dot(dir.xyz, (P - lightpos).xyz) > 9.9999997473787516355514526367188e-05)
@@ -2526,16 +2531,16 @@ int background_num_possible_portals(vec4 P)
     int num_possible_portals = 0;
     vec4 lightpos;
     vec4 dir;
-    for (int p = 0; p < _3108.kernel_data.background.num_portals; p++)
+    for (int p = 0; p < _3116.kernel_data.background.num_portals; p++)
     {
         vec4 param = P;
         int param_1 = p;
         vec4 param_2 = lightpos;
         vec4 param_3 = dir;
-        bool _3704 = background_portal_data_fetch_and_check_side(param, param_1, param_2, param_3);
+        bool _3712 = background_portal_data_fetch_and_check_side(param, param_1, param_2, param_3);
         lightpos = param_2;
         dir = param_3;
-        if (_3704)
+        if (_3712)
         {
             num_possible_portals++;
         }
@@ -2562,54 +2567,54 @@ vec4 background_portal_sample(vec4 P, float randu, inout float randv, int num_po
     vec4 dir;
     vec4 D;
     float t;
-    for (int p = 0; p < _3108.kernel_data.background.num_portals; p++)
+    for (int p = 0; p < _3116.kernel_data.background.num_portals; p++)
     {
         vec4 param = P;
         int param_1 = p;
         vec4 param_2 = lightpos;
         vec4 param_3 = dir;
-        bool _3747 = background_portal_data_fetch_and_check_side(param, param_1, param_2, param_3);
+        bool _3755 = background_portal_data_fetch_and_check_side(param, param_1, param_2, param_3);
         lightpos = param_2;
         dir = param_3;
-        if (!_3747)
+        if (!_3755)
         {
             continue;
         }
         if (portal == 0)
         {
-            int portal_1 = _3108.kernel_data.background.portal_offset + p;
-            KernelLight _3771;
-            _3771.type = push.data_ptr._lights.data[portal_1].type;
-            _3771.co[0] = push.data_ptr._lights.data[portal_1].co[0];
-            _3771.co[1] = push.data_ptr._lights.data[portal_1].co[1];
-            _3771.co[2] = push.data_ptr._lights.data[portal_1].co[2];
-            _3771.shader_id = push.data_ptr._lights.data[portal_1].shader_id;
-            _3771.samples = push.data_ptr._lights.data[portal_1].samples;
-            _3771.max_bounces = push.data_ptr._lights.data[portal_1].max_bounces;
-            _3771.random = push.data_ptr._lights.data[portal_1].random;
-            _3771.strength[0] = push.data_ptr._lights.data[portal_1].strength[0];
-            _3771.strength[1] = push.data_ptr._lights.data[portal_1].strength[1];
-            _3771.strength[2] = push.data_ptr._lights.data[portal_1].strength[2];
-            _3771.pad1 = push.data_ptr._lights.data[portal_1].pad1;
-            _3771.tfm.x = push.data_ptr._lights.data[portal_1].tfm.x;
-            _3771.tfm.y = push.data_ptr._lights.data[portal_1].tfm.y;
-            _3771.tfm.z = push.data_ptr._lights.data[portal_1].tfm.z;
-            _3771.itfm.x = push.data_ptr._lights.data[portal_1].itfm.x;
-            _3771.itfm.y = push.data_ptr._lights.data[portal_1].itfm.y;
-            _3771.itfm.z = push.data_ptr._lights.data[portal_1].itfm.z;
-            _3771.uni[0] = push.data_ptr._lights.data[portal_1].uni[0];
-            _3771.uni[1] = push.data_ptr._lights.data[portal_1].uni[1];
-            _3771.uni[2] = push.data_ptr._lights.data[portal_1].uni[2];
-            _3771.uni[3] = push.data_ptr._lights.data[portal_1].uni[3];
-            _3771.uni[4] = push.data_ptr._lights.data[portal_1].uni[4];
-            _3771.uni[5] = push.data_ptr._lights.data[portal_1].uni[5];
-            _3771.uni[6] = push.data_ptr._lights.data[portal_1].uni[6];
-            _3771.uni[7] = push.data_ptr._lights.data[portal_1].uni[7];
-            _3771.uni[8] = push.data_ptr._lights.data[portal_1].uni[8];
-            _3771.uni[9] = push.data_ptr._lights.data[portal_1].uni[9];
-            _3771.uni[10] = push.data_ptr._lights.data[portal_1].uni[10];
-            _3771.uni[11] = push.data_ptr._lights.data[portal_1].uni[11];
-            KernelLight klight = _3771;
+            int portal_1 = _3116.kernel_data.background.portal_offset + p;
+            KernelLight _3779;
+            _3779.type = push.data_ptr._lights.data[portal_1].type;
+            _3779.co[0] = push.data_ptr._lights.data[portal_1].co[0];
+            _3779.co[1] = push.data_ptr._lights.data[portal_1].co[1];
+            _3779.co[2] = push.data_ptr._lights.data[portal_1].co[2];
+            _3779.shader_id = push.data_ptr._lights.data[portal_1].shader_id;
+            _3779.samples = push.data_ptr._lights.data[portal_1].samples;
+            _3779.max_bounces = push.data_ptr._lights.data[portal_1].max_bounces;
+            _3779.random = push.data_ptr._lights.data[portal_1].random;
+            _3779.strength[0] = push.data_ptr._lights.data[portal_1].strength[0];
+            _3779.strength[1] = push.data_ptr._lights.data[portal_1].strength[1];
+            _3779.strength[2] = push.data_ptr._lights.data[portal_1].strength[2];
+            _3779.pad1 = push.data_ptr._lights.data[portal_1].pad1;
+            _3779.tfm.x = push.data_ptr._lights.data[portal_1].tfm.x;
+            _3779.tfm.y = push.data_ptr._lights.data[portal_1].tfm.y;
+            _3779.tfm.z = push.data_ptr._lights.data[portal_1].tfm.z;
+            _3779.itfm.x = push.data_ptr._lights.data[portal_1].itfm.x;
+            _3779.itfm.y = push.data_ptr._lights.data[portal_1].itfm.y;
+            _3779.itfm.z = push.data_ptr._lights.data[portal_1].itfm.z;
+            _3779.uni[0] = push.data_ptr._lights.data[portal_1].uni[0];
+            _3779.uni[1] = push.data_ptr._lights.data[portal_1].uni[1];
+            _3779.uni[2] = push.data_ptr._lights.data[portal_1].uni[2];
+            _3779.uni[3] = push.data_ptr._lights.data[portal_1].uni[3];
+            _3779.uni[4] = push.data_ptr._lights.data[portal_1].uni[4];
+            _3779.uni[5] = push.data_ptr._lights.data[portal_1].uni[5];
+            _3779.uni[6] = push.data_ptr._lights.data[portal_1].uni[6];
+            _3779.uni[7] = push.data_ptr._lights.data[portal_1].uni[7];
+            _3779.uni[8] = push.data_ptr._lights.data[portal_1].uni[8];
+            _3779.uni[9] = push.data_ptr._lights.data[portal_1].uni[9];
+            _3779.uni[10] = push.data_ptr._lights.data[portal_1].uni[10];
+            _3779.uni[11] = push.data_ptr._lights.data[portal_1].uni[11];
+            KernelLight klight = _3779;
             vec4 axisu = vec4(klight.uni[0], klight.uni[1], klight.uni[2], 0.0);
             vec4 axisv = vec4(klight.uni[4], klight.uni[5], klight.uni[6], 0.0);
             bool is_round = klight.uni[3] < 0.0;
@@ -2619,12 +2624,12 @@ vec4 background_portal_sample(vec4 P, float randu, inout float randv, int num_po
                 vec4 param_5 = axisv * 0.5;
                 float param_6 = randu;
                 float param_7 = randv;
-                vec4 _3805 = ellipse_sample(param_4, param_5, param_6, param_7);
-                lightpos += _3805;
+                vec4 _3813 = ellipse_sample(param_4, param_5, param_6, param_7);
+                lightpos += _3813;
                 float param_8 = t;
-                vec4 _3815 = normalize_len(lightpos - P, param_8);
+                vec4 _3823 = normalize_len(lightpos - P, param_8);
                 t = param_8;
-                D = _3815;
+                D = _3823;
                 float param_9 = t;
                 pdf = abs(klight.uni[3]) * lamp_light_pdf(dir, -D, param_9);
             }
@@ -2637,9 +2642,9 @@ vec4 background_portal_sample(vec4 P, float randu, inout float randv, int num_po
                 float param_14 = randu;
                 float param_15 = randv;
                 bool param_16 = true;
-                float _3841 = rect_light_sample(param_10, param_11, param_12, param_13, param_14, param_15, param_16);
+                float _3849 = rect_light_sample(param_10, param_11, param_12, param_13, param_14, param_15, param_16);
                 lightpos = param_11;
-                pdf = _3841;
+                pdf = _3849;
                 D = normalize(lightpos - P);
             }
             pdf /= float(num_possible);
@@ -2662,7 +2667,7 @@ float background_portal_pdf(vec4 P, vec4 direction, int ignore_portal, inout boo
     float param_14;
     float param_15;
     float t;
-    for (int p = 0; p < _3108.kernel_data.background.num_portals; p++)
+    for (int p = 0; p < _3116.kernel_data.background.num_portals; p++)
     {
         if (p == ignore_portal)
         {
@@ -2672,10 +2677,10 @@ float background_portal_pdf(vec4 P, vec4 direction, int ignore_portal, inout boo
         int param_1 = p;
         vec4 param_2 = lightpos;
         vec4 param_3 = dir;
-        bool _3542 = background_portal_data_fetch_and_check_side(param, param_1, param_2, param_3);
+        bool _3550 = background_portal_data_fetch_and_check_side(param, param_1, param_2, param_3);
         lightpos = param_2;
         dir = param_3;
-        if (!_3542)
+        if (!_3550)
         {
             continue;
         }
@@ -2684,39 +2689,39 @@ float background_portal_pdf(vec4 P, vec4 direction, int ignore_portal, inout boo
             is_possible = true;
         }
         num_possible++;
-        int portal = _3108.kernel_data.background.portal_offset + p;
-        KernelLight _3567;
-        _3567.type = push.data_ptr._lights.data[portal].type;
-        _3567.co[0] = push.data_ptr._lights.data[portal].co[0];
-        _3567.co[1] = push.data_ptr._lights.data[portal].co[1];
-        _3567.co[2] = push.data_ptr._lights.data[portal].co[2];
-        _3567.shader_id = push.data_ptr._lights.data[portal].shader_id;
-        _3567.samples = push.data_ptr._lights.data[portal].samples;
-        _3567.max_bounces = push.data_ptr._lights.data[portal].max_bounces;
-        _3567.random = push.data_ptr._lights.data[portal].random;
-        _3567.strength[0] = push.data_ptr._lights.data[portal].strength[0];
-        _3567.strength[1] = push.data_ptr._lights.data[portal].strength[1];
-        _3567.strength[2] = push.data_ptr._lights.data[portal].strength[2];
-        _3567.pad1 = push.data_ptr._lights.data[portal].pad1;
-        _3567.tfm.x = push.data_ptr._lights.data[portal].tfm.x;
-        _3567.tfm.y = push.data_ptr._lights.data[portal].tfm.y;
-        _3567.tfm.z = push.data_ptr._lights.data[portal].tfm.z;
-        _3567.itfm.x = push.data_ptr._lights.data[portal].itfm.x;
-        _3567.itfm.y = push.data_ptr._lights.data[portal].itfm.y;
-        _3567.itfm.z = push.data_ptr._lights.data[portal].itfm.z;
-        _3567.uni[0] = push.data_ptr._lights.data[portal].uni[0];
-        _3567.uni[1] = push.data_ptr._lights.data[portal].uni[1];
-        _3567.uni[2] = push.data_ptr._lights.data[portal].uni[2];
-        _3567.uni[3] = push.data_ptr._lights.data[portal].uni[3];
-        _3567.uni[4] = push.data_ptr._lights.data[portal].uni[4];
-        _3567.uni[5] = push.data_ptr._lights.data[portal].uni[5];
-        _3567.uni[6] = push.data_ptr._lights.data[portal].uni[6];
-        _3567.uni[7] = push.data_ptr._lights.data[portal].uni[7];
-        _3567.uni[8] = push.data_ptr._lights.data[portal].uni[8];
-        _3567.uni[9] = push.data_ptr._lights.data[portal].uni[9];
-        _3567.uni[10] = push.data_ptr._lights.data[portal].uni[10];
-        _3567.uni[11] = push.data_ptr._lights.data[portal].uni[11];
-        KernelLight klight = _3567;
+        int portal = _3116.kernel_data.background.portal_offset + p;
+        KernelLight _3575;
+        _3575.type = push.data_ptr._lights.data[portal].type;
+        _3575.co[0] = push.data_ptr._lights.data[portal].co[0];
+        _3575.co[1] = push.data_ptr._lights.data[portal].co[1];
+        _3575.co[2] = push.data_ptr._lights.data[portal].co[2];
+        _3575.shader_id = push.data_ptr._lights.data[portal].shader_id;
+        _3575.samples = push.data_ptr._lights.data[portal].samples;
+        _3575.max_bounces = push.data_ptr._lights.data[portal].max_bounces;
+        _3575.random = push.data_ptr._lights.data[portal].random;
+        _3575.strength[0] = push.data_ptr._lights.data[portal].strength[0];
+        _3575.strength[1] = push.data_ptr._lights.data[portal].strength[1];
+        _3575.strength[2] = push.data_ptr._lights.data[portal].strength[2];
+        _3575.pad1 = push.data_ptr._lights.data[portal].pad1;
+        _3575.tfm.x = push.data_ptr._lights.data[portal].tfm.x;
+        _3575.tfm.y = push.data_ptr._lights.data[portal].tfm.y;
+        _3575.tfm.z = push.data_ptr._lights.data[portal].tfm.z;
+        _3575.itfm.x = push.data_ptr._lights.data[portal].itfm.x;
+        _3575.itfm.y = push.data_ptr._lights.data[portal].itfm.y;
+        _3575.itfm.z = push.data_ptr._lights.data[portal].itfm.z;
+        _3575.uni[0] = push.data_ptr._lights.data[portal].uni[0];
+        _3575.uni[1] = push.data_ptr._lights.data[portal].uni[1];
+        _3575.uni[2] = push.data_ptr._lights.data[portal].uni[2];
+        _3575.uni[3] = push.data_ptr._lights.data[portal].uni[3];
+        _3575.uni[4] = push.data_ptr._lights.data[portal].uni[4];
+        _3575.uni[5] = push.data_ptr._lights.data[portal].uni[5];
+        _3575.uni[6] = push.data_ptr._lights.data[portal].uni[6];
+        _3575.uni[7] = push.data_ptr._lights.data[portal].uni[7];
+        _3575.uni[8] = push.data_ptr._lights.data[portal].uni[8];
+        _3575.uni[9] = push.data_ptr._lights.data[portal].uni[9];
+        _3575.uni[10] = push.data_ptr._lights.data[portal].uni[10];
+        _3575.uni[11] = push.data_ptr._lights.data[portal].uni[11];
+        KernelLight klight = _3575;
         vec4 axisu = vec4(klight.uni[0], klight.uni[1], klight.uni[2], 0.0);
         vec4 axisv = vec4(klight.uni[4], klight.uni[5], klight.uni[6], 0.0);
         bool is_round = klight.uni[3] < 0.0;
@@ -2733,21 +2738,21 @@ float background_portal_pdf(vec4 P, vec4 direction, int ignore_portal, inout boo
         vec4 param_10 = axisv;
         vec4 param_11 = dir;
         bool param_16 = is_round;
-        bool _3613 = ray_quad_intersect(param_4, param_5, param_6, param_7, param_8, param_9, param_10, param_11, param_12, param_13, param_14, param_15, param_16);
+        bool _3621 = ray_quad_intersect(param_4, param_5, param_6, param_7, param_8, param_9, param_10, param_11, param_12, param_13, param_14, param_15, param_16);
         _n4 = param_12;
         _n0 = param_13;
         _n1 = param_14;
         _n2 = param_15;
-        if (!_3613)
+        if (!_3621)
         {
             continue;
         }
         if (is_round)
         {
             float param_17 = t;
-            vec4 _3632 = normalize_len(lightpos - P, param_17);
+            vec4 _3640 = normalize_len(lightpos - P, param_17);
             t = param_17;
-            vec4 D = _3632;
+            vec4 D = _3640;
             float param_18 = t;
             portal_pdf += (abs(klight.uni[3]) * lamp_light_pdf(dir, -D, param_18));
         }
@@ -2760,25 +2765,25 @@ float background_portal_pdf(vec4 P, vec4 direction, int ignore_portal, inout boo
             float param_23 = 0.0;
             float param_24 = 0.0;
             bool param_25 = false;
-            float _3658 = rect_light_sample(param_19, param_20, param_21, param_22, param_23, param_24, param_25);
+            float _3666 = rect_light_sample(param_19, param_20, param_21, param_22, param_23, param_24, param_25);
             lightpos = param_20;
-            portal_pdf += _3658;
+            portal_pdf += _3666;
         }
     }
     if (ignore_portal >= 0)
     {
         num_possible++;
     }
-    float _3672;
+    float _3680;
     if (num_possible > 0)
     {
-        _3672 = portal_pdf / float(num_possible);
+        _3680 = portal_pdf / float(num_possible);
     }
     else
     {
-        _3672 = 0.0;
+        _3680 = 0.0;
     }
-    return _3672;
+    return _3680;
 }
 
 float sqr(float a)
@@ -2809,8 +2814,8 @@ void sample_uniform_cone(vec4 N, float angle, float randu, float randv, out vec4
 
 vec4 background_sun_sample(float randu, float randv, inout float pdf)
 {
-    vec4 N = float4_to_float3(_3108.kernel_data.background.sun);
-    float angle = _3108.kernel_data.background.sun.w;
+    vec4 N = float4_to_float3(_3116.kernel_data.background.sun);
+    float angle = _3116.kernel_data.background.sun.w;
     float param = angle;
     float param_1 = randu;
     float param_2 = randv;
@@ -2846,8 +2851,8 @@ vec4 equirectangular_to_direction(float u, float v)
 
 vec4 background_map_sample(float randu, float randv, inout float pdf)
 {
-    int res_x = _3108.kernel_data.background.map_res_x;
-    int res_y = _3108.kernel_data.background.map_res_y;
+    int res_x = _3116.kernel_data.background.map_res_x;
+    int res_y = _3116.kernel_data.background.map_res_y;
     int cdf_width = res_x + 1;
     int first = 0;
     int count = res_y;
@@ -2935,8 +2940,8 @@ float pdf_uniform_cone(vec4 N, vec4 D, float angle)
 
 float background_sun_pdf(vec4 D)
 {
-    vec4 N = float4_to_float3(_3108.kernel_data.background.sun);
-    float angle = _3108.kernel_data.background.sun.w;
+    vec4 N = float4_to_float3(_3116.kernel_data.background.sun);
+    float angle = _3116.kernel_data.background.sun.w;
     vec4 param = D;
     float param_1 = angle;
     return pdf_uniform_cone(N, param, param_1);
@@ -2964,8 +2969,8 @@ float background_map_pdf(vec4 direction)
 {
     vec4 param = direction;
     vec2 uv = direction_to_equirectangular(param);
-    int res_x = _3108.kernel_data.background.map_res_x;
-    int res_y = _3108.kernel_data.background.map_res_y;
+    int res_x = _3116.kernel_data.background.map_res_x;
+    int res_y = _3116.kernel_data.background.map_res_y;
     int cdf_width = res_x + 1;
     float sin_theta = sin(uv.y * 3.1415927410125732421875);
     if (sin_theta == 0.0)
@@ -2988,9 +2993,9 @@ float background_map_pdf(vec4 direction)
 
 vec4 background_light_sample(vec4 P, inout float randu, float randv, inout float pdf)
 {
-    float portal_method_pdf = _3108.kernel_data.background.portal_weight;
-    float sun_method_pdf = _3108.kernel_data.background.sun_weight;
-    float map_method_pdf = _3108.kernel_data.background.map_weight;
+    float portal_method_pdf = _3116.kernel_data.background.portal_weight;
+    float sun_method_pdf = _3116.kernel_data.background.sun_weight;
+    float map_method_pdf = _3116.kernel_data.background.map_weight;
     int num_portals = 0;
     if (portal_method_pdf > 0.0)
     {
@@ -3030,10 +3035,10 @@ vec4 background_light_sample(vec4 P, inout float randu, float randv, inout float
         int portal;
         int param_7 = portal;
         float param_8 = pdf;
-        vec4 _3986 = background_portal_sample(param_3, param_4, param_5, param_6, param_7, param_8);
+        vec4 _3994 = background_portal_sample(param_3, param_4, param_5, param_6, param_7, param_8);
         portal = param_7;
         pdf = param_8;
-        D = _3986;
+        D = _3994;
         if (num_portals > 1)
         {
             bool null_boo = false;
@@ -3041,9 +3046,9 @@ vec4 background_light_sample(vec4 P, inout float randu, float randv, inout float
             vec4 param_10 = D;
             int param_11 = portal;
             bool param_12 = null_boo;
-            float _4002 = background_portal_pdf(param_9, param_10, param_11, param_12);
+            float _4010 = background_portal_pdf(param_9, param_10, param_11, param_12);
             null_boo = param_12;
-            pdf += _4002;
+            pdf += _4010;
         }
         if (portal_method_pdf == 1.0)
         {
@@ -3063,9 +3068,9 @@ vec4 background_light_sample(vec4 P, inout float randu, float randv, inout float
             float param_13 = randu;
             float param_14 = randv;
             float param_15 = pdf;
-            vec4 _4036 = background_sun_sample(param_13, param_14, param_15);
+            vec4 _4044 = background_sun_sample(param_13, param_14, param_15);
             pdf = param_15;
-            D = _4036;
+            D = _4044;
             if (sun_method_pdf == 1.0)
             {
                 return D;
@@ -3082,9 +3087,9 @@ vec4 background_light_sample(vec4 P, inout float randu, float randv, inout float
             float param_16 = randu;
             float param_17 = randv;
             float param_18 = pdf;
-            vec4 _4063 = background_map_sample(param_16, param_17, param_18);
+            vec4 _4071 = background_map_sample(param_16, param_17, param_18);
             pdf = param_18;
-            D = _4063;
+            D = _4071;
             if (map_method_pdf == 1.0)
             {
                 return D;
@@ -3099,9 +3104,9 @@ vec4 background_light_sample(vec4 P, inout float randu, float randv, inout float
         vec4 param_20 = D;
         int param_21 = -1;
         bool param_22 = null_boo_1;
-        float _4091 = background_portal_pdf(param_19, param_20, param_21, param_22);
+        float _4099 = background_portal_pdf(param_19, param_20, param_21, param_22);
         null_boo_1 = param_22;
-        pdf += (portal_method_pdf * _4091);
+        pdf += (portal_method_pdf * _4099);
     }
     if ((method != 1) && (!(sun_method_pdf == 0.0)))
     {
@@ -3126,38 +3131,38 @@ vec4 sphere_light_sample(vec4 P, vec4 center, float radius, float randu, float r
 
 bool lamp_light_sample(int lamp, float randu, float randv, vec4 P, inout LightSample ls)
 {
-    KernelLight _4795;
-    _4795.type = push.data_ptr._lights.data[lamp].type;
-    _4795.co[0] = push.data_ptr._lights.data[lamp].co[0];
-    _4795.co[1] = push.data_ptr._lights.data[lamp].co[1];
-    _4795.co[2] = push.data_ptr._lights.data[lamp].co[2];
-    _4795.shader_id = push.data_ptr._lights.data[lamp].shader_id;
-    _4795.samples = push.data_ptr._lights.data[lamp].samples;
-    _4795.max_bounces = push.data_ptr._lights.data[lamp].max_bounces;
-    _4795.random = push.data_ptr._lights.data[lamp].random;
-    _4795.strength[0] = push.data_ptr._lights.data[lamp].strength[0];
-    _4795.strength[1] = push.data_ptr._lights.data[lamp].strength[1];
-    _4795.strength[2] = push.data_ptr._lights.data[lamp].strength[2];
-    _4795.pad1 = push.data_ptr._lights.data[lamp].pad1;
-    _4795.tfm.x = push.data_ptr._lights.data[lamp].tfm.x;
-    _4795.tfm.y = push.data_ptr._lights.data[lamp].tfm.y;
-    _4795.tfm.z = push.data_ptr._lights.data[lamp].tfm.z;
-    _4795.itfm.x = push.data_ptr._lights.data[lamp].itfm.x;
-    _4795.itfm.y = push.data_ptr._lights.data[lamp].itfm.y;
-    _4795.itfm.z = push.data_ptr._lights.data[lamp].itfm.z;
-    _4795.uni[0] = push.data_ptr._lights.data[lamp].uni[0];
-    _4795.uni[1] = push.data_ptr._lights.data[lamp].uni[1];
-    _4795.uni[2] = push.data_ptr._lights.data[lamp].uni[2];
-    _4795.uni[3] = push.data_ptr._lights.data[lamp].uni[3];
-    _4795.uni[4] = push.data_ptr._lights.data[lamp].uni[4];
-    _4795.uni[5] = push.data_ptr._lights.data[lamp].uni[5];
-    _4795.uni[6] = push.data_ptr._lights.data[lamp].uni[6];
-    _4795.uni[7] = push.data_ptr._lights.data[lamp].uni[7];
-    _4795.uni[8] = push.data_ptr._lights.data[lamp].uni[8];
-    _4795.uni[9] = push.data_ptr._lights.data[lamp].uni[9];
-    _4795.uni[10] = push.data_ptr._lights.data[lamp].uni[10];
-    _4795.uni[11] = push.data_ptr._lights.data[lamp].uni[11];
-    KernelLight klight = _4795;
+    KernelLight _4803;
+    _4803.type = push.data_ptr._lights.data[lamp].type;
+    _4803.co[0] = push.data_ptr._lights.data[lamp].co[0];
+    _4803.co[1] = push.data_ptr._lights.data[lamp].co[1];
+    _4803.co[2] = push.data_ptr._lights.data[lamp].co[2];
+    _4803.shader_id = push.data_ptr._lights.data[lamp].shader_id;
+    _4803.samples = push.data_ptr._lights.data[lamp].samples;
+    _4803.max_bounces = push.data_ptr._lights.data[lamp].max_bounces;
+    _4803.random = push.data_ptr._lights.data[lamp].random;
+    _4803.strength[0] = push.data_ptr._lights.data[lamp].strength[0];
+    _4803.strength[1] = push.data_ptr._lights.data[lamp].strength[1];
+    _4803.strength[2] = push.data_ptr._lights.data[lamp].strength[2];
+    _4803.pad1 = push.data_ptr._lights.data[lamp].pad1;
+    _4803.tfm.x = push.data_ptr._lights.data[lamp].tfm.x;
+    _4803.tfm.y = push.data_ptr._lights.data[lamp].tfm.y;
+    _4803.tfm.z = push.data_ptr._lights.data[lamp].tfm.z;
+    _4803.itfm.x = push.data_ptr._lights.data[lamp].itfm.x;
+    _4803.itfm.y = push.data_ptr._lights.data[lamp].itfm.y;
+    _4803.itfm.z = push.data_ptr._lights.data[lamp].itfm.z;
+    _4803.uni[0] = push.data_ptr._lights.data[lamp].uni[0];
+    _4803.uni[1] = push.data_ptr._lights.data[lamp].uni[1];
+    _4803.uni[2] = push.data_ptr._lights.data[lamp].uni[2];
+    _4803.uni[3] = push.data_ptr._lights.data[lamp].uni[3];
+    _4803.uni[4] = push.data_ptr._lights.data[lamp].uni[4];
+    _4803.uni[5] = push.data_ptr._lights.data[lamp].uni[5];
+    _4803.uni[6] = push.data_ptr._lights.data[lamp].uni[6];
+    _4803.uni[7] = push.data_ptr._lights.data[lamp].uni[7];
+    _4803.uni[8] = push.data_ptr._lights.data[lamp].uni[8];
+    _4803.uni[9] = push.data_ptr._lights.data[lamp].uni[9];
+    _4803.uni[10] = push.data_ptr._lights.data[lamp].uni[10];
+    _4803.uni[11] = push.data_ptr._lights.data[lamp].uni[11];
+    KernelLight klight = _4803;
     uint type = uint(klight.type);
     ls.type = type;
     ls.shader = klight.shader_id;
@@ -3196,9 +3201,9 @@ bool lamp_light_sample(int lamp, float randu, float randv, vec4 P, inout LightSa
             float param_5 = randu;
             float param_6 = randv;
             float param_7 = ls.pdf;
-            vec4 _4886 = background_light_sample(param_4, param_5, param_6, param_7);
+            vec4 _4894 = background_light_sample(param_4, param_5, param_6, param_7);
             ls.pdf = param_7;
-            vec4 D_1 = -_4886;
+            vec4 D_1 = -_4894;
             ls.P = D_1;
             ls.Ng = D_1;
             ls.D = -D_1;
@@ -3221,9 +3226,9 @@ bool lamp_light_sample(int lamp, float randu, float randv, vec4 P, inout LightSa
                     ls.P += sphere_light_sample(param_8, param_9, param_10, param_11, param_12);
                 }
                 float param_13 = ls.t;
-                vec4 _4945 = normalize_len(ls.P - P, param_13);
+                vec4 _4953 = normalize_len(ls.P - P, param_13);
                 ls.t = param_13;
-                ls.D = _4945;
+                ls.D = _4953;
                 ls.Ng = -ls.D;
                 float invarea_1 = klight.uni[1];
                 ls.eval_fac = 0.079577468335628509521484375 * invarea_1;
@@ -3265,8 +3270,8 @@ bool lamp_light_sample(int lamp, float randu, float randv, vec4 P, inout LightSa
                     vec4 param_20 = axisv * 0.5;
                     float param_21 = randu;
                     float param_22 = randv;
-                    vec4 _5077 = ellipse_sample(param_19, param_20, param_21, param_22);
-                    inplane = _5077;
+                    vec4 _5085 = ellipse_sample(param_19, param_20, param_21, param_22);
+                    inplane = _5085;
                     ls.P += inplane;
                     ls.pdf = invarea_2;
                 }
@@ -3280,18 +3285,18 @@ bool lamp_light_sample(int lamp, float randu, float randv, vec4 P, inout LightSa
                     float param_27 = randu;
                     float param_28 = randv;
                     bool param_29 = true;
-                    float _5102 = rect_light_sample(param_23, param_24, param_25, param_26, param_27, param_28, param_29);
+                    float _5110 = rect_light_sample(param_23, param_24, param_25, param_26, param_27, param_28, param_29);
                     ls.P = param_24;
-                    ls.pdf = _5102;
+                    ls.pdf = _5110;
                     inplane = ls.P - inplane;
                 }
                 ls.u = (dot(inplane.xyz, axisu.xyz) * (1.0 / dot(axisu.xyz, axisu.xyz))) + 0.5;
                 ls.v = (dot(inplane.xyz, axisv.xyz) * (1.0 / dot(axisv.xyz, axisv.xyz))) + 0.5;
                 ls.Ng = D_2;
                 float param_30 = ls.t;
-                vec4 _5147 = normalize_len(ls.P - P, param_30);
+                vec4 _5155 = normalize_len(ls.P - P, param_30);
                 ls.t = param_30;
-                ls.D = _5147;
+                ls.D = _5155;
                 ls.eval_fac = 0.25 * invarea_2;
                 if (is_round)
                 {
@@ -3301,7 +3306,7 @@ bool lamp_light_sample(int lamp, float randu, float randv, vec4 P, inout LightSa
             }
         }
     }
-    ls.pdf *= _3108.kernel_data.integrator.pdf_lights;
+    ls.pdf *= _3116.kernel_data.integrator.pdf_lights;
     return ls.pdf > 0.0;
 }
 
@@ -3311,15 +3316,15 @@ bool light_sample(inout vec2 rand, float time, vec4 P, int bounce, inout LightSa
     if (lamp < 0)
     {
         float param = rand.x;
-        int _5198 = light_distribution_sample(param);
+        int _5206 = light_distribution_sample(param);
         rand.x = param;
-        int index = _5198;
-        KernelLightDistribution _5212;
-        _5212.totarea = push.data_ptr._light_distribution.data[index].totarea;
-        _5212.prim = push.data_ptr._light_distribution.data[index].prim;
-        _5212.data[0] = push.data_ptr._light_distribution.data[index].data[0];
-        _5212.data[1] = push.data_ptr._light_distribution.data[index].data[1];
-        KernelLightDistribution kdistribution = _5212;
+        int index = _5206;
+        KernelLightDistribution _5220;
+        _5220.totarea = push.data_ptr._light_distribution.data[index].totarea;
+        _5220.prim = push.data_ptr._light_distribution.data[index].prim;
+        _5220.data[0] = push.data_ptr._light_distribution.data[index].data[0];
+        _5220.data[1] = push.data_ptr._light_distribution.data[index].data[1];
+        KernelLightDistribution kdistribution = _5220;
         int prim = kdistribution.prim;
         if (prim >= 0)
         {
@@ -3347,9 +3352,9 @@ bool light_sample(inout vec2 rand, float time, vec4 P, int bounce, inout LightSa
     float param_9 = rand.y;
     vec4 param_10 = P;
     LightSample param_11 = ls;
-    bool _5282 = lamp_light_sample(param_7, param_8, param_9, param_10, param_11);
+    bool _5290 = lamp_light_sample(param_7, param_8, param_9, param_10, param_11);
     ls = param_11;
-    return _5282;
+    return _5290;
 }
 
 void PLYMO_bsdf_eval_mul3(vec4 value)
@@ -3373,35 +3378,35 @@ bool PLYMO_bsdf_eval_is_zero()
 {
     if (sd.num_closure != 0)
     {
-        bool _1980 = is_zero(sd.dI.dx);
-        bool _1986;
-        if (_1980)
+        bool _1988 = is_zero(sd.dI.dx);
+        bool _1994;
+        if (_1988)
         {
-            _1986 = is_zero(sd.dI.dy);
+            _1994 = is_zero(sd.dI.dy);
         }
         else
         {
-            _1986 = _1980;
+            _1994 = _1988;
         }
-        bool _1999;
-        if (_1986)
+        bool _2007;
+        if (_1994)
         {
-            _1999 = is_zero(vec4(sd.du.dx, sd.du.dy, sd.dv.dx, sd.dv.dy));
+            _2007 = is_zero(vec4(sd.du.dx, sd.du.dy, sd.dv.dx, sd.dv.dy));
         }
         else
         {
-            _1999 = _1986;
+            _2007 = _1994;
         }
-        bool _2006;
-        if (_1999)
+        bool _2014;
+        if (_2007)
         {
-            _2006 = is_zero(sd.dPdu);
+            _2014 = is_zero(sd.dPdu);
         }
         else
         {
-            _2006 = _1999;
+            _2014 = _2007;
         }
-        return _2006;
+        return _2014;
     }
     else
     {
@@ -3499,9 +3504,9 @@ bool direct_emission(inout LightSample ls, inout bool is_lamp, float rand_termin
     differential3 param_2 = dD;
     float param_3 = ls.t;
     float param_4 = pay.sd.time;
-    vec4 _6503 = direct_emissive_eval(param, param_1, param_2, param_3, param_4);
+    vec4 _6511 = direct_emissive_eval(param, param_1, param_2, param_3, param_4);
     ls = param;
-    vec4 light_eval = _6503;
+    vec4 light_eval = _6511;
     if (G_dump)
     {
         _580.kg.f3[21 + ((rec_num - 1) * 64)] = light_eval;
@@ -3559,20 +3564,20 @@ bool direct_emission(inout LightSample ls, inout bool is_lamp, float rand_termin
     {
         return false;
     }
-    bool _6657 = _3108.kernel_data.integrator.light_inv_rr_threshold > 0.0;
-    bool _6665;
-    if (_6657)
+    bool _6665 = _3116.kernel_data.integrator.light_inv_rr_threshold > 0.0;
+    bool _6673;
+    if (_6665)
     {
-        _6665 = (uint(pay.state.flag) & 131072u) == 0u;
+        _6673 = (uint(pay.state.flag) & 131072u) == 0u;
     }
     else
     {
-        _6665 = _6657;
+        _6673 = _6665;
     }
-    if (_6665)
+    if (_6673)
     {
         vec4 param_6 = abs(PLYMO_bsdf_eval_sum());
-        float probability = max3(param_6) * _3108.kernel_data.integrator.light_inv_rr_threshold;
+        float probability = max3(param_6) * _3116.kernel_data.integrator.light_inv_rr_threshold;
         if (probability < 1.0)
         {
             if (rand_terminate >= probability)
@@ -3586,17 +3591,17 @@ bool direct_emission(inout LightSample ls, inout bool is_lamp, float rand_termin
     if ((uint(ls.shader) & 1073741824u) != 0u)
     {
         bool transmit = dot(pay.sd.Ng.xyz, ls.D.xyz) < 0.0;
-        vec4 _6708;
+        vec4 _6716;
         if (transmit)
         {
-            _6708 = -pay.sd.Ng;
+            _6716 = -pay.sd.Ng;
         }
         else
         {
-            _6708 = pay.sd.Ng;
+            _6716 = pay.sd.Ng;
         }
         vec4 param_8 = pay.sd.P;
-        vec4 param_9 = _6708;
+        vec4 param_9 = _6716;
         pay.ray.P = ray_offset(param_8, param_9);
         if (ls.t == 3.4028234663852885981170418348452e+38)
         {
@@ -3609,9 +3614,9 @@ bool direct_emission(inout LightSample ls, inout bool is_lamp, float rand_termin
             vec4 param_11 = ls.Ng;
             pay.ray.D = ray_offset(param_10, param_11) - pay.ray.P;
             float param_12 = pay.ray.t;
-            vec4 _6752 = normalize_len(pay.ray.D, param_12);
+            vec4 _6760 = normalize_len(pay.ray.D, param_12);
             pay.ray.t = param_12;
-            pay.ray.D = _6752;
+            pay.ray.D = _6760;
         }
         pay.ray.dD.dx = vec4(0.0);
         pay.ray.dD.dy = vec4(0.0);
@@ -3620,17 +3625,17 @@ bool direct_emission(inout LightSample ls, inout bool is_lamp, float rand_termin
     {
         pay.ray.t = 0.0;
     }
-    bool _6762 = ls.prim == (-1);
-    bool _6768;
-    if (_6762)
+    bool _6770 = ls.prim == (-1);
+    bool _6776;
+    if (_6770)
     {
-        _6768 = ls.type != 2u;
+        _6776 = ls.type != 2u;
     }
     else
     {
-        _6768 = _6762;
+        _6776 = _6770;
     }
-    is_lamp = _6768;
+    is_lamp = _6776;
     pay.L.emission = sd.dI.dx;
     pay.L.direct_emission = sd.dI.dy;
     pay.L.indirect = vec4(sd.du.dx, sd.du.dy, sd.dv.dx, sd.dv.dy);
@@ -3650,22 +3655,22 @@ void kernel_branched_path_surface_connect_light()
     int param_4 = pay.state.bounce;
     LightSample ls;
     LightSample param_5 = ls;
-    bool _6974 = light_sample(param_1, param_2, param_3, param_4, param_5);
+    bool _6982 = light_sample(param_1, param_2, param_3, param_4, param_5);
     ls = param_5;
-    if (_6974)
+    if (_6982)
     {
         if (!(param.w == 0.0))
         {
             ls.pdf *= 2.0;
         }
-        int _6989 = atomicAdd(_6338.counter[40], 1);
+        int _6997 = atomicAdd(_6346.counter[40], 1);
         LightSample param_6 = ls;
         bool param_7 = is_lamp;
         float param_8 = param.z;
-        bool _6997 = direct_emission(param_6, param_7, param_8);
+        bool _7005 = direct_emission(param_6, param_7, param_8);
         ls = param_6;
         is_lamp = param_7;
-        pay.type = int(_6997);
+        pay.type = int(_7005);
         if (G_dump)
         {
             _580.kg.f3[9 + ((rec_num - 1) * 64)] = sd.dI.dx;
@@ -3728,7 +3733,7 @@ void main()
     if (all(equal(Dpixel, gl_LaunchIDNV.xy)))
     {
         G_dump = true;
-        G_use_light_pass = _3108.kernel_data.film.use_light_pass != int(0u);
+        G_use_light_pass = _3116.kernel_data.film.use_light_pass != int(0u);
     }
     rec_num = int(pay.L.indirect.w);
     pay.L.indirect.w = 0.0;

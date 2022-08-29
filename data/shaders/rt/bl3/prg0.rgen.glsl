@@ -786,17 +786,17 @@ layout(buffer_reference, std430) readonly buffer pool_is_
 layout(set = 2, binding = 1, std430) buffer KG
 {
     KernelGlobals_PROF kg;
-} _694;
+} _685;
 
 layout(set = 2, binding = 0, std430) buffer KD
 {
     KernelData kernel_data;
-} _1938;
+} _1929;
 
 layout(set = 2, binding = 2, std430) buffer Alloc
 {
     int counter[1024];
-} _6852;
+} _6660;
 
 layout(push_constant, std430) uniform PushData
 {
@@ -854,8 +854,8 @@ ShaderClosure null_sc;
 
 void path_radiance_init()
 {
-    L.use_light_pass = _1938.kernel_data.film.use_light_pass;
-    if (_1938.kernel_data.film.use_light_pass != 0)
+    L.use_light_pass = _1929.kernel_data.film.use_light_pass;
+    if (_1929.kernel_data.film.use_light_pass != 0)
     {
         L.indirect = vec4(0.0);
         L.direct_emission = vec4(0.0);
@@ -915,16 +915,16 @@ vec4 transform_perspective(ProjectionTransform t, vec4 a)
     vec4 b = vec4(a.xyz, 1.0);
     vec4 c = vec4(dot(t.x, b), dot(t.y, b), dot(t.z, b), 0.0);
     float w = dot(t.w, b);
-    vec4 _1571;
+    vec4 _1562;
     if (!(w == 0.0))
     {
-        _1571 = c / vec4(w);
+        _1562 = c / vec4(w);
     }
     else
     {
-        _1571 = vec4(0.0);
+        _1562 = vec4(0.0);
     }
-    return _1571;
+    return _1562;
 }
 
 vec2 concentric_sample_disk(float u1, float u2)
@@ -970,7 +970,7 @@ vec2 regular_polygon_sample(float corners, inout float rotation, inout float u, 
 
 vec2 camera_sample_aperture(float u, float v)
 {
-    float blades = _1938.kernel_data.cam.blades;
+    float blades = _1929.kernel_data.cam.blades;
     vec2 bokeh;
     if (blades == 0.0)
     {
@@ -980,20 +980,16 @@ vec2 camera_sample_aperture(float u, float v)
     }
     else
     {
-        float rotation = _1938.kernel_data.cam.bladesrotation;
+        float rotation = _1929.kernel_data.cam.bladesrotation;
         float param_2 = blades;
         float param_3 = rotation;
         float param_4 = u;
         float param_5 = v;
-        vec2 _2553 = regular_polygon_sample(param_2, param_3, param_4, param_5);
-        bokeh = _2553;
+        vec2 _2544 = regular_polygon_sample(param_2, param_3, param_4, param_5);
+        bokeh = _2544;
     }
-    bokeh.x *= _1938.kernel_data.cam.inv_aperture_ratio;
+    bokeh.x *= _1929.kernel_data.cam.inv_aperture_ratio;
     return bokeh;
-}
-
-void transform_motion_array_interpolate(Transform tfm, uint numsteps, float time, int ofs)
-{
 }
 
 vec4 transform_point(Transform t, vec4 a)
@@ -1018,22 +1014,22 @@ float safe_asinf(float a)
     return asin(clamp(a, -1.0, 1.0));
 }
 
-vec4 cross(vec4 e1, vec4 e0)
+vec4 _cross(vec4 e1, vec4 e0)
 {
     return vec4(cross(e1.xyz, e0.xyz), 0.0);
 }
 
 void spherical_stereo_transform(inout vec4 P, inout vec4 D)
 {
-    float interocular_offset = _1938.kernel_data.cam.interocular_offset;
+    float interocular_offset = _1929.kernel_data.cam.interocular_offset;
     if (!(!(interocular_offset == 0.0)))
     {
         // unimplemented ext op 12
     }
-    if (_1938.kernel_data.cam.pole_merge_angle_to > 0.0)
+    if (_1929.kernel_data.cam.pole_merge_angle_to > 0.0)
     {
-        float pole_merge_angle_from = _1938.kernel_data.cam.pole_merge_angle_from;
-        float pole_merge_angle_to = _1938.kernel_data.cam.pole_merge_angle_to;
+        float pole_merge_angle_from = _1929.kernel_data.cam.pole_merge_angle_from;
+        float pole_merge_angle_to = _1929.kernel_data.cam.pole_merge_angle_to;
         float param = D.z;
         float altitude = abs(safe_asinf(param));
         if (altitude > pole_merge_angle_to)
@@ -1053,10 +1049,10 @@ void spherical_stereo_transform(inout vec4 P, inout vec4 D)
     vec4 up = vec4(0.0, 0.0, 1.0, 0.0);
     vec4 param_1 = D;
     vec4 param_2 = up;
-    vec4 side = normalize(cross(param_1, param_2));
+    vec4 side = normalize(_cross(param_1, param_2));
     vec4 stereo_offset = side * interocular_offset;
     P += stereo_offset;
-    float convergence_distance = _1938.kernel_data.cam.convergence_distance;
+    float convergence_distance = _1929.kernel_data.cam.convergence_distance;
     if (!(convergence_distance == 3.4028234663852885981170418348452e+38))
     {
         vec4 screen_offset = D * convergence_distance;
@@ -1066,164 +1062,128 @@ void spherical_stereo_transform(inout vec4 P, inout vec4 D)
 
 void camera_sample_perspective(float raster_x, float raster_y, float lens_u, float lens_v, inout Ray ray)
 {
-    ProjectionTransform _2567;
-    _2567.x = _1938.kernel_data.cam.rastertocamera.x;
-    _2567.y = _1938.kernel_data.cam.rastertocamera.y;
-    _2567.z = _1938.kernel_data.cam.rastertocamera.z;
-    _2567.w = _1938.kernel_data.cam.rastertocamera.w;
-    ProjectionTransform rastertocamera = _2567;
+    ProjectionTransform _2558;
+    _2558.x = _1929.kernel_data.cam.rastertocamera.x;
+    _2558.y = _1929.kernel_data.cam.rastertocamera.y;
+    _2558.z = _1929.kernel_data.cam.rastertocamera.z;
+    _2558.w = _1929.kernel_data.cam.rastertocamera.w;
+    ProjectionTransform rastertocamera = _2558;
     vec4 raster = vec4(raster_x, raster_y, 0.0, 0.0);
     ProjectionTransform param = rastertocamera;
     vec4 Pcamera = transform_perspective(param, raster);
-    if (_1938.kernel_data.cam.have_perspective_motion != int(0u))
-    {
-        if (ray.time < 0.5)
-        {
-            ProjectionTransform _2592;
-            _2592.x = _1938.kernel_data.cam.perspective_pre.x;
-            _2592.y = _1938.kernel_data.cam.perspective_pre.y;
-            _2592.z = _1938.kernel_data.cam.perspective_pre.z;
-            _2592.w = _1938.kernel_data.cam.perspective_pre.w;
-            ProjectionTransform rastertocamera_pre = _2592;
-            ProjectionTransform param_1 = rastertocamera_pre;
-            vec4 Pcamera_pre = transform_perspective(param_1, raster);
-            Pcamera = mix(Pcamera_pre, Pcamera, vec4(ray.time * 2.0));
-        }
-        else
-        {
-            ProjectionTransform _2610;
-            _2610.x = _1938.kernel_data.cam.perspective_post.x;
-            _2610.y = _1938.kernel_data.cam.perspective_post.y;
-            _2610.z = _1938.kernel_data.cam.perspective_post.z;
-            _2610.w = _1938.kernel_data.cam.perspective_post.w;
-            ProjectionTransform rastertocamera_post = _2610;
-            ProjectionTransform param_2 = rastertocamera_post;
-            vec4 Pcamera_post = transform_perspective(param_2, raster);
-            Pcamera = mix(Pcamera, Pcamera_post, vec4((ray.time - 0.5) * 2.0));
-        }
-    }
     vec4 P = vec4(0.0);
     vec4 D = Pcamera;
-    float aperturesize = _1938.kernel_data.cam.aperturesize;
+    float aperturesize = _1929.kernel_data.cam.aperturesize;
     if (aperturesize > 0.0)
     {
-        float param_3 = lens_u;
-        float param_4 = lens_v;
-        vec2 lensuv = camera_sample_aperture(param_3, param_4) * aperturesize;
-        float ft = _1938.kernel_data.cam.focaldistance / D.z;
+        float param_1 = lens_u;
+        float param_2 = lens_v;
+        vec2 lensuv = camera_sample_aperture(param_1, param_2) * aperturesize;
+        float ft = _1929.kernel_data.cam.focaldistance / D.z;
         vec4 Pfocus = D * ft;
         P = vec4(lensuv.x, lensuv.y, 0.0, 0.0);
         D = normalize(Pfocus - P);
     }
-    Transform _2668;
-    _2668.x = _1938.kernel_data.cam.cameratoworld.x;
-    _2668.y = _1938.kernel_data.cam.cameratoworld.y;
-    _2668.z = _1938.kernel_data.cam.cameratoworld.z;
-    Transform cameratoworld = _2668;
-    if (_1938.kernel_data.cam.num_motion_steps != int(0u))
-    {
-        Transform param_5 = cameratoworld;
-        uint param_6 = uint(_1938.kernel_data.cam.num_motion_steps);
-        float param_7 = ray.time;
-        int param_8 = 0;
-        transform_motion_array_interpolate(param_5, param_6, param_7, param_8);
-        cameratoworld = param_5;
-    }
-    Transform param_9 = cameratoworld;
-    cameratoworld = param_9;
-    P = transform_point(param_9, P);
-    Transform param_10 = cameratoworld;
-    cameratoworld = param_10;
-    D = normalize(transform_direction(param_10, D));
-    bool use_stereo = !(_1938.kernel_data.cam.interocular_offset == 0.0);
+    Transform _2612;
+    _2612.x = _1929.kernel_data.cam.cameratoworld.x;
+    _2612.y = _1929.kernel_data.cam.cameratoworld.y;
+    _2612.z = _1929.kernel_data.cam.cameratoworld.z;
+    Transform cameratoworld = _2612;
+    Transform param_3 = cameratoworld;
+    cameratoworld = param_3;
+    P = transform_point(param_3, P);
+    Transform param_4 = cameratoworld;
+    cameratoworld = param_4;
+    D = normalize(transform_direction(param_4, D));
+    bool use_stereo = !(_1929.kernel_data.cam.interocular_offset == 0.0);
     if (!use_stereo)
     {
         ray.P = P;
         ray.D = D;
-        Transform param_11 = cameratoworld;
-        cameratoworld = param_11;
-        vec4 Dcenter = transform_direction(param_11, Pcamera);
+        Transform param_5 = cameratoworld;
+        cameratoworld = param_5;
+        vec4 Dcenter = transform_direction(param_5, Pcamera);
         ray.dP.dx = vec4(0.0);
         ray.dP.dy = vec4(0.0);
-        ray.dD.dx = normalize(Dcenter + float4_to_float3(_1938.kernel_data.cam.dx)) - normalize(Dcenter);
-        ray.dD.dy = normalize(Dcenter + float4_to_float3(_1938.kernel_data.cam.dy)) - normalize(Dcenter);
+        ray.dD.dx = normalize(Dcenter + float4_to_float3(_1929.kernel_data.cam.dx)) - normalize(Dcenter);
+        ray.dD.dy = normalize(Dcenter + float4_to_float3(_1929.kernel_data.cam.dy)) - normalize(Dcenter);
     }
     else
     {
-        vec4 param_12 = P;
-        vec4 param_13 = D;
-        spherical_stereo_transform(param_12, param_13);
-        P = param_12;
-        D = param_13;
+        vec4 param_6 = P;
+        vec4 param_7 = D;
+        spherical_stereo_transform(param_6, param_7);
+        P = param_6;
+        D = param_7;
         ray.P = P;
         ray.D = D;
-        Transform param_14 = cameratoworld;
-        cameratoworld = param_14;
-        vec4 Pnostereo = transform_point(param_14, vec4(0.0));
+        Transform param_8 = cameratoworld;
+        cameratoworld = param_8;
+        vec4 Pnostereo = transform_point(param_8, vec4(0.0));
         vec4 Pcenter = Pnostereo;
         vec4 Dcenter_1 = Pcamera;
-        Transform param_15 = cameratoworld;
-        cameratoworld = param_15;
-        Dcenter_1 = normalize(transform_direction(param_15, Dcenter_1));
-        vec4 param_16 = Pcenter;
-        vec4 param_17 = Dcenter_1;
-        spherical_stereo_transform(param_16, param_17);
-        Pcenter = param_16;
-        Dcenter_1 = param_17;
+        Transform param_9 = cameratoworld;
+        cameratoworld = param_9;
+        Dcenter_1 = normalize(transform_direction(param_9, Dcenter_1));
+        vec4 param_10 = Pcenter;
+        vec4 param_11 = Dcenter_1;
+        spherical_stereo_transform(param_10, param_11);
+        Pcenter = param_10;
+        Dcenter_1 = param_11;
         vec4 Px = Pnostereo;
-        ProjectionTransform param_18 = rastertocamera;
-        vec4 Dx = transform_perspective(param_18, vec4(raster_x + 1.0, raster_y, 0.0, 0.0));
-        Transform param_19 = cameratoworld;
-        cameratoworld = param_19;
-        Dx = normalize(transform_direction(param_19, Dx));
-        vec4 param_20 = Px;
-        vec4 param_21 = Dx;
-        spherical_stereo_transform(param_20, param_21);
-        Px = param_20;
-        Dx = param_21;
+        ProjectionTransform param_12 = rastertocamera;
+        vec4 Dx = transform_perspective(param_12, vec4(raster_x + 1.0, raster_y, 0.0, 0.0));
+        Transform param_13 = cameratoworld;
+        cameratoworld = param_13;
+        Dx = normalize(transform_direction(param_13, Dx));
+        vec4 param_14 = Px;
+        vec4 param_15 = Dx;
+        spherical_stereo_transform(param_14, param_15);
+        Px = param_14;
+        Dx = param_15;
         ray.dP.dx = Px - Pcenter;
         ray.dD.dx = Dx - Dcenter_1;
         vec4 Py = Pnostereo;
-        ProjectionTransform param_22 = rastertocamera;
-        vec4 Dy = transform_perspective(param_22, vec4(raster_x, raster_y + 1.0, 0.0, 0.0));
-        Transform param_23 = cameratoworld;
-        cameratoworld = param_23;
-        Dy = normalize(transform_direction(param_23, Dy));
-        vec4 param_24 = Py;
-        vec4 param_25 = Dy;
-        spherical_stereo_transform(param_24, param_25);
-        Py = param_24;
-        Dy = param_25;
+        ProjectionTransform param_16 = rastertocamera;
+        vec4 Dy = transform_perspective(param_16, vec4(raster_x, raster_y + 1.0, 0.0, 0.0));
+        Transform param_17 = cameratoworld;
+        cameratoworld = param_17;
+        Dy = normalize(transform_direction(param_17, Dy));
+        vec4 param_18 = Py;
+        vec4 param_19 = Dy;
+        spherical_stereo_transform(param_18, param_19);
+        Py = param_18;
+        Dy = param_19;
         ray.dP.dy = Py - Pcenter;
         ray.dD.dy = Dy - Dcenter_1;
     }
     float z_inv = 1.0 / normalize(Pcamera).z;
-    float nearclip = _1938.kernel_data.cam.nearclip * z_inv;
+    float nearclip = _1929.kernel_data.cam.nearclip * z_inv;
     ray.P += (ray.D * nearclip);
     ray.dP.dx += (ray.dD.dx * nearclip);
     ray.dP.dy += (ray.dD.dy * nearclip);
-    ray.t = _1938.kernel_data.cam.cliplength * z_inv;
+    ray.t = _1929.kernel_data.cam.cliplength * z_inv;
 }
 
 void camera_sample_orthographic(float raster_x, float raster_y, float lens_u, float lens_v, inout Ray ray)
 {
-    ProjectionTransform _2877;
-    _2877.x = _1938.kernel_data.cam.rastertocamera.x;
-    _2877.y = _1938.kernel_data.cam.rastertocamera.y;
-    _2877.z = _1938.kernel_data.cam.rastertocamera.z;
-    _2877.w = _1938.kernel_data.cam.rastertocamera.w;
-    ProjectionTransform rastertocamera = _2877;
+    ProjectionTransform _2804;
+    _2804.x = _1929.kernel_data.cam.rastertocamera.x;
+    _2804.y = _1929.kernel_data.cam.rastertocamera.y;
+    _2804.z = _1929.kernel_data.cam.rastertocamera.z;
+    _2804.w = _1929.kernel_data.cam.rastertocamera.w;
+    ProjectionTransform rastertocamera = _2804;
     ProjectionTransform param = rastertocamera;
     vec4 Pcamera = transform_perspective(param, vec4(raster_x, raster_y, 0.0, 0.0));
     vec4 D = vec4(0.0, 0.0, 1.0, 0.0);
-    float aperturesize = _1938.kernel_data.cam.aperturesize;
+    float aperturesize = _1929.kernel_data.cam.aperturesize;
     vec4 P;
     if (aperturesize > 0.0)
     {
         float param_1 = lens_u;
         float param_2 = lens_v;
         vec2 lensuv = camera_sample_aperture(param_1, param_2) * aperturesize;
-        vec4 Pfocus = D * _1938.kernel_data.cam.focaldistance;
+        vec4 Pfocus = D * _1929.kernel_data.cam.focaldistance;
         vec4 lensuvw = vec4(lensuv.x, lensuv.y, 0.0, 0.0);
         P = Pcamera + lensuvw;
         D = normalize(Pfocus - lensuvw);
@@ -1232,31 +1192,22 @@ void camera_sample_orthographic(float raster_x, float raster_y, float lens_u, fl
     {
         P = Pcamera;
     }
-    Transform _2925;
-    _2925.x = _1938.kernel_data.cam.cameratoworld.x;
-    _2925.y = _1938.kernel_data.cam.cameratoworld.y;
-    _2925.z = _1938.kernel_data.cam.cameratoworld.z;
-    Transform cameratoworld = _2925;
-    if (_1938.kernel_data.cam.num_motion_steps != int(0u))
-    {
-        Transform param_3 = cameratoworld;
-        uint param_4 = uint(_1938.kernel_data.cam.num_motion_steps);
-        float param_5 = ray.time;
-        int param_6 = 0;
-        transform_motion_array_interpolate(param_3, param_4, param_5, param_6);
-        cameratoworld = param_3;
-    }
-    Transform param_7 = cameratoworld;
-    cameratoworld = param_7;
-    ray.P = transform_point(param_7, P);
-    Transform param_8 = cameratoworld;
-    cameratoworld = param_8;
-    ray.D = normalize(transform_direction(param_8, D));
-    ray.dP.dx = float4_to_float3(_1938.kernel_data.cam.dx);
-    ray.dP.dy = float4_to_float3(_1938.kernel_data.cam.dy);
+    Transform _2852;
+    _2852.x = _1929.kernel_data.cam.cameratoworld.x;
+    _2852.y = _1929.kernel_data.cam.cameratoworld.y;
+    _2852.z = _1929.kernel_data.cam.cameratoworld.z;
+    Transform cameratoworld = _2852;
+    Transform param_3 = cameratoworld;
+    cameratoworld = param_3;
+    ray.P = transform_point(param_3, P);
+    Transform param_4 = cameratoworld;
+    cameratoworld = param_4;
+    ray.D = normalize(transform_direction(param_4, D));
+    ray.dP.dx = float4_to_float3(_1929.kernel_data.cam.dx);
+    ray.dP.dy = float4_to_float3(_1929.kernel_data.cam.dy);
     ray.dD.dx = vec4(0.0);
     ray.dD.dy = vec4(0.0);
-    ray.t = _1938.kernel_data.cam.cliplength;
+    ray.t = _1929.kernel_data.cam.cliplength;
 }
 
 float safe_acosf(float a)
@@ -1274,16 +1225,16 @@ vec4 fisheye_equisolid_to_direction(inout float u, inout float v, float lens, fl
     {
         return vec4(0.0);
     }
-    float _2291;
+    float _2282;
     if (!(r == 0.0))
     {
-        _2291 = u / r;
+        _2282 = u / r;
     }
     else
     {
-        _2291 = 0.0;
+        _2282 = 0.0;
     }
-    float param = _2291;
+    float param = _2282;
     float phi = safe_acosf(param);
     float theta = 2.0 * asin(r / (2.0 * lens));
     if (v < 0.0)
@@ -1324,16 +1275,16 @@ vec4 fisheye_to_direction(inout float u, inout float v, float fov)
     {
         return vec4(0.0);
     }
-    float _2221;
+    float _2212;
     if (!(r == 0.0))
     {
-        _2221 = u / r;
+        _2212 = u / r;
     }
     else
     {
-        _2221 = 0.0;
+        _2212 = 0.0;
     }
-    float param = _2221;
+    float param = _2212;
     float phi = safe_acosf(param);
     float theta = (r * fov) * 0.5;
     if (v < 0.0)
@@ -1345,13 +1296,13 @@ vec4 fisheye_to_direction(inout float u, inout float v, float fov)
 
 vec4 panorama_to_direction(float u, float v)
 {
-    switch (_1938.kernel_data.cam.panorama_type)
+    switch (_1929.kernel_data.cam.panorama_type)
     {
         case 0:
         {
             float param = u;
             float param_1 = v;
-            vec4 param_2 = _1938.kernel_data.cam.equirectangular_range;
+            vec4 param_2 = _1929.kernel_data.cam.equirectangular_range;
             return equirectangular_range_to_direction(param, param_1, param_2);
         }
         case 3:
@@ -1364,85 +1315,85 @@ vec4 panorama_to_direction(float u, float v)
         {
             float param_5 = u;
             float param_6 = v;
-            float param_7 = _1938.kernel_data.cam.fisheye_fov;
-            vec4 _2415 = fisheye_to_direction(param_5, param_6, param_7);
-            return _2415;
+            float param_7 = _1929.kernel_data.cam.fisheye_fov;
+            vec4 _2406 = fisheye_to_direction(param_5, param_6, param_7);
+            return _2406;
         }
         default:
         {
             float param_8 = u;
             float param_9 = v;
-            float param_10 = _1938.kernel_data.cam.fisheye_lens;
-            float param_11 = _1938.kernel_data.cam.fisheye_fov;
-            float param_12 = _1938.kernel_data.cam.sensorwidth;
-            float param_13 = _1938.kernel_data.cam.sensorheight;
-            vec4 _2434 = fisheye_equisolid_to_direction(param_8, param_9, param_10, param_11, param_12, param_13);
-            return _2434;
+            float param_10 = _1929.kernel_data.cam.fisheye_lens;
+            float param_11 = _1929.kernel_data.cam.fisheye_fov;
+            float param_12 = _1929.kernel_data.cam.sensorwidth;
+            float param_13 = _1929.kernel_data.cam.sensorheight;
+            vec4 _2425 = fisheye_equisolid_to_direction(param_8, param_9, param_10, param_11, param_12, param_13);
+            return _2425;
         }
     }
 }
 
 bool is_zero(vec4 a)
 {
-    bool _806 = a.x == 0.0;
-    bool _821;
-    if (!_806)
+    bool _797 = a.x == 0.0;
+    bool _812;
+    if (!_797)
     {
-        _821 = (int((floatBitsToUint(a.x) >> uint(23)) & 255u) - 127) < (-60);
+        _812 = (int((floatBitsToUint(a.x) >> uint(23)) & 255u) - 127) < (-60);
     }
     else
     {
-        _821 = _806;
+        _812 = _797;
     }
-    bool _837;
-    if (_821)
+    bool _828;
+    if (_812)
     {
-        bool _825 = a.y == 0.0;
-        bool _836;
-        if (!_825)
+        bool _816 = a.y == 0.0;
+        bool _827;
+        if (!_816)
         {
-            _836 = (int((floatBitsToUint(a.y) >> uint(23)) & 255u) - 127) < (-60);
+            _827 = (int((floatBitsToUint(a.y) >> uint(23)) & 255u) - 127) < (-60);
         }
         else
         {
-            _836 = _825;
+            _827 = _816;
         }
-        _837 = _836;
+        _828 = _827;
     }
     else
     {
-        _837 = _821;
+        _828 = _812;
     }
-    bool _853;
-    if (_837)
+    bool _844;
+    if (_828)
     {
-        bool _841 = a.z == 0.0;
-        bool _852;
-        if (!_841)
+        bool _832 = a.z == 0.0;
+        bool _843;
+        if (!_832)
         {
-            _852 = (int((floatBitsToUint(a.z) >> uint(23)) & 255u) - 127) < (-60);
+            _843 = (int((floatBitsToUint(a.z) >> uint(23)) & 255u) - 127) < (-60);
         }
         else
         {
-            _852 = _841;
+            _843 = _832;
         }
-        _853 = _852;
+        _844 = _843;
     }
     else
     {
-        _853 = _837;
+        _844 = _828;
     }
-    return _853;
+    return _844;
 }
 
-void camera_sample_panorama(int cam_motion_ofs, float raster_x, float raster_y, float lens_u, float lens_v, inout Ray ray)
+void camera_sample_panorama(float raster_x, float raster_y, float lens_u, float lens_v, inout Ray ray)
 {
-    ProjectionTransform _2972;
-    _2972.x = _1938.kernel_data.cam.rastertocamera.x;
-    _2972.y = _1938.kernel_data.cam.rastertocamera.y;
-    _2972.z = _1938.kernel_data.cam.rastertocamera.z;
-    _2972.w = _1938.kernel_data.cam.rastertocamera.w;
-    ProjectionTransform rastertocamera = _2972;
+    ProjectionTransform _2882;
+    _2882.x = _1929.kernel_data.cam.rastertocamera.x;
+    _2882.y = _1929.kernel_data.cam.rastertocamera.y;
+    _2882.z = _1929.kernel_data.cam.rastertocamera.z;
+    _2882.w = _1929.kernel_data.cam.rastertocamera.w;
+    ProjectionTransform rastertocamera = _2882;
     ProjectionTransform param = rastertocamera;
     vec4 Pcamera = transform_perspective(param, vec4(raster_x, raster_y, 0.0, 0.0));
     vec4 P = vec4(0.0);
@@ -1454,237 +1405,189 @@ void camera_sample_panorama(int cam_motion_ofs, float raster_x, float raster_y, 
         ray.t = 0.0;
         return;
     }
-    float aperturesize = _1938.kernel_data.cam.aperturesize;
+    float aperturesize = _1929.kernel_data.cam.aperturesize;
     if (aperturesize > 0.0)
     {
         float param_3 = lens_u;
         float param_4 = lens_v;
         vec2 lensuv = camera_sample_aperture(param_3, param_4) * aperturesize;
         vec4 Dfocus = normalize(D);
-        vec4 Pfocus = Dfocus * _1938.kernel_data.cam.focaldistance;
+        vec4 Pfocus = Dfocus * _1929.kernel_data.cam.focaldistance;
         vec4 U = normalize(vec4(1.0, 0.0, 0.0, 0.0) - (Dfocus * Dfocus.x));
         vec4 param_5 = Dfocus;
         vec4 param_6 = U;
-        vec4 V = normalize(cross(param_5, param_6));
+        vec4 V = normalize(_cross(param_5, param_6));
         P = (U * lensuv.x) + (V * lensuv.y);
         D = normalize(Pfocus - P);
     }
-    Transform _3049;
-    _3049.x = _1938.kernel_data.cam.cameratoworld.x;
-    _3049.y = _1938.kernel_data.cam.cameratoworld.y;
-    _3049.z = _1938.kernel_data.cam.cameratoworld.z;
-    Transform cameratoworld = _3049;
-    if (_1938.kernel_data.cam.num_motion_steps != int(0u))
-    {
-        Transform param_7 = cameratoworld;
-        uint param_8 = uint(_1938.kernel_data.cam.num_motion_steps);
-        float param_9 = ray.time;
-        int param_10 = cam_motion_ofs;
-        transform_motion_array_interpolate(param_7, param_8, param_9, param_10);
-        cameratoworld = param_7;
-    }
-    Transform param_11 = cameratoworld;
-    cameratoworld = param_11;
-    P = transform_point(param_11, P);
-    Transform param_12 = cameratoworld;
-    cameratoworld = param_12;
-    D = normalize(transform_direction(param_12, D));
-    bool use_stereo = !(_1938.kernel_data.cam.interocular_offset == 0.0);
+    Transform _2959;
+    _2959.x = _1929.kernel_data.cam.cameratoworld.x;
+    _2959.y = _1929.kernel_data.cam.cameratoworld.y;
+    _2959.z = _1929.kernel_data.cam.cameratoworld.z;
+    Transform cameratoworld = _2959;
+    Transform param_7 = cameratoworld;
+    cameratoworld = param_7;
+    P = transform_point(param_7, P);
+    Transform param_8 = cameratoworld;
+    cameratoworld = param_8;
+    D = normalize(transform_direction(param_8, D));
+    bool use_stereo = !(_1929.kernel_data.cam.interocular_offset == 0.0);
     if (use_stereo)
     {
-        vec4 param_13 = P;
-        vec4 param_14 = D;
-        spherical_stereo_transform(param_13, param_14);
-        P = param_13;
-        D = param_14;
+        vec4 param_9 = P;
+        vec4 param_10 = D;
+        spherical_stereo_transform(param_9, param_10);
+        P = param_9;
+        D = param_10;
     }
     ray.P = P;
     ray.D = D;
     vec4 Pcenter = Pcamera;
-    float param_15 = Pcenter.x;
-    float param_16 = Pcenter.y;
-    vec4 Dcenter = panorama_to_direction(param_15, param_16);
-    Transform param_17 = cameratoworld;
-    cameratoworld = param_17;
-    Pcenter = transform_point(param_17, Pcenter);
-    Transform param_18 = cameratoworld;
-    cameratoworld = param_18;
-    Dcenter = normalize(transform_direction(param_18, Dcenter));
+    float param_11 = Pcenter.x;
+    float param_12 = Pcenter.y;
+    vec4 Dcenter = panorama_to_direction(param_11, param_12);
+    Transform param_13 = cameratoworld;
+    cameratoworld = param_13;
+    Pcenter = transform_point(param_13, Pcenter);
+    Transform param_14 = cameratoworld;
+    cameratoworld = param_14;
+    Dcenter = normalize(transform_direction(param_14, Dcenter));
     if (use_stereo)
     {
-        vec4 param_19 = Pcenter;
-        vec4 param_20 = Dcenter;
-        spherical_stereo_transform(param_19, param_20);
-        Pcenter = param_19;
-        Dcenter = param_20;
+        vec4 param_15 = Pcenter;
+        vec4 param_16 = Dcenter;
+        spherical_stereo_transform(param_15, param_16);
+        Pcenter = param_15;
+        Dcenter = param_16;
     }
-    ProjectionTransform param_21 = rastertocamera;
-    vec4 Px = transform_perspective(param_21, vec4(raster_x + 1.0, raster_y, 0.0, 0.0));
-    float param_22 = Px.x;
-    float param_23 = Px.y;
-    vec4 Dx = panorama_to_direction(param_22, param_23);
-    Transform param_24 = cameratoworld;
-    cameratoworld = param_24;
-    Px = transform_point(param_24, Px);
-    Transform param_25 = cameratoworld;
-    cameratoworld = param_25;
-    Dx = normalize(transform_direction(param_25, Dx));
+    ProjectionTransform param_17 = rastertocamera;
+    vec4 Px = transform_perspective(param_17, vec4(raster_x + 1.0, raster_y, 0.0, 0.0));
+    float param_18 = Px.x;
+    float param_19 = Px.y;
+    vec4 Dx = panorama_to_direction(param_18, param_19);
+    Transform param_20 = cameratoworld;
+    cameratoworld = param_20;
+    Px = transform_point(param_20, Px);
+    Transform param_21 = cameratoworld;
+    cameratoworld = param_21;
+    Dx = normalize(transform_direction(param_21, Dx));
     if (use_stereo)
     {
-        vec4 param_26 = Px;
-        vec4 param_27 = Dx;
-        spherical_stereo_transform(param_26, param_27);
-        Px = param_26;
-        Dx = param_27;
+        vec4 param_22 = Px;
+        vec4 param_23 = Dx;
+        spherical_stereo_transform(param_22, param_23);
+        Px = param_22;
+        Dx = param_23;
     }
     ray.dP.dx = Px - Pcenter;
     ray.dD.dx = Dx - Dcenter;
-    ProjectionTransform param_28 = rastertocamera;
-    vec4 Py = transform_perspective(param_28, vec4(raster_x, raster_y + 1.0, 0.0, 0.0));
-    float param_29 = Py.x;
-    float param_30 = Py.y;
-    vec4 Dy = panorama_to_direction(param_29, param_30);
-    Transform param_31 = cameratoworld;
-    cameratoworld = param_31;
-    Py = transform_point(param_31, Py);
-    Transform param_32 = cameratoworld;
-    cameratoworld = param_32;
-    Dy = normalize(transform_direction(param_32, Dy));
+    ProjectionTransform param_24 = rastertocamera;
+    vec4 Py = transform_perspective(param_24, vec4(raster_x, raster_y + 1.0, 0.0, 0.0));
+    float param_25 = Py.x;
+    float param_26 = Py.y;
+    vec4 Dy = panorama_to_direction(param_25, param_26);
+    Transform param_27 = cameratoworld;
+    cameratoworld = param_27;
+    Py = transform_point(param_27, Py);
+    Transform param_28 = cameratoworld;
+    cameratoworld = param_28;
+    Dy = normalize(transform_direction(param_28, Dy));
     if (use_stereo)
     {
-        vec4 param_33 = Py;
-        vec4 param_34 = Dy;
-        spherical_stereo_transform(param_33, param_34);
-        Py = param_33;
-        Dy = param_34;
+        vec4 param_29 = Py;
+        vec4 param_30 = Dy;
+        spherical_stereo_transform(param_29, param_30);
+        Py = param_29;
+        Dy = param_30;
     }
     ray.dP.dy = Py - Pcenter;
     ray.dD.dy = Dy - Dcenter;
-    float nearclip = _1938.kernel_data.cam.nearclip;
+    float nearclip = _1929.kernel_data.cam.nearclip;
     ray.P += (ray.D * nearclip);
     ray.dP.dx += (ray.dD.dx * nearclip);
     ray.dP.dy += (ray.dD.dy * nearclip);
-    ray.t = _1938.kernel_data.cam.cliplength;
+    ray.t = _1929.kernel_data.cam.cliplength;
 }
 
 void camera_sample(int x, int y, float filter_u, float filter_v, float lens_u, float lens_v, float time, inout Ray ray)
 {
-    int filter_table_offset = _1938.kernel_data.film.filter_table_offset;
+    int filter_table_offset = _1929.kernel_data.film.filter_table_offset;
     float param = filter_u;
     int param_1 = filter_table_offset;
     int param_2 = 1024;
-    float _3261 = lookup_table_read(param, param_1, param_2);
-    float raster_x = float(x) + _3261;
+    float _3153 = lookup_table_read(param, param_1, param_2);
+    float raster_x = float(x) + _3153;
     float param_3 = filter_v;
     int param_4 = filter_table_offset;
     int param_5 = 1024;
-    float _3271 = lookup_table_read(param_3, param_4, param_5);
-    float raster_y = float(y) + _3271;
-    if (_1938.kernel_data.cam.shuttertime == (-1.0))
+    float _3163 = lookup_table_read(param_3, param_4, param_5);
+    float raster_y = float(y) + _3163;
+    if (uint(_1929.kernel_data.cam.type) == 0u)
     {
-        ray.time = 0.5;
+        float param_6 = raster_x;
+        float param_7 = raster_y;
+        float param_8 = lens_u;
+        float param_9 = lens_v;
+        Ray param_10 = ray;
+        camera_sample_perspective(param_6, param_7, param_8, param_9, param_10);
+        ray = param_10;
     }
     else
     {
-        int shutter_table_offset = _1938.kernel_data.cam.shutter_table_offset;
-        float param_6 = time;
-        int param_7 = shutter_table_offset;
-        int param_8 = 256;
-        float _3290 = lookup_table_read(param_6, param_7, param_8);
-        ray.time = _3290;
-        if (_1938.kernel_data.cam.rolling_shutter_type != int(0u))
+        if (uint(_1929.kernel_data.cam.type) == 1u)
         {
-            float time_1 = 1.0 - (float(y) / _1938.kernel_data.cam.height);
-            float duration = _1938.kernel_data.cam.rolling_shutter_duration;
-            if (!(duration == 0.0))
-            {
-                ray.time = (ray.time - 0.5) * duration;
-                ray.time += (((time_1 - 0.5) * (1.0 - duration)) + 0.5);
-            }
-            else
-            {
-                ray.time = time_1;
-            }
-        }
-    }
-    if (uint(_1938.kernel_data.cam.type) == 0u)
-    {
-        float param_9 = raster_x;
-        float param_10 = raster_y;
-        float param_11 = lens_u;
-        float param_12 = lens_v;
-        Ray param_13 = ray;
-        camera_sample_perspective(param_9, param_10, param_11, param_12, param_13);
-        ray = param_13;
-    }
-    else
-    {
-        if (uint(_1938.kernel_data.cam.type) == 1u)
-        {
-            float param_14 = raster_x;
-            float param_15 = raster_y;
-            float param_16 = lens_u;
-            float param_17 = lens_v;
-            Ray param_18 = ray;
-            camera_sample_orthographic(param_14, param_15, param_16, param_17, param_18);
-            ray = param_18;
+            float param_11 = raster_x;
+            float param_12 = raster_y;
+            float param_13 = lens_u;
+            float param_14 = lens_v;
+            Ray param_15 = ray;
+            camera_sample_orthographic(param_11, param_12, param_13, param_14, param_15);
+            ray = param_15;
         }
         else
         {
-            int param_19 = 0;
-            float param_20 = raster_x;
-            float param_21 = raster_y;
-            float param_22 = lens_u;
-            float param_23 = lens_v;
-            Ray param_24 = ray;
-            camera_sample_panorama(param_19, param_20, param_21, param_22, param_23, param_24);
-            ray = param_24;
+            float param_16 = raster_x;
+            float param_17 = raster_y;
+            float param_18 = lens_u;
+            float param_19 = lens_v;
+            Ray param_20 = ray;
+            camera_sample_panorama(param_16, param_17, param_18, param_19, param_20);
+            ray = param_20;
         }
     }
 }
 
 void kernel_path_trace_setup(int x, int y, int sample_rsv, inout uint rng_hash, inout Ray ray)
 {
-    int num_samples = _1938.kernel_data.integrator.aa_samples;
+    int num_samples = _1929.kernel_data.integrator.aa_samples;
     arg2.v[0] = uintBitsToFloat(rng_hash);
     arg2.v[1] = intBitsToFloat(sample_rsv);
     arg2.v[2] = intBitsToFloat(num_samples);
     arg2.v[3] = intBitsToFloat(0);
     arg2.v[4] = uintBitsToFloat(2u);
-    arg2.v[5] = uintBitsToFloat(uint(_1938.kernel_data.integrator.sampling_pattern));
+    arg2.v[5] = uintBitsToFloat(uint(_1929.kernel_data.integrator.sampling_pattern));
     arg2.v[6] = uintBitsToFloat(uint(x));
     arg2.v[7] = uintBitsToFloat(uint(y));
-    arg2.v[8] = intBitsToFloat(_1938.kernel_data.integrator.seed);
+    arg2.v[8] = intBitsToFloat(_1929.kernel_data.integrator.seed);
     executeCallableNV(11u, 2);
     float filter_u = arg2.v[0];
     float filter_v = arg2.v[1];
     rng_hash = uint(floatBitsToInt(arg2.v[2]));
     float lens_u = 0.0;
     float lens_v = 0.0;
-    if (_1938.kernel_data.cam.aperturesize > 0.0)
+    if (_1929.kernel_data.cam.aperturesize > 0.0)
     {
         arg2.v[0] = uintBitsToFloat(rng_hash);
         arg2.v[1] = intBitsToFloat(sample_rsv);
         arg2.v[2] = intBitsToFloat(num_samples);
         arg2.v[3] = intBitsToFloat(2);
         arg2.v[4] = uintBitsToFloat(1u);
-        arg2.v[5] = uintBitsToFloat(uint(_1938.kernel_data.integrator.sampling_pattern));
+        arg2.v[5] = uintBitsToFloat(uint(_1929.kernel_data.integrator.sampling_pattern));
         executeCallableNV(11u, 2);
         lens_u = arg2.v[0];
         lens_v = arg2.v[1];
     }
     float time = 0.0;
-    if (!(_1938.kernel_data.cam.shuttertime == (-1.0)))
-    {
-        arg2.v[0] = uintBitsToFloat(rng_hash);
-        arg2.v[1] = intBitsToFloat(sample_rsv);
-        arg2.v[2] = intBitsToFloat(num_samples);
-        arg2.v[3] = intBitsToFloat(4);
-        arg2.v[4] = uintBitsToFloat(0u);
-        arg2.v[5] = uintBitsToFloat(uint(_1938.kernel_data.integrator.sampling_pattern));
-        executeCallableNV(11u, 2);
-        time = arg2.v[0];
-    }
     int param = x;
     int param_1 = y;
     float param_2 = filter_u;
@@ -1703,7 +1606,7 @@ void path_state_init(uint rng_hash, int sample_rsv)
     arg.state.rng_hash = rng_hash;
     arg.state.rng_offset = 10;
     arg.state.sample_rsv = sample_rsv;
-    arg.state.num_samples = _1938.kernel_data.integrator.aa_samples;
+    arg.state.num_samples = _1929.kernel_data.integrator.aa_samples;
     arg.state.branch_factor = 1.0;
     arg.state.bounce = 0;
     arg.state.diffuse_bounce = 0;
@@ -1731,47 +1634,47 @@ uint path_state_ray_visibility()
 
 bool path_state_ao_bounce()
 {
-    if (arg.state.bounce <= _1938.kernel_data.integrator.ao_bounces)
+    if (arg.state.bounce <= _1929.kernel_data.integrator.ao_bounces)
     {
         return false;
     }
     int bounce = (arg.state.bounce - arg.state.transmission_bounce) - int(arg.state.glossy_bounce > 0);
-    return bounce > _1938.kernel_data.integrator.ao_bounces;
+    return bounce > _1929.kernel_data.integrator.ao_bounces;
 }
 
 bool isfinite_safe(float f)
 {
     uint x = floatBitsToUint(f);
-    bool _715 = f == f;
-    bool _733;
-    if (_715)
+    bool _706 = f == f;
+    bool _724;
+    if (_706)
     {
-        bool _723 = (x == 0u) || (x == 2147483648u);
-        bool _732;
-        if (!_723)
+        bool _714 = (x == 0u) || (x == 2147483648u);
+        bool _723;
+        if (!_714)
         {
-            _732 = !(f == (2.0 * f));
+            _723 = !(f == (2.0 * f));
         }
         else
         {
-            _732 = _723;
+            _723 = _714;
         }
-        _733 = _732;
+        _724 = _723;
     }
     else
     {
-        _733 = _715;
+        _724 = _706;
     }
-    bool _742;
-    if (_733)
+    bool _733;
+    if (_724)
     {
-        _742 = !((x << uint(1)) > 4278190080u);
+        _733 = !((x << uint(1)) > 4278190080u);
     }
     else
     {
-        _742 = _733;
+        _733 = _724;
     }
-    return _742;
+    return _733;
 }
 
 float len_squared(vec4 a)
@@ -1782,27 +1685,27 @@ float len_squared(vec4 a)
 bool scene_intersect(Ray ray, uint visibility)
 {
     float param = ray.P.x;
-    bool _10683 = isfinite_safe(param);
-    bool _10690;
-    if (_10683)
+    bool _10504 = isfinite_safe(param);
+    bool _10511;
+    if (_10504)
     {
         float param_1 = ray.D.x;
-        _10690 = isfinite_safe(param_1);
+        _10511 = isfinite_safe(param_1);
     }
     else
     {
-        _10690 = _10683;
+        _10511 = _10504;
     }
-    bool _10697;
-    if (_10690)
+    bool _10518;
+    if (_10511)
     {
-        _10697 = !(len_squared(ray.D) == 0.0);
+        _10518 = !(len_squared(ray.D) == 0.0);
     }
     else
     {
-        _10697 = _10690;
+        _10518 = _10511;
     }
-    if (_10697)
+    if (_10518)
     {
         isect.type = 0;
         isect.t = uintBitsToFloat(visibility);
@@ -1824,26 +1727,26 @@ bool kernel_path_scene_intersect(inout Ray ray)
     if (path_state_ao_bounce())
     {
         visibility = 1920u;
-        ray.t = _1938.kernel_data.background.ao_distance;
+        ray.t = _1929.kernel_data.background.ao_distance;
     }
     Ray param = ray;
-    bool _10750 = scene_intersect(param, visibility);
-    return _10750;
+    bool _10571 = scene_intersect(param, visibility);
+    return _10571;
 }
 
 void kernel_path_lamp_emission(Ray ray)
 {
-    bool _10515 = _1938.kernel_data.integrator.use_lamp_mis != int(0u);
-    bool _10524;
-    if (_10515)
+    bool _10336 = _1929.kernel_data.integrator.use_lamp_mis != int(0u);
+    bool _10345;
+    if (_10336)
     {
-        _10524 = !((uint(arg.state.flag) & 1u) != 0u);
+        _10345 = !((uint(arg.state.flag) & 1u) != 0u);
     }
     else
     {
-        _10524 = _10515;
+        _10345 = _10336;
     }
-    if (_10524)
+    if (_10345)
     {
         arg.ray.P = ray.P - (ray.D * arg.state.ray_t);
         arg.state.ray_t += isect.t;
@@ -1861,7 +1764,7 @@ void kernel_path_lamp_emission(Ray ray)
         arg.L.throughput = throughput;
         arg.L.direct_emission.w = float(PROFI_IDX);
         arg.L.indirect.w = float(rec_num);
-        int _10582 = atomicAdd(_6852.counter[32], 1);
+        int _10403 = atomicAdd(_6660.counter[32], 1);
         executeCallableNV(0u, 0);
         L.emission = arg.L.emission;
         L.direct_emission = arg.L.direct_emission;
@@ -1870,17 +1773,17 @@ void kernel_path_lamp_emission(Ray ray)
         throughput = arg.L.throughput;
         if (G_dump)
         {
-            _694.kg.f3[0 + ((rec_num - 1) * 64)] = L.emission;
+            _685.kg.f3[0 + ((rec_num - 1) * 64)] = L.emission;
         }
         if (G_use_light_pass)
         {
             if (G_dump)
             {
-                _694.kg.f3[1 + ((rec_num - 1) * 64)] = L.direct_emission;
+                _685.kg.f3[1 + ((rec_num - 1) * 64)] = L.direct_emission;
             }
             if (G_dump)
             {
-                _694.kg.f3[2 + ((rec_num - 1) * 64)] = L.indirect;
+                _685.kg.f3[2 + ((rec_num - 1) * 64)] = L.indirect;
             }
         }
     }
@@ -1918,7 +1821,7 @@ void shader_setup_from_background(Ray ray)
     sd.N = -ray.D;
     sd.Ng = -ray.D;
     sd.I = -ray.D;
-    sd.shader = _1938.kernel_data.background.surface_shader;
+    sd.shader = _1929.kernel_data.background.surface_shader;
     sd.flag = push.data_ptr._shaders.data[uint(sd.shader) & 8388607u].flags;
     sd.object_flag = 0;
     sd.time = ray.time;
@@ -1950,7 +1853,7 @@ uint lcg_init(uint seed)
 {
     uint rng = seed;
     uint param = rng;
-    uint _1897 = lcg_step_uint(param);
+    uint _1888 = lcg_step_uint(param);
     rng = param;
     return rng;
 }
@@ -1964,7 +1867,7 @@ void shader_eval_surface(uint state_flag)
     }
     else
     {
-        max_closures = _1938.kernel_data.integrator.max_closures;
+        max_closures = _1929.kernel_data.integrator.max_closures;
     }
     sd.num_closure = int(state_flag);
     sd.num_closure_left = max_closures;
@@ -1979,39 +1882,39 @@ void shader_eval_surface(uint state_flag)
 
 bool background_portal_data_fetch_and_check_side(vec4 P, int index, inout vec4 lightpos, inout vec4 dir)
 {
-    int portal = _1938.kernel_data.background.portal_offset + index;
-    KernelLight _4500;
-    _4500.type = push.data_ptr._lights.data[portal].type;
-    _4500.co[0] = push.data_ptr._lights.data[portal].co[0];
-    _4500.co[1] = push.data_ptr._lights.data[portal].co[1];
-    _4500.co[2] = push.data_ptr._lights.data[portal].co[2];
-    _4500.shader_id = push.data_ptr._lights.data[portal].shader_id;
-    _4500.samples = push.data_ptr._lights.data[portal].samples;
-    _4500.max_bounces = push.data_ptr._lights.data[portal].max_bounces;
-    _4500.random = push.data_ptr._lights.data[portal].random;
-    _4500.strength[0] = push.data_ptr._lights.data[portal].strength[0];
-    _4500.strength[1] = push.data_ptr._lights.data[portal].strength[1];
-    _4500.strength[2] = push.data_ptr._lights.data[portal].strength[2];
-    _4500.pad1 = push.data_ptr._lights.data[portal].pad1;
-    _4500.tfm.x = push.data_ptr._lights.data[portal].tfm.x;
-    _4500.tfm.y = push.data_ptr._lights.data[portal].tfm.y;
-    _4500.tfm.z = push.data_ptr._lights.data[portal].tfm.z;
-    _4500.itfm.x = push.data_ptr._lights.data[portal].itfm.x;
-    _4500.itfm.y = push.data_ptr._lights.data[portal].itfm.y;
-    _4500.itfm.z = push.data_ptr._lights.data[portal].itfm.z;
-    _4500.uni[0] = push.data_ptr._lights.data[portal].uni[0];
-    _4500.uni[1] = push.data_ptr._lights.data[portal].uni[1];
-    _4500.uni[2] = push.data_ptr._lights.data[portal].uni[2];
-    _4500.uni[3] = push.data_ptr._lights.data[portal].uni[3];
-    _4500.uni[4] = push.data_ptr._lights.data[portal].uni[4];
-    _4500.uni[5] = push.data_ptr._lights.data[portal].uni[5];
-    _4500.uni[6] = push.data_ptr._lights.data[portal].uni[6];
-    _4500.uni[7] = push.data_ptr._lights.data[portal].uni[7];
-    _4500.uni[8] = push.data_ptr._lights.data[portal].uni[8];
-    _4500.uni[9] = push.data_ptr._lights.data[portal].uni[9];
-    _4500.uni[10] = push.data_ptr._lights.data[portal].uni[10];
-    _4500.uni[11] = push.data_ptr._lights.data[portal].uni[11];
-    KernelLight klight = _4500;
+    int portal = _1929.kernel_data.background.portal_offset + index;
+    KernelLight _4331;
+    _4331.type = push.data_ptr._lights.data[portal].type;
+    _4331.co[0] = push.data_ptr._lights.data[portal].co[0];
+    _4331.co[1] = push.data_ptr._lights.data[portal].co[1];
+    _4331.co[2] = push.data_ptr._lights.data[portal].co[2];
+    _4331.shader_id = push.data_ptr._lights.data[portal].shader_id;
+    _4331.samples = push.data_ptr._lights.data[portal].samples;
+    _4331.max_bounces = push.data_ptr._lights.data[portal].max_bounces;
+    _4331.random = push.data_ptr._lights.data[portal].random;
+    _4331.strength[0] = push.data_ptr._lights.data[portal].strength[0];
+    _4331.strength[1] = push.data_ptr._lights.data[portal].strength[1];
+    _4331.strength[2] = push.data_ptr._lights.data[portal].strength[2];
+    _4331.pad1 = push.data_ptr._lights.data[portal].pad1;
+    _4331.tfm.x = push.data_ptr._lights.data[portal].tfm.x;
+    _4331.tfm.y = push.data_ptr._lights.data[portal].tfm.y;
+    _4331.tfm.z = push.data_ptr._lights.data[portal].tfm.z;
+    _4331.itfm.x = push.data_ptr._lights.data[portal].itfm.x;
+    _4331.itfm.y = push.data_ptr._lights.data[portal].itfm.y;
+    _4331.itfm.z = push.data_ptr._lights.data[portal].itfm.z;
+    _4331.uni[0] = push.data_ptr._lights.data[portal].uni[0];
+    _4331.uni[1] = push.data_ptr._lights.data[portal].uni[1];
+    _4331.uni[2] = push.data_ptr._lights.data[portal].uni[2];
+    _4331.uni[3] = push.data_ptr._lights.data[portal].uni[3];
+    _4331.uni[4] = push.data_ptr._lights.data[portal].uni[4];
+    _4331.uni[5] = push.data_ptr._lights.data[portal].uni[5];
+    _4331.uni[6] = push.data_ptr._lights.data[portal].uni[6];
+    _4331.uni[7] = push.data_ptr._lights.data[portal].uni[7];
+    _4331.uni[8] = push.data_ptr._lights.data[portal].uni[8];
+    _4331.uni[9] = push.data_ptr._lights.data[portal].uni[9];
+    _4331.uni[10] = push.data_ptr._lights.data[portal].uni[10];
+    _4331.uni[11] = push.data_ptr._lights.data[portal].uni[11];
+    KernelLight klight = _4331;
     lightpos = vec4(klight.co[0], klight.co[1], klight.co[2], 0.0);
     dir = vec4(klight.uni[8], klight.uni[9], klight.uni[10], 0.0);
     if (dot(dir.xyz, (P - lightpos).xyz) > 9.9999997473787516355514526367188e-05)
@@ -2040,16 +1943,16 @@ bool ray_quad_intersect(vec4 ray_P, vec4 ray_D, float ray_mint, float ray_maxt, 
     {
         return false;
     }
-    bool _1098;
+    bool _1089;
     if (ellipse)
     {
-        _1098 = ((u * u) + (v * v)) > 0.25;
+        _1089 = ((u * u) + (v * v)) > 0.25;
     }
     else
     {
-        _1098 = ellipse;
+        _1089 = ellipse;
     }
-    if (_1098)
+    if (_1089)
     {
         return false;
     }
@@ -2094,17 +1997,17 @@ float rect_light_sample(vec4 P, inout vec4 light_p, vec4 axisu, vec4 axisv, floa
     vec4 corner = (light_p - (axisu * 0.5)) - (axisv * 0.5);
     float axisu_len;
     float param = axisu_len;
-    vec4 _4073 = normalize_len(axisu, param);
+    vec4 _3904 = normalize_len(axisu, param);
     axisu_len = param;
-    vec4 x = _4073;
+    vec4 x = _3904;
     float axisv_len;
     float param_1 = axisv_len;
-    vec4 _4080 = normalize_len(axisv, param_1);
+    vec4 _3911 = normalize_len(axisv, param_1);
     axisv_len = param_1;
-    vec4 y = _4080;
+    vec4 y = _3911;
     vec4 param_2 = x;
     vec4 param_3 = y;
-    vec4 z = cross(param_2, param_3);
+    vec4 z = _cross(param_2, param_3);
     vec4 dir = corner - P;
     float z0 = dot(dir.xyz, z.xyz);
     if (z0 > 0.0)
@@ -2148,16 +2051,16 @@ float rect_light_sample(vec4 P, inout vec4 light_p, vec4 axisu, vec4 axisv, floa
         float h1 = y1 / sqrt((d * d) + y1sq);
         float hv = h0 + (randv * (h1 - h0));
         float hv2 = hv * hv;
-        float _4321;
+        float _4152;
         if (hv2 < 0.999998986721038818359375)
         {
-            _4321 = (hv * d) / sqrt(1.0 - hv2);
+            _4152 = (hv * d) / sqrt(1.0 - hv2);
         }
         else
         {
-            _4321 = y1;
+            _4152 = y1;
         }
-        float yv = _4321;
+        float yv = _4152;
         light_p = ((P + (x * xu)) + (y * yv)) + (z * z0);
     }
     if (!(S == 0.0))
@@ -2181,7 +2084,7 @@ float background_portal_pdf(vec4 P, vec4 direction, int ignore_portal, inout boo
     float param_14;
     float param_15;
     float t;
-    for (int p = 0; p < _1938.kernel_data.background.num_portals; p++)
+    for (int p = 0; p < _1929.kernel_data.background.num_portals; p++)
     {
         if (p == ignore_portal)
         {
@@ -2191,10 +2094,10 @@ float background_portal_pdf(vec4 P, vec4 direction, int ignore_portal, inout boo
         int param_1 = p;
         vec4 param_2 = lightpos;
         vec4 param_3 = dir;
-        bool _4557 = background_portal_data_fetch_and_check_side(param, param_1, param_2, param_3);
+        bool _4388 = background_portal_data_fetch_and_check_side(param, param_1, param_2, param_3);
         lightpos = param_2;
         dir = param_3;
-        if (!_4557)
+        if (!_4388)
         {
             continue;
         }
@@ -2203,39 +2106,39 @@ float background_portal_pdf(vec4 P, vec4 direction, int ignore_portal, inout boo
             is_possible = true;
         }
         num_possible++;
-        int portal = _1938.kernel_data.background.portal_offset + p;
-        KernelLight _4582;
-        _4582.type = push.data_ptr._lights.data[portal].type;
-        _4582.co[0] = push.data_ptr._lights.data[portal].co[0];
-        _4582.co[1] = push.data_ptr._lights.data[portal].co[1];
-        _4582.co[2] = push.data_ptr._lights.data[portal].co[2];
-        _4582.shader_id = push.data_ptr._lights.data[portal].shader_id;
-        _4582.samples = push.data_ptr._lights.data[portal].samples;
-        _4582.max_bounces = push.data_ptr._lights.data[portal].max_bounces;
-        _4582.random = push.data_ptr._lights.data[portal].random;
-        _4582.strength[0] = push.data_ptr._lights.data[portal].strength[0];
-        _4582.strength[1] = push.data_ptr._lights.data[portal].strength[1];
-        _4582.strength[2] = push.data_ptr._lights.data[portal].strength[2];
-        _4582.pad1 = push.data_ptr._lights.data[portal].pad1;
-        _4582.tfm.x = push.data_ptr._lights.data[portal].tfm.x;
-        _4582.tfm.y = push.data_ptr._lights.data[portal].tfm.y;
-        _4582.tfm.z = push.data_ptr._lights.data[portal].tfm.z;
-        _4582.itfm.x = push.data_ptr._lights.data[portal].itfm.x;
-        _4582.itfm.y = push.data_ptr._lights.data[portal].itfm.y;
-        _4582.itfm.z = push.data_ptr._lights.data[portal].itfm.z;
-        _4582.uni[0] = push.data_ptr._lights.data[portal].uni[0];
-        _4582.uni[1] = push.data_ptr._lights.data[portal].uni[1];
-        _4582.uni[2] = push.data_ptr._lights.data[portal].uni[2];
-        _4582.uni[3] = push.data_ptr._lights.data[portal].uni[3];
-        _4582.uni[4] = push.data_ptr._lights.data[portal].uni[4];
-        _4582.uni[5] = push.data_ptr._lights.data[portal].uni[5];
-        _4582.uni[6] = push.data_ptr._lights.data[portal].uni[6];
-        _4582.uni[7] = push.data_ptr._lights.data[portal].uni[7];
-        _4582.uni[8] = push.data_ptr._lights.data[portal].uni[8];
-        _4582.uni[9] = push.data_ptr._lights.data[portal].uni[9];
-        _4582.uni[10] = push.data_ptr._lights.data[portal].uni[10];
-        _4582.uni[11] = push.data_ptr._lights.data[portal].uni[11];
-        KernelLight klight = _4582;
+        int portal = _1929.kernel_data.background.portal_offset + p;
+        KernelLight _4413;
+        _4413.type = push.data_ptr._lights.data[portal].type;
+        _4413.co[0] = push.data_ptr._lights.data[portal].co[0];
+        _4413.co[1] = push.data_ptr._lights.data[portal].co[1];
+        _4413.co[2] = push.data_ptr._lights.data[portal].co[2];
+        _4413.shader_id = push.data_ptr._lights.data[portal].shader_id;
+        _4413.samples = push.data_ptr._lights.data[portal].samples;
+        _4413.max_bounces = push.data_ptr._lights.data[portal].max_bounces;
+        _4413.random = push.data_ptr._lights.data[portal].random;
+        _4413.strength[0] = push.data_ptr._lights.data[portal].strength[0];
+        _4413.strength[1] = push.data_ptr._lights.data[portal].strength[1];
+        _4413.strength[2] = push.data_ptr._lights.data[portal].strength[2];
+        _4413.pad1 = push.data_ptr._lights.data[portal].pad1;
+        _4413.tfm.x = push.data_ptr._lights.data[portal].tfm.x;
+        _4413.tfm.y = push.data_ptr._lights.data[portal].tfm.y;
+        _4413.tfm.z = push.data_ptr._lights.data[portal].tfm.z;
+        _4413.itfm.x = push.data_ptr._lights.data[portal].itfm.x;
+        _4413.itfm.y = push.data_ptr._lights.data[portal].itfm.y;
+        _4413.itfm.z = push.data_ptr._lights.data[portal].itfm.z;
+        _4413.uni[0] = push.data_ptr._lights.data[portal].uni[0];
+        _4413.uni[1] = push.data_ptr._lights.data[portal].uni[1];
+        _4413.uni[2] = push.data_ptr._lights.data[portal].uni[2];
+        _4413.uni[3] = push.data_ptr._lights.data[portal].uni[3];
+        _4413.uni[4] = push.data_ptr._lights.data[portal].uni[4];
+        _4413.uni[5] = push.data_ptr._lights.data[portal].uni[5];
+        _4413.uni[6] = push.data_ptr._lights.data[portal].uni[6];
+        _4413.uni[7] = push.data_ptr._lights.data[portal].uni[7];
+        _4413.uni[8] = push.data_ptr._lights.data[portal].uni[8];
+        _4413.uni[9] = push.data_ptr._lights.data[portal].uni[9];
+        _4413.uni[10] = push.data_ptr._lights.data[portal].uni[10];
+        _4413.uni[11] = push.data_ptr._lights.data[portal].uni[11];
+        KernelLight klight = _4413;
         vec4 axisu = vec4(klight.uni[0], klight.uni[1], klight.uni[2], 0.0);
         vec4 axisv = vec4(klight.uni[4], klight.uni[5], klight.uni[6], 0.0);
         bool is_round = klight.uni[3] < 0.0;
@@ -2252,21 +2155,21 @@ float background_portal_pdf(vec4 P, vec4 direction, int ignore_portal, inout boo
         vec4 param_10 = axisv;
         vec4 param_11 = dir;
         bool param_16 = is_round;
-        bool _4627 = ray_quad_intersect(param_4, param_5, param_6, param_7, param_8, param_9, param_10, param_11, param_12, param_13, param_14, param_15, param_16);
+        bool _4458 = ray_quad_intersect(param_4, param_5, param_6, param_7, param_8, param_9, param_10, param_11, param_12, param_13, param_14, param_15, param_16);
         _n4 = param_12;
         _n0 = param_13;
         _n1 = param_14;
         _n2 = param_15;
-        if (!_4627)
+        if (!_4458)
         {
             continue;
         }
         if (is_round)
         {
             float param_17 = t;
-            vec4 _4646 = normalize_len(lightpos - P, param_17);
+            vec4 _4477 = normalize_len(lightpos - P, param_17);
             t = param_17;
-            vec4 D = _4646;
+            vec4 D = _4477;
             float param_18 = t;
             portal_pdf += (abs(klight.uni[3]) * lamp_light_pdf(dir, -D, param_18));
         }
@@ -2279,25 +2182,25 @@ float background_portal_pdf(vec4 P, vec4 direction, int ignore_portal, inout boo
             float param_23 = 0.0;
             float param_24 = 0.0;
             bool param_25 = false;
-            float _4672 = rect_light_sample(param_19, param_20, param_21, param_22, param_23, param_24, param_25);
+            float _4503 = rect_light_sample(param_19, param_20, param_21, param_22, param_23, param_24, param_25);
             lightpos = param_20;
-            portal_pdf += _4672;
+            portal_pdf += _4503;
         }
     }
     if (ignore_portal >= 0)
     {
         num_possible++;
     }
-    float _4686;
+    float _4517;
     if (num_possible > 0)
     {
-        _4686 = portal_pdf / float(num_possible);
+        _4517 = portal_pdf / float(num_possible);
     }
     else
     {
-        _4686 = 0.0;
+        _4517 = 0.0;
     }
-    return _4686;
+    return _4517;
 }
 
 float pdf_uniform_cone(vec4 N, vec4 D, float angle)
@@ -2313,8 +2216,8 @@ float pdf_uniform_cone(vec4 N, vec4 D, float angle)
 
 float background_sun_pdf(vec4 D)
 {
-    vec4 N = float4_to_float3(_1938.kernel_data.background.sun);
-    float angle = _1938.kernel_data.background.sun.w;
+    vec4 N = float4_to_float3(_1929.kernel_data.background.sun);
+    float angle = _1929.kernel_data.background.sun.w;
     vec4 param = D;
     float param_1 = angle;
     return pdf_uniform_cone(N, param, param_1);
@@ -2342,8 +2245,8 @@ float background_map_pdf(vec4 direction)
 {
     vec4 param = direction;
     vec2 uv = direction_to_equirectangular(param);
-    int res_x = _1938.kernel_data.background.map_res_x;
-    int res_y = _1938.kernel_data.background.map_res_y;
+    int res_x = _1929.kernel_data.background.map_res_x;
+    int res_y = _1929.kernel_data.background.map_res_y;
     int cdf_width = res_x + 1;
     float sin_theta = sin(uv.y * 3.1415927410125732421875);
     if (sin_theta == 0.0)
@@ -2366,9 +2269,9 @@ float background_map_pdf(vec4 direction)
 
 float background_light_pdf(vec4 P, vec4 direction)
 {
-    float portal_method_pdf = _1938.kernel_data.background.portal_weight;
-    float sun_method_pdf = _1938.kernel_data.background.sun_weight;
-    float map_method_pdf = _1938.kernel_data.background.map_weight;
+    float portal_method_pdf = _1929.kernel_data.background.portal_weight;
+    float sun_method_pdf = _1929.kernel_data.background.sun_weight;
+    float map_method_pdf = _1929.kernel_data.background.map_weight;
     float portal_pdf = 0.0;
     if (portal_method_pdf > 0.0)
     {
@@ -2377,9 +2280,9 @@ float background_light_pdf(vec4 P, vec4 direction)
         vec4 param_1 = direction;
         int param_2 = -1;
         bool param_3 = is_possible;
-        float _4735 = background_portal_pdf(param, param_1, param_2, param_3);
+        float _4566 = background_portal_pdf(param, param_1, param_2, param_3);
         is_possible = param_3;
-        portal_pdf = _4735;
+        portal_pdf = _4566;
         if (!is_possible)
         {
             portal_method_pdf = 0.0;
@@ -2388,7 +2291,7 @@ float background_light_pdf(vec4 P, vec4 direction)
     float pdf_fac = (portal_method_pdf + sun_method_pdf) + map_method_pdf;
     if (pdf_fac == 0.0)
     {
-        return _1938.kernel_data.integrator.pdf_lights / 12.56637096405029296875;
+        return _1929.kernel_data.integrator.pdf_lights / 12.56637096405029296875;
     }
     pdf_fac = 1.0 / pdf_fac;
     portal_method_pdf *= pdf_fac;
@@ -2405,7 +2308,7 @@ float background_light_pdf(vec4 P, vec4 direction)
         vec4 param_5 = direction;
         pdf += (background_map_pdf(param_5) * map_method_pdf);
     }
-    return pdf * _1938.kernel_data.integrator.pdf_lights;
+    return pdf * _1929.kernel_data.integrator.pdf_lights;
 }
 
 float power_heuristic(float a, float b)
@@ -2415,96 +2318,96 @@ float power_heuristic(float a, float b)
 
 vec4 indirect_background(Ray ray)
 {
-    int shader = _1938.kernel_data.background.surface_shader;
+    int shader = _1929.kernel_data.background.surface_shader;
     if ((uint(shader) & 260046848u) != 0u)
     {
-        bool _7965 = (uint(shader) & 134217728u) != 0u;
-        bool _7973;
-        if (_7965)
+        bool _7774 = (uint(shader) & 134217728u) != 0u;
+        bool _7782;
+        if (_7774)
         {
-            _7973 = (uint(arg.state.flag) & 8u) != 0u;
+            _7782 = (uint(arg.state.flag) & 8u) != 0u;
         }
         else
         {
-            _7973 = _7965;
+            _7782 = _7774;
         }
-        bool _7991;
-        if (!_7973)
+        bool _7800;
+        if (!_7782)
         {
-            bool _7981 = (uint(shader) & 67108864u) != 0u;
-            bool _7990;
-            if (_7981)
+            bool _7790 = (uint(shader) & 67108864u) != 0u;
+            bool _7799;
+            if (_7790)
             {
-                _7990 = (uint(arg.state.flag) & 18u) == 18u;
+                _7799 = (uint(arg.state.flag) & 18u) == 18u;
             }
             else
             {
-                _7990 = _7981;
+                _7799 = _7790;
             }
-            _7991 = _7990;
+            _7800 = _7799;
         }
         else
         {
-            _7991 = _7973;
+            _7800 = _7782;
         }
-        bool _8008;
-        if (!_7991)
+        bool _7817;
+        if (!_7800)
         {
-            bool _7999 = (uint(shader) & 33554432u) != 0u;
-            bool _8007;
-            if (_7999)
+            bool _7808 = (uint(shader) & 33554432u) != 0u;
+            bool _7816;
+            if (_7808)
             {
-                _8007 = (uint(arg.state.flag) & 4u) != 0u;
+                _7816 = (uint(arg.state.flag) & 4u) != 0u;
             }
             else
             {
-                _8007 = _7999;
+                _7816 = _7808;
             }
-            _8008 = _8007;
+            _7817 = _7816;
         }
         else
         {
-            _8008 = _7991;
+            _7817 = _7800;
         }
-        bool _8025;
-        if (!_8008)
+        bool _7834;
+        if (!_7817)
         {
-            bool _8016 = (uint(shader) & 16777216u) != 0u;
-            bool _8024;
-            if (_8016)
+            bool _7825 = (uint(shader) & 16777216u) != 0u;
+            bool _7833;
+            if (_7825)
             {
-                _8024 = (uint(arg.state.flag) & 1u) != 0u;
+                _7833 = (uint(arg.state.flag) & 1u) != 0u;
             }
             else
             {
-                _8024 = _8016;
+                _7833 = _7825;
             }
-            _8025 = _8024;
+            _7834 = _7833;
         }
         else
         {
-            _8025 = _8008;
+            _7834 = _7817;
         }
-        bool _8042;
-        if (!_8025)
+        bool _7851;
+        if (!_7834)
         {
-            bool _8033 = (uint(shader) & 8388608u) != 0u;
-            bool _8041;
-            if (_8033)
+            bool _7842 = (uint(shader) & 8388608u) != 0u;
+            bool _7850;
+            if (_7842)
             {
-                _8041 = (uint(arg.state.flag) & 4096u) != 0u;
+                _7850 = (uint(arg.state.flag) & 4096u) != 0u;
             }
             else
             {
-                _8041 = _8033;
+                _7850 = _7842;
             }
-            _8042 = _8041;
+            _7851 = _7850;
         }
         else
         {
-            _8042 = _8025;
+            _7851 = _7834;
         }
-        if (_8042)
+        if (_7851)
         {
             return vec4(0.0);
         }
@@ -2512,9 +2415,9 @@ vec4 indirect_background(Ray ray)
     vec4 L_1 = vec4(0.0);
     int param = shader;
     vec4 param_1 = L_1;
-    bool _8051 = shader_constant_emission_eval(param, param_1);
+    bool _7860 = shader_constant_emission_eval(param, param_1);
     L_1 = param_1;
-    if (!_8051)
+    if (!_7860)
     {
         Ray param_2 = ray;
         shader_setup_from_background(param_2);
@@ -2536,28 +2439,28 @@ vec4 indirect_background(Ray ray)
         {
             arg.state.bounce--;
         }
-        vec4 _8093;
+        vec4 _7902;
         if ((uint(sd.flag) & 2u) != 0u)
         {
-            _8093 = sd.closure_emission_background;
+            _7902 = sd.closure_emission_background;
         }
         else
         {
-            _8093 = vec4(0.0);
+            _7902 = vec4(0.0);
         }
-        L_1 = _8093;
+        L_1 = _7902;
     }
-    bool _8105 = !((uint(arg.state.flag) & 16384u) != 0u);
-    bool _8111;
-    if (_8105)
+    bool _7914 = !((uint(arg.state.flag) & 16384u) != 0u);
+    bool _7920;
+    if (_7914)
     {
-        _8111 = _1938.kernel_data.background.use_mis != int(0u);
+        _7920 = _1929.kernel_data.background.use_mis != int(0u);
     }
     else
     {
-        _8111 = _8105;
+        _7920 = _7914;
     }
-    if (_8111)
+    if (_7920)
     {
         vec4 param_4 = ray.P;
         vec4 param_5 = ray.D;
@@ -2582,16 +2485,16 @@ void path_radiance_accum_background(vec4 value)
         }
     }
     vec4 contribution = throughput * value;
-    float _6019;
+    float _5827;
     if ((arg.state.bounce - 1) > 0)
     {
-        _6019 = _1938.kernel_data.integrator.sample_clamp_indirect;
+        _5827 = _1929.kernel_data.integrator.sample_clamp_indirect;
     }
     else
     {
-        _6019 = _1938.kernel_data.integrator.sample_clamp_direct;
+        _5827 = _1929.kernel_data.integrator.sample_clamp_direct;
     }
-    float limit = _6019;
+    float limit = _5827;
     float sum = reduce_add(abs(contribution));
     if (sum > limit)
     {
@@ -2623,36 +2526,36 @@ void path_radiance_accum_background(vec4 value)
 
 void kernel_path_background(Ray ray)
 {
-    bool _10632 = _1938.kernel_data.background.transparent != int(0u);
-    bool _10640;
-    if (_10632)
+    bool _10453 = _1929.kernel_data.background.transparent != int(0u);
+    bool _10461;
+    if (_10453)
     {
-        _10640 = (uint(arg.state.flag) & 524288u) != 0u;
+        _10461 = (uint(arg.state.flag) & 524288u) != 0u;
     }
     else
     {
-        _10640 = _10632;
+        _10461 = _10453;
     }
-    if (_10640)
+    if (_10461)
     {
         L.transparent += average(throughput);
-        if (!((_1938.kernel_data.film.light_pass_flag & 4) != int(0u)))
+        if (!((_1929.kernel_data.film.light_pass_flag & 4) != int(0u)))
         {
             return;
         }
     }
     if (path_state_ao_bounce())
     {
-        throughput *= _1938.kernel_data.background.ao_bounces_factor;
+        throughput *= _1929.kernel_data.background.ao_bounces_factor;
     }
     Ray param = ray;
-    vec4 _10667 = indirect_background(param);
-    vec4 L_background = _10667;
+    vec4 _10488 = indirect_background(param);
+    vec4 L_background = _10488;
     vec4 param_1 = L_background;
     path_radiance_accum_background(param_1);
     if (G_dump)
     {
-        _694.kg.f3[17 + ((rec_num - 1) * 64)] = L_background;
+        _685.kg.f3[17 + ((rec_num - 1) * 64)] = L_background;
     }
 }
 
@@ -2674,16 +2577,16 @@ Transform transform_quick_inverse(inout Transform M)
         M.z.z += 9.9999999392252902907785028219223e-09;
         det = ((M.x.x * ((M.z.z * M.y.y) - (M.z.y * M.y.z))) - (M.y.x * ((M.z.z * M.x.y) - (M.z.y * M.x.z)))) + (M.z.x * ((M.y.z * M.x.y) - (M.y.y * M.x.z)));
     }
-    float _1374;
+    float _1365;
     if (!(det == 0.0))
     {
-        _1374 = 1.0 / det;
+        _1365 = 1.0 / det;
     }
     else
     {
-        _1374 = 0.0;
+        _1365 = 0.0;
     }
-    det = _1374;
+    det = _1365;
     vec4 Rx = vec4((M.z.z * M.y.y) - (M.z.y * M.y.z), (M.z.y * M.x.z) - (M.z.z * M.x.y), (M.y.z * M.x.y) - (M.y.y * M.x.z), 0.0) * det;
     vec4 Ry = vec4((M.z.x * M.y.z) - (M.z.z * M.y.x), (M.z.z * M.x.x) - (M.z.x * M.x.z), (M.y.x * M.x.z) - (M.y.z * M.x.x), 0.0) * det;
     vec4 Rz = vec4((M.z.y * M.y.x) - (M.z.x * M.y.y), (M.z.x * M.x.y) - (M.z.y * M.x.x), (M.y.y * M.x.x) - (M.y.x * M.x.y), 0.0) * det;
@@ -2699,21 +2602,21 @@ Transform object_fetch_transform(int object, uint type)
 {
     if (type == 1u)
     {
-        Transform _3502;
-        _3502.x = push.data_ptr._objects.data[object].itfm.x;
-        _3502.y = push.data_ptr._objects.data[object].itfm.y;
-        _3502.z = push.data_ptr._objects.data[object].itfm.z;
-        Transform _3501 = _3502;
-        return _3501;
+        Transform _3333;
+        _3333.x = push.data_ptr._objects.data[object].itfm.x;
+        _3333.y = push.data_ptr._objects.data[object].itfm.y;
+        _3333.z = push.data_ptr._objects.data[object].itfm.z;
+        Transform _3332 = _3333;
+        return _3332;
     }
     else
     {
-        Transform _3514;
-        _3514.x = push.data_ptr._objects.data[object].tfm.x;
-        _3514.y = push.data_ptr._objects.data[object].tfm.y;
-        _3514.z = push.data_ptr._objects.data[object].tfm.z;
-        Transform _3513 = _3514;
-        return _3513;
+        Transform _3345;
+        _3345.x = push.data_ptr._objects.data[object].tfm.x;
+        _3345.y = push.data_ptr._objects.data[object].tfm.y;
+        _3345.z = push.data_ptr._objects.data[object].tfm.z;
+        Transform _3344 = _3345;
+        return _3344;
     }
 }
 
@@ -2725,8 +2628,8 @@ void shader_setup_object_transforms(float time)
         float param_1 = time;
         sd.ob_tfm = object_fetch_transform_motion(param, param_1);
         Transform param_2 = sd.ob_tfm;
-        Transform _6667 = transform_quick_inverse(param_2);
-        sd.ob_itfm = _6667;
+        Transform _6475 = transform_quick_inverse(param_2);
+        sd.ob_itfm = _6475;
     }
     else
     {
@@ -2771,9 +2674,9 @@ vec4 triangle_refine(inout vec4 P, inout vec4 D, inout float t, int object, int 
         tfm = param_1;
         D = transform_direction(param_1, D * t);
         float param_2 = t;
-        vec4 _3870 = normalize_len(D, param_2);
+        vec4 _3701 = normalize_len(D, param_2);
         t = param_2;
-        D = _3870;
+        D = _3701;
     }
     P += (D * t);
     uvec3 tri_vindex = uvec3(push.data_ptr._tri_vindex2.data[3 * prim], push.data_ptr._tri_vindex2.data[(3 * prim) + 1], push.data_ptr._tri_vindex2.data[(3 * prim) + 2]) + uvec3(push.data_ptr._prim_index.data[geometry]);
@@ -2804,16 +2707,16 @@ vec4 triangle_refine(inout vec4 P, inout vec4 D, inout float t, int object, int 
 vec4 safe_normalize(vec4 a)
 {
     float t = length(a.xyz);
-    vec4 _795;
+    vec4 _786;
     if (!(t == 0.0))
     {
-        _795 = a * (1.0 / t);
+        _786 = a * (1.0 / t);
     }
     else
     {
-        _795 = a;
+        _786 = a;
     }
-    return _795;
+    return _786;
 }
 
 vec4 triangle_smooth_normal(vec4 Ng, int prim, float u, float v)
@@ -2870,8 +2773,8 @@ void shader_setup_from_ray(Ray ray)
         int param_4 = isect.object;
         int param_5 = isect.prim;
         int param_6 = sd.geometry;
-        vec4 _6822 = triangle_refine(param_1, param_2, param_3, param_4, param_5, param_6);
-        sd.P = _6822;
+        vec4 _6630 = triangle_refine(param_1, param_2, param_3, param_4, param_5, param_6);
+        sd.P = _6630;
         sd.Ng = Ng;
         sd.N = Ng;
         if ((uint(sd.shader) & 2147483648u) != 0u)
@@ -2882,10 +2785,10 @@ void shader_setup_from_ray(Ray ray)
             float param_10 = sd.v;
             sd.N = triangle_smooth_normal(param_7, param_8, param_9, param_10);
         }
-        int _6854 = atomicAdd(_6852.counter[34], 1);
+        int _6662 = atomicAdd(_6660.counter[34], 1);
         if (G_dump)
         {
-            _694.kg.f3[3 + ((rec_num - 1) * 64)] = sd.N;
+            _685.kg.f3[3 + ((rec_num - 1) * 64)] = sd.N;
         }
         uvec3 tri_vindex = uvec3(push.data_ptr._tri_vindex2.data[3 * sd.prim], push.data_ptr._tri_vindex2.data[(3 * sd.prim) + 1], push.data_ptr._tri_vindex2.data[(3 * sd.prim) + 2]) + uvec3(push.data_ptr._prim_index.data[sd.geometry]);
         vec4 p0 = float4_to_float3(push.data_ptr._prim_tri_verts2.data[tri_vindex.x]);
@@ -2958,17 +2861,17 @@ void shader_setup_from_ray(Ray ray)
 
 void shader_prepare_closures()
 {
-    bool _7280 = (arg.state.bounce + arg.state.transparent_bounce) == 0;
-    bool _7286;
-    if (_7280)
+    bool _7088 = (arg.state.bounce + arg.state.transparent_bounce) == 0;
+    bool _7094;
+    if (_7088)
     {
-        _7286 = sd.num_closure > 1;
+        _7094 = sd.num_closure > 1;
     }
     else
     {
-        _7286 = _7280;
+        _7094 = _7088;
     }
-    if (_7286)
+    if (_7094)
     {
         int it_begin = sd.alloc_offset;
         float sum = 0.0;
@@ -2991,7 +2894,7 @@ void shader_prepare_closures()
         }
         sd.alloc_offset = it_begin;
     }
-    int _7384 = atomicAdd(_6852.counter[35], 1);
+    int _7192 = atomicAdd(_6660.counter[35], 1);
     int it_begin_1 = sd.alloc_offset;
     float sum_1 = 0.0;
     for (int i_2 = 0; i_2 < sd.num_closure; i_2++)
@@ -3006,7 +2909,7 @@ void shader_prepare_closures()
     vec4 f = vec4(sum_1, float(arg.state.bounce), float(sd.num_closure), 0.0);
     if (G_dump)
     {
-        _694.kg.f3[4 + ((rec_num - 1) * 64)] = f;
+        _685.kg.f3[4 + ((rec_num - 1) * 64)] = f;
     }
 }
 
@@ -3043,8 +2946,8 @@ void kernel_write_data_passes()
     {
         return;
     }
-    int flag = _1938.kernel_data.film.pass_flag;
-    int light_flag = _1938.kernel_data.film.light_pass_flag;
+    int flag = _1929.kernel_data.film.pass_flag;
+    int light_flag = _1929.kernel_data.film.light_pass_flag;
     if (!(((flag | light_flag) & (-1)) != int(0u)))
     {
         return;
@@ -3124,27 +3027,27 @@ bool triangle_world_space_vertices(int object, int prim, float time, inout vec4 
 float fast_acosf(float x)
 {
     float f = abs(x);
-    float _968;
+    float _959;
     if (f < 1.0)
     {
-        _968 = 1.0 - (1.0 - f);
+        _959 = 1.0 - (1.0 - f);
     }
     else
     {
-        _968 = 1.0;
+        _959 = 1.0;
     }
-    float m = _968;
+    float m = _959;
     float a = sqrt(1.0 - m) * (1.57079637050628662109375 + (m * ((-0.21330098807811737060546875) + (m * (0.077980481088161468505859375 + (m * (-0.02164095081388950347900390625)))))));
-    float _996;
+    float _987;
     if (x < 0.0)
     {
-        _996 = 3.1415927410125732421875 - a;
+        _987 = 3.1415927410125732421875 - a;
     }
     else
     {
-        _996 = a;
+        _987 = a;
     }
-    return _996;
+    return _987;
 }
 
 float len(vec3 a)
@@ -3160,7 +3063,7 @@ float triangle_area(vec4 v1, vec4 v2, vec4 v3)
 
 float triangle_light_pdf_area(vec4 Ng, vec4 I, float t)
 {
-    float pdf = _1938.kernel_data.integrator.pdf_triangles;
+    float pdf = _1929.kernel_data.integrator.pdf_triangles;
     float cos_pi = abs(dot(Ng.xyz, I.xyz));
     if (cos_pi == 0.0)
     {
@@ -3176,16 +3079,16 @@ float triangle_light_pdf(ShaderData sd_1, float t)
     float param_2 = sd_1.time;
     vec4 V[3];
     vec4 param_3[3] = V;
-    bool _4897 = triangle_world_space_vertices(param, param_1, param_2, param_3);
+    bool _4728 = triangle_world_space_vertices(param, param_1, param_2, param_3);
     V = param_3;
-    bool has_motion = _4897;
+    bool has_motion = _4728;
     vec4 e0 = V[1] - V[0];
     vec4 e1 = V[2] - V[0];
     vec4 e2 = V[2] - V[1];
     float longest_edge_squared = max(len_squared(e0), max(len_squared(e1), len_squared(e2)));
     vec4 param_4 = e0;
     vec4 param_5 = e1;
-    vec4 N = cross(param_4, param_5);
+    vec4 N = _cross(param_4, param_5);
     float distance_to_plane = abs(dot(N.xyz, (sd_1.I * t).xyz)) / dot(N.xyz, N.xyz);
     if (longest_edge_squared > (distance_to_plane * distance_to_plane))
     {
@@ -3195,13 +3098,13 @@ float triangle_light_pdf(ShaderData sd_1, float t)
         vec4 v2_p = V[2] - Px;
         vec4 param_6 = v0_p;
         vec4 param_7 = v1_p;
-        vec4 u01 = safe_normalize(cross(param_6, param_7));
+        vec4 u01 = safe_normalize(_cross(param_6, param_7));
         vec4 param_8 = v0_p;
         vec4 param_9 = v2_p;
-        vec4 u02 = safe_normalize(cross(param_8, param_9));
+        vec4 u02 = safe_normalize(_cross(param_8, param_9));
         vec4 param_10 = v1_p;
         vec4 param_11 = v2_p;
-        vec4 u12 = safe_normalize(cross(param_10, param_11));
+        vec4 u12 = safe_normalize(_cross(param_10, param_11));
         float param_12 = dot(u02.xyz, u01.xyz);
         float alpha = fast_acosf(param_12);
         float param_13 = -dot(u01.xyz, u12.xyz);
@@ -3222,7 +3125,7 @@ float triangle_light_pdf(ShaderData sd_1, float t)
                 int param_16 = sd_1.prim;
                 float param_17 = -1.0;
                 vec4 param_18[3] = V;
-                bool _5050 = triangle_world_space_vertices(param_15, param_16, param_17, param_18);
+                bool _4881 = triangle_world_space_vertices(param_15, param_16, param_17, param_18);
                 V = param_18;
                 area = triangle_area(V[0], V[1], V[2]);
             }
@@ -3230,7 +3133,7 @@ float triangle_light_pdf(ShaderData sd_1, float t)
             {
                 area = 0.5 * length(N.xyz);
             }
-            float pdf = area * _1938.kernel_data.integrator.pdf_triangles;
+            float pdf = area * _1929.kernel_data.integrator.pdf_triangles;
             return pdf / solid_angle;
         }
     }
@@ -3249,7 +3152,7 @@ float triangle_light_pdf(ShaderData sd_1, float t)
             int param_21 = sd_1.prim;
             float param_22 = -1.0;
             vec4 param_23[3] = V;
-            bool _5104 = triangle_world_space_vertices(param_20, param_21, param_22, param_23);
+            bool _4935 = triangle_world_space_vertices(param_20, param_21, param_22, param_23);
             V = param_23;
             float area_pre = triangle_area(V[0], V[1], V[2]);
             pdf_1 = (pdf_1 * area_pre) / area_1;
@@ -3261,23 +3164,23 @@ float triangle_light_pdf(ShaderData sd_1, float t)
 vec4 indirect_primitive_emission(float t, int path_flag, float bsdf_pdf)
 {
     vec4 L_1 = shader_emissive_eval();
-    bool _7834 = !((uint(path_flag) & 16384u) != 0u);
-    bool _7843;
-    if (_7834)
+    bool _7643 = !((uint(path_flag) & 16384u) != 0u);
+    bool _7652;
+    if (_7643)
     {
-        _7843 = (uint(sd.flag) & 65536u) != 0u;
+        _7652 = (uint(sd.flag) & 65536u) != 0u;
     }
     else
     {
-        _7843 = _7834;
+        _7652 = _7643;
     }
-    if (_7843)
+    if (_7652)
     {
         ShaderData param = sd;
         float param_1 = t;
-        float _7851 = triangle_light_pdf(param, param_1);
+        float _7660 = triangle_light_pdf(param, param_1);
         sd = param;
-        float pdf = _7851;
+        float pdf = _7660;
         float param_2 = bsdf_pdf;
         float param_3 = pdf;
         float mis_weight = power_heuristic(param_2, param_3);
@@ -3293,16 +3196,16 @@ void path_radiance_accum_emission(int state_flag, int state_bounce, vec4 through
         return;
     }
     vec4 contribution = throughput_1 * value;
-    float _5904;
+    float _5712;
     if ((state_bounce - 1) > 0)
     {
-        _5904 = _1938.kernel_data.integrator.sample_clamp_indirect;
+        _5712 = _1929.kernel_data.integrator.sample_clamp_indirect;
     }
     else
     {
-        _5904 = _1938.kernel_data.integrator.sample_clamp_direct;
+        _5712 = _1929.kernel_data.integrator.sample_clamp_direct;
     }
-    float limit = _5904;
+    float limit = _5712;
     float sum = reduce_add(abs(contribution));
     if (sum > limit)
     {
@@ -3337,7 +3240,7 @@ bool kernel_path_shader_apply(Ray ray)
     uint flag = uint(arg.state.flag);
     if (G_dump)
     {
-        _694.kg.u1[0 + ((rec_num - 1) * 64)] = flag;
+        _685.kg.u1[0 + ((rec_num - 1) * 64)] = flag;
     }
     if ((uint(sd.object_flag) & 128u) != 0u)
     {
@@ -3345,15 +3248,15 @@ bool kernel_path_shader_apply(Ray ray)
         {
             arg.state.flag |= 393216;
             vec4 bg = vec4(0.0);
-            if (!(_1938.kernel_data.background.transparent != int(0u)))
+            if (!(_1929.kernel_data.background.transparent != int(0u)))
             {
-                int _10378 = atomicAdd(_6852.counter[36], 1);
+                int _10198 = atomicAdd(_6660.counter[36], 1);
                 Ray param = ray;
-                vec4 _10381 = indirect_background(param);
-                bg = _10381;
+                vec4 _10201 = indirect_background(param);
+                bg = _10201;
                 if (G_dump)
                 {
-                    _694.kg.f3[5 + ((rec_num - 1) * 64)] = bg;
+                    _685.kg.f3[5 + ((rec_num - 1) * 64)] = bg;
                 }
             }
             vec4 param_1 = bg;
@@ -3364,20 +3267,20 @@ bool kernel_path_shader_apply(Ray ray)
     {
         if ((uint(arg.state.flag) & 131072u) != 0u)
         {
-            int _10403 = atomicAdd(_6852.counter[37], 1);
+            int _10224 = atomicAdd(_6660.counter[37], 1);
             L.shadow_transparency *= average(shader_bsdf_transparency());
         }
     }
     kernel_write_data_passes();
-    if (!(_1938.kernel_data.integrator.filter_glossy == 3.4028234663852885981170418348452e+38))
+    if (!(_1929.kernel_data.integrator.filter_glossy == 3.4028234663852885981170418348452e+38))
     {
-        float blur_pdf = _1938.kernel_data.integrator.filter_glossy * arg.state.min_ray_pdf;
+        float blur_pdf = _1929.kernel_data.integrator.filter_glossy * arg.state.min_ray_pdf;
         if (blur_pdf < 1.0)
         {
             float ply_tmp = sd.randb_closure;
             int ply_tmp2 = sd.num_closure_left;
             sd.num_closure_left = -1;
-            int _10435 = atomicAdd(_6852.counter[38], 1);
+            int _10256 = atomicAdd(_6660.counter[38], 1);
             sd.num_closure_left = -rec_num;
             sd.randb_closure = blur_pdf;
             executeCallableNV(2u, 1);
@@ -3387,12 +3290,12 @@ bool kernel_path_shader_apply(Ray ray)
     }
     if ((uint(sd.flag) & 2u) != 0u)
     {
-        int _10454 = atomicAdd(_6852.counter[39], 1);
+        int _10275 = atomicAdd(_6660.counter[39], 1);
         float param_2 = sd.ray_length;
         int param_3 = arg.state.flag;
         float param_4 = arg.state.ray_pdf;
-        vec4 _10465 = indirect_primitive_emission(param_2, param_3, param_4);
-        vec4 emission = _10465;
+        vec4 _10286 = indirect_primitive_emission(param_2, param_3, param_4);
+        vec4 emission = _10286;
         int param_5 = arg.state.flag;
         int param_6 = arg.state.bounce;
         vec4 param_7 = throughput;
@@ -3400,17 +3303,17 @@ bool kernel_path_shader_apply(Ray ray)
         path_radiance_accum_emission(param_5, param_6, param_7, param_8);
         if (G_dump)
         {
-            _694.kg.f3[6 + ((rec_num - 1) * 64)] = L.emission;
+            _685.kg.f3[6 + ((rec_num - 1) * 64)] = L.emission;
         }
         if (G_use_light_pass)
         {
             if (G_dump)
             {
-                _694.kg.f3[7 + ((rec_num - 1) * 64)] = L.direct_emission;
+                _685.kg.f3[7 + ((rec_num - 1) * 64)] = L.direct_emission;
             }
             if (G_dump)
             {
-                _694.kg.f3[8 + ((rec_num - 1) * 64)] = L.indirect;
+                _685.kg.f3[8 + ((rec_num - 1) * 64)] = L.indirect;
             }
         }
     }
@@ -3432,23 +3335,23 @@ float path_state_continuation_probability()
     {
         if ((uint(arg.state.flag) & 64u) != 0u)
         {
-            if (arg.state.transparent_bounce <= _1938.kernel_data.integrator.transparent_min_bounce)
+            if (arg.state.transparent_bounce <= _1929.kernel_data.integrator.transparent_min_bounce)
             {
                 return 1.0;
             }
             else
             {
-                bool _5537 = (uint(arg.state.flag) & 131072u) != 0u;
-                bool _5543;
-                if (_5537)
+                bool _5343 = (uint(arg.state.flag) & 131072u) != 0u;
+                bool _5349;
+                if (_5343)
                 {
-                    _5543 = arg.state.transparent_bounce <= 8;
+                    _5349 = arg.state.transparent_bounce <= 8;
                 }
                 else
                 {
-                    _5543 = _5537;
+                    _5349 = _5343;
                 }
-                if (_5543)
+                if (_5349)
                 {
                     return 1.0;
                 }
@@ -3456,23 +3359,23 @@ float path_state_continuation_probability()
         }
         else
         {
-            if (arg.state.bounce <= _1938.kernel_data.integrator.min_bounce)
+            if (arg.state.bounce <= _1929.kernel_data.integrator.min_bounce)
             {
                 return 1.0;
             }
             else
             {
-                bool _5561 = (uint(arg.state.flag) & 131072u) != 0u;
-                bool _5567;
-                if (_5561)
+                bool _5367 = (uint(arg.state.flag) & 131072u) != 0u;
+                bool _5373;
+                if (_5367)
                 {
-                    _5567 = arg.state.bounce <= 3;
+                    _5373 = arg.state.bounce <= 3;
                 }
                 else
                 {
-                    _5567 = _5561;
+                    _5373 = _5367;
                 }
-                if (_5567)
+                if (_5373)
                 {
                     return 1.0;
                 }
@@ -3490,7 +3393,7 @@ void path_state_rng_2D(PathState STATE, int dimension, out float fx, out float f
     arg2.v[2] = intBitsToFloat(STATE.num_samples);
     arg2.v[3] = intBitsToFloat(STATE.rng_offset + dimension);
     arg2.v[4] = uintBitsToFloat(1u);
-    arg2.v[5] = uintBitsToFloat(uint(_1938.kernel_data.integrator.sampling_pattern));
+    arg2.v[5] = uintBitsToFloat(uint(_1929.kernel_data.integrator.sampling_pattern));
     executeCallableNV(11u, 2);
     fx = arg2.v[0];
     fy = arg2.v[1];
@@ -3512,17 +3415,17 @@ int shader_bssrdf_pick(inout vec4 throughput_1, inout float randu)
             }
             else
             {
-                bool _9942 = push.pool_ptr.pool_sc.data[next].type >= 34u;
-                bool _9953;
-                if (_9942)
+                bool _9752 = push.pool_ptr.pool_sc.data[next].type >= 34u;
+                bool _9763;
+                if (_9752)
                 {
-                    _9953 = push.pool_ptr.pool_sc.data[next].type <= 39u;
+                    _9763 = push.pool_ptr.pool_sc.data[next].type <= 39u;
                 }
                 else
                 {
-                    _9953 = _9942;
+                    _9763 = _9752;
                 }
-                if (_9953)
+                if (_9763)
                 {
                     sum_bssrdf += push.pool_ptr.pool_sc.data[next].sample_weight;
                 }
@@ -3556,17 +3459,17 @@ int shader_bssrdf_pick(inout vec4 throughput_1, inout float randu)
             }
         }
     }
-    bool _10070 = push.pool_ptr.pool_sc.data[sampled].type >= 34u;
-    bool _10081;
-    if (_10070)
+    bool _9880 = push.pool_ptr.pool_sc.data[sampled].type >= 34u;
+    bool _9891;
+    if (_9880)
     {
-        _10081 = push.pool_ptr.pool_sc.data[sampled].type <= 39u;
+        _9891 = push.pool_ptr.pool_sc.data[sampled].type <= 39u;
     }
     else
     {
-        _10081 = _10070;
+        _9891 = _9880;
     }
-    return _10081 ? sampled : (-1);
+    return _9891 ? sampled : (-1);
 }
 
 uint lcg_state_init_addrspace(PathState state, uint scramble)
@@ -3629,11 +3532,11 @@ void shader_setup_from_subsurface(vec4 rayP, vec4 rayD, Intersection lisect)
         int param_3 = lisect.object;
         int param_4 = lisect.prim;
         int param_5 = lisect.type;
-        vec4 _8542 = triangle_refine(param, param_1, param_2, param_3, param_4, param_5);
-        sd.P = _8542;
+        vec4 _8352 = triangle_refine(param, param_1, param_2, param_3, param_4, param_5);
+        sd.P = _8352;
         if (G_dump)
         {
-            _694.kg.f3[30 + ((rec_num - 1) * 64)] = sd.P;
+            _685.kg.f3[30 + ((rec_num - 1) * 64)] = sd.P;
         }
         sd.Ng = Ng;
         sd.N = Ng;
@@ -3705,22 +3608,22 @@ void shader_setup_from_subsurface(vec4 rayP, vec4 rayD, Intersection lisect)
     sd.dv.dy = ((sd.dP.dy.y * sd.dPdu.x) - (sd.dP.dy.x * sd.dPdu.y)) * det;
     if (G_dump)
     {
-        _694.kg.f3[31 + ((rec_num - 1) * 64)] = sd.I;
+        _685.kg.f3[31 + ((rec_num - 1) * 64)] = sd.I;
     }
 }
 
 float safe_divide(float a, float b)
 {
-    float _952;
+    float _943;
     if (!(b == 0.0))
     {
-        _952 = a / b;
+        _943 = a / b;
     }
     else
     {
-        _952 = 0.0;
+        _943 = 0.0;
     }
-    return _952;
+    return _943;
 }
 
 vec4 shader_bssrdf_sum(inout vec4 N_, inout float texture_blur_)
@@ -3732,17 +3635,17 @@ vec4 shader_bssrdf_sum(inout vec4 N_, inout float texture_blur_)
     int it_begin = sd.alloc_offset;
     for (int i = 0; i < sd.num_closure; i++)
     {
-        bool _8992 = push.pool_ptr.pool_sc.data[sd.alloc_offset].type >= 34u;
-        bool _9004;
-        if (_8992)
+        bool _8802 = push.pool_ptr.pool_sc.data[sd.alloc_offset].type >= 34u;
+        bool _8814;
+        if (_8802)
         {
-            _9004 = push.pool_ptr.pool_sc.data[sd.alloc_offset].type <= 39u;
+            _8814 = push.pool_ptr.pool_sc.data[sd.alloc_offset].type <= 39u;
         }
         else
         {
-            _9004 = _8992;
+            _8814 = _8802;
         }
-        if (_9004)
+        if (_8814)
         {
             float avg_weight = abs(average(push.pool_ptr.pool_sc.data[sd.alloc_offset].weight));
             N += (push.pool_ptr.pool_sc.data[sd.alloc_offset].N * avg_weight);
@@ -3755,16 +3658,16 @@ vec4 shader_bssrdf_sum(inout vec4 N_, inout float texture_blur_)
     sd.alloc_offset = it_begin;
     if (!(N_.x == 3.4028234663852885981170418348452e+38))
     {
-        vec4 _9071;
+        vec4 _8881;
         if (is_zero(N))
         {
-            _9071 = sd.N;
+            _8881 = sd.N;
         }
         else
         {
-            _9071 = normalize(N);
+            _8881 = normalize(N);
         }
-        N_ = _9071;
+        N_ = _8881;
     }
     if (!(texture_blur_ == 3.4028234663852885981170418348452e+38))
     {
@@ -3777,36 +3680,36 @@ vec4 shader_bssrdf_sum(inout vec4 N_, inout float texture_blur_)
 
 vec4 safe_divide_color(vec4 a, vec4 b)
 {
-    float _895;
+    float _886;
     if (!(b.x == 0.0))
     {
-        _895 = a.x / b.x;
+        _886 = a.x / b.x;
     }
     else
     {
-        _895 = 0.0;
+        _886 = 0.0;
     }
-    float x = _895;
-    float _909;
+    float x = _886;
+    float _900;
     if (!(b.y == 0.0))
     {
-        _909 = a.y / b.y;
+        _900 = a.y / b.y;
     }
     else
     {
-        _909 = 0.0;
+        _900 = 0.0;
     }
-    float y = _909;
-    float _923;
+    float y = _900;
+    float _914;
     if (!(b.z == 0.0))
     {
-        _923 = a.z / b.z;
+        _914 = a.z / b.z;
     }
     else
     {
-        _923 = 0.0;
+        _914 = 0.0;
     }
-    float z = _923;
+    float z = _914;
     return vec4(x, y, z, 0.0);
 }
 
@@ -3815,10 +3718,10 @@ void subsurface_color_bump_blur(inout vec4 eval, vec4 N)
     vec4 param = null_flt3;
     float texture_blur;
     float param_1 = texture_blur;
-    vec4 _9099 = shader_bssrdf_sum(param, param_1);
+    vec4 _8909 = shader_bssrdf_sum(param, param_1);
     null_flt3 = param;
     texture_blur = param_1;
-    vec4 out_color = _9099;
+    vec4 out_color = _8909;
     bool bump = (uint(sd.flag) & 2097152u) != 0u;
     if (bump || (texture_blur > 0.0))
     {
@@ -3827,10 +3730,10 @@ void subsurface_color_bump_blur(inout vec4 eval, vec4 N)
         vec4 _N = bump ? N : null_flt3;
         vec4 param_3 = _N;
         float param_4 = null_flt;
-        vec4 _9130 = shader_bssrdf_sum(param_3, param_4);
+        vec4 _8940 = shader_bssrdf_sum(param_3, param_4);
         _N = param_3;
         null_flt = param_4;
-        vec4 in_color = _9130;
+        vec4 in_color = _8940;
         if (texture_blur > 0.0)
         {
             out_color = max(out_color, vec4(0.0));
@@ -3905,8 +3808,8 @@ int bsdf_alloc(uint size, vec4 weight)
 {
     uint param = 0u;
     vec4 param_1 = weight;
-    int _8943 = closure_alloc(param, param_1);
-    int n = _8943;
+    int _8753 = closure_alloc(param, param_1);
+    int n = _8753;
     if (n < 0)
     {
         return -1;
@@ -3920,14 +3823,14 @@ void subsurface_scatter_setup_diffuse_bsdf(uint type, float roughness, vec4 weig
 {
     sd.flag = int(uint(sd.flag) & 4294966017u);
     sd.num_closure = 0;
-    sd.num_closure_left = _1938.kernel_data.integrator.max_closures;
+    sd.num_closure_left = _1929.kernel_data.integrator.max_closures;
     sd.alloc_offset = sd.atomic_offset - 1;
     if ((type == 36u) || (type == 39u))
     {
         uint param = 0u;
         vec4 param_1 = weight;
-        int _9249 = bsdf_alloc(param, param_1);
-        int n = _9249;
+        int _9059 = bsdf_alloc(param, param_1);
+        int n = _9059;
         if (n >= 0)
         {
             push.pool_ptr.pool_sc.data[sd.alloc_offset].N = N;
@@ -3938,22 +3841,22 @@ void subsurface_scatter_setup_diffuse_bsdf(uint type, float roughness, vec4 weig
     }
     else
     {
-        bool _9287 = (type == 31u) || (type == 32u);
-        bool _9296;
-        if (!_9287)
+        bool _9097 = (type == 31u) || (type == 32u);
+        bool _9106;
+        if (!_9097)
         {
-            _9296 = (type >= 34u) && (type <= 39u);
+            _9106 = (type >= 34u) && (type <= 39u);
         }
         else
         {
-            _9296 = _9287;
+            _9106 = _9097;
         }
-        if (_9296)
+        if (_9106)
         {
             uint param_2 = 0u;
             vec4 param_3 = weight;
-            int _9303 = bsdf_alloc(param_2, param_3);
-            int n_1 = _9303;
+            int _9113 = bsdf_alloc(param_2, param_3);
+            int n_1 = _9113;
             if (n_1 >= 0)
             {
                 push.pool_ptr.pool_sc.data[sd.alloc_offset].N = N;
@@ -3994,15 +3897,15 @@ bool scene_intersect_shadow_all(uint visibility, uint max_hits)
     traceNV(topLevelAS, 8u, 255u, 1u, 0u, 1u, arg.ray.P.xyz, 0.0, arg.ray.D.xyz, arg.ray.t, 0);
     if (!(uint(isect.object) == 0u))
     {
-        int _7564 = atomicAdd(_6852.counter[41], 1);
+        int _7373 = atomicAdd(_6660.counter[41], 1);
     }
     if (G_dump)
     {
-        _694.kg.f3[18 + ((rec_num - 1) * 64)] = arg.ray.P;
+        _685.kg.f3[18 + ((rec_num - 1) * 64)] = arg.ray.P;
     }
     if (G_dump)
     {
-        _694.kg.u1[5 + ((rec_num - 1) * 64)] = floatBitsToUint(isect.u);
+        _685.kg.u1[5 + ((rec_num - 1) * 64)] = floatBitsToUint(isect.u);
     }
     return isect.object != int(0u);
 }
@@ -4019,23 +3922,23 @@ void sort_intersections(inout uint num_hits)
             int i = offset + j;
             if (push.pool_ptr2.pool_is.data[i].t > push.pool_ptr2.pool_is.data[i + 1].t)
             {
-                Intersection _7500;
-                _7500.t = push.pool_ptr2.pool_is.data[i].t;
-                _7500.u = push.pool_ptr2.pool_is.data[i].u;
-                _7500.v = push.pool_ptr2.pool_is.data[i].v;
-                _7500.prim = push.pool_ptr2.pool_is.data[i].prim;
-                _7500.object = push.pool_ptr2.pool_is.data[i].object;
-                _7500.type = push.pool_ptr2.pool_is.data[i].type;
-                Intersection tmp = _7500;
+                Intersection _7308;
+                _7308.t = push.pool_ptr2.pool_is.data[i].t;
+                _7308.u = push.pool_ptr2.pool_is.data[i].u;
+                _7308.v = push.pool_ptr2.pool_is.data[i].v;
+                _7308.prim = push.pool_ptr2.pool_is.data[i].prim;
+                _7308.object = push.pool_ptr2.pool_is.data[i].object;
+                _7308.type = push.pool_ptr2.pool_is.data[i].type;
+                Intersection tmp = _7308;
                 push.pool_ptr2.pool_is.data[i] = push.pool_ptr2.pool_is.data[i + 1];
-                Intersection _7523;
-                _7523.t = tmp.t;
-                _7523.u = tmp.u;
-                _7523.v = tmp.v;
-                _7523.prim = tmp.prim;
-                _7523.object = tmp.object;
-                _7523.type = tmp.type;
-                push.pool_ptr2.pool_is.data[i + 1] = _7523;
+                Intersection _7331;
+                _7331.t = tmp.t;
+                _7331.u = tmp.u;
+                _7331.v = tmp.v;
+                _7331.prim = tmp.prim;
+                _7331.object = tmp.object;
+                _7331.type = tmp.type;
+                push.pool_ptr2.pool_is.data[i + 1] = _7331;
                 swapped = true;
             }
         }
@@ -4046,14 +3949,14 @@ void sort_intersections(inout uint num_hits)
 bool shadow_handle_transparent_isect(int is, inout vec4 throughput_1)
 {
     ShaderData cacheSD = sd;
-    Intersection _7600;
-    _7600.t = push.pool_ptr2.pool_is.data[is].t;
-    _7600.u = push.pool_ptr2.pool_is.data[is].u;
-    _7600.v = push.pool_ptr2.pool_is.data[is].v;
-    _7600.prim = push.pool_ptr2.pool_is.data[is].prim;
-    _7600.object = push.pool_ptr2.pool_is.data[is].object;
-    _7600.type = push.pool_ptr2.pool_is.data[is].type;
-    isect = _7600;
+    Intersection _7409;
+    _7409.t = push.pool_ptr2.pool_is.data[is].t;
+    _7409.u = push.pool_ptr2.pool_is.data[is].u;
+    _7409.v = push.pool_ptr2.pool_is.data[is].v;
+    _7409.prim = push.pool_ptr2.pool_is.data[is].prim;
+    _7409.object = push.pool_ptr2.pool_is.data[is].object;
+    _7409.type = push.pool_ptr2.pool_is.data[is].type;
+    isect = _7409;
     sd.geometry = isect.type;
     sd.type = int(push.data_ptr._prim_type.data[isect.prim]);
     isect.type = sd.type;
@@ -4094,8 +3997,8 @@ bool shadow_blocked_transparent_all_loop(uint visibility, uint max_hits, inout v
 {
     uint param = visibility;
     uint param_1 = max_hits;
-    bool _7673 = scene_intersect_shadow_all(param, param_1);
-    bool blocked = _7673;
+    bool _7482 = scene_intersect_shadow_all(param, param_1);
+    bool blocked = _7482;
     uint num_hits = floatBitsToUint(isect.u);
     if ((!blocked) && (num_hits > 0u))
     {
@@ -4103,10 +4006,10 @@ bool shadow_blocked_transparent_all_loop(uint visibility, uint max_hits, inout v
         vec4 Pend = arg.ray.P + (arg.ray.D * arg.ray.t);
         float last_t = 0.0;
         int bounce = arg.state.transparent_bounce;
-        int _7703 = int(floatBitsToUint(isect.t));
+        int _7512 = int(floatBitsToUint(isect.t));
         uint param_2 = num_hits;
         sort_intersections(param_2);
-        for (int is = _7703, hit = 0; uint(hit) < num_hits; hit++, is++)
+        for (int is = _7512, hit = 0; uint(hit) < num_hits; hit++, is++)
         {
             float new_t = push.pool_ptr2.pool_is.data[is].t;
             push.pool_ptr2.pool_is.data[is].t -= last_t;
@@ -4117,9 +4020,9 @@ bool shadow_blocked_transparent_all_loop(uint visibility, uint max_hits, inout v
             last_t = new_t;
             int param_3 = is;
             vec4 param_4 = throughput_1;
-            bool _7746 = shadow_handle_transparent_isect(param_3, param_4);
+            bool _7555 = shadow_handle_transparent_isect(param_3, param_4);
             throughput_1 = param_4;
-            if (_7746)
+            if (_7555)
             {
                 return true;
             }
@@ -4127,9 +4030,9 @@ bool shadow_blocked_transparent_all_loop(uint visibility, uint max_hits, inout v
             if (!(arg.ray.t == 3.4028234663852885981170418348452e+38))
             {
                 float param_5 = arg.ray.t;
-                vec4 _7766 = normalize_len(Pend - arg.ray.P, param_5);
+                vec4 _7575 = normalize_len(Pend - arg.ray.P, param_5);
                 arg.ray.t = param_5;
-                arg.ray.D = _7766;
+                arg.ray.D = _7575;
             }
             bounce++;
         }
@@ -4147,7 +4050,7 @@ bool shadow_blocked(inout vec4 shadow)
         return false;
     }
     uint visibility = ((uint(arg.state.flag) & 131072u) != 0u) ? 640u : 1920u;
-    int transparent_max_bounce = _1938.kernel_data.integrator.transparent_max_bounce;
+    int transparent_max_bounce = _1929.kernel_data.integrator.transparent_max_bounce;
     if (arg.state.transparent_bounce >= transparent_max_bounce)
     {
         return true;
@@ -4157,9 +4060,9 @@ bool shadow_blocked(inout vec4 shadow)
     uint param = visibility;
     uint param_1 = max_hits;
     vec4 param_2 = shadow;
-    bool _7823 = shadow_blocked_transparent_all_loop(param, param_1, param_2);
+    bool _7632 = shadow_blocked_transparent_all_loop(param, param_1, param_2);
     shadow = param_2;
-    return _7823;
+    return _7632;
 }
 
 vec4 PLYMO_bsdf_eval_sum()
@@ -4190,16 +4093,16 @@ void path_radiance_accum_light(vec4 shadow, float shadow_fac, bool is_lamp)
     if (L.use_light_pass != 0)
     {
         vec4 full_contribution = shaded_throughput * PLYMO_bsdf_eval_sum();
-        float _6219;
+        float _6027;
         if (arg.state.bounce > 0)
         {
-            _6219 = _1938.kernel_data.integrator.sample_clamp_indirect;
+            _6027 = _1929.kernel_data.integrator.sample_clamp_indirect;
         }
         else
         {
-            _6219 = _1938.kernel_data.integrator.sample_clamp_direct;
+            _6027 = _1929.kernel_data.integrator.sample_clamp_direct;
         }
-        float limit = _6219;
+        float limit = _6027;
         float sum = reduce_add(abs(full_contribution));
         if (sum > limit)
         {
@@ -4227,16 +4130,16 @@ void path_radiance_accum_light(vec4 shadow, float shadow_fac, bool is_lamp)
     else
     {
         vec4 contribution = shaded_throughput * arg.L.emission;
-        float _6319;
+        float _6127;
         if (arg.state.bounce > 0)
         {
-            _6319 = _1938.kernel_data.integrator.sample_clamp_indirect;
+            _6127 = _1929.kernel_data.integrator.sample_clamp_indirect;
         }
         else
         {
-            _6319 = _1938.kernel_data.integrator.sample_clamp_direct;
+            _6127 = _1929.kernel_data.integrator.sample_clamp_direct;
         }
-        float limit_1 = _6319;
+        float limit_1 = _6127;
         float sum_1 = reduce_add(abs(contribution));
         if (sum_1 > limit_1)
         {
@@ -4273,12 +4176,12 @@ void kernel_path_surface_connect_light(float num_samples_adjust, int sample_all_
     arg.L.direct_emission.w = float(PROFI_IDX);
     arg.L.indirect.w = float(rec_num);
     int num_lights = 0;
-    if (_1938.kernel_data.integrator.use_direct_light != int(0u))
+    if (_1929.kernel_data.integrator.use_direct_light != int(0u))
     {
         if (sample_all_lights != int(0u))
         {
-            num_lights = _1938.kernel_data.integrator.num_all_lights;
-            if (!(_1938.kernel_data.integrator.pdf_triangles == 0.0))
+            num_lights = _1929.kernel_data.integrator.num_all_lights;
+            if (!(_1929.kernel_data.integrator.pdf_triangles == 0.0))
             {
                 num_lights++;
             }
@@ -4299,7 +4202,7 @@ void kernel_path_surface_connect_light(float num_samples_adjust, int sample_all_
         bool is_lamp = false;
         if (sample_all_lights != int(0u))
         {
-            is_lamp = i < _1938.kernel_data.integrator.num_all_lights;
+            is_lamp = i < _1929.kernel_data.integrator.num_all_lights;
             if (is_lamp)
             {
                 if (float(arg.state.bounce) > push.data_ptr._lights.data[i].max_bounces)
@@ -4308,18 +4211,18 @@ void kernel_path_surface_connect_light(float num_samples_adjust, int sample_all_
                 }
                 float param = num_samples_adjust * float(push.data_ptr._lights.data[i].samples);
                 num_samples = ceil_to_int(param);
-                num_all_lights = _1938.kernel_data.integrator.num_all_lights;
+                num_all_lights = _1929.kernel_data.integrator.num_all_lights;
                 uint param_1 = arg.state.rng_hash;
                 uint param_2 = uint(i);
-                uint _8264 = cmj_hash(param_1, param_2);
-                lamp_rng_hash = _8264;
-                double_pdf = !(_1938.kernel_data.integrator.pdf_triangles == 0.0);
+                uint _8073 = cmj_hash(param_1, param_2);
+                lamp_rng_hash = _8073;
+                double_pdf = !(_1929.kernel_data.integrator.pdf_triangles == 0.0);
             }
             else
             {
-                float param_3 = num_samples_adjust * float(_1938.kernel_data.integrator.mesh_light_samples);
+                float param_3 = num_samples_adjust * float(_1929.kernel_data.integrator.mesh_light_samples);
                 num_samples = ceil_to_int(param_3);
-                double_pdf = _1938.kernel_data.integrator.num_all_lights != 0;
+                double_pdf = _1929.kernel_data.integrator.num_all_lights != 0;
                 is_mesh_light = true;
             }
         }
@@ -4328,49 +4231,49 @@ void kernel_path_surface_connect_light(float num_samples_adjust, int sample_all_
         {
             arg.ray.t = 0.0;
             bool has_emission = false;
-            bool _8299 = _1938.kernel_data.integrator.use_direct_light != int(0u);
-            bool _8307;
-            if (_8299)
+            bool _8108 = _1929.kernel_data.integrator.use_direct_light != int(0u);
+            bool _8116;
+            if (_8108)
             {
-                _8307 = (uint(arg.sd.flag) & 8u) != 0u;
+                _8116 = (uint(arg.sd.flag) & 8u) != 0u;
             }
             else
             {
-                _8307 = _8299;
+                _8116 = _8108;
             }
-            if (_8307)
+            if (_8116)
             {
                 arg2.v[0] = uintBitsToFloat(lamp_rng_hash);
                 arg2.v[1] = intBitsToFloat((arg.state.sample_rsv * num_samples) + j);
                 arg2.v[2] = intBitsToFloat(arg.state.num_samples * num_samples);
                 arg2.v[3] = intBitsToFloat(arg.state.rng_offset + 2);
                 arg2.v[4] = uintBitsToFloat(1u);
-                arg2.v[5] = uintBitsToFloat(uint(_1938.kernel_data.integrator.sampling_pattern));
+                arg2.v[5] = uintBitsToFloat(uint(_1929.kernel_data.integrator.sampling_pattern));
                 executeCallableNV(11u, 2);
                 float light_u = arg2.v[0];
                 float light_v = arg2.v[1];
                 float terminate = 0.0;
-                if (_1938.kernel_data.integrator.light_inv_rr_threshold > 0.0)
+                if (_1929.kernel_data.integrator.light_inv_rr_threshold > 0.0)
                 {
                     arg2.v[0] = uintBitsToFloat(lamp_rng_hash);
                     arg2.v[1] = intBitsToFloat((arg.state.sample_rsv * num_samples) + j);
                     arg2.v[2] = intBitsToFloat(arg.state.num_samples * num_samples);
                     arg2.v[3] = intBitsToFloat(arg.state.rng_offset + 4);
                     arg2.v[4] = uintBitsToFloat(0u);
-                    arg2.v[5] = uintBitsToFloat(uint(_1938.kernel_data.integrator.sampling_pattern));
+                    arg2.v[5] = uintBitsToFloat(uint(_1929.kernel_data.integrator.sampling_pattern));
                     executeCallableNV(11u, 2);
                     terminate = arg2.v[0];
                 }
-                bool _8386;
+                bool _8195;
                 if (is_mesh_light)
                 {
-                    _8386 = double_pdf;
+                    _8195 = double_pdf;
                 }
                 else
                 {
-                    _8386 = is_mesh_light;
+                    _8195 = is_mesh_light;
                 }
-                if (_8386)
+                if (_8195)
                 {
                     light_u = 0.5 * light_u;
                 }
@@ -4380,9 +4283,9 @@ void kernel_path_surface_connect_light(float num_samples_adjust, int sample_all_
                 has_emission = arg.type != int(0u);
             }
             vec4 param_4 = shadow;
-            bool _8409 = shadow_blocked(param_4);
+            bool _8218 = shadow_blocked(param_4);
             shadow = param_4;
-            bool blocked = _8409;
+            bool blocked = _8218;
             if (has_emission)
             {
                 if (!blocked)
@@ -4399,18 +4302,18 @@ void kernel_path_surface_connect_light(float num_samples_adjust, int sample_all_
                     vec4 param_10 = arg.L.throughput;
                     path_radiance_accum_total_light(param_8, param_9, param_10);
                 }
-                int _8438 = atomicAdd(_6852.counter[42], 1);
+                int _8248 = atomicAdd(_6660.counter[42], 1);
                 if (G_dump)
                 {
-                    uint _8443 = atomicAdd(_694.kg.u1[4], 1u);
+                    uint _8253 = atomicAdd(_685.kg.u1[4], 1u);
                 }
                 if (G_dump)
                 {
-                    _694.kg.f3[13 + ((rec_num - 1) * 64)] = shadow;
+                    _685.kg.f3[13 + ((rec_num - 1) * 64)] = shadow;
                 }
                 if (G_dump)
                 {
-                    _694.kg.f3[14 + ((rec_num - 1) * 64)] = throughput;
+                    _685.kg.f3[14 + ((rec_num - 1) * 64)] = throughput;
                 }
             }
         }
@@ -4422,35 +4325,35 @@ bool PLYMO_bsdf_eval_is_zero()
 {
     if (floatBitsToInt(arg.ray.dP.dx.y) != 0)
     {
-        bool _1794 = is_zero(arg.L.emission);
-        bool _1800;
-        if (_1794)
+        bool _1785 = is_zero(arg.L.emission);
+        bool _1791;
+        if (_1785)
         {
-            _1800 = is_zero(arg.L.direct_emission);
+            _1791 = is_zero(arg.L.direct_emission);
         }
         else
         {
-            _1800 = _1794;
+            _1791 = _1785;
         }
-        bool _1806;
-        if (_1800)
+        bool _1797;
+        if (_1791)
         {
-            _1806 = is_zero(arg.L.indirect);
+            _1797 = is_zero(arg.L.indirect);
         }
         else
         {
-            _1806 = _1800;
+            _1797 = _1791;
         }
-        bool _1812;
-        if (_1806)
+        bool _1803;
+        if (_1797)
         {
-            _1812 = is_zero(arg.L.path_total);
+            _1803 = is_zero(arg.L.path_total);
         }
         else
         {
-            _1812 = _1806;
+            _1803 = _1797;
         }
-        return _1812;
+        return _1803;
     }
     else
     {
@@ -4461,19 +4364,19 @@ bool PLYMO_bsdf_eval_is_zero()
 void path_radiance_bsdf_bounce_local(int idx, float bsdf_pdf, int bounce, int bsdf_label)
 {
     float inverse_pdf = 1.0 / bsdf_pdf;
-    if (_1938.kernel_data.film.use_light_pass != int(0u))
+    if (_1929.kernel_data.film.use_light_pass != int(0u))
     {
-        bool _9523 = bounce == 0;
-        bool _9531;
-        if (_9523)
+        bool _9333 = bounce == 0;
+        bool _9341;
+        if (_9333)
         {
-            _9531 = !((uint(bsdf_label) & 32u) != 0u);
+            _9341 = !((uint(bsdf_label) & 32u) != 0u);
         }
         else
         {
-            _9531 = _9523;
+            _9341 = _9333;
         }
-        if (_9531)
+        if (_9341)
         {
             vec4 value = ss_indirect.throughputs[idx] * inverse_pdf;
             ss_indirect.L_state[idx].diffuse = arg.L.emission * value;
@@ -4499,11 +4402,11 @@ void path_state_next(inout PathState STATE, int label)
     {
         STATE.flag |= 64;
         STATE.transparent_bounce++;
-        if (STATE.transparent_bounce >= _1938.kernel_data.integrator.transparent_max_bounce)
+        if (STATE.transparent_bounce >= _1929.kernel_data.integrator.transparent_max_bounce)
         {
             STATE.flag |= 1048576;
         }
-        if (!(_1938.kernel_data.integrator.transparent_shadows != int(0u)))
+        if (!(_1929.kernel_data.integrator.transparent_shadows != int(0u)))
         {
             STATE.flag |= 16384;
         }
@@ -4511,7 +4414,7 @@ void path_state_next(inout PathState STATE, int label)
         return;
     }
     STATE.bounce++;
-    if (STATE.bounce >= _1938.kernel_data.integrator.max_bounce)
+    if (STATE.bounce >= _1929.kernel_data.integrator.max_bounce)
     {
         STATE.flag |= 2097152;
     }
@@ -4523,7 +4426,7 @@ void path_state_next(inout PathState STATE, int label)
         if ((uint(label) & 4u) != 0u)
         {
             STATE.diffuse_bounce++;
-            if (STATE.diffuse_bounce >= _1938.kernel_data.integrator.max_diffuse_bounce)
+            if (STATE.diffuse_bounce >= _1929.kernel_data.integrator.max_diffuse_bounce)
             {
                 STATE.flag |= 2097152;
             }
@@ -4531,7 +4434,7 @@ void path_state_next(inout PathState STATE, int label)
         else
         {
             STATE.glossy_bounce++;
-            if (STATE.glossy_bounce >= _1938.kernel_data.integrator.max_glossy_bounce)
+            if (STATE.glossy_bounce >= _1929.kernel_data.integrator.max_glossy_bounce)
             {
                 STATE.flag |= 2097152;
             }
@@ -4549,7 +4452,7 @@ void path_state_next(inout PathState STATE, int label)
             STATE.flag &= (-524289);
         }
         STATE.transmission_bounce++;
-        if (STATE.transmission_bounce >= _1938.kernel_data.integrator.max_transmission_bounce)
+        if (STATE.transmission_bounce >= _1929.kernel_data.integrator.max_transmission_bounce)
         {
             STATE.flag |= 2097152;
         }
@@ -4616,7 +4519,7 @@ bool kernel_path_surface_bounce_local()
 {
     if (G_dump)
     {
-        _694.kg.u1[2 + ((rec_num - 1) * 64)] = uint(sd.flag);
+        _685.kg.u1[2 + ((rec_num - 1) * 64)] = uint(sd.flag);
     }
     int idx = ss_indirect.num_rays;
     if ((uint(sd.flag) & 4u) != 0u)
@@ -4626,7 +4529,7 @@ bool kernel_path_surface_bounce_local()
         arg2.v[2] = intBitsToFloat(ss_indirect.state[idx].num_samples);
         arg2.v[3] = intBitsToFloat(ss_indirect.state[idx].rng_offset + 0);
         arg2.v[4] = uintBitsToFloat(1u);
-        arg2.v[5] = uintBitsToFloat(uint(_1938.kernel_data.integrator.sampling_pattern));
+        arg2.v[5] = uintBitsToFloat(uint(_1929.kernel_data.integrator.sampling_pattern));
         executeCallableNV(11u, 2);
         float randu = arg2.v[0];
         float randv = arg2.v[1];
@@ -4637,42 +4540,42 @@ bool kernel_path_surface_bounce_local()
         executeCallableNV(1u, 0);
         if (G_dump)
         {
-            _694.kg.f1[2 + ((rec_num - 1) * 64)] = arg.ray.dP.dx.w;
+            _685.kg.f1[2 + ((rec_num - 1) * 64)] = arg.ray.dP.dx.w;
         }
         if (G_dump)
         {
-            _694.kg.u1[3 + ((rec_num - 1) * 64)] = uint(floatBitsToInt(arg.ray.dP.dx.y));
+            _685.kg.u1[3 + ((rec_num - 1) * 64)] = uint(floatBitsToInt(arg.ray.dP.dx.y));
         }
         if (G_dump)
         {
-            _694.kg.f3[22 + ((rec_num - 1) * 64)] = arg.L.emission;
+            _685.kg.f3[22 + ((rec_num - 1) * 64)] = arg.L.emission;
         }
         if (floatBitsToInt(arg.ray.dP.dx.y) != int(0u))
         {
             if (G_dump)
             {
-                _694.kg.f3[23 + ((rec_num - 1) * 64)] = arg.L.direct_emission;
+                _685.kg.f3[23 + ((rec_num - 1) * 64)] = arg.L.direct_emission;
             }
             if (G_dump)
             {
-                _694.kg.f3[24 + ((rec_num - 1) * 64)] = arg.L.indirect;
+                _685.kg.f3[24 + ((rec_num - 1) * 64)] = arg.L.indirect;
             }
             if (G_dump)
             {
-                _694.kg.f3[25 + ((rec_num - 1) * 64)] = arg.L.path_total;
+                _685.kg.f3[25 + ((rec_num - 1) * 64)] = arg.L.path_total;
             }
         }
-        bool _9739 = arg.ray.dP.dx.w == 0.0;
-        bool _9744;
-        if (!_9739)
+        bool _9549 = arg.ray.dP.dx.w == 0.0;
+        bool _9554;
+        if (!_9549)
         {
-            _9744 = PLYMO_bsdf_eval_is_zero();
+            _9554 = PLYMO_bsdf_eval_is_zero();
         }
         else
         {
-            _9744 = _9739;
+            _9554 = _9549;
         }
-        if (_9744)
+        if (_9554)
         {
             return false;
         }
@@ -4684,7 +4587,7 @@ bool kernel_path_surface_bounce_local()
         path_radiance_bsdf_bounce_local(param, param_1, param_2, param_3);
         if (G_dump)
         {
-            _694.kg.f3[19 + ((rec_num - 1) * 64)] = ss_indirect.throughputs[idx];
+            _685.kg.f3[19 + ((rec_num - 1) * 64)] = ss_indirect.throughputs[idx];
         }
         if (!((uint(label) & 32u) != 0u))
         {
@@ -4696,24 +4599,24 @@ bool kernel_path_surface_bounce_local()
         int param_5 = label;
         path_state_next(param_4, param_5);
         ss_indirect.state[idx] = param_4;
-        vec4 _9811;
+        vec4 _9621;
         if ((uint(label) & 1u) != 0u)
         {
-            _9811 = -sd.Ng;
+            _9621 = -sd.Ng;
         }
         else
         {
-            _9811 = sd.Ng;
+            _9621 = sd.Ng;
         }
         vec4 param_6 = sd.P;
-        vec4 param_7 = _9811;
+        vec4 param_7 = _9621;
         ss_indirect.rays[idx].P = ray_offset(param_6, param_7);
         ss_indirect.rays[idx].D = vec4(normalize(vec4(intBitsToFloat(arg.use_light_pass), intBitsToFloat(arg.type), arg.ray.t, arg.ray.time).xyz), 0.0);
         if (idx == 0)
         {
             if (G_dump)
             {
-                _694.kg.f3[32 + ((rec_num - 1) * 64)] = ss_indirect.rays[idx].D;
+                _685.kg.f3[32 + ((rec_num - 1) * 64)] = ss_indirect.rays[idx].D;
             }
         }
         if (arg.state.bounce == 0)
@@ -4745,10 +4648,10 @@ bool kernel_path_subsurface_scatter(Ray ray)
     bssrdf_v = param_3;
     vec4 param_4 = throughput;
     float param_5 = bssrdf_u;
-    int _10104 = shader_bssrdf_pick(param_4, param_5);
+    int _9914 = shader_bssrdf_pick(param_4, param_5);
     throughput = param_4;
     bssrdf_u = param_5;
-    int n = _10104;
+    int n = _9914;
     if (n >= 0)
     {
         if (!(!((uint(arg.state.flag) & 32768u) != 0u)))
@@ -4764,30 +4667,36 @@ bool kernel_path_subsurface_scatter(Ray ray)
         float param_10 = bssrdf_u;
         float param_11 = bssrdf_v;
         bool param_12 = false;
-        int _10142 = subsurface_scatter_multi_intersect(param_8, param_9, param_10, param_11, param_12);
+        int _9952 = subsurface_scatter_multi_intersect(param_8, param_9, param_10, param_11, param_12);
         lcg_state = param_9;
-        int num_hits = _10142;
+        int num_hits = _9952;
         LocalIntersection_tiny ss_isect;
         for (int hit = 0; hit < num_hits; hit++)
         {
             int idx = sd.atomic_offset + hit;
-            Intersection _10171;
-            _10171.t = push.pool_ptr2.pool_is.data[idx].t;
-            _10171.u = push.pool_ptr2.pool_is.data[idx].u;
-            _10171.v = push.pool_ptr2.pool_is.data[idx].v;
-            _10171.prim = push.pool_ptr2.pool_is.data[idx].prim;
-            _10171.object = push.pool_ptr2.pool_is.data[idx].object;
-            _10171.type = push.pool_ptr2.pool_is.data[idx].type;
-            ss_isect.isect[hit] = _10171;
+            Intersection _9981;
+            _9981.t = push.pool_ptr2.pool_is.data[idx].t;
+            _9981.u = push.pool_ptr2.pool_is.data[idx].u;
+            _9981.v = push.pool_ptr2.pool_is.data[idx].v;
+            _9981.prim = push.pool_ptr2.pool_is.data[idx].prim;
+            _9981.object = push.pool_ptr2.pool_is.data[idx].object;
+            _9981.type = push.pool_ptr2.pool_is.data[idx].type;
+            ss_isect.isect[hit] = _9981;
             idx += 4;
-            vec3 _10196 = vec3(push.pool_ptr2.pool_is.data[idx].t, push.pool_ptr2.pool_is.data[idx].u, push.pool_ptr2.pool_is.data[idx].v);
-            ss_isect.weight[hit] = vec4(_10196.x, _10196.y, _10196.z, ss_isect.weight[hit].w);
+            vec3 _10006 = vec3(push.pool_ptr2.pool_is.data[idx].t, push.pool_ptr2.pool_is.data[idx].u, push.pool_ptr2.pool_is.data[idx].v);
+            ss_isect.weight[hit].x = _10006.x;
+            ss_isect.weight[hit].y = _10006.y;
+            ss_isect.weight[hit].z = _10006.z;
             if (hit == 0)
             {
-                vec3 _10210 = vec3(isect.t, isect.u, isect.v);
-                ss_isect.rayP = vec4(_10210.x, _10210.y, _10210.z, ss_isect.rayP.w);
-                vec3 _10223 = vec3(intBitsToFloat(isect.prim), intBitsToFloat(isect.object), intBitsToFloat(isect.type));
-                ss_isect.rayD = vec4(_10223.x, _10223.y, _10223.z, ss_isect.rayD.w);
+                vec3 _10023 = vec3(isect.t, isect.u, isect.v);
+                ss_isect.rayP.x = _10023.x;
+                ss_isect.rayP.y = _10023.y;
+                ss_isect.rayP.z = _10023.z;
+                vec3 _10039 = vec3(intBitsToFloat(isect.prim), intBitsToFloat(isect.object), intBitsToFloat(isect.type));
+                ss_isect.rayD.x = _10039.x;
+                ss_isect.rayD.y = _10039.y;
+                ss_isect.rayD.z = _10039.z;
             }
         }
         uint bssrdf_type = push.pool_ptr.pool_sc.data[n].type;
@@ -4819,8 +4728,8 @@ bool kernel_path_subsurface_scatter(Ray ray)
             ss_indirect.throughputs[ss_indirect.num_rays] = throughput;
             ss_indirect.L_state[ss_indirect.num_rays] = L.state;
             ss_indirect.state[ss_indirect.num_rays].rng_offset += 8;
-            bool _10323 = kernel_path_surface_bounce_local();
-            if (_10323)
+            bool _10142 = kernel_path_surface_bounce_local();
+            if (_10142)
             {
                 ss_indirect.state[ss_indirect.num_rays].ray_t = 0.0;
                 ss_indirect.num_rays++;
@@ -4834,19 +4743,19 @@ bool kernel_path_subsurface_scatter(Ray ray)
 void path_radiance_bsdf_bounce(float bsdf_pdf, int bounce, int bsdf_label)
 {
     float inverse_pdf = 1.0 / bsdf_pdf;
-    if (_1938.kernel_data.film.use_light_pass != int(0u))
+    if (_1929.kernel_data.film.use_light_pass != int(0u))
     {
-        bool _6114 = bounce == 0;
-        bool _6122;
-        if (_6114)
+        bool _5922 = bounce == 0;
+        bool _5930;
+        if (_5922)
         {
-            _6122 = !((uint(bsdf_label) & 32u) != 0u);
+            _5930 = !((uint(bsdf_label) & 32u) != 0u);
         }
         else
         {
-            _6122 = _6114;
+            _5930 = _5922;
         }
-        if (_6122)
+        if (_5930)
         {
             vec4 value = throughput * inverse_pdf;
             L.state.diffuse = arg.L.emission * value;
@@ -4870,7 +4779,7 @@ bool kernel_path_surface_bounce(inout Ray ray)
 {
     if (G_dump)
     {
-        _694.kg.u1[2 + ((rec_num - 1) * 64)] = uint(sd.flag);
+        _685.kg.u1[2 + ((rec_num - 1) * 64)] = uint(sd.flag);
     }
     if ((uint(sd.flag) & 4u) != 0u)
     {
@@ -4879,7 +4788,7 @@ bool kernel_path_surface_bounce(inout Ray ray)
         arg2.v[2] = intBitsToFloat(arg.state.num_samples);
         arg2.v[3] = intBitsToFloat(arg.state.rng_offset + 0);
         arg2.v[4] = uintBitsToFloat(1u);
-        arg2.v[5] = uintBitsToFloat(uint(_1938.kernel_data.integrator.sampling_pattern));
+        arg2.v[5] = uintBitsToFloat(uint(_1929.kernel_data.integrator.sampling_pattern));
         executeCallableNV(11u, 2);
         float randu = arg2.v[0];
         float randv = arg2.v[1];
@@ -4890,42 +4799,42 @@ bool kernel_path_surface_bounce(inout Ray ray)
         executeCallableNV(1u, 0);
         if (G_dump)
         {
-            _694.kg.f1[2 + ((rec_num - 1) * 64)] = arg.ray.dP.dx.w;
+            _685.kg.f1[2 + ((rec_num - 1) * 64)] = arg.ray.dP.dx.w;
         }
         if (G_dump)
         {
-            _694.kg.u1[3 + ((rec_num - 1) * 64)] = uint(floatBitsToInt(arg.ray.dP.dx.y));
+            _685.kg.u1[3 + ((rec_num - 1) * 64)] = uint(floatBitsToInt(arg.ray.dP.dx.y));
         }
         if (G_dump)
         {
-            _694.kg.f3[22 + ((rec_num - 1) * 64)] = arg.L.emission;
+            _685.kg.f3[22 + ((rec_num - 1) * 64)] = arg.L.emission;
         }
         if (floatBitsToInt(arg.ray.dP.dx.y) != int(0u))
         {
             if (G_dump)
             {
-                _694.kg.f3[23 + ((rec_num - 1) * 64)] = arg.L.direct_emission;
+                _685.kg.f3[23 + ((rec_num - 1) * 64)] = arg.L.direct_emission;
             }
             if (G_dump)
             {
-                _694.kg.f3[24 + ((rec_num - 1) * 64)] = arg.L.indirect;
+                _685.kg.f3[24 + ((rec_num - 1) * 64)] = arg.L.indirect;
             }
             if (G_dump)
             {
-                _694.kg.f3[25 + ((rec_num - 1) * 64)] = arg.L.path_total;
+                _685.kg.f3[25 + ((rec_num - 1) * 64)] = arg.L.path_total;
             }
         }
-        bool _6481 = arg.ray.dP.dx.w == 0.0;
-        bool _6486;
-        if (!_6481)
+        bool _6289 = arg.ray.dP.dx.w == 0.0;
+        bool _6294;
+        if (!_6289)
         {
-            _6486 = PLYMO_bsdf_eval_is_zero();
+            _6294 = PLYMO_bsdf_eval_is_zero();
         }
         else
         {
-            _6486 = _6481;
+            _6294 = _6289;
         }
-        if (_6486)
+        if (_6294)
         {
             return false;
         }
@@ -4936,7 +4845,7 @@ bool kernel_path_surface_bounce(inout Ray ray)
         path_radiance_bsdf_bounce(param, param_1, param_2);
         if (G_dump)
         {
-            _694.kg.f3[19 + ((rec_num - 1) * 64)] = throughput;
+            _685.kg.f3[19 + ((rec_num - 1) * 64)] = throughput;
         }
         if (!((uint(label) & 32u) != 0u))
         {
@@ -4948,17 +4857,17 @@ bool kernel_path_surface_bounce(inout Ray ray)
         int param_4 = label;
         path_state_next(param_3, param_4);
         arg.state = param_3;
-        vec4 _6542;
+        vec4 _6350;
         if ((uint(label) & 1u) != 0u)
         {
-            _6542 = -sd.Ng;
+            _6350 = -sd.Ng;
         }
         else
         {
-            _6542 = sd.Ng;
+            _6350 = sd.Ng;
         }
         vec4 param_5 = sd.P;
-        vec4 param_6 = _6542;
+        vec4 param_6 = _6350;
         ray.P = ray_offset(param_5, param_6);
         ray.D = vec4(normalize(vec4(intBitsToFloat(arg.use_light_pass), intBitsToFloat(arg.type), arg.ray.t, arg.ray.time).xyz), 0.0);
         if (arg.state.bounce == 0)
@@ -5033,7 +4942,7 @@ void path_radiance_sum_shadowcatcher(inout vec4 L_sum, inout float alpha)
             shadow = path_total_shaded / path_total;
         }
     }
-    if (_1938.kernel_data.background.transparent != 0)
+    if (_1929.kernel_data.background.transparent != 0)
     {
         alpha -= (L.shadow_throughput * shadow);
     }
@@ -5052,7 +4961,7 @@ vec4 path_radiance_clamp_and_sum(inout float alpha)
         path_radiance_sum_indirect();
         vec4 L_direct = ((L.direct_diffuse + L.direct_glossy) + L.direct_transmission) + L.emission;
         vec4 L_indirect = (L.indirect_diffuse + L.indirect_glossy) + L.indirect_transmission;
-        if (_1938.kernel_data.background.transparent == 0)
+        if (_1929.kernel_data.background.transparent == 0)
         {
             L_direct += L.background;
         }
@@ -5107,10 +5016,10 @@ void kernel_write_result(int buffer_ofs, int sample_rsv)
 {
     float alpha;
     float param = alpha;
-    vec4 _7894 = path_radiance_clamp_and_sum(param);
+    vec4 _7703 = path_radiance_clamp_and_sum(param);
     alpha = param;
-    vec4 L_sum = _7894;
-    if ((_1938.kernel_data.film.pass_flag & 2) != int(0u))
+    vec4 L_sum = _7703;
+    if ((_1929.kernel_data.film.pass_flag & 2) != int(0u))
     {
         int param_1 = buffer_ofs;
         vec4 param_2 = vec4(L_sum.x, L_sum.y, L_sum.z, alpha);
@@ -5152,15 +5061,17 @@ void main()
     EXTENSION_NUM_TYPES = 3u;
     G_dump = false;
     rec_num = 0;
-    Dpixel = _694.kg.pixel;
+    Dpixel = _685.kg.pixel;
     rec_num = 0;
     G_dump = false;
     if (all(equal(Dpixel, gl_LaunchIDNV.xy)))
     {
         G_dump = true;
-        G_use_light_pass = _1938.kernel_data.film.use_light_pass != int(0u);
+        G_use_light_pass = _1929.kernel_data.film.use_light_pass != int(0u);
     }
-    PROFI_IDX = 12345;
+    PROFI_IDX = int(gl_LaunchIDNV.x + (gl_LaunchIDNV.y * 512u));
+    int atomic_offset = int(((((gl_BuiltIn_5377 * gl_BuiltIn_5374) + gl_BuiltIn_5376) * gl_SubgroupSize) + gl_SubgroupInvocationID) * 64u);
+    push.pool_ptr.pool_sc.data[PROFI_IDX + 2228224].weight = vec4(float(atomic_offset), float(gl_BuiltIn_5376), float(gl_SubgroupInvocationID), float(PROFI_IDX));
     path_radiance_init();
     int sample_rsv = 0;
     uint rng_hash = 0u;
@@ -5180,7 +5091,7 @@ void main()
     uint param_5 = rng_hash;
     int param_6 = sample_rsv;
     path_state_init(param_5, param_6);
-    sd.atomic_offset = int(((((gl_BuiltIn_5377 * gl_BuiltIn_5374) + gl_BuiltIn_5376) * gl_SubgroupSize) + gl_SubgroupInvocationID) * 64u);
+    sd.atomic_offset = int(((((gl_BuiltIn_5377 * 32u) + gl_BuiltIn_5376) * gl_SubgroupSize) + gl_SubgroupInvocationID) * 64u);
     throughput = vec4(1.0);
     ss_indirect.num_rays = 0;
     while (true)
@@ -5188,20 +5099,20 @@ void main()
         while (true)
         {
             Ray param_7 = ray;
-            bool _10829 = kernel_path_scene_intersect(param_7);
-            bool hit = _10829;
+            bool _10684 = kernel_path_scene_intersect(param_7);
+            bool hit = _10684;
             if (rec_num == 0)
             {
                 if (!hit)
                 {
-                    int _10839 = atomicAdd(_6852.counter[0], 1);
+                    int _10694 = atomicAdd(_6660.counter[0], 1);
                 }
                 else
                 {
-                    int _10842 = atomicAdd(_6852.counter[1], 1);
+                    int _10697 = atomicAdd(_6660.counter[1], 1);
                 }
             }
-            int _10846 = atomicAdd(_6852.counter[2 + rec_num], 1);
+            int _10701 = atomicAdd(_6660.counter[2 + rec_num], 1);
             rec_num++;
             Ray param_8 = ray;
             kernel_path_lamp_emission(param_8);
@@ -5215,7 +5126,7 @@ void main()
             {
                 if (path_state_ao_bounce())
                 {
-                    int _10865 = atomicAdd(_6852.counter[33], 1);
+                    int _10720 = atomicAdd(_6660.counter[33], 1);
                     break;
                 }
             }
@@ -5225,8 +5136,8 @@ void main()
             shader_eval_surface(param_11);
             shader_prepare_closures();
             Ray param_12 = ray;
-            bool _10878 = kernel_path_shader_apply(param_12);
-            if (!_10878)
+            bool _10733 = kernel_path_shader_apply(param_12);
+            if (!_10733)
             {
                 break;
             }
@@ -5244,7 +5155,7 @@ void main()
                     arg2.v[2] = intBitsToFloat(arg.state.num_samples);
                     arg2.v[3] = intBitsToFloat(arg.state.rng_offset + 5);
                     arg2.v[4] = uintBitsToFloat(0u);
-                    arg2.v[5] = uintBitsToFloat(uint(_1938.kernel_data.integrator.sampling_pattern));
+                    arg2.v[5] = uintBitsToFloat(uint(_1929.kernel_data.integrator.sampling_pattern));
                     executeCallableNV(11u, 2);
                     float terminate = arg2.v[0];
                     if (terminate >= probability)
@@ -5257,8 +5168,8 @@ void main()
             if ((uint(sd.flag) & 16u) != 0u)
             {
                 Ray param_13 = ray;
-                bool _10941 = kernel_path_subsurface_scatter(param_13);
-                if (_10941)
+                bool _10796 = kernel_path_subsurface_scatter(param_13);
+                if (_10796)
                 {
                     break;
                 }
@@ -5268,21 +5179,21 @@ void main()
             int param_15 = _all;
             kernel_path_surface_connect_light(param_14, param_15);
             Ray param_16 = ray;
-            bool _10955 = kernel_path_surface_bounce(param_16);
+            bool _10810 = kernel_path_surface_bounce(param_16);
             ray = param_16;
-            if (!_10955)
+            if (!_10810)
             {
-                int _10962 = atomicAdd(_6852.counter[43], 1);
+                int _10817 = atomicAdd(_6660.counter[43], 1);
                 break;
             }
             uint bounce = uint(arg.state.bounce);
             if (G_dump)
             {
-                _694.kg.u1[1 + ((rec_num - 1) * 64)] = bounce;
+                _685.kg.u1[1 + ((rec_num - 1) * 64)] = bounce;
             }
             if (G_dump)
             {
-                _694.kg.f3[20 + ((rec_num - 1) * 64)] = ray.D;
+                _685.kg.f3[20 + ((rec_num - 1) * 64)] = ray.D;
             }
         }
         if (ss_indirect.num_rays != int(0u))
@@ -5297,7 +5208,7 @@ void main()
             arg.state.rng_offset += int(uint(ss_indirect.num_rays) * 8u);
             if (G_dump)
             {
-                _694.kg.f3[33 + ((rec_num - 1) * 64)] = throughput;
+                _685.kg.f3[33 + ((rec_num - 1) * 64)] = throughput;
             }
         }
         else
@@ -5307,7 +5218,7 @@ void main()
     }
     if (G_dump)
     {
-        _6852.counter[1000] = rec_num;
+        _6660.counter[1000] = rec_num;
     }
     int param_17 = 0;
     int param_18 = sample_rsv;

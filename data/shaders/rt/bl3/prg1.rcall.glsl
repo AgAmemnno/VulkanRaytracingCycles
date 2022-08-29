@@ -634,12 +634,12 @@ layout(set = 2, binding = 1, std430) buffer KG
 layout(set = 2, binding = 0, std430) buffer KD
 {
     KernelData kernel_data;
-} _10866;
+} _10874;
 
 layout(set = 2, binding = 2, std430) buffer Alloc
 {
     int counter[1024];
-} _11467;
+} _11475;
 
 layout(push_constant, std430) uniform PushData
 {
@@ -709,17 +709,17 @@ void PLYMO_bsdf_eval_init(uint type, vec4 value, int use_light)
         }
         else
         {
-            bool _1501 = (type >= 2u) && (type <= 8u);
-            bool _1512;
-            if (!_1501)
+            bool _1509 = (type >= 2u) && (type <= 8u);
+            bool _1520;
+            if (!_1509)
             {
-                _1512 = (type == 31u) || (type == 32u);
+                _1520 = (type == 31u) || (type == 32u);
             }
             else
             {
-                _1512 = _1501;
+                _1520 = _1509;
             }
-            if (_1512)
+            if (_1520)
             {
                 arg.eval.diffuse = value;
             }
@@ -955,17 +955,17 @@ vec4 interpolate_fresnel_color(vec4 L, vec4 H, float ior, float F0, vec4 cspec0)
 vec4 reflection_color(vec4 L, vec4 H)
 {
     vec4 F = vec4(1.0, 1.0, 1.0, 0.0);
-    bool _2820 = sc.type == 11u;
-    bool _2828;
-    if (!_2820)
+    bool _2828 = sc.type == 11u;
+    bool _2836;
+    if (!_2828)
     {
-        _2828 = sc.type == 12u;
+        _2836 = sc.type == 12u;
     }
     else
     {
-        _2828 = _2820;
+        _2836 = _2828;
     }
-    bool use_fresnel = _2828;
+    bool use_fresnel = _2836;
     if (use_fresnel)
     {
         float param = 1.0;
@@ -987,16 +987,16 @@ vec4 bsdf_microfacet_ggx_eval_reflect(vec4 I, vec4 omega_in, inout float pdf)
     float alpha_y = sc.data[1];
     bool m_refractive = sc.type == 23u;
     vec4 N = sc.N;
-    bool _2910;
+    bool _2918;
     if (!m_refractive)
     {
-        _2910 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
+        _2918 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
     }
     else
     {
-        _2910 = m_refractive;
+        _2918 = m_refractive;
     }
-    if (_2910)
+    if (_2918)
     {
         return vec4(0.0);
     }
@@ -1117,16 +1117,16 @@ vec4 bsdf_microfacet_beckmann_eval_reflect(vec4 I, vec4 omega_in, inout float pd
     float alpha_y = sc.data[1];
     bool m_refractive = sc.type == 22u;
     vec4 N = sc.N;
-    bool _4148;
+    bool _4156;
     if (!m_refractive)
     {
-        _4148 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
+        _4156 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
     }
     else
     {
-        _4148 = m_refractive;
+        _4156 = m_refractive;
     }
-    if (_4148)
+    if (_4156)
     {
         return vec4(0.0);
     }
@@ -1148,12 +1148,12 @@ vec4 bsdf_microfacet_beckmann_eval_reflect(vec4 I, vec4 omega_in, inout float pd
             D = exp((-tanThetaM2) / alpha2) / ((3.1415927410125732421875 * alpha2) * cosThetaM4);
             float param = alpha_x;
             float param_1 = cosNO;
-            float _4221 = bsdf_beckmann_G1(param, param_1);
-            G1o = _4221;
+            float _4229 = bsdf_beckmann_G1(param, param_1);
+            G1o = _4229;
             float param_2 = alpha_x;
             float param_3 = cosNI;
-            float _4227 = bsdf_beckmann_G1(param_2, param_3);
-            G1i = _4227;
+            float _4235 = bsdf_beckmann_G1(param_2, param_3);
+            G1i = _4235;
         }
         else
         {
@@ -1177,15 +1177,15 @@ vec4 bsdf_microfacet_beckmann_eval_reflect(vec4 I, vec4 omega_in, inout float pd
             float param_8 = cosNO;
             float param_9 = dot(I.xyz, X.xyz);
             float param_10 = dot(I.xyz, Y.xyz);
-            float _4324 = bsdf_beckmann_aniso_G1(param_6, param_7, param_8, param_9, param_10);
-            G1o = _4324;
+            float _4332 = bsdf_beckmann_aniso_G1(param_6, param_7, param_8, param_9, param_10);
+            G1o = _4332;
             float param_11 = alpha_x;
             float param_12 = alpha_y;
             float param_13 = cosNI;
             float param_14 = dot(omega_in.xyz, X.xyz);
             float param_15 = dot(omega_in.xyz, Y.xyz);
-            float _4341 = bsdf_beckmann_aniso_G1(param_11, param_12, param_13, param_14, param_15);
-            G1i = _4341;
+            float _4349 = bsdf_beckmann_aniso_G1(param_11, param_12, param_13, param_14, param_15);
+            G1i = _4349;
         }
         float G = G1o * G1i;
         float common_rsv = (D * 0.25) / cosNO;
@@ -1221,10 +1221,15 @@ void make_orthonormals(vec4 N, inout vec4 a, inout vec4 b)
     {
         a = vec4(N.z - N.y, N.x + N.z, (-N.y) - N.x, 0.0);
     }
-    vec3 _1143 = normalize(a.xyz);
-    a = vec4(_1143.x, _1143.y, _1143.z, a.w);
-    vec3 _1150 = cross(N.xyz, a.xyz);
-    b = vec4(_1150.x, _1150.y, _1150.z, b.w);
+    vec4 _1141 = a;
+    vec3 _1143 = normalize(_1141.xyz);
+    a.x = _1143.x;
+    a.y = _1143.y;
+    a.z = _1143.z;
+    vec3 _1154 = cross(N.xyz, a.xyz);
+    b.x = _1154.x;
+    b.y = _1154.y;
+    b.z = _1154.z;
 }
 
 float D_ggx_aniso(vec4 wm, vec2 alpha)
@@ -1288,8 +1293,8 @@ float mf_ggx_pdf(vec4 wi, vec4 wo, float alpha)
 {
     vec4 param = vec4(normalize((wi + wo).xyz), 0.0);
     float param_1 = alpha;
-    float _5934 = D_ggx(param, param_1);
-    float D = _5934;
+    float _5942 = D_ggx(param, param_1);
+    float D = _5942;
     float lambda = mf_lambda(wi, vec2(alpha));
     float singlescatter = (0.25 * D) / max((1.0 + lambda) * wi.z, 1.0000000116860974230803549289703e-07);
     float multiscatter = wo.z * 0.3183098733425140380859375;
@@ -1359,17 +1364,17 @@ bool mf_sample_height(vec4 w, inout float h, inout float C1, inout float G1, flo
 
 vec2 mf_sampleP22_11(float cosI, float randx, float randy)
 {
-    bool _5167 = cosI > 0.99989998340606689453125;
-    bool _5173;
-    if (!_5167)
+    bool _5175 = cosI > 0.99989998340606689453125;
+    bool _5181;
+    if (!_5175)
     {
-        _5173 = abs(cosI) < 9.9999999747524270787835121154785e-07;
+        _5181 = abs(cosI) < 9.9999999747524270787835121154785e-07;
     }
     else
     {
-        _5173 = _5167;
+        _5181 = _5175;
     }
-    if (_5173)
+    if (_5181)
     {
         float r = sqrt(randx / max(1.0 - randx, 1.0000000116860974230803549289703e-07));
         float phi = 6.283185482025146484375 * randy;
@@ -1393,26 +1398,26 @@ vec2 mf_sampleP22_11(float cosI, float randx, float randy)
     float param_1 = (((tanI * tanI) * tmp) * tmp) - (((A_1 * A_1) - (tanI * tanI)) * tmp);
     float D = safe_sqrtf(param_1);
     float slopeX2 = (tanI * tmp) + D;
-    bool _5257 = A_1 < 0.0;
-    bool _5265;
-    if (!_5257)
+    bool _5265 = A_1 < 0.0;
+    bool _5273;
+    if (!_5265)
     {
-        _5265 = slopeX2 > (1.0 / tanI);
+        _5273 = slopeX2 > (1.0 / tanI);
     }
     else
     {
-        _5265 = _5257;
+        _5273 = _5265;
     }
-    float _5266;
-    if (_5265)
+    float _5274;
+    if (_5273)
     {
-        _5266 = (tanI * tmp) - D;
+        _5274 = (tanI * tmp) - D;
     }
     else
     {
-        _5266 = slopeX2;
+        _5274 = slopeX2;
     }
-    float slopeX = _5266;
+    float slopeX = _5274;
     float U2;
     if (randy >= 0.5)
     {
@@ -1510,16 +1515,16 @@ vec4 mf_eval_phase_glossy(vec4 w, float lambda, vec4 wo, vec2 alpha)
     {
         return vec4(0.0);
     }
-    float _5425;
+    float _5433;
     if (w.z < (-0.99989998340606689453125))
     {
-        _5425 = 1.0;
+        _5433 = 1.0;
     }
     else
     {
-        _5425 = lambda * w.z;
+        _5433 = lambda * w.z;
     }
-    float pArea = _5425;
+    float pArea = _5433;
     float dotW_WH = dot((-w).xyz, wh.xyz);
     if (dotW_WH < 0.0)
     {
@@ -1530,8 +1535,8 @@ vec4 mf_eval_phase_glossy(vec4 w, float lambda, vec4 wo, vec2 alpha)
     {
         vec4 param = wh;
         float param_1 = alpha.x;
-        float _5461 = D_ggx(param, param_1);
-        phase *= _5461;
+        float _5469 = D_ggx(param, param_1);
+        phase *= _5469;
     }
     else
     {
@@ -1560,41 +1565,41 @@ vec4 mf_eval_glossy(inout vec4 wi, inout vec4 wo, bool wo_outside, vec4 color, f
         wo = wi;
         wi = tmp;
     }
-    bool _6714 = wi.z < 9.9999997473787516355514526367188e-06;
-    bool _6722;
-    if (!_6714)
-    {
-        _6722 = (wo.z < 9.9999997473787516355514526367188e-06) && wo_outside;
-    }
-    else
-    {
-        _6722 = _6714;
-    }
-    bool _6731;
+    bool _6722 = wi.z < 9.9999997473787516355514526367188e-06;
+    bool _6730;
     if (!_6722)
     {
-        _6731 = (wo.z > (-9.9999997473787516355514526367188e-06)) && (!wo_outside);
+        _6730 = (wo.z < 9.9999997473787516355514526367188e-06) && wo_outside;
     }
     else
     {
-        _6731 = _6722;
+        _6730 = _6722;
     }
-    if (_6731)
+    bool _6739;
+    if (!_6730)
+    {
+        _6739 = (wo.z > (-9.9999997473787516355514526367188e-06)) && (!wo_outside);
+    }
+    else
+    {
+        _6739 = _6730;
+    }
+    if (_6739)
     {
         return vec4(0.0);
     }
     vec2 alpha = vec2(alpha_x, alpha_y);
     float lambda_r = mf_lambda(-wi, alpha);
-    vec4 _6743;
+    vec4 _6751;
     if (wo_outside)
     {
-        _6743 = wo;
+        _6751 = wo;
     }
     else
     {
-        _6743 = -wo;
+        _6751 = -wo;
     }
-    float shadowing_lambda = mf_lambda(_6743, alpha);
+    float shadowing_lambda = mf_lambda(_6751, alpha);
     vec4 throughput = vec4(1.0, 1.0, 1.0, 0.0);
     vec4 wh = vec4(normalize((wi + wo).xyz), 0.0);
     float G2 = 1.0 / ((1.0 - (lambda_r + 1.0)) + shadowing_lambda);
@@ -1603,8 +1608,8 @@ vec4 mf_eval_glossy(inout vec4 wi, inout vec4 wo, bool wo_outside, vec4 color, f
     {
         vec4 param = wh;
         float param_1 = alpha.x;
-        float _6789 = D_ggx(param, param_1);
-        val *= _6789;
+        float _6797 = D_ggx(param, param_1);
+        val *= _6797;
     }
     else
     {
@@ -1629,56 +1634,56 @@ vec4 mf_eval_glossy(inout vec4 wi, inout vec4 wo, bool wo_outside, vec4 color, f
     float C1_r = 1.0;
     float G1_r = 0.0;
     bool outside = true;
-    vec4 _6893;
-    float _6903;
+    vec4 _6901;
+    float _6911;
     for (int order = 0; order < 10; order++)
     {
         uint param_9 = lcg_state;
-        float _6840 = lcg_step_float_addrspace(param_9);
+        float _6848 = lcg_step_float_addrspace(param_9);
         lcg_state = param_9;
-        float height_rand = _6840;
+        float height_rand = _6848;
         float param_10 = hr;
         float param_11 = C1_r;
         float param_12 = G1_r;
         float param_13 = lambda_r;
-        bool _6852 = mf_sample_height(wr, param_10, param_11, param_12, param_13, height_rand);
+        bool _6860 = mf_sample_height(wr, param_10, param_11, param_12, param_13, height_rand);
         hr = param_10;
         C1_r = param_11;
         G1_r = param_12;
         lambda_r = param_13;
-        if (!_6852)
+        if (!_6860)
         {
             break;
         }
         uint param_14 = lcg_state;
-        float _6864 = lcg_step_float_addrspace(param_14);
+        float _6872 = lcg_step_float_addrspace(param_14);
         lcg_state = param_14;
-        float vndf_rand_y = _6864;
+        float vndf_rand_y = _6872;
         uint param_15 = lcg_state;
-        float _6869 = lcg_step_float_addrspace(param_15);
+        float _6877 = lcg_step_float_addrspace(param_15);
         lcg_state = param_15;
-        float vndf_rand_x = _6869;
+        float vndf_rand_x = _6877;
         vec4 wm = mf_sample_vndf(-wr, alpha, vndf_rand_x, vndf_rand_y);
         if (order > 0)
         {
             vec4 phase = mf_eval_phase_glossy(wr, lambda_r, wo, alpha) * throughput;
             if (wo_outside)
             {
-                _6893 = wo;
+                _6901 = wo;
             }
             else
             {
-                _6893 = -wo;
+                _6901 = -wo;
             }
             if (outside == wo_outside)
             {
-                _6903 = hr;
+                _6911 = hr;
             }
             else
             {
-                _6903 = -hr;
+                _6911 = -hr;
             }
-            eval += ((throughput * phase) * mf_G1(_6893, mf_C1(_6903), shadowing_lambda));
+            eval += ((throughput * phase) * mf_G1(_6901, mf_C1(_6911), shadowing_lambda));
         }
         if ((order + 1) < 10)
         {
@@ -1752,9 +1757,9 @@ vec4 bsdf_microfacet_multi_ggx_eval_reflect(vec4 I, vec4 omega_in, inout float p
     vec4 param_6 = localO;
     uint param_7 = lcg_state;
     bool param_8 = use_fresnel;
-    vec4 _7252 = mf_eval_glossy(param_5, param_6, true, vec4(sc.data[3], sc.data[4], sc.data[5], 0.0), sc.data[0], sc.data[1], param_7, sc.data[2], param_8, vec4(sc.data[6], sc.data[7], sc.data[8], 0.0));
+    vec4 _7260 = mf_eval_glossy(param_5, param_6, true, vec4(sc.data[3], sc.data[4], sc.data[5], 0.0), sc.data[0], sc.data[1], param_7, sc.data[2], param_8, vec4(sc.data[6], sc.data[7], sc.data[8], 0.0));
     lcg_state = param_7;
-    return _7252;
+    return _7260;
 }
 
 vec4 normalize_len(vec4 a, inout float t)
@@ -1782,39 +1787,39 @@ float mf_ggx_transmission_albedo(inout float a, inout float ior)
 float mf_glass_pdf(vec4 wi, vec4 wo, float alpha, float eta)
 {
     bool reflective = (wi.z * wo.z) > 0.0;
-    vec4 _6010;
+    vec4 _6018;
     if (reflective)
     {
-        _6010 = wo;
+        _6018 = wo;
     }
     else
     {
-        _6010 = wo * eta;
+        _6018 = wo * eta;
     }
     float wh_len;
     float param = wh_len;
-    vec4 _6020 = normalize_len(wi + _6010, param);
+    vec4 _6028 = normalize_len(wi + _6018, param);
     wh_len = param;
-    vec4 wh = _6020;
+    vec4 wh = _6028;
     if (wh.z < 0.0)
     {
         wh = -wh;
     }
-    vec4 _6032;
+    vec4 _6040;
     if (wi.z < 0.0)
     {
-        _6032 = -wi;
+        _6040 = -wi;
     }
     else
     {
-        _6032 = wi;
+        _6040 = wi;
     }
-    vec4 r_wi = _6032;
+    vec4 r_wi = _6040;
     float lambda = mf_lambda(r_wi, vec2(alpha));
     vec4 param_1 = wh;
     float param_2 = alpha;
-    float _6046 = D_ggx(param_1, param_2);
-    float D = _6046;
+    float _6054 = D_ggx(param_1, param_2);
+    float D = _6054;
     float param_3 = dot(r_wi.xyz, wh.xyz);
     float param_4 = eta;
     float fresnel = fresnel_dielectric_cos(param_3, param_4);
@@ -1831,8 +1836,8 @@ float mf_glass_pdf(vec4 wi, vec4 wo, float alpha, float eta)
         float singlescatter_1 = abs(((((dot(r_wi.xyz, wh.xyz) * dot(wo.xyz, wh.xyz)) * D) * eta) * eta) / max((((1.0 + lambda) * r_wi.z) * wh_len) * wh_len, 1.0000000116860974230803549289703e-07));
         float param_6 = alpha;
         float param_7 = eta;
-        float _6118 = mf_ggx_transmission_albedo(param_6, param_7);
-        float albedo_1 = _6118;
+        float _6126 = mf_ggx_transmission_albedo(param_6, param_7);
+        float albedo_1 = _6126;
         return (1.0 - fresnel) * ((albedo_1 * singlescatter_1) + ((1.0 - albedo_1) * multiscatter));
     }
 }
@@ -1843,16 +1848,16 @@ vec4 mf_eval_phase_glass(vec4 w, float lambda, vec4 wo, bool wo_outside, vec2 al
     {
         return vec4(0.0);
     }
-    float _5534;
+    float _5542;
     if (w.z < (-0.99989998340606689453125))
     {
-        _5534 = 1.0;
+        _5542 = 1.0;
     }
     else
     {
-        _5534 = lambda * w.z;
+        _5542 = lambda * w.z;
     }
-    float pArea = _5534;
+    float pArea = _5542;
     float v;
     if (wo_outside)
     {
@@ -1866,8 +1871,8 @@ vec4 mf_eval_phase_glass(vec4 w, float lambda, vec4 wo, bool wo_outside, vec2 al
         float param_1 = eta;
         vec4 param_2 = wh;
         float param_3 = alpha.x;
-        float _5575 = D_ggx(param_2, param_3);
-        v = (((fresnel_dielectric_cos(param, param_1) * max(0.0, dotW_WH)) * _5575) * 0.25) / (pArea * dotW_WH);
+        float _5583 = D_ggx(param_2, param_3);
+        v = (((fresnel_dielectric_cos(param, param_1) * max(0.0, dotW_WH)) * _5583) * 0.25) / (pArea * dotW_WH);
     }
     else
     {
@@ -1887,8 +1892,8 @@ vec4 mf_eval_phase_glass(vec4 w, float lambda, vec4 wo, bool wo_outside, vec2 al
         float param_5 = eta;
         vec4 param_6 = wh_1;
         float param_7 = alpha.x;
-        float _5636 = D_ggx(param_6, param_7);
-        v = ((((1.0 - fresnel_dielectric_cos(param_4, param_5)) * max(0.0, dotW_WH_1)) * max(0.0, -dotWO_WH)) * _5636) / ((pArea * temp) * temp);
+        float _5644 = D_ggx(param_6, param_7);
+        v = ((((1.0 - fresnel_dielectric_cos(param_4, param_5)) * max(0.0, dotW_WH_1)) * max(0.0, -dotWO_WH)) * _5644) / ((pArea * temp) * temp);
     }
     return vec4(v, v, v, 0.0);
 }
@@ -1922,7 +1927,7 @@ bool isfinite(double f)
     return !((retval == 1) || (retval == 2));
 }
 
-double log(double v)
+double _log(double v)
 {
     return double(log(float(v)));
 }
@@ -1936,14 +1941,14 @@ double polevl(double x, double coef[8], int N)
     int i = N;
     for (;;)
     {
-        int _1723 = j;
-        j = _1723 + 1;
+        int _1731 = j;
+        j = _1731 + 1;
         double indexable_1[8] = coef;
-        ans = (ans * x) + indexable_1[_1723];
-        int _1729 = i;
-        int _1730 = _1729 - 1;
-        i = _1730;
-        if (_1730 != int(0u))
+        ans = (ans * x) + indexable_1[_1731];
+        int _1737 = i;
+        int _1738 = _1737 - 1;
+        i = _1738;
+        if (_1738 != int(0u))
         {
             continue;
         }
@@ -1961,18 +1966,18 @@ double p1evl(double x, double coef[8], int N)
     double indexable[8] = coef;
     double ans = x + indexable[j];
     j++;
-    int _1747 = N - 1;
-    int i = _1747;
+    int _1755 = N - 1;
+    int i = _1755;
     for (;;)
     {
-        int _1755 = j;
-        j = _1755 + 1;
+        int _1763 = j;
+        j = _1763 + 1;
         double indexable_1[8] = coef;
-        ans = (ans * x) + indexable_1[_1755];
-        int _1761 = i;
-        int _1762 = _1761 - 1;
-        i = _1762;
-        if (_1762 != int(0u))
+        ans = (ans * x) + indexable_1[_1763];
+        int _1769 = i;
+        int _1770 = _1769 - 1;
+        i = _1770;
+        if (_1770 != int(0u))
         {
             continue;
         }
@@ -2038,7 +2043,7 @@ double lgamma(inout double x, inout int _sign)
         if (u == 2.0lf)
         {
             double param_1 = z;
-            return log(param_1);
+            return _log(param_1);
         }
         p -= 2.0lf;
         x += p;
@@ -2048,14 +2053,14 @@ double lgamma(inout double x, inout int _sign)
         int param_5 = 6;
         p = (x * polevl(param_2, B, param_3)) / p1evl(param_4, C, param_5);
         double param_6 = z;
-        return log(param_6) + p;
+        return _log(param_6) + p;
     }
     if (x > 2.5563479999999998225773832577314e+305lf)
     {
-        return double(float(_sign) * uintBitsToFloat(0x7f800000u));
+        return double(float(_sign) * uintBitsToFloat(0x7f800000u /* inf */));
     }
     double param_7 = x;
-    double q = (((x - 0.5lf) * log(param_7)) - x) + 0.91893853320467278056327131707803lf;
+    double q = (((x - 0.5lf) * _log(param_7)) - x) + 0.91893853320467278056327131707803lf;
     if (x > 100000000.0lf)
     {
         return q;
@@ -2079,9 +2084,9 @@ float lgammaf(float v)
     double param = double(v);
     int _sign;
     int param_1 = _sign;
-    double _1948 = lgamma(param, param_1);
+    double _1956 = lgamma(param, param_1);
     _sign = param_1;
-    return float(_1948);
+    return float(_1956);
 }
 
 float beta(float x, float y)
@@ -2133,41 +2138,41 @@ vec4 mf_eval_glass(inout vec4 wi, inout vec4 wo, bool wo_outside, vec4 color, fl
             wi = tmp_1;
         }
     }
-    bool _6169 = wi.z < 9.9999997473787516355514526367188e-06;
-    bool _6177;
-    if (!_6169)
-    {
-        _6177 = (wo.z < 9.9999997473787516355514526367188e-06) && wo_outside;
-    }
-    else
-    {
-        _6177 = _6169;
-    }
-    bool _6187;
+    bool _6177 = wi.z < 9.9999997473787516355514526367188e-06;
+    bool _6185;
     if (!_6177)
     {
-        _6187 = (wo.z > (-9.9999997473787516355514526367188e-06)) && (!wo_outside);
+        _6185 = (wo.z < 9.9999997473787516355514526367188e-06) && wo_outside;
     }
     else
     {
-        _6187 = _6177;
+        _6185 = _6177;
     }
-    if (_6187)
+    bool _6195;
+    if (!_6185)
+    {
+        _6195 = (wo.z > (-9.9999997473787516355514526367188e-06)) && (!wo_outside);
+    }
+    else
+    {
+        _6195 = _6185;
+    }
+    if (_6195)
     {
         return vec4(0.0);
     }
     vec2 alpha = vec2(alpha_x, alpha_y);
     float lambda_r = mf_lambda(-wi, alpha);
-    vec4 _6199;
+    vec4 _6207;
     if (wo_outside)
     {
-        _6199 = wo;
+        _6207 = wo;
     }
     else
     {
-        _6199 = -wo;
+        _6207 = -wo;
     }
-    float shadowing_lambda = mf_lambda(_6199, alpha);
+    float shadowing_lambda = mf_lambda(_6207, alpha);
     vec4 throughput = vec4(1.0, 1.0, 1.0, 0.0);
     vec4 wh = vec4(normalize((wi + wo).xyz), 0.0);
     vec4 eval = mf_eval_phase_glass(-wi, lambda_r, wo, wo_outside, alpha, eta);
@@ -2200,40 +2205,40 @@ vec4 mf_eval_glass(inout vec4 wi, inout vec4 wo, bool wo_outside, vec4 color, fl
     float G1_r = 0.0;
     bool outside = true;
     vec4 phase;
-    vec4 _6352;
-    float _6362;
+    vec4 _6360;
+    float _6370;
     vec4 phase_1;
-    vec4 _6399;
-    float _6409;
-    float _6439;
+    vec4 _6407;
+    float _6417;
+    float _6447;
     bool next_outside;
     for (int order = 0; order < 10; order++)
     {
         uint param_9 = lcg_state;
-        float _6287 = lcg_step_float_addrspace(param_9);
+        float _6295 = lcg_step_float_addrspace(param_9);
         lcg_state = param_9;
-        float height_rand = _6287;
+        float height_rand = _6295;
         float param_10 = hr;
         float param_11 = C1_r;
         float param_12 = G1_r;
         float param_13 = lambda_r;
-        bool _6299 = mf_sample_height(wr, param_10, param_11, param_12, param_13, height_rand);
+        bool _6307 = mf_sample_height(wr, param_10, param_11, param_12, param_13, height_rand);
         hr = param_10;
         C1_r = param_11;
         G1_r = param_12;
         lambda_r = param_13;
-        if (!_6299)
+        if (!_6307)
         {
             break;
         }
         uint param_14 = lcg_state;
-        float _6311 = lcg_step_float_addrspace(param_14);
+        float _6319 = lcg_step_float_addrspace(param_14);
         lcg_state = param_14;
-        float vndf_rand_y = _6311;
+        float vndf_rand_y = _6319;
         uint param_15 = lcg_state;
-        float _6316 = lcg_step_float_addrspace(param_15);
+        float _6324 = lcg_step_float_addrspace(param_15);
         lcg_state = param_15;
-        float vndf_rand_x = _6316;
+        float vndf_rand_x = _6324;
         vec4 wm = mf_sample_vndf(-wr, alpha, vndf_rand_x, vndf_rand_y);
         if ((order == 0) && use_fresnel)
         {
@@ -2247,21 +2252,21 @@ vec4 mf_eval_glass(inout vec4 wi, inout vec4 wo, bool wo_outside, vec4 color, fl
             }
             if (wo_outside)
             {
-                _6352 = wo;
+                _6360 = wo;
             }
             else
             {
-                _6352 = -wo;
+                _6360 = -wo;
             }
             if (outside == wo_outside)
             {
-                _6362 = hr;
+                _6370 = hr;
             }
             else
             {
-                _6362 = -hr;
+                _6370 = -hr;
             }
-            eval = (throughput * phase) * mf_G1(_6352, mf_C1(_6362), shadowing_lambda);
+            eval = (throughput * phase) * mf_G1(_6360, mf_C1(_6370), shadowing_lambda);
         }
         if (order > 0)
         {
@@ -2275,41 +2280,41 @@ vec4 mf_eval_glass(inout vec4 wi, inout vec4 wo, bool wo_outside, vec4 color, fl
             }
             if (wo_outside)
             {
-                _6399 = wo;
+                _6407 = wo;
             }
             else
             {
-                _6399 = -wo;
+                _6407 = -wo;
             }
             if (outside == wo_outside)
             {
-                _6409 = hr;
+                _6417 = hr;
             }
             else
             {
-                _6409 = -hr;
+                _6417 = -hr;
             }
-            eval += ((throughput * phase_1) * mf_G1(_6399, mf_C1(_6409), shadowing_lambda));
+            eval += ((throughput * phase_1) * mf_G1(_6407, mf_C1(_6417), shadowing_lambda));
         }
         if ((order + 1) < 10)
         {
             vec4 wi_prev = -wr;
             uint param_16 = lcg_state;
-            float _6434 = lcg_step_float_addrspace(param_16);
+            float _6442 = lcg_step_float_addrspace(param_16);
             lcg_state = param_16;
-            float phase_rand = _6434;
+            float phase_rand = _6442;
             if (outside)
             {
-                _6439 = eta;
+                _6447 = eta;
             }
             else
             {
-                _6439 = 1.0 / eta;
+                _6447 = 1.0 / eta;
             }
             bool param_17 = next_outside;
-            vec4 _6450 = mf_sample_phase_glass(-wr, _6439, wm, phase_rand, param_17);
+            vec4 _6458 = mf_sample_phase_glass(-wr, _6447, wm, phase_rand, param_17);
             next_outside = param_17;
-            wr = _6450;
+            wr = _6458;
             if (!next_outside)
             {
                 outside = !outside;
@@ -2375,9 +2380,9 @@ vec4 bsdf_microfacet_multi_ggx_glass_eval_reflect(vec4 I, vec4 omega_in, inout f
     vec4 param_4 = localO;
     uint param_5 = lcg_state;
     bool param_6 = use_fresnel;
-    vec4 _7632 = mf_eval_glass(param_3, param_4, true, color, ax, ay, param_5, ior, param_6, cspec);
+    vec4 _7640 = mf_eval_glass(param_3, param_4, true, color, ax, ay, param_5, ior, param_6, cspec);
     lcg_state = param_5;
-    return _7632;
+    return _7640;
 }
 
 float bsdf_ashikhmin_shirley_roughness_to_exponent(float roughness)
@@ -2485,9 +2490,9 @@ vec4 bsdf_principled_diffuse_eval_reflect(vec4 I, vec4 omega_in, inout float pdf
         vec4 param_2 = L;
         vec4 param_3 = H;
         float param_4 = pdf;
-        vec4 _9366 = calculate_principled_diffuse_brdf(param, param_1, param_2, param_3, param_4);
+        vec4 _9374 = calculate_principled_diffuse_brdf(param, param_1, param_2, param_3, param_4);
         pdf = param_4;
-        return _9366;
+        return _9374;
     }
     else
     {
@@ -2525,9 +2530,9 @@ vec4 bsdf_principled_sheen_eval_reflect(vec4 I, vec4 omega_in, inout float pdf)
         vec4 param_2 = L;
         vec4 param_3 = H;
         float param_4 = pdf;
-        vec4 _9510 = calculate_principled_sheen_brdf(param, param_1, param_2, param_3, param_4);
+        vec4 _9518 = calculate_principled_sheen_brdf(param, param_1, param_2, param_3, param_4);
         pdf = param_4;
-        return _9510;
+        return _9518;
     }
     else
     {
@@ -2538,16 +2543,16 @@ vec4 bsdf_principled_sheen_eval_reflect(vec4 I, vec4 omega_in, inout float pdf)
 
 float safe_divide(float a, float b)
 {
-    float _1166;
+    float _1174;
     if (!(b == 0.0))
     {
-        _1166 = a / b;
+        _1174 = a / b;
     }
     else
     {
-        _1166 = 0.0;
+        _1174 = 0.0;
     }
-    return _1166;
+    return _1174;
 }
 
 float sqr(float a)
@@ -2576,27 +2581,27 @@ float bump_shadowing_term(vec4 Ng, vec4 N, vec4 I)
 float fast_acosf(float x)
 {
     float f = abs(x);
-    float _1191;
+    float _1199;
     if (f < 1.0)
     {
-        _1191 = 1.0 - (1.0 - f);
+        _1199 = 1.0 - (1.0 - f);
     }
     else
     {
-        _1191 = 1.0;
+        _1199 = 1.0;
     }
-    float m = _1191;
+    float m = _1199;
     float a = sqrt(1.0 - m) * (1.57079637050628662109375 + (m * ((-0.21330098807811737060546875) + (m * (0.077980481088161468505859375 + (m * (-0.02164095081388950347900390625)))))));
-    float _1219;
+    float _1227;
     if (x < 0.0)
     {
-        _1219 = 3.1415927410125732421875 - a;
+        _1227 = 3.1415927410125732421875 - a;
     }
     else
     {
-        _1219 = a;
+        _1227 = a;
     }
-    return _1219;
+    return _1227;
 }
 
 float shift_cos_in(inout float cos_in, float frequency_multiplier)
@@ -2658,17 +2663,17 @@ vec4 bsdf_microfacet_ggx_eval_transmit(vec4 I, vec4 omega_in, inout float pdf)
     float m_eta = sc.data[2];
     bool m_refractive = sc.type == 23u;
     vec4 N = sc.N;
-    bool _3271 = !m_refractive;
-    bool _3279;
-    if (!_3271)
+    bool _3279 = !m_refractive;
+    bool _3287;
+    if (!_3279)
     {
-        _3279 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
+        _3287 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
     }
     else
     {
-        _3279 = _3271;
+        _3287 = _3279;
     }
-    if (_3279)
+    if (_3287)
     {
         return vec4(0.0);
     }
@@ -2707,17 +2712,17 @@ vec4 bsdf_microfacet_beckmann_eval_transmit(vec4 I, vec4 omega_in, inout float p
     float m_eta = sc.data[2];
     bool m_refractive = sc.type == 22u;
     vec4 N = sc.N;
-    bool _4382 = !m_refractive;
-    bool _4390;
-    if (!_4382)
+    bool _4390 = !m_refractive;
+    bool _4398;
+    if (!_4390)
     {
-        _4390 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
+        _4398 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
     }
     else
     {
-        _4390 = _4382;
+        _4398 = _4390;
     }
-    if (_4390)
+    if (_4398)
     {
         return vec4(0.0);
     }
@@ -2739,12 +2744,12 @@ vec4 bsdf_microfacet_beckmann_eval_transmit(vec4 I, vec4 omega_in, inout float p
     float D = exp((-tanThetaM2) / alpha2) / ((3.1415927410125732421875 * alpha2) * cosThetaM4);
     float param = alpha_x;
     float param_1 = cosNO;
-    float _4475 = bsdf_beckmann_G1(param, param_1);
-    float G1o = _4475;
+    float _4483 = bsdf_beckmann_G1(param, param_1);
+    float G1o = _4483;
     float param_2 = alpha_x;
     float param_3 = cosNI;
-    float _4481 = bsdf_beckmann_G1(param_2, param_3);
-    float G1i = _4481;
+    float _4489 = bsdf_beckmann_G1(param_2, param_3);
+    float G1i = _4489;
     float G = G1o * G1i;
     float Ht2 = dot(ht.xyz, ht.xyz);
     float common_rsv = (D * (m_eta * m_eta)) / (cosNO * Ht2);
@@ -2789,9 +2794,9 @@ vec4 bsdf_microfacet_multi_ggx_glass_eval_transmit(vec4 I, vec4 omega_in, inout 
     vec4 param_4 = localO;
     uint param_5 = lcg_state;
     bool param_6 = false;
-    vec4 _7528 = mf_eval_glass(param_3, param_4, false, color, ax, ay, param_5, ior, param_6, color);
+    vec4 _7536 = mf_eval_glass(param_3, param_4, false, color, ax, ay, param_5, ior, param_6, color);
     lcg_state = param_5;
-    return _7528;
+    return _7536;
 }
 
 vec4 bsdf_ashikhmin_shirley_eval_transmit(vec4 I, vec4 omega_in, float pdf)
@@ -2811,16 +2816,16 @@ vec4 bsdf_principled_sheen_eval_transmit(vec4 I, vec4 omega_in, float pdf)
 
 vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
 {
-    vec4 _9712;
+    vec4 _9720;
     if ((uint(arg.sd.type) & 60u) != 0u)
     {
-        _9712 = arg.sd.N;
+        _9720 = arg.sd.N;
     }
     else
     {
-        _9712 = arg.sd.Ng;
+        _9720 = arg.sd.Ng;
     }
-    vec4 Ng = _9712;
+    vec4 Ng = _9720;
     uint lcg_state = arg.sd.lcg_state;
     vec4 eval;
     if (dot(Ng.xyz, omega_in.xyz) >= 0.0)
@@ -2831,33 +2836,33 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
             case 31u:
             {
                 float param = pdf;
-                vec4 _9756 = bsdf_diffuse_eval_reflect(arg.sd.I, omega_in, param);
+                vec4 _9764 = bsdf_diffuse_eval_reflect(arg.sd.I, omega_in, param);
                 pdf = param;
-                eval = _9756;
+                eval = _9764;
                 break;
             }
             case 3u:
             {
                 float param_1 = pdf;
-                vec4 _9763 = bsdf_oren_nayar_eval_reflect(arg.sd.I, omega_in, param_1);
+                vec4 _9771 = bsdf_oren_nayar_eval_reflect(arg.sd.I, omega_in, param_1);
                 pdf = param_1;
-                eval = _9763;
+                eval = _9771;
                 break;
             }
             case 7u:
             {
                 float param_2 = pdf;
-                vec4 _9770 = bsdf_diffuse_toon_eval_reflect(arg.sd.I, omega_in, param_2);
+                vec4 _9778 = bsdf_diffuse_toon_eval_reflect(arg.sd.I, omega_in, param_2);
                 pdf = param_2;
-                eval = _9770;
+                eval = _9778;
                 break;
             }
             case 19u:
             {
                 float param_3 = pdf;
-                vec4 _9777 = bsdf_glossy_toon_eval_reflect(arg.sd.I, omega_in, param_3);
+                vec4 _9785 = bsdf_glossy_toon_eval_reflect(arg.sd.I, omega_in, param_3);
                 pdf = param_3;
-                eval = _9777;
+                eval = _9785;
                 break;
             }
             case 8u:
@@ -2884,9 +2889,9 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
             case 17u:
             {
                 float param_7 = pdf;
-                vec4 _9805 = bsdf_ashikhmin_velvet_eval_reflect(arg.sd.I, omega_in, param_7);
+                vec4 _9813 = bsdf_ashikhmin_velvet_eval_reflect(arg.sd.I, omega_in, param_7);
                 pdf = param_7;
-                eval = _9805;
+                eval = _9813;
                 break;
             }
             case 10u:
@@ -2895,18 +2900,18 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
             case 23u:
             {
                 float param_8 = pdf;
-                vec4 _9812 = bsdf_microfacet_ggx_eval_reflect(arg.sd.I, omega_in, param_8);
+                vec4 _9820 = bsdf_microfacet_ggx_eval_reflect(arg.sd.I, omega_in, param_8);
                 pdf = param_8;
-                eval = _9812;
+                eval = _9820;
                 break;
             }
             case 13u:
             case 22u:
             {
                 float param_9 = pdf;
-                vec4 _9819 = bsdf_microfacet_beckmann_eval_reflect(arg.sd.I, omega_in, param_9);
+                vec4 _9827 = bsdf_microfacet_beckmann_eval_reflect(arg.sd.I, omega_in, param_9);
                 pdf = param_9;
-                eval = _9819;
+                eval = _9827;
                 break;
             }
             case 9u:
@@ -2921,10 +2926,10 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
             {
                 float param_11 = pdf;
                 uint param_12 = lcg_state;
-                vec4 _9835 = bsdf_microfacet_multi_ggx_eval_reflect(arg.sd.I, omega_in, param_11, param_12);
+                vec4 _9843 = bsdf_microfacet_multi_ggx_eval_reflect(arg.sd.I, omega_in, param_11, param_12);
                 pdf = param_11;
                 lcg_state = param_12;
-                eval = _9835;
+                eval = _9843;
                 break;
             }
             case 24u:
@@ -2932,35 +2937,35 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
             {
                 float param_13 = pdf;
                 uint param_14 = lcg_state;
-                vec4 _9845 = bsdf_microfacet_multi_ggx_glass_eval_reflect(arg.sd.I, omega_in, param_13, param_14);
+                vec4 _9853 = bsdf_microfacet_multi_ggx_glass_eval_reflect(arg.sd.I, omega_in, param_13, param_14);
                 pdf = param_13;
                 lcg_state = param_14;
-                eval = _9845;
+                eval = _9853;
                 break;
             }
             case 16u:
             {
                 float param_15 = pdf;
-                vec4 _9853 = bsdf_ashikhmin_shirley_eval_reflect(arg.sd.I, omega_in, param_15);
+                vec4 _9861 = bsdf_ashikhmin_shirley_eval_reflect(arg.sd.I, omega_in, param_15);
                 pdf = param_15;
-                eval = _9853;
+                eval = _9861;
                 break;
             }
             case 5u:
             case 32u:
             {
                 float param_16 = pdf;
-                vec4 _9860 = bsdf_principled_diffuse_eval_reflect(arg.sd.I, omega_in, param_16);
+                vec4 _9868 = bsdf_principled_diffuse_eval_reflect(arg.sd.I, omega_in, param_16);
                 pdf = param_16;
-                eval = _9860;
+                eval = _9868;
                 break;
             }
             case 6u:
             {
                 float param_17 = pdf;
-                vec4 _9867 = bsdf_principled_sheen_eval_reflect(arg.sd.I, omega_in, param_17);
+                vec4 _9875 = bsdf_principled_sheen_eval_reflect(arg.sd.I, omega_in, param_17);
                 pdf = param_17;
-                eval = _9867;
+                eval = _9875;
                 break;
             }
             default:
@@ -2969,17 +2974,17 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
                 break;
             }
         }
-        bool _9873 = sc_1.type >= 2u;
-        bool _9878;
-        if (_9873)
+        bool _9881 = sc_1.type >= 2u;
+        bool _9886;
+        if (_9881)
         {
-            _9878 = sc_1.type <= 8u;
+            _9886 = sc_1.type <= 8u;
         }
         else
         {
-            _9878 = _9873;
+            _9886 = _9881;
         }
-        if (_9878)
+        if (_9886)
         {
             if (!all(equal(sc_1.N.xyz, arg.sd.N.xyz)))
             {
@@ -2993,8 +2998,8 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
         if (frequency_multiplier > 1.0)
         {
             float param_21 = dot(omega_in.xyz, sc_1.N.xyz);
-            float _10046 = shift_cos_in(param_21, frequency_multiplier);
-            eval *= _10046;
+            float _10054 = shift_cos_in(param_21, frequency_multiplier);
+            eval *= _10054;
         }
     }
     else
@@ -3033,9 +3038,9 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
             case 8u:
             {
                 float param_26 = pdf;
-                vec4 _10101 = bsdf_translucent_eval_transmit(arg.sd.I, omega_in, param_26);
+                vec4 _10109 = bsdf_translucent_eval_transmit(arg.sd.I, omega_in, param_26);
                 pdf = param_26;
-                eval = _10101;
+                eval = _10109;
                 break;
             }
             case 33u:
@@ -3065,18 +3070,18 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
             case 23u:
             {
                 float param_30 = pdf;
-                vec4 _10129 = bsdf_microfacet_ggx_eval_transmit(arg.sd.I, omega_in, param_30);
+                vec4 _10137 = bsdf_microfacet_ggx_eval_transmit(arg.sd.I, omega_in, param_30);
                 pdf = param_30;
-                eval = _10129;
+                eval = _10137;
                 break;
             }
             case 13u:
             case 22u:
             {
                 float param_31 = pdf;
-                vec4 _10136 = bsdf_microfacet_beckmann_eval_transmit(arg.sd.I, omega_in, param_31);
+                vec4 _10144 = bsdf_microfacet_beckmann_eval_transmit(arg.sd.I, omega_in, param_31);
                 pdf = param_31;
-                eval = _10136;
+                eval = _10144;
                 break;
             }
             case 9u:
@@ -3091,10 +3096,10 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
             {
                 float param_33 = pdf;
                 uint param_34 = lcg_state;
-                vec4 _10152 = bsdf_microfacet_multi_ggx_eval_transmit(arg.sd.I, omega_in, param_33, param_34);
+                vec4 _10160 = bsdf_microfacet_multi_ggx_eval_transmit(arg.sd.I, omega_in, param_33, param_34);
                 pdf = param_33;
                 lcg_state = param_34;
-                eval = _10152;
+                eval = _10160;
                 break;
             }
             case 24u:
@@ -3102,10 +3107,10 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
             {
                 float param_35 = pdf;
                 uint param_36 = lcg_state;
-                vec4 _10162 = bsdf_microfacet_multi_ggx_glass_eval_transmit(arg.sd.I, omega_in, param_35, param_36);
+                vec4 _10170 = bsdf_microfacet_multi_ggx_glass_eval_transmit(arg.sd.I, omega_in, param_35, param_36);
                 pdf = param_35;
                 lcg_state = param_36;
-                eval = _10162;
+                eval = _10170;
                 break;
             }
             case 16u:
@@ -3136,17 +3141,17 @@ vec4 bsdf_eval(ShaderClosure sc_1, vec4 omega_in, inout float pdf)
                 break;
             }
         }
-        bool _10190 = sc_1.type >= 2u;
-        bool _10195;
-        if (_10190)
+        bool _10198 = sc_1.type >= 2u;
+        bool _10203;
+        if (_10198)
         {
-            _10195 = sc_1.type <= 8u;
+            _10203 = sc_1.type <= 8u;
         }
         else
         {
-            _10195 = _10190;
+            _10203 = _10198;
         }
-        if (_10195)
+        if (_10203)
         {
             if (!all(equal(sc_1.N.xyz, arg.sd.N.xyz)))
             {
@@ -3173,17 +3178,17 @@ void PLYMO_bsdf_eval_accum(uint type, inout vec4 value, float mis_weight)
     value *= mis_weight;
     if (arg.use_light_pass != 0)
     {
-        bool _1567 = (type >= 2u) && (type <= 8u);
-        bool _1576;
-        if (!_1567)
+        bool _1575 = (type >= 2u) && (type <= 8u);
+        bool _1584;
+        if (!_1575)
         {
-            _1576 = (type == 31u) || (type == 32u);
+            _1584 = (type == 31u) || (type == 32u);
         }
         else
         {
-            _1576 = _1567;
+            _1584 = _1575;
         }
-        if (_1576)
+        if (_1584)
         {
             arg.eval.diffuse += value;
         }
@@ -3211,62 +3216,62 @@ void PLYMO_bsdf_eval_accum(uint type, inout vec4 value, float mis_weight)
 void _shader_bsdf_multi_eval_branched(vec4 omega_in, float light_pdf, bool use_mis)
 {
     int it_next = arg.sd.alloc_offset;
-    float _10998;
+    float _11006;
     for (int i = 0; i < arg.sd.num_closure; i++)
     {
-        ShaderClosure _10979;
-        _10979.weight = push.pool_ptr.pool_sc.data[it_next].weight;
-        _10979.type = push.pool_ptr.pool_sc.data[it_next].type;
-        _10979.sample_weight = push.pool_ptr.pool_sc.data[it_next].sample_weight;
-        _10979.N = push.pool_ptr.pool_sc.data[it_next].N;
-        _10979.next = push.pool_ptr.pool_sc.data[it_next].next;
-        _10979.data[0] = push.pool_ptr.pool_sc.data[it_next].data[0];
-        _10979.data[1] = push.pool_ptr.pool_sc.data[it_next].data[1];
-        _10979.data[2] = push.pool_ptr.pool_sc.data[it_next].data[2];
-        _10979.data[3] = push.pool_ptr.pool_sc.data[it_next].data[3];
-        _10979.data[4] = push.pool_ptr.pool_sc.data[it_next].data[4];
-        _10979.data[5] = push.pool_ptr.pool_sc.data[it_next].data[5];
-        _10979.data[6] = push.pool_ptr.pool_sc.data[it_next].data[6];
-        _10979.data[7] = push.pool_ptr.pool_sc.data[it_next].data[7];
-        _10979.data[8] = push.pool_ptr.pool_sc.data[it_next].data[8];
-        _10979.data[9] = push.pool_ptr.pool_sc.data[it_next].data[9];
-        _10979.data[10] = push.pool_ptr.pool_sc.data[it_next].data[10];
-        _10979.data[11] = push.pool_ptr.pool_sc.data[it_next].data[11];
-        _10979.data[12] = push.pool_ptr.pool_sc.data[it_next].data[12];
-        _10979.data[13] = push.pool_ptr.pool_sc.data[it_next].data[13];
-        _10979.data[14] = push.pool_ptr.pool_sc.data[it_next].data[14];
-        _10979.data[15] = push.pool_ptr.pool_sc.data[it_next].data[15];
-        _10979.data[16] = push.pool_ptr.pool_sc.data[it_next].data[16];
-        _10979.data[17] = push.pool_ptr.pool_sc.data[it_next].data[17];
-        _10979.data[18] = push.pool_ptr.pool_sc.data[it_next].data[18];
-        _10979.data[19] = push.pool_ptr.pool_sc.data[it_next].data[19];
-        _10979.data[20] = push.pool_ptr.pool_sc.data[it_next].data[20];
-        _10979.data[21] = push.pool_ptr.pool_sc.data[it_next].data[21];
-        _10979.data[22] = push.pool_ptr.pool_sc.data[it_next].data[22];
-        _10979.data[23] = push.pool_ptr.pool_sc.data[it_next].data[23];
-        _10979.data[24] = push.pool_ptr.pool_sc.data[it_next].data[24];
-        sc = _10979;
+        ShaderClosure _10987;
+        _10987.weight = push.pool_ptr.pool_sc.data[it_next].weight;
+        _10987.type = push.pool_ptr.pool_sc.data[it_next].type;
+        _10987.sample_weight = push.pool_ptr.pool_sc.data[it_next].sample_weight;
+        _10987.N = push.pool_ptr.pool_sc.data[it_next].N;
+        _10987.next = push.pool_ptr.pool_sc.data[it_next].next;
+        _10987.data[0] = push.pool_ptr.pool_sc.data[it_next].data[0];
+        _10987.data[1] = push.pool_ptr.pool_sc.data[it_next].data[1];
+        _10987.data[2] = push.pool_ptr.pool_sc.data[it_next].data[2];
+        _10987.data[3] = push.pool_ptr.pool_sc.data[it_next].data[3];
+        _10987.data[4] = push.pool_ptr.pool_sc.data[it_next].data[4];
+        _10987.data[5] = push.pool_ptr.pool_sc.data[it_next].data[5];
+        _10987.data[6] = push.pool_ptr.pool_sc.data[it_next].data[6];
+        _10987.data[7] = push.pool_ptr.pool_sc.data[it_next].data[7];
+        _10987.data[8] = push.pool_ptr.pool_sc.data[it_next].data[8];
+        _10987.data[9] = push.pool_ptr.pool_sc.data[it_next].data[9];
+        _10987.data[10] = push.pool_ptr.pool_sc.data[it_next].data[10];
+        _10987.data[11] = push.pool_ptr.pool_sc.data[it_next].data[11];
+        _10987.data[12] = push.pool_ptr.pool_sc.data[it_next].data[12];
+        _10987.data[13] = push.pool_ptr.pool_sc.data[it_next].data[13];
+        _10987.data[14] = push.pool_ptr.pool_sc.data[it_next].data[14];
+        _10987.data[15] = push.pool_ptr.pool_sc.data[it_next].data[15];
+        _10987.data[16] = push.pool_ptr.pool_sc.data[it_next].data[16];
+        _10987.data[17] = push.pool_ptr.pool_sc.data[it_next].data[17];
+        _10987.data[18] = push.pool_ptr.pool_sc.data[it_next].data[18];
+        _10987.data[19] = push.pool_ptr.pool_sc.data[it_next].data[19];
+        _10987.data[20] = push.pool_ptr.pool_sc.data[it_next].data[20];
+        _10987.data[21] = push.pool_ptr.pool_sc.data[it_next].data[21];
+        _10987.data[22] = push.pool_ptr.pool_sc.data[it_next].data[22];
+        _10987.data[23] = push.pool_ptr.pool_sc.data[it_next].data[23];
+        _10987.data[24] = push.pool_ptr.pool_sc.data[it_next].data[24];
+        sc = _10987;
         if (sc.type <= 33u)
         {
             float bsdf_pdf = 0.0;
-            ShaderClosure _10987 = sc;
+            ShaderClosure _10995 = sc;
             float param = bsdf_pdf;
-            vec4 _10990 = bsdf_eval(_10987, omega_in, param);
+            vec4 _10998 = bsdf_eval(_10995, omega_in, param);
             bsdf_pdf = param;
-            vec4 b_eval = _10990;
+            vec4 b_eval = _10998;
             if (!(bsdf_pdf == 0.0))
             {
                 if (use_mis)
                 {
                     float param_1 = light_pdf;
                     float param_2 = bsdf_pdf;
-                    _10998 = power_heuristic(param_1, param_2);
+                    _11006 = power_heuristic(param_1, param_2);
                 }
                 else
                 {
-                    _10998 = 1.0;
+                    _11006 = 1.0;
                 }
-                float mis_weight = _10998;
+                float mis_weight = _11006;
                 uint param_3 = sc.type;
                 vec4 param_4 = b_eval * sc.weight;
                 float param_5 = mis_weight;
@@ -3282,56 +3287,56 @@ void _shader_bsdf_multi_eval(vec4 omega_in, inout float pdf, int skip_sc, inout 
     int it_next = arg.sd.alloc_offset;
     for (int i = 0; i < arg.sd.num_closure; i++)
     {
-        ShaderClosure _11043;
-        _11043.weight = push.pool_ptr.pool_sc.data[it_next].weight;
-        _11043.type = push.pool_ptr.pool_sc.data[it_next].type;
-        _11043.sample_weight = push.pool_ptr.pool_sc.data[it_next].sample_weight;
-        _11043.N = push.pool_ptr.pool_sc.data[it_next].N;
-        _11043.next = push.pool_ptr.pool_sc.data[it_next].next;
-        _11043.data[0] = push.pool_ptr.pool_sc.data[it_next].data[0];
-        _11043.data[1] = push.pool_ptr.pool_sc.data[it_next].data[1];
-        _11043.data[2] = push.pool_ptr.pool_sc.data[it_next].data[2];
-        _11043.data[3] = push.pool_ptr.pool_sc.data[it_next].data[3];
-        _11043.data[4] = push.pool_ptr.pool_sc.data[it_next].data[4];
-        _11043.data[5] = push.pool_ptr.pool_sc.data[it_next].data[5];
-        _11043.data[6] = push.pool_ptr.pool_sc.data[it_next].data[6];
-        _11043.data[7] = push.pool_ptr.pool_sc.data[it_next].data[7];
-        _11043.data[8] = push.pool_ptr.pool_sc.data[it_next].data[8];
-        _11043.data[9] = push.pool_ptr.pool_sc.data[it_next].data[9];
-        _11043.data[10] = push.pool_ptr.pool_sc.data[it_next].data[10];
-        _11043.data[11] = push.pool_ptr.pool_sc.data[it_next].data[11];
-        _11043.data[12] = push.pool_ptr.pool_sc.data[it_next].data[12];
-        _11043.data[13] = push.pool_ptr.pool_sc.data[it_next].data[13];
-        _11043.data[14] = push.pool_ptr.pool_sc.data[it_next].data[14];
-        _11043.data[15] = push.pool_ptr.pool_sc.data[it_next].data[15];
-        _11043.data[16] = push.pool_ptr.pool_sc.data[it_next].data[16];
-        _11043.data[17] = push.pool_ptr.pool_sc.data[it_next].data[17];
-        _11043.data[18] = push.pool_ptr.pool_sc.data[it_next].data[18];
-        _11043.data[19] = push.pool_ptr.pool_sc.data[it_next].data[19];
-        _11043.data[20] = push.pool_ptr.pool_sc.data[it_next].data[20];
-        _11043.data[21] = push.pool_ptr.pool_sc.data[it_next].data[21];
-        _11043.data[22] = push.pool_ptr.pool_sc.data[it_next].data[22];
-        _11043.data[23] = push.pool_ptr.pool_sc.data[it_next].data[23];
-        _11043.data[24] = push.pool_ptr.pool_sc.data[it_next].data[24];
-        sc = _11043;
-        bool _11045 = it_next != skip_sc;
-        bool _11051;
-        if (_11045)
+        ShaderClosure _11051;
+        _11051.weight = push.pool_ptr.pool_sc.data[it_next].weight;
+        _11051.type = push.pool_ptr.pool_sc.data[it_next].type;
+        _11051.sample_weight = push.pool_ptr.pool_sc.data[it_next].sample_weight;
+        _11051.N = push.pool_ptr.pool_sc.data[it_next].N;
+        _11051.next = push.pool_ptr.pool_sc.data[it_next].next;
+        _11051.data[0] = push.pool_ptr.pool_sc.data[it_next].data[0];
+        _11051.data[1] = push.pool_ptr.pool_sc.data[it_next].data[1];
+        _11051.data[2] = push.pool_ptr.pool_sc.data[it_next].data[2];
+        _11051.data[3] = push.pool_ptr.pool_sc.data[it_next].data[3];
+        _11051.data[4] = push.pool_ptr.pool_sc.data[it_next].data[4];
+        _11051.data[5] = push.pool_ptr.pool_sc.data[it_next].data[5];
+        _11051.data[6] = push.pool_ptr.pool_sc.data[it_next].data[6];
+        _11051.data[7] = push.pool_ptr.pool_sc.data[it_next].data[7];
+        _11051.data[8] = push.pool_ptr.pool_sc.data[it_next].data[8];
+        _11051.data[9] = push.pool_ptr.pool_sc.data[it_next].data[9];
+        _11051.data[10] = push.pool_ptr.pool_sc.data[it_next].data[10];
+        _11051.data[11] = push.pool_ptr.pool_sc.data[it_next].data[11];
+        _11051.data[12] = push.pool_ptr.pool_sc.data[it_next].data[12];
+        _11051.data[13] = push.pool_ptr.pool_sc.data[it_next].data[13];
+        _11051.data[14] = push.pool_ptr.pool_sc.data[it_next].data[14];
+        _11051.data[15] = push.pool_ptr.pool_sc.data[it_next].data[15];
+        _11051.data[16] = push.pool_ptr.pool_sc.data[it_next].data[16];
+        _11051.data[17] = push.pool_ptr.pool_sc.data[it_next].data[17];
+        _11051.data[18] = push.pool_ptr.pool_sc.data[it_next].data[18];
+        _11051.data[19] = push.pool_ptr.pool_sc.data[it_next].data[19];
+        _11051.data[20] = push.pool_ptr.pool_sc.data[it_next].data[20];
+        _11051.data[21] = push.pool_ptr.pool_sc.data[it_next].data[21];
+        _11051.data[22] = push.pool_ptr.pool_sc.data[it_next].data[22];
+        _11051.data[23] = push.pool_ptr.pool_sc.data[it_next].data[23];
+        _11051.data[24] = push.pool_ptr.pool_sc.data[it_next].data[24];
+        sc = _11051;
+        bool _11053 = it_next != skip_sc;
+        bool _11059;
+        if (_11053)
         {
-            _11051 = sc.type <= 33u;
+            _11059 = sc.type <= 33u;
         }
         else
         {
-            _11051 = _11045;
+            _11059 = _11053;
         }
-        if (_11051)
+        if (_11059)
         {
             float bsdf_pdf = 0.0;
-            ShaderClosure _11056 = sc;
+            ShaderClosure _11064 = sc;
             float param = bsdf_pdf;
-            vec4 _11059 = bsdf_eval(_11056, omega_in, param);
+            vec4 _11067 = bsdf_eval(_11064, omega_in, param);
             bsdf_pdf = param;
-            vec4 eval = _11059;
+            vec4 eval = _11067;
             if (!(bsdf_pdf == 0.0))
             {
                 uint param_1 = sc.type;
@@ -3344,16 +3349,16 @@ void _shader_bsdf_multi_eval(vec4 omega_in, inout float pdf, int skip_sc, inout 
         }
         it_next--;
     }
-    float _11091;
+    float _11099;
     if (sum_sample_weight > 0.0)
     {
-        _11091 = sum_pdf / sum_sample_weight;
+        _11099 = sum_pdf / sum_sample_weight;
     }
     else
     {
-        _11091 = 0.0;
+        _11099 = 0.0;
     }
-    pdf = _11091;
+    pdf = _11099;
     if (G_dump)
     {
         _952.kg.f3[16 + ((rec_num - 1) * 64)] = arg.eval.sum_no_mis;
@@ -3381,9 +3386,9 @@ void shader_bsdf_eval()
     float light_pdf = arg.pdf;
     uint param = 45u;
     vec4 param_1 = vec4(0.0);
-    int param_2 = _10866.kernel_data.film.use_light_pass;
+    int param_2 = _10874.kernel_data.film.use_light_pass;
     PLYMO_bsdf_eval_init(param, param_1, param_2);
-    if (_10866.kernel_data.integrator.branched != int(0u))
+    if (_10874.kernel_data.integrator.branched != int(0u))
     {
         float param_3 = light_pdf;
         bool param_4 = use_mis;
@@ -3690,17 +3695,17 @@ int bsdf_ashikhmin_velvet_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float ra
         float cosNO = dot(N.xyz, I.xyz);
         float cosNH = dot(N.xyz, H.xyz);
         float cosHO = abs(dot(I.xyz, H.xyz));
-        bool _9165 = abs(cosNO) > 9.9999997473787516355514526367188e-06;
-        bool _9171;
-        if (_9165)
+        bool _9173 = abs(cosNO) > 9.9999997473787516355514526367188e-06;
+        bool _9179;
+        if (_9173)
         {
-            _9171 = abs(cosNH) < 0.999989986419677734375;
+            _9179 = abs(cosNH) < 0.999989986419677734375;
         }
         else
         {
-            _9171 = _9165;
+            _9179 = _9173;
         }
-        if (_9171 && (cosHO > 9.9999997473787516355514526367188e-06))
+        if (_9179 && (cosHO > 9.9999997473787516355514526367188e-06))
         {
             float cosNHdivHO = cosNH / cosHO;
             cosNHdivHO = max(cosNHdivHO, 9.9999997473787516355514526367188e-06);
@@ -3791,7 +3796,7 @@ int bsdf_refraction_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float randu, f
     vec4 param_6 = dTdy;
     bool inside;
     bool param_7 = inside;
-    float _5032 = fresnel_dielectric(param, N, I, param_1, param_2, dIdx, dIdy, param_3, param_4, param_5, param_6, param_7);
+    float _5040 = fresnel_dielectric(param, N, I, param_1, param_2, dIdx, dIdy, param_3, param_4, param_5, param_6, param_7);
     R = param_1;
     T = param_2;
     dRdx = param_3;
@@ -3799,7 +3804,7 @@ int bsdf_refraction_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float randu, f
     dTdx = param_5;
     dTdy = param_6;
     inside = param_7;
-    float fresnel = _5032;
+    float fresnel = _5040;
     if ((!inside) && (!(fresnel == 1.0)))
     {
         pdf = 1000000.0;
@@ -3872,8 +3877,8 @@ float fast_log2f(inout float x)
 float fast_logf(float x)
 {
     float param = x;
-    float _1299 = fast_log2f(param);
-    return _1299 * 0.693147182464599609375;
+    float _1307 = fast_log2f(param);
+    return _1307 * 0.693147182464599609375;
 }
 
 float fast_ierff(float x)
@@ -3938,16 +3943,16 @@ void microfacet_beckmann_sample_slopes(float cos_theta_i, float sin_theta_i, flo
     float K = tan_theta_i * 0.564189612865447998046875;
     float y_approx = randu * ((1.0 + erf_a) + (K * (1.0 - (erf_a * erf_a))));
     float y_exact = randu * ((1.0 + erf_a) + (K * exp_a2));
-    float _2491;
+    float _2499;
     if (K > 0.0)
     {
-        _2491 = (0.5 - sqrt((K * ((K - y_approx) + 1.0)) + 0.25)) / K;
+        _2499 = (0.5 - sqrt((K * ((K - y_approx) + 1.0)) + 0.25)) / K;
     }
     else
     {
-        _2491 = y_approx - 1.0;
+        _2499 = y_approx - 1.0;
     }
-    float b = _2491;
+    float b = _2499;
     float param_1 = b;
     float inv_erf = fast_ierff(param_1);
     float value = ((1.0 + b) + (K * exp((-inv_erf) * inv_erf))) - y_exact;
@@ -3993,17 +3998,17 @@ void microfacet_ggx_sample_slopes(float cos_theta_i, float sin_theta_i, float ra
     float D = safe_sqrtf(param_1);
     float slope_x_1 = (B_1 * tmp) - D;
     float slope_x_2 = (B_1 * tmp) + D;
-    bool _2655 = A_1 < 0.0;
-    bool _2663;
-    if (!_2655)
+    bool _2663 = A_1 < 0.0;
+    bool _2671;
+    if (!_2663)
     {
-        _2663 = (slope_x_2 * tan_theta_i) > 1.0;
+        _2671 = (slope_x_2 * tan_theta_i) > 1.0;
     }
     else
     {
-        _2663 = _2655;
+        _2671 = _2663;
     }
-    slope_x = _2663 ? slope_x_1 : slope_x_2;
+    slope_x = _2671 ? slope_x_1 : slope_x_2;
     float S;
     if (randv > 0.5)
     {
@@ -4105,9 +4110,9 @@ int bsdf_microfacet_ggx_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float rand
         bool param_5 = false;
         float G1o;
         float param_6 = G1o;
-        vec4 _3514 = microfacet_sample_stretched(local_I, alpha_x, alpha_y, randu, randv, param_5, param_6);
+        vec4 _3522 = microfacet_sample_stretched(local_I, alpha_x, alpha_y, randu, randv, param_5, param_6);
         G1o = param_6;
-        vec4 local_m = _3514;
+        vec4 local_m = _3522;
         vec4 m = ((X * local_m.x) + (Y * local_m.y)) + (Z * local_m.z);
         float cosThetaM = local_m.z;
         if (!m_refractive)
@@ -4123,17 +4128,17 @@ int bsdf_microfacet_ggx_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float rand
                     {
                         pdf = 1000000.0;
                         eval = vec4(1000000.0, 1000000.0, 1000000.0, 0.0);
-                        bool _3575 = sc.type == 11u;
-                        bool _3582;
-                        if (!_3575)
+                        bool _3583 = sc.type == 11u;
+                        bool _3590;
+                        if (!_3583)
                         {
-                            _3582 = sc.type == 12u;
+                            _3590 = sc.type == 12u;
                         }
                         else
                         {
-                            _3582 = _3575;
+                            _3590 = _3583;
                         }
-                        bool use_fresnel = _3582;
+                        bool use_fresnel = _3590;
                         if (use_fresnel)
                         {
                             vec4 param_7 = omega_in;
@@ -4223,7 +4228,7 @@ int bsdf_microfacet_ggx_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float rand
             vec4 param_22 = dTdy;
             bool inside;
             bool param_23 = inside;
-            float _3885 = fresnel_dielectric(param_16, m, I, param_17, param_18, dIdx, dIdy, param_19, param_20, param_21, param_22, param_23);
+            float _3893 = fresnel_dielectric(param_16, m, I, param_17, param_18, dIdx, dIdy, param_19, param_20, param_21, param_22, param_23);
             R = param_17;
             T = param_18;
             dRdx = param_19;
@@ -4231,23 +4236,23 @@ int bsdf_microfacet_ggx_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float rand
             dTdx = param_21;
             dTdy = param_22;
             inside = param_23;
-            float fresnel = _3885;
+            float fresnel = _3893;
             if ((!inside) && (!(fresnel == 1.0)))
             {
                 omega_in = T;
                 domega_in_dx = dTdx;
                 domega_in_dy = dTdy;
-                bool _3906 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
-                bool _3915;
-                if (!_3906)
+                bool _3914 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
+                bool _3923;
+                if (!_3914)
                 {
-                    _3915 = abs(m_eta - 1.0) < 9.9999997473787516355514526367188e-05;
+                    _3923 = abs(m_eta - 1.0) < 9.9999997473787516355514526367188e-05;
                 }
                 else
                 {
-                    _3915 = _3906;
+                    _3923 = _3914;
                 }
-                if (_3915)
+                if (_3923)
                 {
                     pdf = 1000000.0;
                     eval = vec4(1000000.0, 1000000.0, 1000000.0, 0.0);
@@ -4316,9 +4321,9 @@ int bsdf_microfacet_beckmann_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float
         bool param_5 = true;
         float G1o;
         float param_6 = G1o;
-        vec4 _4604 = microfacet_sample_stretched(local_I, alpha_x, alpha_x, randu, randv, param_5, param_6);
+        vec4 _4612 = microfacet_sample_stretched(local_I, alpha_x, alpha_x, randu, randv, param_5, param_6);
         G1o = param_6;
-        vec4 local_m = _4604;
+        vec4 local_m = _4612;
         vec4 m = ((X * local_m.x) + (Y * local_m.y)) + (Z * local_m.z);
         float cosThetaM = local_m.z;
         if (!m_refractive)
@@ -4350,8 +4355,8 @@ int bsdf_microfacet_beckmann_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float
                             float cosNI = dot(N.xyz, omega_in.xyz);
                             float param_7 = alpha_x;
                             float param_8 = cosNI;
-                            float _4703 = bsdf_beckmann_G1(param_7, param_8);
-                            G1i = _4703;
+                            float _4711 = bsdf_beckmann_G1(param_7, param_8);
+                            G1i = _4711;
                         }
                         else
                         {
@@ -4367,8 +4372,8 @@ int bsdf_microfacet_beckmann_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float
                             float param_11 = dot(omega_in.xyz, N.xyz);
                             float param_12 = dot(omega_in.xyz, X.xyz);
                             float param_13 = dot(omega_in.xyz, Y.xyz);
-                            float _4787 = bsdf_beckmann_aniso_G1(param_9, param_10, param_11, param_12, param_13);
-                            G1i = _4787;
+                            float _4795 = bsdf_beckmann_aniso_G1(param_9, param_10, param_11, param_12, param_13);
+                            G1i = _4795;
                         }
                         float G = G1o * G1i;
                         float common_rsv = (D * 0.25) / cosNO;
@@ -4400,7 +4405,7 @@ int bsdf_microfacet_beckmann_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float
             vec4 param_20 = dTdy;
             bool inside;
             bool param_21 = inside;
-            float _4860 = fresnel_dielectric(param_14, m, I, param_15, param_16, dIdx, dIdy, param_17, param_18, param_19, param_20, param_21);
+            float _4868 = fresnel_dielectric(param_14, m, I, param_15, param_16, dIdx, dIdy, param_17, param_18, param_19, param_20, param_21);
             R = param_15;
             T = param_16;
             dRdx = param_17;
@@ -4408,23 +4413,23 @@ int bsdf_microfacet_beckmann_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float
             dTdx = param_19;
             dTdy = param_20;
             inside = param_21;
-            float fresnel = _4860;
+            float fresnel = _4868;
             if ((!inside) && (!(fresnel == 1.0)))
             {
                 omega_in = T;
                 domega_in_dx = dTdx;
                 domega_in_dy = dTdy;
-                bool _4881 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
-                bool _4889;
-                if (!_4881)
+                bool _4889 = (alpha_x * alpha_y) <= 1.0000000116860974230803549289703e-07;
+                bool _4897;
+                if (!_4889)
                 {
-                    _4889 = abs(m_eta - 1.0) < 9.9999997473787516355514526367188e-05;
+                    _4897 = abs(m_eta - 1.0) < 9.9999997473787516355514526367188e-05;
                 }
                 else
                 {
-                    _4889 = _4881;
+                    _4897 = _4889;
                 }
-                if (_4889)
+                if (_4897)
                 {
                     pdf = 1000000.0;
                     eval = vec4(1000000.0, 1000000.0, 1000000.0, 0.0);
@@ -4440,8 +4445,8 @@ int bsdf_microfacet_beckmann_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float
                     float cosNI_1 = dot(N.xyz, omega_in.xyz);
                     float param_22 = alpha_x;
                     float param_23 = cosNI_1;
-                    float _4931 = bsdf_beckmann_G1(param_22, param_23);
-                    float G1i_1 = _4931;
+                    float _4939 = bsdf_beckmann_G1(param_22, param_23);
+                    float G1i_1 = _4939;
                     float G_1 = G1o * G1i_1;
                     float cosHI = dot(m.xyz, omega_in.xyz);
                     float cosHO = dot(m.xyz, I.xyz);
@@ -4502,43 +4507,43 @@ vec4 mf_sample_glossy(vec4 wi, inout vec4 wo, vec4 color, float alpha_x, float a
         vec4 param_6 = cspec0;
         throughput = interpolate_fresnel_color(param_2, param_3, param_4, param_5, param_6);
     }
-    vec4 _7048;
+    vec4 _7056;
     for (int order = 0; order < 10; order++)
     {
         uint param_7 = lcg_state;
-        float _7027 = lcg_step_float_addrspace(param_7);
+        float _7035 = lcg_step_float_addrspace(param_7);
         lcg_state = param_7;
-        float height_rand = _7027;
+        float height_rand = _7035;
         float param_8 = hr;
         float param_9 = C1_r;
         float param_10 = G1_r;
         float param_11 = lambda_r;
-        bool _7039 = mf_sample_height(wr, param_8, param_9, param_10, param_11, height_rand);
+        bool _7047 = mf_sample_height(wr, param_8, param_9, param_10, param_11, height_rand);
         hr = param_8;
         C1_r = param_9;
         G1_r = param_10;
         lambda_r = param_11;
-        if (!_7039)
+        if (!_7047)
         {
             if (outside)
             {
-                _7048 = wr;
+                _7056 = wr;
             }
             else
             {
-                _7048 = -wr;
+                _7056 = -wr;
             }
-            wo = _7048;
+            wo = _7056;
             return throughput;
         }
         uint param_12 = lcg_state;
-        float _7061 = lcg_step_float_addrspace(param_12);
+        float _7069 = lcg_step_float_addrspace(param_12);
         lcg_state = param_12;
-        float vndf_rand_y = _7061;
+        float vndf_rand_y = _7069;
         uint param_13 = lcg_state;
-        float _7066 = lcg_step_float_addrspace(param_13);
+        float _7074 = lcg_step_float_addrspace(param_13);
         lcg_state = param_13;
-        float vndf_rand_x = _7066;
+        float vndf_rand_x = _7074;
         vec4 wm = mf_sample_vndf(-wr, alpha, vndf_rand_x, vndf_rand_y);
         if ((!use_fresnel) && (order > 0))
         {
@@ -4610,10 +4615,10 @@ int bsdf_microfacet_multi_ggx_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, floa
     vec4 param_6 = localO;
     uint param_7 = lcg_state;
     bool param_8 = use_fresnel;
-    vec4 _7383 = mf_sample_glossy(param_5, param_6, vec4(sc.data[3], sc.data[4], sc.data[5], 0.0), sc.data[0], sc.data[1], param_7, sc.data[2], param_8, vec4(sc.data[6], sc.data[7], sc.data[8], 0.0));
+    vec4 _7391 = mf_sample_glossy(param_5, param_6, vec4(sc.data[3], sc.data[4], sc.data[5], 0.0), sc.data[0], sc.data[1], param_7, sc.data[2], param_8, vec4(sc.data[6], sc.data[7], sc.data[8], 0.0));
     localO = param_6;
     lcg_state = param_7;
-    eval = _7383;
+    eval = _7391;
     if (is_aniso)
     {
         pdf = mf_ggx_aniso_pdf(localI, localO, vec2(sc.data[0], sc.data[1]));
@@ -4651,45 +4656,45 @@ vec4 mf_sample_glass(vec4 wi, inout vec4 wo, vec4 color, float alpha_x, float al
         vec4 param_6 = cspec0;
         throughput = interpolate_fresnel_color(param_2, param_3, param_4, param_5, param_6);
     }
-    vec4 _6589;
-    float _6636;
+    vec4 _6597;
+    float _6644;
     bool next_outside;
     for (int order = 0; order < 10; order++)
     {
         uint param_7 = lcg_state;
-        float _6568 = lcg_step_float_addrspace(param_7);
+        float _6576 = lcg_step_float_addrspace(param_7);
         lcg_state = param_7;
-        float height_rand = _6568;
+        float height_rand = _6576;
         float param_8 = hr;
         float param_9 = C1_r;
         float param_10 = G1_r;
         float param_11 = lambda_r;
-        bool _6580 = mf_sample_height(wr, param_8, param_9, param_10, param_11, height_rand);
+        bool _6588 = mf_sample_height(wr, param_8, param_9, param_10, param_11, height_rand);
         hr = param_8;
         C1_r = param_9;
         G1_r = param_10;
         lambda_r = param_11;
-        if (!_6580)
+        if (!_6588)
         {
             if (outside)
             {
-                _6589 = wr;
+                _6597 = wr;
             }
             else
             {
-                _6589 = -wr;
+                _6597 = -wr;
             }
-            wo = _6589;
+            wo = _6597;
             return throughput;
         }
         uint param_12 = lcg_state;
-        float _6602 = lcg_step_float_addrspace(param_12);
+        float _6610 = lcg_step_float_addrspace(param_12);
         lcg_state = param_12;
-        float vndf_rand_y = _6602;
+        float vndf_rand_y = _6610;
         uint param_13 = lcg_state;
-        float _6607 = lcg_step_float_addrspace(param_13);
+        float _6615 = lcg_step_float_addrspace(param_13);
         lcg_state = param_13;
-        float vndf_rand_x = _6607;
+        float vndf_rand_x = _6615;
         vec4 wm = mf_sample_vndf(-wr, alpha, vndf_rand_x, vndf_rand_y);
         if ((!use_fresnel) && (order > 0))
         {
@@ -4697,21 +4702,21 @@ vec4 mf_sample_glass(vec4 wi, inout vec4 wo, vec4 color, float alpha_x, float al
         }
         vec4 wi_prev = -wr;
         uint param_14 = lcg_state;
-        float _6631 = lcg_step_float_addrspace(param_14);
+        float _6639 = lcg_step_float_addrspace(param_14);
         lcg_state = param_14;
-        float phase_rand = _6631;
+        float phase_rand = _6639;
         if (outside)
         {
-            _6636 = eta;
+            _6644 = eta;
         }
         else
         {
-            _6636 = 1.0 / eta;
+            _6644 = 1.0 / eta;
         }
         bool param_15 = next_outside;
-        vec4 _6647 = mf_sample_phase_glass(-wr, _6636, wm, phase_rand, param_15);
+        vec4 _6655 = mf_sample_phase_glass(-wr, _6644, wm, phase_rand, param_15);
         next_outside = param_15;
-        wr = _6647;
+        wr = _6655;
         if (!next_outside)
         {
             hr = -hr;
@@ -4769,7 +4774,7 @@ int bsdf_microfacet_multi_ggx_glass_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy
         vec4 param_6 = dTdy;
         bool inside;
         bool param_7 = inside;
-        float _7676 = fresnel_dielectric(param, Z, I, param_1, param_2, dIdx, dIdy, param_3, param_4, param_5, param_6, param_7);
+        float _7684 = fresnel_dielectric(param, Z, I, param_1, param_2, dIdx, dIdy, param_3, param_4, param_5, param_6, param_7);
         R = param_1;
         T = param_2;
         dRdx = param_3;
@@ -4777,7 +4782,7 @@ int bsdf_microfacet_multi_ggx_glass_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy
         dTdx = param_5;
         dTdy = param_6;
         inside = param_7;
-        float fresnel = _7676;
+        float fresnel = _7684;
         pdf = 1000000.0;
         eval = vec4(1000000.0, 1000000.0, 1000000.0, 0.0);
         if (randu < fresnel)
@@ -4809,10 +4814,10 @@ int bsdf_microfacet_multi_ggx_glass_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy
     vec4 param_12 = localO;
     uint param_13 = lcg_state;
     bool param_14 = use_fresnel;
-    vec4 _7758 = mf_sample_glass(param_11, param_12, vec4(sc.data[3], sc.data[4], sc.data[5], 0.0), sc.data[0], sc.data[1], param_13, sc.data[2], param_14, vec4(sc.data[6], sc.data[7], sc.data[8], 0.0));
+    vec4 _7766 = mf_sample_glass(param_11, param_12, vec4(sc.data[3], sc.data[4], sc.data[5], 0.0), sc.data[0], sc.data[1], param_13, sc.data[2], param_14, vec4(sc.data[6], sc.data[7], sc.data[8], 0.0));
     localO = param_12;
     lcg_state = param_13;
-    eval = _7758;
+    eval = _7766;
     pdf = mf_glass_pdf(localI, localO, sc.data[0], sc.data[2]);
     eval *= pdf;
     omega_in = ((X * localO.x) + (Y * localO.y)) + (Z * localO.z);
@@ -4961,9 +4966,9 @@ int bsdf_ashikhmin_shirley_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float r
         else
         {
             float param_31 = pdf;
-            vec4 _8346 = bsdf_ashikhmin_shirley_eval_reflect(I, omega_in, param_31);
+            vec4 _8354 = bsdf_ashikhmin_shirley_eval_reflect(I, omega_in, param_31);
             pdf = param_31;
-            eval = _8346;
+            eval = _8354;
         }
         domega_in_dx = (N * (2.0 * dot(N.xyz, dIdx.xyz))) - dIdx;
         domega_in_dy = (N * (2.0 * dot(N.xyz, dIdy.xyz))) - dIdy;
@@ -4989,9 +4994,9 @@ int bsdf_principled_diffuse_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float 
         vec4 param_6 = omega_in;
         vec4 param_7 = H;
         float param_8 = pdf;
-        vec4 _9412 = calculate_principled_diffuse_brdf(param_4, param_5, param_6, param_7, param_8);
+        vec4 _9420 = calculate_principled_diffuse_brdf(param_4, param_5, param_6, param_7, param_8);
         pdf = param_8;
-        eval = _9412;
+        eval = _9420;
         domega_in_dx = -((N * (2.0 * dot(N.xyz, dIdx.xyz))) - dIdx);
         domega_in_dy = -((N * (2.0 * dot(N.xyz, dIdy.xyz))) - dIdy);
     }
@@ -5020,9 +5025,9 @@ int bsdf_principled_sheen_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float ra
         vec4 param_6 = omega_in;
         vec4 param_7 = H;
         float param_8 = pdf;
-        vec4 _9556 = calculate_principled_sheen_brdf(param_4, param_5, param_6, param_7, param_8);
+        vec4 _9564 = calculate_principled_sheen_brdf(param_4, param_5, param_6, param_7, param_8);
         pdf = param_8;
-        eval = _9556;
+        eval = _9564;
         domega_in_dx = -((N * (2.0 * dot(N.xyz, dIdx.xyz))) - dIdx);
         domega_in_dy = -((N * (2.0 * dot(N.xyz, dIdy.xyz))) - dIdy);
     }
@@ -5035,68 +5040,68 @@ int bsdf_principled_sheen_sample(vec4 Ng, vec4 I, vec4 dIdx, vec4 dIdy, float ra
 
 float bsdf_get_specular_roughness_squared(ShaderClosure sc_1)
 {
-    bool _9645 = sc_1.type == 9u;
-    bool _9652;
-    if (!_9645)
+    bool _9653 = sc_1.type == 9u;
+    bool _9660;
+    if (!_9653)
     {
-        _9652 = sc_1.type == 21u;
+        _9660 = sc_1.type == 21u;
     }
     else
     {
-        _9652 = _9645;
+        _9660 = _9653;
     }
-    bool _9659;
-    if (!_9652)
+    bool _9667;
+    if (!_9660)
     {
-        _9659 = sc_1.type == 33u;
+        _9667 = sc_1.type == 33u;
     }
     else
     {
-        _9659 = _9652;
+        _9667 = _9660;
     }
-    if (_9659)
+    if (_9667)
     {
         return 0.0;
     }
-    bool _9666 = sc_1.type >= 10u;
-    bool _9673;
-    if (_9666)
+    bool _9674 = sc_1.type >= 10u;
+    bool _9681;
+    if (_9674)
     {
-        _9673 = sc_1.type <= 16u;
+        _9681 = sc_1.type <= 16u;
     }
     else
     {
-        _9673 = _9666;
+        _9681 = _9674;
     }
-    bool _9687;
-    if (!_9673)
+    bool _9695;
+    if (!_9681)
     {
-        bool _9679 = sc_1.type >= 22u;
-        bool _9686;
-        if (_9679)
+        bool _9687 = sc_1.type >= 22u;
+        bool _9694;
+        if (_9687)
         {
-            _9686 = sc_1.type <= 24u;
+            _9694 = sc_1.type <= 24u;
         }
         else
         {
-            _9686 = _9679;
+            _9694 = _9687;
         }
-        _9687 = _9686;
+        _9695 = _9694;
     }
     else
     {
-        _9687 = _9673;
+        _9695 = _9681;
     }
-    bool _9694;
-    if (!_9687)
+    bool _9702;
+    if (!_9695)
     {
-        _9694 = sc_1.type == 27u;
+        _9702 = sc_1.type == 27u;
     }
     else
     {
-        _9694 = _9687;
+        _9702 = _9695;
     }
-    if (_9694)
+    if (_9702)
     {
         return sc_1.data[0] * sc_1.data[1];
     }
@@ -5105,16 +5110,16 @@ float bsdf_get_specular_roughness_squared(ShaderClosure sc_1)
 
 int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, inout differential3 domega_in, inout float pdf)
 {
-    vec4 _10230;
+    vec4 _10238;
     if ((uint(arg.sd.type) & 60u) != 0u)
     {
-        _10230 = sc.N;
+        _10238 = sc.N;
     }
     else
     {
-        _10230 = arg.sd.Ng;
+        _10238 = arg.sd.Ng;
     }
-    vec4 Ng = _10230;
+    vec4 Ng = _10238;
     uint lcg_state = arg.sd.lcg_state;
     int label;
     switch (sc.type)
@@ -5133,13 +5138,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_8 = domega_in.dx;
             vec4 param_9 = domega_in.dy;
             float param_10 = pdf;
-            int _10290 = bsdf_diffuse_sample(param, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8, param_9, param_10);
+            int _10298 = bsdf_diffuse_sample(param, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8, param_9, param_10);
             eval = param_6;
             omega_in = param_7;
             domega_in.dx = param_8;
             domega_in.dy = param_9;
             pdf = param_10;
-            label = _10290;
+            label = _10298;
             break;
         }
         case 3u:
@@ -5155,13 +5160,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_19 = domega_in.dx;
             vec4 param_20 = domega_in.dy;
             float param_21 = pdf;
-            int _10326 = bsdf_oren_nayar_sample(param_11, param_12, param_13, param_14, param_15, param_16, param_17, param_18, param_19, param_20, param_21);
+            int _10334 = bsdf_oren_nayar_sample(param_11, param_12, param_13, param_14, param_15, param_16, param_17, param_18, param_19, param_20, param_21);
             eval = param_17;
             omega_in = param_18;
             domega_in.dx = param_19;
             domega_in.dy = param_20;
             pdf = param_21;
-            label = _10326;
+            label = _10334;
             break;
         }
         case 7u:
@@ -5177,13 +5182,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_30 = domega_in.dx;
             vec4 param_31 = domega_in.dy;
             float param_32 = pdf;
-            int _10362 = bsdf_diffuse_toon_sample(param_22, param_23, param_24, param_25, param_26, param_27, param_28, param_29, param_30, param_31, param_32);
+            int _10370 = bsdf_diffuse_toon_sample(param_22, param_23, param_24, param_25, param_26, param_27, param_28, param_29, param_30, param_31, param_32);
             eval = param_28;
             omega_in = param_29;
             domega_in.dx = param_30;
             domega_in.dy = param_31;
             pdf = param_32;
-            label = _10362;
+            label = _10370;
             break;
         }
         case 19u:
@@ -5199,13 +5204,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_41 = domega_in.dx;
             vec4 param_42 = domega_in.dy;
             float param_43 = pdf;
-            int _10398 = bsdf_glossy_toon_sample(param_33, param_34, param_35, param_36, param_37, param_38, param_39, param_40, param_41, param_42, param_43);
+            int _10406 = bsdf_glossy_toon_sample(param_33, param_34, param_35, param_36, param_37, param_38, param_39, param_40, param_41, param_42, param_43);
             eval = param_39;
             omega_in = param_40;
             domega_in.dx = param_41;
             domega_in.dy = param_42;
             pdf = param_43;
-            label = _10398;
+            label = _10406;
             break;
         }
         case 8u:
@@ -5221,13 +5226,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_52 = domega_in.dx;
             vec4 param_53 = domega_in.dy;
             float param_54 = pdf;
-            int _10434 = bsdf_translucent_sample(param_44, param_45, param_46, param_47, param_48, param_49, param_50, param_51, param_52, param_53, param_54);
+            int _10442 = bsdf_translucent_sample(param_44, param_45, param_46, param_47, param_48, param_49, param_50, param_51, param_52, param_53, param_54);
             eval = param_50;
             omega_in = param_51;
             domega_in.dx = param_52;
             domega_in.dy = param_53;
             pdf = param_54;
-            label = _10434;
+            label = _10442;
             break;
         }
         case 33u:
@@ -5243,13 +5248,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_63 = domega_in.dx;
             vec4 param_64 = domega_in.dy;
             float param_65 = pdf;
-            int _10470 = bsdf_transparent_sample(param_55, param_56, param_57, param_58, param_59, param_60, param_61, param_62, param_63, param_64, param_65);
+            int _10478 = bsdf_transparent_sample(param_55, param_56, param_57, param_58, param_59, param_60, param_61, param_62, param_63, param_64, param_65);
             eval = param_61;
             omega_in = param_62;
             domega_in.dx = param_63;
             domega_in.dy = param_64;
             pdf = param_65;
-            label = _10470;
+            label = _10478;
             break;
         }
         case 17u:
@@ -5265,13 +5270,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_74 = domega_in.dx;
             vec4 param_75 = domega_in.dy;
             float param_76 = pdf;
-            int _10506 = bsdf_ashikhmin_velvet_sample(param_66, param_67, param_68, param_69, param_70, param_71, param_72, param_73, param_74, param_75, param_76);
+            int _10514 = bsdf_ashikhmin_velvet_sample(param_66, param_67, param_68, param_69, param_70, param_71, param_72, param_73, param_74, param_75, param_76);
             eval = param_72;
             omega_in = param_73;
             domega_in.dx = param_74;
             domega_in.dy = param_75;
             pdf = param_76;
-            label = _10506;
+            label = _10514;
             break;
         }
         case 21u:
@@ -5287,13 +5292,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_85 = domega_in.dx;
             vec4 param_86 = domega_in.dy;
             float param_87 = pdf;
-            int _10542 = bsdf_refraction_sample(param_77, param_78, param_79, param_80, param_81, param_82, param_83, param_84, param_85, param_86, param_87);
+            int _10550 = bsdf_refraction_sample(param_77, param_78, param_79, param_80, param_81, param_82, param_83, param_84, param_85, param_86, param_87);
             eval = param_83;
             omega_in = param_84;
             domega_in.dx = param_85;
             domega_in.dy = param_86;
             pdf = param_87;
-            label = _10542;
+            label = _10550;
             break;
         }
         case 10u:
@@ -5312,13 +5317,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_96 = domega_in.dx;
             vec4 param_97 = domega_in.dy;
             float param_98 = pdf;
-            int _10578 = bsdf_microfacet_ggx_sample(param_88, param_89, param_90, param_91, param_92, param_93, param_94, param_95, param_96, param_97, param_98);
+            int _10586 = bsdf_microfacet_ggx_sample(param_88, param_89, param_90, param_91, param_92, param_93, param_94, param_95, param_96, param_97, param_98);
             eval = param_94;
             omega_in = param_95;
             domega_in.dx = param_96;
             domega_in.dy = param_97;
             pdf = param_98;
-            label = _10578;
+            label = _10586;
             break;
         }
         case 13u:
@@ -5335,13 +5340,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_107 = domega_in.dx;
             vec4 param_108 = domega_in.dy;
             float param_109 = pdf;
-            int _10614 = bsdf_microfacet_beckmann_sample(param_99, param_100, param_101, param_102, param_103, param_104, param_105, param_106, param_107, param_108, param_109);
+            int _10622 = bsdf_microfacet_beckmann_sample(param_99, param_100, param_101, param_102, param_103, param_104, param_105, param_106, param_107, param_108, param_109);
             eval = param_105;
             omega_in = param_106;
             domega_in.dx = param_107;
             domega_in.dy = param_108;
             pdf = param_109;
-            label = _10614;
+            label = _10622;
             break;
         }
         case 9u:
@@ -5357,13 +5362,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_118 = domega_in.dx;
             vec4 param_119 = domega_in.dy;
             float param_120 = pdf;
-            int _10650 = bsdf_reflection_sample(param_110, param_111, param_112, param_113, param_114, param_115, param_116, param_117, param_118, param_119, param_120);
+            int _10658 = bsdf_reflection_sample(param_110, param_111, param_112, param_113, param_114, param_115, param_116, param_117, param_118, param_119, param_120);
             eval = param_116;
             omega_in = param_117;
             domega_in.dx = param_118;
             domega_in.dy = param_119;
             pdf = param_120;
-            label = _10650;
+            label = _10658;
             break;
         }
         case 14u:
@@ -5381,14 +5386,14 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_130 = domega_in.dy;
             float param_131 = pdf;
             uint param_132 = lcg_state;
-            int _10688 = bsdf_microfacet_multi_ggx_sample(param_121, param_122, param_123, param_124, param_125, param_126, param_127, param_128, param_129, param_130, param_131, param_132);
+            int _10696 = bsdf_microfacet_multi_ggx_sample(param_121, param_122, param_123, param_124, param_125, param_126, param_127, param_128, param_129, param_130, param_131, param_132);
             eval = param_127;
             omega_in = param_128;
             domega_in.dx = param_129;
             domega_in.dy = param_130;
             pdf = param_131;
             lcg_state = param_132;
-            label = _10688;
+            label = _10696;
             break;
         }
         case 24u:
@@ -5406,14 +5411,14 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_142 = domega_in.dy;
             float param_143 = pdf;
             uint param_144 = lcg_state;
-            int _10727 = bsdf_microfacet_multi_ggx_glass_sample(param_133, param_134, param_135, param_136, param_137, param_138, param_139, param_140, param_141, param_142, param_143, param_144);
+            int _10735 = bsdf_microfacet_multi_ggx_glass_sample(param_133, param_134, param_135, param_136, param_137, param_138, param_139, param_140, param_141, param_142, param_143, param_144);
             eval = param_139;
             omega_in = param_140;
             domega_in.dx = param_141;
             domega_in.dy = param_142;
             pdf = param_143;
             lcg_state = param_144;
-            label = _10727;
+            label = _10735;
             break;
         }
         case 16u:
@@ -5429,13 +5434,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_153 = domega_in.dx;
             vec4 param_154 = domega_in.dy;
             float param_155 = pdf;
-            int _10764 = bsdf_ashikhmin_shirley_sample(param_145, param_146, param_147, param_148, param_149, param_150, param_151, param_152, param_153, param_154, param_155);
+            int _10772 = bsdf_ashikhmin_shirley_sample(param_145, param_146, param_147, param_148, param_149, param_150, param_151, param_152, param_153, param_154, param_155);
             eval = param_151;
             omega_in = param_152;
             domega_in.dx = param_153;
             domega_in.dy = param_154;
             pdf = param_155;
-            label = _10764;
+            label = _10772;
             break;
         }
         case 5u:
@@ -5452,13 +5457,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_164 = domega_in.dx;
             vec4 param_165 = domega_in.dy;
             float param_166 = pdf;
-            int _10800 = bsdf_principled_diffuse_sample(param_156, param_157, param_158, param_159, param_160, param_161, param_162, param_163, param_164, param_165, param_166);
+            int _10808 = bsdf_principled_diffuse_sample(param_156, param_157, param_158, param_159, param_160, param_161, param_162, param_163, param_164, param_165, param_166);
             eval = param_162;
             omega_in = param_163;
             domega_in.dx = param_164;
             domega_in.dy = param_165;
             pdf = param_166;
-            label = _10800;
+            label = _10808;
             break;
         }
         case 6u:
@@ -5474,13 +5479,13 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
             vec4 param_175 = domega_in.dx;
             vec4 param_176 = domega_in.dy;
             float param_177 = pdf;
-            int _10836 = bsdf_principled_sheen_sample(param_167, param_168, param_169, param_170, param_171, param_172, param_173, param_174, param_175, param_176, param_177);
+            int _10844 = bsdf_principled_sheen_sample(param_167, param_168, param_169, param_170, param_171, param_172, param_173, param_174, param_175, param_176, param_177);
             eval = param_173;
             omega_in = param_174;
             domega_in.dx = param_175;
             domega_in.dy = param_176;
             pdf = param_177;
-            label = _10836;
+            label = _10844;
             break;
         }
         default:
@@ -5491,7 +5496,7 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
     }
     if ((uint(label) & 1u) != 0u)
     {
-        float threshold_squared = _10866.kernel_data.background.transparent_roughness_squared_threshold;
+        float threshold_squared = _10874.kernel_data.background.transparent_roughness_squared_threshold;
         if (threshold_squared >= 0.0)
         {
             ShaderClosure param_178 = sc;
@@ -5507,23 +5512,23 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
         if (frequency_multiplier > 1.0)
         {
             float param_179 = dot(arg.omega_in.xyz, sc.N.xyz);
-            float _10907 = shift_cos_in(param_179, frequency_multiplier);
-            eval *= _10907;
+            float _10915 = shift_cos_in(param_179, frequency_multiplier);
+            eval *= _10915;
         }
         if ((uint(label) & 4u) != 0u)
         {
             if (!all(equal(sc.N.xyz, arg.sd.N.xyz)))
             {
-                vec4 _10931;
+                vec4 _10939;
                 if ((uint(label) & 1u) != 0u)
                 {
-                    _10931 = -arg.sd.N;
+                    _10939 = -arg.sd.N;
                 }
                 else
                 {
-                    _10931 = arg.sd.N;
+                    _10939 = arg.sd.N;
                 }
-                vec4 param_180 = _10931;
+                vec4 param_180 = _10939;
                 vec4 param_181 = sc.N;
                 vec4 param_182 = omega_in;
                 eval *= bump_shadowing_term(param_180, param_181, param_182);
@@ -5538,46 +5543,46 @@ int bsdf_sample(float randu, float randv, inout vec4 eval, inout vec4 omega_in, 
 int shader_bsdf_sample(inout float randu, float randv, inout vec4 omega_in, inout differential3 domega_in, inout float pdf)
 {
     float param = randu;
-    int _11289 = shader_bsdf_pick(param);
+    int _11297 = shader_bsdf_pick(param);
     randu = param;
-    int sampled = _11289;
+    int sampled = _11297;
     if (sampled < 0)
     {
         pdf = 0.0;
         return 0;
     }
-    ShaderClosure _11303;
-    _11303.weight = push.pool_ptr.pool_sc.data[sampled].weight;
-    _11303.type = push.pool_ptr.pool_sc.data[sampled].type;
-    _11303.sample_weight = push.pool_ptr.pool_sc.data[sampled].sample_weight;
-    _11303.N = push.pool_ptr.pool_sc.data[sampled].N;
-    _11303.next = push.pool_ptr.pool_sc.data[sampled].next;
-    _11303.data[0] = push.pool_ptr.pool_sc.data[sampled].data[0];
-    _11303.data[1] = push.pool_ptr.pool_sc.data[sampled].data[1];
-    _11303.data[2] = push.pool_ptr.pool_sc.data[sampled].data[2];
-    _11303.data[3] = push.pool_ptr.pool_sc.data[sampled].data[3];
-    _11303.data[4] = push.pool_ptr.pool_sc.data[sampled].data[4];
-    _11303.data[5] = push.pool_ptr.pool_sc.data[sampled].data[5];
-    _11303.data[6] = push.pool_ptr.pool_sc.data[sampled].data[6];
-    _11303.data[7] = push.pool_ptr.pool_sc.data[sampled].data[7];
-    _11303.data[8] = push.pool_ptr.pool_sc.data[sampled].data[8];
-    _11303.data[9] = push.pool_ptr.pool_sc.data[sampled].data[9];
-    _11303.data[10] = push.pool_ptr.pool_sc.data[sampled].data[10];
-    _11303.data[11] = push.pool_ptr.pool_sc.data[sampled].data[11];
-    _11303.data[12] = push.pool_ptr.pool_sc.data[sampled].data[12];
-    _11303.data[13] = push.pool_ptr.pool_sc.data[sampled].data[13];
-    _11303.data[14] = push.pool_ptr.pool_sc.data[sampled].data[14];
-    _11303.data[15] = push.pool_ptr.pool_sc.data[sampled].data[15];
-    _11303.data[16] = push.pool_ptr.pool_sc.data[sampled].data[16];
-    _11303.data[17] = push.pool_ptr.pool_sc.data[sampled].data[17];
-    _11303.data[18] = push.pool_ptr.pool_sc.data[sampled].data[18];
-    _11303.data[19] = push.pool_ptr.pool_sc.data[sampled].data[19];
-    _11303.data[20] = push.pool_ptr.pool_sc.data[sampled].data[20];
-    _11303.data[21] = push.pool_ptr.pool_sc.data[sampled].data[21];
-    _11303.data[22] = push.pool_ptr.pool_sc.data[sampled].data[22];
-    _11303.data[23] = push.pool_ptr.pool_sc.data[sampled].data[23];
-    _11303.data[24] = push.pool_ptr.pool_sc.data[sampled].data[24];
-    sc = _11303;
+    ShaderClosure _11311;
+    _11311.weight = push.pool_ptr.pool_sc.data[sampled].weight;
+    _11311.type = push.pool_ptr.pool_sc.data[sampled].type;
+    _11311.sample_weight = push.pool_ptr.pool_sc.data[sampled].sample_weight;
+    _11311.N = push.pool_ptr.pool_sc.data[sampled].N;
+    _11311.next = push.pool_ptr.pool_sc.data[sampled].next;
+    _11311.data[0] = push.pool_ptr.pool_sc.data[sampled].data[0];
+    _11311.data[1] = push.pool_ptr.pool_sc.data[sampled].data[1];
+    _11311.data[2] = push.pool_ptr.pool_sc.data[sampled].data[2];
+    _11311.data[3] = push.pool_ptr.pool_sc.data[sampled].data[3];
+    _11311.data[4] = push.pool_ptr.pool_sc.data[sampled].data[4];
+    _11311.data[5] = push.pool_ptr.pool_sc.data[sampled].data[5];
+    _11311.data[6] = push.pool_ptr.pool_sc.data[sampled].data[6];
+    _11311.data[7] = push.pool_ptr.pool_sc.data[sampled].data[7];
+    _11311.data[8] = push.pool_ptr.pool_sc.data[sampled].data[8];
+    _11311.data[9] = push.pool_ptr.pool_sc.data[sampled].data[9];
+    _11311.data[10] = push.pool_ptr.pool_sc.data[sampled].data[10];
+    _11311.data[11] = push.pool_ptr.pool_sc.data[sampled].data[11];
+    _11311.data[12] = push.pool_ptr.pool_sc.data[sampled].data[12];
+    _11311.data[13] = push.pool_ptr.pool_sc.data[sampled].data[13];
+    _11311.data[14] = push.pool_ptr.pool_sc.data[sampled].data[14];
+    _11311.data[15] = push.pool_ptr.pool_sc.data[sampled].data[15];
+    _11311.data[16] = push.pool_ptr.pool_sc.data[sampled].data[16];
+    _11311.data[17] = push.pool_ptr.pool_sc.data[sampled].data[17];
+    _11311.data[18] = push.pool_ptr.pool_sc.data[sampled].data[18];
+    _11311.data[19] = push.pool_ptr.pool_sc.data[sampled].data[19];
+    _11311.data[20] = push.pool_ptr.pool_sc.data[sampled].data[20];
+    _11311.data[21] = push.pool_ptr.pool_sc.data[sampled].data[21];
+    _11311.data[22] = push.pool_ptr.pool_sc.data[sampled].data[22];
+    _11311.data[23] = push.pool_ptr.pool_sc.data[sampled].data[23];
+    _11311.data[24] = push.pool_ptr.pool_sc.data[sampled].data[24];
+    sc = _11311;
     if (!(push.pool_ptr.pool_sc.data[sampled].type <= 33u))
     {
         // unimplemented ext op 12
@@ -5591,12 +5596,12 @@ int shader_bsdf_sample(inout float randu, float randv, inout vec4 omega_in, inou
     vec4 param_4 = omega_in;
     differential3 param_5 = domega_in;
     float param_6 = pdf;
-    int _11332 = bsdf_sample(param_1, param_2, param_3, param_4, param_5, param_6);
+    int _11340 = bsdf_sample(param_1, param_2, param_3, param_4, param_5, param_6);
     eval = param_3;
     omega_in = param_4;
     domega_in = param_5;
     pdf = param_6;
-    int label = _11332;
+    int label = _11340;
     if (G_dump)
     {
         _952.kg.f3[15 + ((rec_num - 1) * 64)] = eval;
@@ -5605,7 +5610,7 @@ int shader_bsdf_sample(inout float randu, float randv, inout vec4 omega_in, inou
     {
         uint param_7 = sc.type;
         vec4 param_8 = eval * sc.weight;
-        int param_9 = _10866.kernel_data.film.use_light_pass;
+        int param_9 = _10874.kernel_data.film.use_light_pass;
         PLYMO_bsdf_eval_init(param_7, param_8, param_9);
         if (arg.sd.num_closure > 1)
         {
@@ -5666,7 +5671,7 @@ void main()
     if (all(equal(Dpixel, gl_LaunchIDNV.xy)))
     {
         G_dump = true;
-        G_use_light_pass = _10866.kernel_data.film.use_light_pass != int(0u);
+        G_use_light_pass = _10874.kernel_data.film.use_light_pass != int(0u);
     }
     if (0 == arg.type)
     {
@@ -5693,11 +5698,11 @@ void main()
             differential3 domega_in;
             differential3 param_3 = domega_in;
             float param_4 = pdf;
-            int _11448 = shader_bsdf_sample(param, param_1, param_2, param_3, param_4);
+            int _11456 = shader_bsdf_sample(param, param_1, param_2, param_3, param_4);
             omega_in = param_2;
             domega_in = param_3;
             pdf = param_4;
-            arg.label = _11448;
+            arg.label = _11456;
             arg.omega_in = omega_in;
             arg.domega_in = domega_in;
             arg.pdf = pdf;

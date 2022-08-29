@@ -651,7 +651,7 @@ layout(set = 2, binding = 0, std430) buffer KD
 layout(set = 2, binding = 2, std430) buffer Alloc
 {
     int counter[1024];
-} _11878;
+} _11901;
 
 layout(push_constant, std430) uniform PushData
 {
@@ -2029,7 +2029,7 @@ vec4 kernel_tex_image_interp(int id, inout float x, inout float y)
             uint _7513 = sampID;
             uint _7524 = texSlot;
             uint _7528 = sampID;
-            vec4 ret = (((textureLod(sampler2D(_tex_[nonuniformEXT(_7453)], _samp_[nonuniformEXT(_7462)]), vec2(x0, y0), 0.0) * g0x) + (textureLod(sampler2D(_tex_[nonuniformEXT(_7475)], _samp_[nonuniformEXT(_7479)]), vec2(x1, y0), 0.0) * g1x)) * ((0.16666667163372039794921875 * ((fy * ((fy * ((-fy) + 3.0)) - 3.0)) + 1.0)) + (0.16666667163372039794921875 * (((fy * fy) * ((3.0 * fy) - 6.0)) + 4.0)))) + (((textureLod(sampler2D(_tex_[nonuniformEXT(_7509)], _samp_[nonuniformEXT(_7513)]), vec2(x0, y1), 0.0) * g0x) + (textureLod(sampler2D(_tex_[nonuniformEXT(_7524)], _samp_[nonuniformEXT(_7528)]), vec2(x1, y1), 0.0) * g1x)) * ((0.16666667163372039794921875 * ((fy * ((fy * (((-3.0) * fy) + 3.0)) + 3.0)) + 1.0)) + (0.16666667163372039794921875 * ((fy * fy) * fy))));
+            vec4 ret = (((textureLod(sampler2D(_tex_[_7453], _samp_[_7462]), vec2(x0, y0), 0.0) * g0x) + (textureLod(sampler2D(_tex_[_7475], _samp_[_7479]), vec2(x1, y0), 0.0) * g1x)) * ((0.16666667163372039794921875 * ((fy * ((fy * ((-fy) + 3.0)) - 3.0)) + 1.0)) + (0.16666667163372039794921875 * (((fy * fy) * ((3.0 * fy) - 6.0)) + 4.0)))) + (((textureLod(sampler2D(_tex_[_7509], _samp_[_7513]), vec2(x0, y1), 0.0) * g0x) + (textureLod(sampler2D(_tex_[_7524], _samp_[_7528]), vec2(x1, y1), 0.0) * g1x)) * ((0.16666667163372039794921875 * ((fy * ((fy * (((-3.0) * fy) + 3.0)) + 3.0)) + 1.0)) + (0.16666667163372039794921875 * ((fy * fy) * fy))));
             return ret;
         }
         else
@@ -2042,7 +2042,7 @@ vec4 kernel_tex_image_interp(int id, inout float x, inout float y)
             }
             uint _7557 = texSlot;
             uint _7561 = sampID_1;
-            return textureLod(sampler2D(_tex_[nonuniformEXT(_7557)], _samp_[nonuniformEXT(_7561)]), vec2(x, y), 0.0);
+            return textureLod(sampler2D(_tex_[_7557], _samp_[_7561]), vec2(x, y), 0.0);
         }
     }
     else
@@ -2076,7 +2076,7 @@ vec4 kernel_tex_image_interp(int id, inout float x, inout float y)
             uint _7873 = sampID_2;
             uint _7885 = texSlot;
             uint _7889 = sampID_2;
-            f = (((0.16666667163372039794921875 * ((fy_1 * ((fy_1 * ((-fy_1) + 3.0)) - 3.0)) + 1.0)) + (0.16666667163372039794921875 * (((fy_1 * fy_1) * ((3.0 * fy_1) - 6.0)) + 4.0))) * ((g0x_1 * textureLod(sampler2D(_tex_[nonuniformEXT(_7818)], _samp_[nonuniformEXT(_7822)]), vec2(x0_1, y0_1), 0.0).x) + (g1x_1 * textureLod(sampler2D(_tex_[nonuniformEXT(_7834)], _samp_[nonuniformEXT(_7838)]), vec2(x1_1, y0_1), 0.0).x))) + (((0.16666667163372039794921875 * ((fy_1 * ((fy_1 * (((-3.0) * fy_1) + 3.0)) + 3.0)) + 1.0)) + (0.16666667163372039794921875 * ((fy_1 * fy_1) * fy_1))) * ((g0x_1 * textureLod(sampler2D(_tex_[nonuniformEXT(_7869)], _samp_[nonuniformEXT(_7873)]), vec2(x0_1, y1_1), 0.0).x) + (g1x_1 * textureLod(sampler2D(_tex_[nonuniformEXT(_7885)], _samp_[nonuniformEXT(_7889)]), vec2(x1_1, y1_1), 0.0).x)));
+            f = (((0.16666667163372039794921875 * ((fy_1 * ((fy_1 * ((-fy_1) + 3.0)) - 3.0)) + 1.0)) + (0.16666667163372039794921875 * (((fy_1 * fy_1) * ((3.0 * fy_1) - 6.0)) + 4.0))) * ((g0x_1 * textureLod(sampler2D(_tex_[_7818], _samp_[_7822]), vec2(x0_1, y0_1), 0.0).x) + (g1x_1 * textureLod(sampler2D(_tex_[_7834], _samp_[_7838]), vec2(x1_1, y0_1), 0.0).x))) + (((0.16666667163372039794921875 * ((fy_1 * ((fy_1 * (((-3.0) * fy_1) + 3.0)) + 3.0)) + 1.0)) + (0.16666667163372039794921875 * ((fy_1 * fy_1) * fy_1))) * ((g0x_1 * textureLod(sampler2D(_tex_[_7869], _samp_[_7873]), vec2(x0_1, y1_1), 0.0).x) + (g1x_1 * textureLod(sampler2D(_tex_[_7885], _samp_[_7889]), vec2(x1_1, y1_1), 0.0).x)));
         }
         else
         {
@@ -2088,7 +2088,7 @@ vec4 kernel_tex_image_interp(int id, inout float x, inout float y)
             }
             uint _7917 = texSlot;
             uint _7921 = sampID_3;
-            f = textureLod(sampler2D(_tex_[nonuniformEXT(_7917)], _samp_[nonuniformEXT(_7921)]), vec2(x, y), 0.0).x;
+            f = textureLod(sampler2D(_tex_[_7917], _samp_[_7921]), vec2(x, y), 0.0).x;
         }
         return vec4(f, f, f, 1.0);
     }
@@ -2781,7 +2781,7 @@ void svm_node_geometry_bump_dy(uint type, uint out_offset)
     stack[out_offset + 2u] = data.z;
 }
 
-vec4 cross(vec4 e1, vec4 e0)
+vec4 _cross(vec4 e1, vec4 e0)
 {
     return vec4(cross(e1.xyz, e0.xyz), 0.0);
 }
@@ -2969,10 +2969,10 @@ void svm_node_set_bump(uvec4 node)
     }
     vec4 param_3 = dPdy;
     vec4 param_4 = normal_in;
-    vec4 Rx = cross(param_3, param_4);
+    vec4 Rx = _cross(param_3, param_4);
     vec4 param_5 = normal_in;
     vec4 param_6 = dPdx;
-    vec4 Ry = cross(param_5, param_6);
+    vec4 Ry = _cross(param_5, param_6);
     uint c_offset = node.z & 255u;
     uint x_offset = (node.z >> uint(8)) & 255u;
     uint y_offset = (node.z >> uint(16)) & 255u;
@@ -4992,7 +4992,7 @@ void svm_node_tangent(uvec4 node)
     tangent = param;
     vec4 param_1 = tangent;
     vec4 param_2 = sd.N;
-    tangent = vec4(cross(sd.N.xyz, normalize(cross(param_1, param_2)).xyz), 0.0);
+    tangent = vec4(cross(sd.N.xyz, normalize(_cross(param_1, param_2)).xyz), 0.0);
     stack[tangent_offset + 0u] = tangent.x;
     stack[tangent_offset + 1u] = tangent.y;
     stack[tangent_offset + 2u] = tangent.z;
@@ -5093,15 +5093,22 @@ void svm_node_normal_map(uvec4 node)
 void svm_eval_nodes(uint type, int path_flag)
 {
     int offset = int(uint(sd.shader) & 8388607u);
-    float _10991;
+    if (all(equal(gl_LaunchIDNV.xy, uvec2(256u))))
+    {
+        int _10826 = offset;
+        offset = _10826 + 1;
+        uvec4 node = push.data_ptr._svm_nodes.data[_10826];
+        // unimplemented ext op 12
+    }
+    float _11017;
     float value;
     vec4 vector;
     while (true)
     {
-        int _10819 = offset;
-        offset = _10819 + 1;
-        uvec4 node = push.data_ptr._svm_nodes.data[_10819];
-        switch (node.x)
+        int _10845 = offset;
+        offset = _10845 + 1;
+        uvec4 node_1 = push.data_ptr._svm_nodes.data[_10845];
+        switch (node_1.x)
         {
             case 0u:
             {
@@ -5109,12 +5116,12 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 1u:
             {
-                offset = int(node.y);
+                offset = int(node_1.y);
                 break;
             }
             case 2u:
             {
-                uvec4 param = node;
+                uvec4 param = node_1;
                 uint param_1 = type;
                 int param_2 = path_flag;
                 int param_3 = offset;
@@ -5124,48 +5131,48 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 3u:
             {
-                uvec4 param_4 = node;
+                uvec4 param_4 = node_1;
                 svm_node_closure_emission(param_4);
                 break;
             }
             case 4u:
             {
-                uvec4 param_5 = node;
+                uvec4 param_5 = node_1;
                 svm_node_closure_background(param_5);
                 break;
             }
             case 5u:
             {
-                sd.svm_closure_weight = vec4(uintBitsToFloat(node.y), uintBitsToFloat(node.z), uintBitsToFloat(node.w), 0.0);
+                sd.svm_closure_weight = vec4(uintBitsToFloat(node_1.y), uintBitsToFloat(node_1.z), uintBitsToFloat(node_1.w), 0.0);
                 break;
             }
             case 6u:
             {
-                sd.svm_closure_weight = vec4(stack[node.y + 0u], stack[node.y + 1u], stack[node.y + 2u], 0.0);
+                sd.svm_closure_weight = vec4(stack[node_1.y + 0u], stack[node_1.y + 1u], stack[node_1.y + 2u], 0.0);
                 break;
             }
             case 7u:
             {
-                sd.svm_closure_weight = vec4(stack[node.y + 0u], stack[node.y + 1u], stack[node.y + 2u], 0.0) * stack[node.z];
+                sd.svm_closure_weight = vec4(stack[node_1.y + 0u], stack[node_1.y + 1u], stack[node_1.y + 2u], 0.0) * stack[node_1.z];
                 break;
             }
             case 8u:
             {
-                uint weight_offset = node.y & 255u;
-                uint in_weight_offset = (node.y >> uint(8)) & 255u;
-                uint weight1_offset = (node.y >> uint(16)) & 255u;
-                uint weight2_offset = (node.y >> uint(24)) & 255u;
+                uint weight_offset = node_1.y & 255u;
+                uint in_weight_offset = (node_1.y >> uint(8)) & 255u;
+                uint weight1_offset = (node_1.y >> uint(16)) & 255u;
+                uint weight2_offset = (node_1.y >> uint(24)) & 255u;
                 float weight = stack[weight_offset];
                 weight = clamp(weight, 0.0, 1.0);
                 if (in_weight_offset != 255u)
                 {
-                    _10991 = stack[in_weight_offset];
+                    _11017 = stack[in_weight_offset];
                 }
                 else
                 {
-                    _10991 = 1.0;
+                    _11017 = 1.0;
                 }
-                float in_weight = _10991;
+                float in_weight = _11017;
                 if (weight1_offset != 255u)
                 {
                     stack[weight1_offset] = in_weight * (1.0 - weight);
@@ -5178,39 +5185,39 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 9u:
             {
-                if (stack[node.z] == 0.0)
+                if (stack[node_1.z] == 0.0)
                 {
-                    offset += int(node.y);
+                    offset += int(node_1.y);
                 }
                 break;
             }
             case 10u:
             {
-                if (stack[node.z] == 1.0)
+                if (stack[node_1.z] == 1.0)
                 {
-                    offset += int(node.y);
+                    offset += int(node_1.y);
                 }
                 break;
             }
             case 11u:
             {
-                uint param_6 = node.y;
-                uint param_7 = node.z;
+                uint param_6 = node_1.y;
+                uint param_7 = node_1.z;
                 svm_node_geometry(param_6, param_7);
                 break;
             }
             case 12u:
             {
-                uint param_8 = node.y;
-                uint param_9 = node.z;
-                uint param_10 = node.w;
+                uint param_8 = node_1.y;
+                uint param_9 = node_1.z;
+                uint param_10 = node_1.w;
                 svm_node_convert(param_8, param_9, param_10);
                 break;
             }
             case 13u:
             {
                 int param_11 = path_flag;
-                uvec4 param_12 = node;
+                uvec4 param_12 = node_1;
                 int param_13 = offset;
                 svm_node_tex_coord(param_11, param_12, param_13);
                 offset = param_13;
@@ -5218,28 +5225,28 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 14u:
             {
-                stack[node.z] = uintBitsToFloat(node.y);
+                stack[node_1.z] = uintBitsToFloat(node_1.y);
                 break;
             }
             case 15u:
             {
-                int _11085 = offset;
-                offset = _11085 + 1;
-                uvec4 node1 = push.data_ptr._svm_nodes.data[_11085];
-                stack[node.y + 0u] = vec4(uintBitsToFloat(node1.y), uintBitsToFloat(node1.z), uintBitsToFloat(node1.w), 0.0).x;
-                stack[node.y + 1u] = vec4(uintBitsToFloat(node1.y), uintBitsToFloat(node1.z), uintBitsToFloat(node1.w), 0.0).y;
-                stack[node.y + 2u] = vec4(uintBitsToFloat(node1.y), uintBitsToFloat(node1.z), uintBitsToFloat(node1.w), 0.0).z;
+                int _11111 = offset;
+                offset = _11111 + 1;
+                uvec4 node1 = push.data_ptr._svm_nodes.data[_11111];
+                stack[node_1.y + 0u] = vec4(uintBitsToFloat(node1.y), uintBitsToFloat(node1.z), uintBitsToFloat(node1.w), 0.0).x;
+                stack[node_1.y + 1u] = vec4(uintBitsToFloat(node1.y), uintBitsToFloat(node1.z), uintBitsToFloat(node1.w), 0.0).y;
+                stack[node_1.y + 2u] = vec4(uintBitsToFloat(node1.y), uintBitsToFloat(node1.z), uintBitsToFloat(node1.w), 0.0).z;
                 break;
             }
             case 16u:
             {
-                uvec4 param_14 = node;
+                uvec4 param_14 = node_1;
                 svm_node_attr(param_14);
                 break;
             }
             case 36u:
             {
-                uvec4 param_15 = node;
+                uvec4 param_15 = node_1;
                 int param_16 = offset;
                 svm_node_hsv(param_15, param_16);
                 offset = param_16;
@@ -5247,7 +5254,7 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 23u:
             {
-                uvec4 param_17 = node;
+                uvec4 param_17 = node_1;
                 int param_18 = offset;
                 svm_node_tex_image(param_17, param_18);
                 offset = param_18;
@@ -5256,7 +5263,7 @@ void svm_eval_nodes(uint type, int path_flag)
             case 68u:
             case 69u:
             {
-                uvec4 param_19 = node;
+                uvec4 param_19 = node_1;
                 int param_20 = offset;
                 svm_node_curves(param_19, param_20);
                 offset = param_20;
@@ -5264,110 +5271,110 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 78u:
             {
-                uint param_21 = node.y;
-                uint param_22 = node.z;
-                uint param_23 = node.w;
+                uint param_21 = node_1.y;
+                uint param_22 = node_1.z;
+                uint param_23 = node_1.w;
                 svm_node_vector_rotate(param_21, param_22, param_23);
                 break;
             }
             case 79u:
             {
-                uvec4 param_24 = node;
+                uvec4 param_24 = node_1;
                 svm_node_vector_transform(param_24);
                 break;
             }
             case 33u:
             {
-                uint param_25 = node.y;
-                uint param_26 = node.z;
+                uint param_25 = node_1.y;
+                uint param_26 = node_1.z;
                 svm_node_set_normal(param_25, param_26);
                 break;
             }
             case 20u:
             {
-                uint param_27 = node.y;
+                uint param_27 = node_1.y;
                 svm_node_set_displacement(param_27);
                 break;
             }
             case 21u:
             {
-                uvec4 param_28 = node;
+                uvec4 param_28 = node_1;
                 svm_node_displacement(param_28);
                 break;
             }
             case 34u:
             {
-                uint param_29 = node.y;
+                uint param_29 = node_1.y;
                 svm_node_enter_bump_eval(param_29);
                 break;
             }
             case 35u:
             {
-                uint param_30 = node.y;
+                uint param_30 = node_1.y;
                 svm_node_leave_bump_eval(param_30);
                 break;
             }
             case 18u:
             {
-                uint param_31 = node.y;
-                uint param_32 = node.z;
+                uint param_31 = node_1.y;
+                uint param_32 = node_1.z;
                 svm_node_geometry_bump_dx(param_31, param_32);
                 break;
             }
             case 19u:
             {
-                uint param_33 = node.y;
-                uint param_34 = node.z;
+                uint param_33 = node_1.y;
+                uint param_34 = node_1.z;
                 svm_node_geometry_bump_dy(param_33, param_34);
                 break;
             }
             case 26u:
             {
-                uvec4 param_35 = node;
+                uvec4 param_35 = node_1;
                 svm_node_set_bump(param_35);
                 break;
             }
             case 27u:
             {
-                uvec4 param_36 = node;
+                uvec4 param_36 = node_1;
                 svm_node_attr_bump_dx(param_36);
                 break;
             }
             case 28u:
             {
-                uvec4 param_37 = node;
+                uvec4 param_37 = node_1;
                 svm_node_attr_bump_dy(param_37);
                 break;
             }
             case 17u:
             {
-                uint param_38 = node.y;
-                uint param_39 = node.z;
-                uint param_40 = node.w;
+                uint param_38 = node_1.y;
+                uint param_39 = node_1.z;
+                uint param_40 = node_1.w;
                 svm_node_vertex_color(param_38, param_39, param_40);
                 break;
             }
             case 29u:
             {
-                uint param_41 = node.y;
-                uint param_42 = node.z;
-                uint param_43 = node.w;
+                uint param_41 = node_1.y;
+                uint param_42 = node_1.z;
+                uint param_43 = node_1.w;
                 svm_node_vertex_color_bump_dx(param_41, param_42, param_43);
                 break;
             }
             case 30u:
             {
-                uint param_44 = node.y;
-                uint param_45 = node.z;
-                uint param_46 = node.w;
+                uint param_44 = node_1.y;
+                uint param_45 = node_1.z;
+                uint param_46 = node_1.w;
                 svm_node_vertex_color_bump_dy(param_44, param_45, param_46);
                 break;
             }
             case 76u:
             {
-                uint param_47 = node.y;
-                uint param_48 = node.z;
-                uint param_49 = node.w;
+                uint param_47 = node_1.y;
+                uint param_48 = node_1.z;
+                uint param_49 = node_1.w;
                 int param_50 = offset;
                 svm_node_separate_hsv(param_47, param_48, param_49, param_50);
                 offset = param_50;
@@ -5375,9 +5382,9 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 77u:
             {
-                uint param_51 = node.y;
-                uint param_52 = node.z;
-                uint param_53 = node.w;
+                uint param_51 = node_1.y;
+                uint param_52 = node_1.z;
+                uint param_53 = node_1.w;
                 int param_54 = offset;
                 svm_node_combine_hsv(param_51, param_52, param_53, param_54);
                 offset = param_54;
@@ -5385,7 +5392,7 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 44u:
             {
-                uvec4 param_55 = node;
+                uvec4 param_55 = node_1;
                 int param_56 = offset;
                 svm_node_rgb_ramp(param_55, param_56);
                 offset = param_56;
@@ -5393,34 +5400,34 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 42u:
             {
-                uint a_stack_offset = node.z & 255u;
-                uint b_stack_offset = (node.z >> uint(8)) & 255u;
-                uint c_stack_offset = (node.z >> uint(16)) & 255u;
-                uint param_57 = node.y;
+                uint a_stack_offset = node_1.z & 255u;
+                uint b_stack_offset = (node_1.z >> uint(8)) & 255u;
+                uint c_stack_offset = (node_1.z >> uint(16)) & 255u;
+                uint param_57 = node_1.y;
                 float param_58 = stack[a_stack_offset];
                 float param_59 = stack[b_stack_offset];
                 float param_60 = stack[c_stack_offset];
-                stack[node.w] = svm_math(param_57, param_58, param_59, param_60);
+                stack[node_1.w] = svm_math(param_57, param_58, param_59, param_60);
                 break;
             }
             case 43u:
             {
-                uint a_stack_offset_1 = node.z & 255u;
-                uint b_stack_offset_1 = (node.z >> uint(8)) & 255u;
-                uint scale_stack_offset = (node.z >> uint(16)) & 255u;
-                uint value_stack_offset = node.w & 255u;
-                uint vector_stack_offset = (node.w >> uint(8)) & 255u;
+                uint a_stack_offset_1 = node_1.z & 255u;
+                uint b_stack_offset_1 = (node_1.z >> uint(8)) & 255u;
+                uint scale_stack_offset = (node_1.z >> uint(16)) & 255u;
+                uint value_stack_offset = node_1.w & 255u;
+                uint vector_stack_offset = (node_1.w >> uint(8)) & 255u;
                 vec4 c = vec4(0.0);
-                if (node.y == 20u)
+                if (node_1.y == 20u)
                 {
-                    int _11367 = offset;
-                    offset = _11367 + 1;
-                    uvec4 extra_node = push.data_ptr._svm_nodes.data[_11367];
+                    int _11393 = offset;
+                    offset = _11393 + 1;
+                    uvec4 extra_node = push.data_ptr._svm_nodes.data[_11393];
                     c = vec4(stack[extra_node.x + 0u], stack[extra_node.x + 1u], stack[extra_node.x + 2u], 0.0);
                 }
                 float param_61 = value;
                 vec4 param_62 = vector;
-                uint param_63 = node.y;
+                uint param_63 = node_1.y;
                 vec4 param_64 = vec4(stack[a_stack_offset_1 + 0u], stack[a_stack_offset_1 + 1u], stack[a_stack_offset_1 + 2u], 0.0);
                 vec4 param_65 = vec4(stack[b_stack_offset_1 + 0u], stack[b_stack_offset_1 + 1u], stack[b_stack_offset_1 + 2u], 0.0);
                 vec4 param_66 = c;
@@ -5442,58 +5449,58 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 45u:
             {
-                vec4 color = vec4(stack[node.z + 0u], stack[node.z + 1u], stack[node.z + 2u], 0.0);
-                float gamma = stack[node.y];
+                vec4 color = vec4(stack[node_1.z + 0u], stack[node_1.z + 1u], stack[node_1.z + 2u], 0.0);
+                float gamma = stack[node_1.y];
                 vec4 param_68 = color;
                 float param_69 = gamma;
-                vec4 _11486 = svm_math_gamma_color(param_68, param_69);
-                color = _11486;
-                if (node.w != 255u)
+                vec4 _11512 = svm_math_gamma_color(param_68, param_69);
+                color = _11512;
+                if (node_1.w != 255u)
                 {
-                    stack[node.w + 0u] = color.x;
-                    stack[node.w + 1u] = color.y;
-                    stack[node.w + 2u] = color.z;
+                    stack[node_1.w + 0u] = color.x;
+                    stack[node_1.w + 1u] = color.y;
+                    stack[node_1.w + 2u] = color.z;
                 }
                 break;
             }
             case 46u:
             {
-                if (node.z != 255u)
+                if (node_1.z != 255u)
                 {
                     nio.type = 1u;
-                    nio.data[2] = stack[node.y + 0u];
-                    nio.data[3] = stack[node.y + 1u];
-                    nio.data[4] = stack[node.y + 2u];
-                    uint bright_offset = node.w & 255u;
-                    uint contrast_offset = (node.w >> uint(8)) & 255u;
+                    nio.data[2] = stack[node_1.y + 0u];
+                    nio.data[3] = stack[node_1.y + 1u];
+                    nio.data[4] = stack[node_1.y + 2u];
+                    uint bright_offset = node_1.w & 255u;
+                    uint contrast_offset = (node_1.w >> uint(8)) & 255u;
                     nio.data[1] = stack[bright_offset + 0u];
                     nio.data[5] = stack[contrast_offset + 0u];
                     executeCallableNV(9u, 2);
-                    stack[node.z + 0u] = nio.data[2];
-                    stack[node.z + 1u] = nio.data[3];
-                    stack[node.z + 2u] = nio.data[4];
+                    stack[node_1.z + 0u] = nio.data[2];
+                    stack[node_1.z + 1u] = nio.data[3];
+                    stack[node_1.z + 2u] = nio.data[4];
                 }
                 break;
             }
             case 48u:
             {
-                uint param_70 = node.y;
-                uint param_71 = node.z;
+                uint param_70 = node_1.y;
+                uint param_71 = node_1.z;
                 svm_node_object_info(param_70, param_71);
                 break;
             }
             case 49u:
             {
-                uint param_72 = node.y;
-                uint param_73 = node.z;
+                uint param_72 = node_1.y;
+                uint param_73 = node_1.z;
                 svm_node_particle_info(param_72, param_73);
                 break;
             }
             case 52u:
             {
-                uint param_74 = node.y;
-                uint param_75 = node.z;
-                uint param_76 = node.w;
+                uint param_74 = node_1.y;
+                uint param_75 = node_1.z;
+                uint param_76 = node_1.w;
                 int param_77 = offset;
                 svm_node_mapping(param_74, param_75, param_76, param_77);
                 offset = param_77;
@@ -5501,9 +5508,9 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 25u:
             {
-                uint param_78 = node.y;
-                uint param_79 = node.z;
-                uint param_80 = node.w;
+                uint param_78 = node_1.y;
+                uint param_79 = node_1.z;
+                uint param_80 = node_1.w;
                 int param_81 = offset;
                 svm_node_tex_noise(param_78, param_79, param_80, param_81);
                 offset = param_81;
@@ -5511,9 +5518,9 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 58u:
             {
-                uint param_82 = node.y;
-                uint param_83 = node.z;
-                uint param_84 = node.w;
+                uint param_82 = node_1.y;
+                uint param_83 = node_1.z;
+                uint param_84 = node_1.w;
                 int param_85 = offset;
                 svm_node_tex_voronoi(param_82, param_83, param_84, param_85);
                 offset = param_85;
@@ -5521,7 +5528,7 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 60u:
             {
-                uvec4 param_86 = node;
+                uvec4 param_86 = node_1;
                 int param_87 = offset;
                 svm_node_tex_wave(param_86, param_87);
                 offset = param_87;
@@ -5529,15 +5536,15 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 62u:
             {
-                uvec4 param_88 = node;
+                uvec4 param_88 = node_1;
                 svm_node_tex_checker(param_88);
                 break;
             }
             case 59u:
             {
-                uint param_89 = node.y;
-                uint param_90 = node.z;
-                uint param_91 = node.w;
+                uint param_89 = node_1.y;
+                uint param_90 = node_1.z;
+                uint param_91 = node_1.w;
                 int param_92 = offset;
                 svm_node_tex_musgrave(param_89, param_90, param_91, param_92);
                 offset = param_92;
@@ -5545,9 +5552,9 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 64u:
             {
-                uint param_93 = node.y;
-                uint param_94 = node.z;
-                uint param_95 = node.w;
+                uint param_93 = node_1.y;
+                uint param_94 = node_1.z;
+                uint param_95 = node_1.w;
                 int param_96 = offset;
                 svm_node_tex_white_noise(param_93, param_94, param_95, param_96);
                 offset = param_96;
@@ -5555,7 +5562,7 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 56u:
             {
-                uvec4 param_97 = node;
+                uvec4 param_97 = node_1;
                 int param_98 = offset;
                 svm_node_tex_sky(param_97, param_98);
                 offset = param_98;
@@ -5563,15 +5570,15 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 55u:
             {
-                uvec4 param_99 = node;
+                uvec4 param_99 = node_1;
                 svm_node_tex_environment(param_99);
                 break;
             }
             case 83u:
             {
-                uint param_100 = node.y;
-                uint param_101 = node.z;
-                uint param_102 = node.w;
+                uint param_100 = node_1.y;
+                uint param_101 = node_1.z;
+                uint param_102 = node_1.w;
                 int param_103 = offset;
                 svm_node_map_range(param_100, param_101, param_102, param_103);
                 offset = param_103;
@@ -5579,22 +5586,22 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 74u:
             {
-                vec4 vector_1 = vec4(stack[node.y + 0u], stack[node.y + 1u], stack[node.y + 2u], 0.0);
-                if (node.w != 255u)
+                vec4 vector_1 = vec4(stack[node_1.y + 0u], stack[node_1.y + 1u], stack[node_1.y + 2u], 0.0);
+                if (node_1.w != 255u)
                 {
-                    if (node.z == 0u)
+                    if (node_1.z == 0u)
                     {
-                        stack[node.w] = vector_1.x;
+                        stack[node_1.w] = vector_1.x;
                     }
                     else
                     {
-                        if (node.z == 1u)
+                        if (node_1.z == 1u)
                         {
-                            stack[node.w] = vector_1.y;
+                            stack[node_1.w] = vector_1.y;
                         }
                         else
                         {
-                            stack[node.w] = vector_1.z;
+                            stack[node_1.w] = vector_1.z;
                         }
                     }
                 }
@@ -5602,17 +5609,17 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 75u:
             {
-                if (node.w != 255u)
+                if (node_1.w != 255u)
                 {
-                    stack[node.w + node.z] = stack[node.y];
+                    stack[node_1.w + node_1.z] = stack[node_1.y];
                 }
                 break;
             }
             case 73u:
             {
-                uint param_104 = node.y;
-                uint param_105 = node.z;
-                uint param_106 = node.w;
+                uint param_104 = node_1.y;
+                uint param_105 = node_1.z;
+                uint param_106 = node_1.w;
                 int param_107 = offset;
                 svm_node_mix(param_104, param_105, param_106, param_107);
                 offset = param_107;
@@ -5620,13 +5627,13 @@ void svm_eval_nodes(uint type, int path_flag)
             }
             case 70u:
             {
-                uvec4 param_108 = node;
+                uvec4 param_108 = node_1;
                 svm_node_tangent(param_108);
                 break;
             }
             case 71u:
             {
-                uvec4 param_109 = node;
+                uvec4 param_109 = node_1;
                 svm_node_normal_map(param_109);
                 break;
             }

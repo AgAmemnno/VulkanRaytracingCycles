@@ -579,7 +579,7 @@ layout(set = 2, binding = 0, std430) buffer KD
 layout(set = 2, binding = 2, std430) buffer Alloc
 {
     int counter[1024];
-} _2571;
+} _2583;
 
 layout(push_constant, std430) uniform PushData
 {
@@ -840,7 +840,7 @@ vec4 kernel_tex_image_interp(int id, inout float x, inout float y)
             uint _903 = sampID;
             uint _914 = texSlot;
             uint _918 = sampID;
-            vec4 ret = (((textureLod(sampler2D(_tex_[nonuniformEXT(_843)], _samp_[nonuniformEXT(_852)]), vec2(x0, y0), 0.0) * g0x) + (textureLod(sampler2D(_tex_[nonuniformEXT(_865)], _samp_[nonuniformEXT(_869)]), vec2(x1, y0), 0.0) * g1x)) * ((0.16666667163372039794921875 * ((fy * ((fy * ((-fy) + 3.0)) - 3.0)) + 1.0)) + (0.16666667163372039794921875 * (((fy * fy) * ((3.0 * fy) - 6.0)) + 4.0)))) + (((textureLod(sampler2D(_tex_[nonuniformEXT(_899)], _samp_[nonuniformEXT(_903)]), vec2(x0, y1), 0.0) * g0x) + (textureLod(sampler2D(_tex_[nonuniformEXT(_914)], _samp_[nonuniformEXT(_918)]), vec2(x1, y1), 0.0) * g1x)) * ((0.16666667163372039794921875 * ((fy * ((fy * (((-3.0) * fy) + 3.0)) + 3.0)) + 1.0)) + (0.16666667163372039794921875 * ((fy * fy) * fy))));
+            vec4 ret = (((textureLod(sampler2D(_tex_[_843], _samp_[_852]), vec2(x0, y0), 0.0) * g0x) + (textureLod(sampler2D(_tex_[_865], _samp_[_869]), vec2(x1, y0), 0.0) * g1x)) * ((0.16666667163372039794921875 * ((fy * ((fy * ((-fy) + 3.0)) - 3.0)) + 1.0)) + (0.16666667163372039794921875 * (((fy * fy) * ((3.0 * fy) - 6.0)) + 4.0)))) + (((textureLod(sampler2D(_tex_[_899], _samp_[_903]), vec2(x0, y1), 0.0) * g0x) + (textureLod(sampler2D(_tex_[_914], _samp_[_918]), vec2(x1, y1), 0.0) * g1x)) * ((0.16666667163372039794921875 * ((fy * ((fy * (((-3.0) * fy) + 3.0)) + 3.0)) + 1.0)) + (0.16666667163372039794921875 * ((fy * fy) * fy))));
             return ret;
         }
         else
@@ -853,7 +853,7 @@ vec4 kernel_tex_image_interp(int id, inout float x, inout float y)
             }
             uint _947 = texSlot;
             uint _951 = sampID_1;
-            return textureLod(sampler2D(_tex_[nonuniformEXT(_947)], _samp_[nonuniformEXT(_951)]), vec2(x, y), 0.0);
+            return textureLod(sampler2D(_tex_[_947], _samp_[_951]), vec2(x, y), 0.0);
         }
     }
     else
@@ -887,7 +887,7 @@ vec4 kernel_tex_image_interp(int id, inout float x, inout float y)
             uint _1263 = sampID_2;
             uint _1275 = texSlot;
             uint _1279 = sampID_2;
-            f = (((0.16666667163372039794921875 * ((fy_1 * ((fy_1 * ((-fy_1) + 3.0)) - 3.0)) + 1.0)) + (0.16666667163372039794921875 * (((fy_1 * fy_1) * ((3.0 * fy_1) - 6.0)) + 4.0))) * ((g0x_1 * textureLod(sampler2D(_tex_[nonuniformEXT(_1208)], _samp_[nonuniformEXT(_1212)]), vec2(x0_1, y0_1), 0.0).x) + (g1x_1 * textureLod(sampler2D(_tex_[nonuniformEXT(_1224)], _samp_[nonuniformEXT(_1228)]), vec2(x1_1, y0_1), 0.0).x))) + (((0.16666667163372039794921875 * ((fy_1 * ((fy_1 * (((-3.0) * fy_1) + 3.0)) + 3.0)) + 1.0)) + (0.16666667163372039794921875 * ((fy_1 * fy_1) * fy_1))) * ((g0x_1 * textureLod(sampler2D(_tex_[nonuniformEXT(_1259)], _samp_[nonuniformEXT(_1263)]), vec2(x0_1, y1_1), 0.0).x) + (g1x_1 * textureLod(sampler2D(_tex_[nonuniformEXT(_1275)], _samp_[nonuniformEXT(_1279)]), vec2(x1_1, y1_1), 0.0).x)));
+            f = (((0.16666667163372039794921875 * ((fy_1 * ((fy_1 * ((-fy_1) + 3.0)) - 3.0)) + 1.0)) + (0.16666667163372039794921875 * (((fy_1 * fy_1) * ((3.0 * fy_1) - 6.0)) + 4.0))) * ((g0x_1 * textureLod(sampler2D(_tex_[_1208], _samp_[_1212]), vec2(x0_1, y0_1), 0.0).x) + (g1x_1 * textureLod(sampler2D(_tex_[_1224], _samp_[_1228]), vec2(x1_1, y0_1), 0.0).x))) + (((0.16666667163372039794921875 * ((fy_1 * ((fy_1 * (((-3.0) * fy_1) + 3.0)) + 3.0)) + 1.0)) + (0.16666667163372039794921875 * ((fy_1 * fy_1) * fy_1))) * ((g0x_1 * textureLod(sampler2D(_tex_[_1259], _samp_[_1263]), vec2(x0_1, y1_1), 0.0).x) + (g1x_1 * textureLod(sampler2D(_tex_[_1275], _samp_[_1279]), vec2(x1_1, y1_1), 0.0).x)));
         }
         else
         {
@@ -899,7 +899,7 @@ vec4 kernel_tex_image_interp(int id, inout float x, inout float y)
             }
             uint _1307 = texSlot;
             uint _1311 = sampID_3;
-            f = textureLod(sampler2D(_tex_[nonuniformEXT(_1307)], _samp_[nonuniformEXT(_1311)]), vec2(x, y), 0.0).x;
+            f = textureLod(sampler2D(_tex_[_1307], _samp_[_1311]), vec2(x, y), 0.0).x;
         }
         return vec4(f, f, f, 1.0);
     }
@@ -941,7 +941,9 @@ vec4 sky_radiance_nishita(vec4 dir, float nishita_data[10], uint texture_id)
                 {
                     y = ((dir_elevation - sun_elevation) / angular_diameter) + 0.5;
                     vec3 _1760 = (pixel_bottom + ((pixel_top - pixel_bottom) * y)) * sun_intensity;
-                    xyz = vec4(_1760.x, _1760.y, _1760.z, xyz.w);
+                    xyz.x = _1760.x;
+                    xyz.y = _1760.y;
+                    xyz.z = _1760.z;
                 }
             }
             else
@@ -949,14 +951,19 @@ vec4 sky_radiance_nishita(vec4 dir, float nishita_data[10], uint texture_id)
                 if ((sun_elevation + half_angular) > 0.0)
                 {
                     y = dir_elevation / (sun_elevation + half_angular);
-                    vec3 _1783 = (pixel_bottom + ((pixel_top - pixel_bottom) * y)) * sun_intensity;
-                    xyz = vec4(_1783.x, _1783.y, _1783.z, xyz.w);
+                    vec3 _1787 = (pixel_bottom + ((pixel_top - pixel_bottom) * y)) * sun_intensity;
+                    xyz.x = _1787.x;
+                    xyz.y = _1787.y;
+                    xyz.z = _1787.z;
                 }
             }
             float param_5 = sun_dir_angle / half_angular;
             float limb_darkening = 1.0 - (0.60000002384185791015625 * (1.0 - sqrt(1.0 - sqr(param_5))));
-            vec3 _1801 = xyz.xyz * limb_darkening;
-            xyz = vec4(_1801.x, _1801.y, _1801.z, xyz.w);
+            vec4 _1807 = xyz;
+            vec3 _1809 = _1807.xyz * limb_darkening;
+            xyz.x = _1809.x;
+            xyz.y = _1809.y;
+            xyz.z = _1809.z;
         }
         else
         {
@@ -970,8 +977,8 @@ vec4 sky_radiance_nishita(vec4 dir, float nishita_data[10], uint texture_id)
             int param_7 = int(texture_id);
             float param_8 = x;
             float param_9 = y_1;
-            vec4 _1832 = kernel_tex_image_interp(param_7, param_8, param_9);
-            xyz = float4_to_float3(_1832);
+            vec4 _1844 = kernel_tex_image_interp(param_7, param_8, param_9);
+            xyz = float4_to_float3(_1844);
         }
     }
     else
@@ -993,8 +1000,8 @@ vec4 sky_radiance_nishita(vec4 dir, float nishita_data[10], uint texture_id)
             int param_11 = int(texture_id);
             float param_12 = x_1;
             float param_13 = -0.5;
-            vec4 _1873 = kernel_tex_image_interp(param_11, param_12, param_13);
-            xyz = float4_to_float3(_1873) * fade;
+            vec4 _1885 = kernel_tex_image_interp(param_11, param_12, param_13);
+            xyz = float4_to_float3(_1885) * fade;
         }
     }
     vec4 param_14 = xyz;
@@ -1081,11 +1088,11 @@ void svm_node_tex_sky()
             float param_6[9] = config_x;
             float param_7[9] = config_y;
             float param_8[9] = config_z;
-            vec4 _2235 = sky_radiance_preetham(param, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8);
+            vec4 _2247 = sky_radiance_preetham(param, param_1, param_2, param_3, param_4, param_5, param_6, param_7, param_8);
             config_x = param_6;
             config_y = param_7;
             config_z = param_8;
-            f = _2235;
+            f = _2247;
         }
         else
         {
@@ -1098,11 +1105,11 @@ void svm_node_tex_sky()
             float param_15[9] = config_x;
             float param_16[9] = config_y;
             float param_17[9] = config_z;
-            vec4 _2259 = sky_radiance_hosek(param_9, param_10, param_11, param_12, param_13, param_14, param_15, param_16, param_17);
+            vec4 _2271 = sky_radiance_hosek(param_9, param_10, param_11, param_12, param_13, param_14, param_15, param_16, param_17);
             config_x = param_15;
             config_y = param_16;
             config_z = param_17;
-            f = _2259;
+            f = _2271;
         }
     }
     else
@@ -1275,8 +1282,8 @@ vec4 svm_image_texture(int id, float x, float y, uint flags)
     int param = id;
     float param_1 = x;
     float param_2 = y;
-    vec4 _2399 = kernel_tex_image_interp(param, param_1, param_2);
-    vec4 r = _2399;
+    vec4 _2411 = kernel_tex_image_interp(param, param_1, param_2);
+    vec4 r = _2411;
     float alpha = r.w;
     if ((((flags & 2u) != 0u) && (!(alpha == 1.0))) && (!(alpha == 0.0)))
     {
@@ -1304,8 +1311,8 @@ void svm_node_tex_environment()
     else
     {
         vec4 param_1 = co;
-        vec2 _2529 = direction_to_mirrorball(param_1);
-        uv = _2529;
+        vec2 _2541 = direction_to_mirrorball(param_1);
+        uv = _2541;
     }
     int param_2 = int(nio.node.y);
     float param_3 = uv.x;
@@ -1358,7 +1365,7 @@ void main()
     }
     if (nio.type == 2u)
     {
-        int _2574 = atomicAdd(_2571.counter[1018], 1);
+        int _2586 = atomicAdd(_2583.counter[1018], 1);
         svm_node_tex_sky();
     }
     else
