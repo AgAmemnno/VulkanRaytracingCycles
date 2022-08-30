@@ -53,9 +53,10 @@ var searchData=
   ['_5fdefault_5flarge_5fheap_5fblock_5fsize_50',['_DEFAULT_LARGE_HEAP_BLOCK_SIZE',['../_allocator_vk_8h.html#a9eeba9a7f616ef65648e404525111e30',1,'AllocatorVk.h']]],
   ['_5fpoolsize_51',['_PoolSize',['../struct___pool_size.html',1,'']]],
   ['_5fprintbits_52',['_printbits',['../namespacevkmm.html#ae8ec4d13bf3e1ecee75d4d6ab34bb050',1,'vkmm']]],
-  ['_5fsmall_5fheap_5fmax_5fsize_53',['_SMALL_HEAP_MAX_SIZE',['../_allocator_vk_8h.html#ae2d4245f1960850cc7890970339a753c',1,'AllocatorVk.h']]],
-  ['_5ftotal_54',['_total',['../structfront_1_1_deallocator_vk.html#a530c6f443f187192ee42062d97270162',1,'front::DeallocatorVk']]],
-  ['_5ftype_55',['_type',['../struct_uniform_vk_1_1_desc.html#a4b10b879896ef00e1ef8b6cf80c697cc',1,'UniformVk::Desc']]],
-  ['_5fvkformat_56',['_Vkformat',['../struct___vkformat.html',1,'_Vkformat'],['../vthreepy__types_8h.html#a99c6a5160a476c3f388acbc50650b6e5',1,'_Vkformat():&#160;vthreepy_types.h']]],
-  ['_5fxopen_5fsource_57',['_XOPEN_SOURCE',['../global_8cpp.html#a78c99ffd76a7bb3c8c74db76207e9ab4',1,'global.cpp']]]
+  ['_5fshaderprop_53',['_ShaderProp',['../struct_device_master_vk_1_1___shader_prop.html',1,'DeviceMasterVk']]],
+  ['_5fsmall_5fheap_5fmax_5fsize_54',['_SMALL_HEAP_MAX_SIZE',['../_allocator_vk_8h.html#ae2d4245f1960850cc7890970339a753c',1,'AllocatorVk.h']]],
+  ['_5ftotal_55',['_total',['../structfront_1_1_deallocator_vk.html#a530c6f443f187192ee42062d97270162',1,'front::DeallocatorVk']]],
+  ['_5ftype_56',['_type',['../struct_uniform_vk_1_1_desc.html#a4b10b879896ef00e1ef8b6cf80c697cc',1,'UniformVk::Desc']]],
+  ['_5fvkformat_57',['_Vkformat',['../struct___vkformat.html',1,'_Vkformat'],['../vthreepy__types_8h.html#a99c6a5160a476c3f388acbc50650b6e5',1,'_Vkformat():&#160;vthreepy_types.h']]],
+  ['_5fxopen_5fsource_58',['_XOPEN_SOURCE',['../global_8cpp.html#a78c99ffd76a7bb3c8c74db76207e9ab4',1,'global.cpp']]]
 ];

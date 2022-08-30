@@ -7,6 +7,7 @@ var _context1_vk_8h =
     [ "VulkanFeatures::Features11Old", "struct_vulkan_features_1_1_features11_old.html", "struct_vulkan_features_1_1_features11_old" ],
     [ "VulkanFeatures::Properties11Old", "struct_vulkan_features_1_1_properties11_old.html", "struct_vulkan_features_1_1_properties11_old" ],
     [ "DeviceMasterVk< Q >", "struct_device_master_vk.html", "struct_device_master_vk" ],
+    [ "DeviceMasterVk< Q >::_ShaderProp", "struct_device_master_vk_1_1___shader_prop.html", "struct_device_master_vk_1_1___shader_prop" ],
     [ "DebugMaster< T >", "struct_debug_master.html", "struct_debug_master" ],
     [ "DebugMaster< T >::ScopedCmdLabel", "struct_debug_master_1_1_scoped_cmd_label.html", "struct_debug_master_1_1_scoped_cmd_label" ],
     [ "ContextExVk", "struct_context_ex_vk.html", "struct_context_ex_vk" ],

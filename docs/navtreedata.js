@@ -69,13 +69,13 @@ var NAVTREEINDEX =
 "_allocator_vk_8cpp.html",
 "_uniforms_vk_8h.html#a4bf726b236af2a7f9d6fd75958544b97",
 "functions_o.html",
-"namespace_harness_1_1internal.html#a97f2c6a3a36e1362139032340edec92a",
-"struct_debug_master.html#ac51f7c1661a8f40ab04a5db69b95127b",
-"struct_m_bvk.html#a4240e2f0c0d55cfe11466bb198b04083",
-"struct_tex_bache.html#ae20d079f0ac1d561f81b111b9ce54e98",
-"structfront_1_1heap_q.html#a5a83d33d7f91968b4a0431929be4999b",
-"structvkmm_1_1_allocation___t.html#ab969726346157413ef6f2336acf70843",
-"structvkmm_1_1_pointer_less.html#a4ed5e6e3376e7cf3bcfbcc5b7e9f2fab"
+"namespace_harness_1_1internal.html",
+"struct_debug_master.html#ac33631ea0e4eb2250a6e4d587d233854",
+"struct_m_b_i_v_s_ivk.html#abefdf6d4b81079098f444a18fb0c9653",
+"struct_tex_bache.html#a86a29dd0b7c76e3ff0f039b62df3cc55",
+"structfront_1_1heap_q.html#a0e572452423c65f5962df446bca64e76",
+"structvkmm_1_1_allocation___t.html#aa017b299cc294214c4ccb7f5e92a6faf",
+"structvkmm_1_1_memory_vk.html#addcfa54bcfc5bf087f4b0e5969a53484"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

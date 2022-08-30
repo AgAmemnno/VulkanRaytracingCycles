@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "_PoolSize", "struct___pool_size.html", null ],
+    [ "DeviceMasterVk< Q >::_ShaderProp", "struct_device_master_vk_1_1___shader_prop.html", null ],
     [ "_Vkformat", "struct___vkformat.html", null ],
     [ "ray::AccelerationStructure", "structray_1_1_acceleration_structure.html", null ],
     [ "vkmm::Allocation_T", "structvkmm_1_1_allocation___t.html", null ],

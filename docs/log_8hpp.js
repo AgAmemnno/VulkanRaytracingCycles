@@ -1,5 +1,6 @@
 var log_8hpp =
 [
+    [ "ASSERT_PRINT", "log_8hpp.html#a8eaa21af499e9f73ca7b4f096d42ab08", null ],
     [ "log_bad", "log_8hpp.html#a0a8f190cbf66caba9750b487aa06d7f3", null ],
     [ "log_debug", "log_8hpp.html#aa77e596ef13d2f0f75d0ac9540ed358d", null ],
     [ "log_error", "log_8hpp.html#a6ae72553ea9805dd87a463d6f710364d", null ],

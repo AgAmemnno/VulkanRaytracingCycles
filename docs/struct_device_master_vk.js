@@ -1,5 +1,6 @@
 var struct_device_master_vk =
 [
+    [ "_ShaderProp", "struct_device_master_vk_1_1___shader_prop.html", "struct_device_master_vk_1_1___shader_prop" ],
     [ "configuration", "struct_device_master_vk.html#a0bac453e32000e468f69ced15e064d47", null ],
     [ "createCommandPool", "struct_device_master_vk.html#afb9ab4c6a9b277a90e425ee5c5bd96b5", null ],
     [ "createLogicalDevice", "struct_device_master_vk.html#abcda0cb156f92cee866fb91cd8f6fa73", null ],
@@ -25,6 +26,7 @@ var struct_device_master_vk =
     [ "queueFamilyProperties", "struct_device_master_vk.html#ac045007e048e5e33f866c51a3eb3f0b8", null ],
     [ "Qvillage", "struct_device_master_vk.html#a5b8bd2c97ed2c251c5b671b3397b172a", null ],
     [ "requireDeviceExtensions", "struct_device_master_vk.html#ab3473c2e5984413c326bbe04855456b6", null ],
+    [ "ShaderProp", "struct_device_master_vk.html#a1b3673754c4ede158f8c1128070ed597", null ],
     [ "supportedExtensions", "struct_device_master_vk.html#a9870ae9c1aec165b95640fe6e08dbd77", null ],
     [ "vulkanFeatures", "struct_device_master_vk.html#a32d683e3cab125826f6c1a61bbe3446d", null ]
 ];
