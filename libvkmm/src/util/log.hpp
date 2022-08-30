@@ -40,6 +40,14 @@
 #define log_vs(...) log__vs(__FILE__, __LINE__, LOG_INFO, __VA_ARGS__)
 
 
+#define ASSERT_PRINT(condition,...) \
+    do { \
+        if (! (condition)) { \
+			log_out(__FILE__, __LINE__, LOG_INFO, __VA_ARGS__);\
+            std::terminate(); \
+        } \
+    } while (false)
+
 
 
 enum LOG_LEVEL {

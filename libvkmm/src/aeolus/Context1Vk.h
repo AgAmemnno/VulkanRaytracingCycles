@@ -253,9 +253,13 @@ struct DeviceMasterVk {
 	VkDevice logical;
 
 	Q            Qvillage;
+	struct _ShaderProp {
+		uint32_t subgroupSize, shaderSMCount, shaderWarpsPerSM;
+	}ShaderProp;
 
 	VkPhysicalDeviceMemoryProperties memoryProperties;
-	VkPhysicalDeviceProperties properties;
+	VkPhysicalDeviceProperties   properties;
+
 	VkPhysicalDeviceFeatures features;
 	VkPhysicalDeviceFeatures enabledFeatures{};
 	
@@ -414,9 +418,9 @@ VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES,
 		VkPhysicalDeviceIDPropertiesKHR pyid{};
 		pyid.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ID_PROPERTIES;
 		VkPhysicalDeviceProperties            prop{};
+
 		VkPhysicalDeviceProperties2 prop2{};
 		prop2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2;
-		prop2.pNext = &pyid;
 		prop2.properties = prop;
 
 		uint32_t selectedDevice = static_cast<uint32_t>(std::stoul(GPU_DEVICE_ID));
@@ -446,6 +450,56 @@ VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_DEVICE_ADDRESS_FEATURES,
 
 		physical = devicePhysicals[selectedDevice];
 		vkGetPhysicalDeviceProperties(physical, &properties);
+
+		VkPhysicalDeviceShaderSMBuiltinsFeaturesNV Vkpdss = {};
+		Vkpdss.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SM_BUILTINS_FEATURES_NV;
+		Vkpdss.pNext = NULL;
+
+		VkPhysicalDeviceFeatures            fet={};
+		VkPhysicalDeviceFeatures2          fet2={};
+		fet2.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FEATURES_2;
+		fet2.pNext = &Vkpdss;
+		fet2.features = fet;
+		vkGetPhysicalDeviceFeatures2(physical, &fet2);
+		
+
+
+		VkPhysicalDeviceShaderSMBuiltinsPropertiesNV Vkpdssp = {};
+		Vkpdssp.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SM_BUILTINS_PROPERTIES_NV;
+		Vkpdssp.pNext = NULL;
+
+		prop2.pNext = &Vkpdssp;
+
+		
+		vkGetPhysicalDeviceProperties2(physical, &prop2);
+
+		VkPhysicalDeviceFeatures2   features2_;
+		VkPhysicalDeviceProperties2 properties2{};
+		vulkanFeatures.getFeatures(physical, features2_, properties2);
+
+
+
+
+		ASSERT_PRINT(Vkpdss.shaderSMBuiltins, "Configure failed.  shaderSMBuiltins is False.");
+		ASSERT_PRINT(vulkanFeatures.properties11.subgroupSize <= 32, "Configure failed.  subgroupSize <= 32.");
+		ASSERT_PRINT(Vkpdssp.shaderSMCount == 40, "Configure failed. shaderSMCount == 40.");
+		ASSERT_PRINT(Vkpdssp.shaderWarpsPerSM >= 32, "Configure failed.shaderWarpsPerSM >= 32.");
+		
+
+		ShaderProp = { vulkanFeatures.properties11.subgroupSize ,Vkpdssp.shaderSMCount ,Vkpdssp.shaderWarpsPerSM };
+
+		/*
+		VkPhysicalDeviceSubgroupProperties subgroupProperties = {};
+		subgroupProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SUBGROUP_PROPERTIES;
+		subgroupProperties.pNext = NULL;
+
+		VkPhysicalDeviceProperties2 physicalDeviceProperties = {};
+		physicalDeviceProperties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2;
+		physicalDeviceProperties.pNext = &subgroupProperties;
+		prop = {};
+		physicalDeviceProperties.properties = prop;
+		*/
+		
 		vkGetPhysicalDeviceFeatures(physical, &features);
 		vkGetPhysicalDeviceMemoryProperties(physical, &memoryProperties);
 
