@@ -11,10 +11,12 @@
 
 #include "working.h"
 //#define TESTBUILD
-
+#define CONFIGURE
 
 
 #define FMT_USE_NONTYPE_TEMPLATE_ARGS 0
+
+
 
 #ifdef TESTBUILD
 
@@ -453,19 +455,28 @@ void CircusTest::Main() {
 
 
 
+#ifdef RUN
 int main(int argc, char** argv)
 {
 	CircusTest t;
 	t.InitCircus();
 	memVk.initialize();
-
 	t.Main();
-	
 	t.TearDown();
-
 	return 0;
-
 }
+
+#elif defined(CONFIGURE)
+int main(int argc, char** argv)
+{
+	CircusTest t;
+	t.InitCircus();
+	GetCTX($ctx);
+		t.DumpDeviceProp($ctx->device.ShaderProp);
+	t.TearDown();
+	return 0;
+}
+#endif
 
 
 

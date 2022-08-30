@@ -463,6 +463,23 @@ class CircusTest{
 			return 0;
 		}
 
+
+		template<class T>
+		int DumpDeviceProp(T& prop)
+		{
+			const char* file = AEOLUS_DATA_DIR "\\data\\profile\\deviceprop.json";
+			std::ofstream csv(file);
+			if (csv)
+			{
+					csv << std::format(" {{ \"subgroupSize\" : {:d}, \"shaderSMCount\" :{:d}, \"shaderWarpsPerSM\" :{:d}  }} \n", prop.subgroupSize, prop.shaderSMCount, prop.shaderWarpsPerSM);
+			}
+			else {
+				printf("Error Not Found  Directory  %c \n", file);
+			}
+			csv.close();
+			return 0;
+		}
+
 		void SetUp() {
 			
 			log_cirt("<<<<<<<<<<<<<<<<<<<< SetUP >>>>>>>>>>>>>>>>>>>>>>>\n");
