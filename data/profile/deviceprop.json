@@ -1,0 +1,1 @@
+ { "subgroupSize" : 32, "shaderSMCount" :40, "shaderWarpsPerSM" :48  } 
