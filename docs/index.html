@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>VulkanRaytracingCycles: Main Page</title>
+<title>VulkanRaytracingCycles: はじめに</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -84,10 +84,85 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </iframe>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">VulkanRaytracingCycles Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">はじめに </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p >このprojectは、cycles　engineのshader module を（CPU、CUDA、Optix、Metal等との互換がある）Vulkan　Raytracingで実装するためのものです。 blender内に組み込むことを目的とするので,CPU側のcodeはblender本体と同一のものを使用します。</p>
+<p >当面の課題はblenderの開発siteで継続的な管理運用を行うための、整理と調整を行うことですが、大きな変更を要請するのでやる気次第で挫折していくでしょう。 それとは別にprivateでの使用法は多岐にわたりますので、アート系のprojectとして展開させていきたいと思っています。</p>
+<p >次に、覚書の程度ですが、このprojectを把握するための概念を順に記述します。</p>
+<dl class="section note"><dt>Note</dt><dd><br  />
+ オフィシャルサイト <br  />
+<ul>
+<li><a href="https://www.blender.org/"><em>Blender</em> official</a> </li>
+<li><a href="https://www.cycles-renderer.org/"><em>cycles-renderer</em> official</a></li>
+</ul>
+</dd>
+<dd>
+<br  />
+ ビルドに関しては、穏当に成功しても２、３時間と見積もっておいたほうがよいでしょう。 <br  />
+基本的にサードパーティーのダウンロードに時間がかかります。公式にはSVNからですが、このprojectでは、サードパーティーをvcpkgで管理しています。<br  />
+<ul>
+<li><a href="https://wiki.blender.org/wiki/Building_Blender"><em>build</em> instruction official</a> </li>
+<li><a href="https://www.kkaneko.jp/tools/win/bpy.html"><em>build</em> instruction blog</a> </li>
+<li><a href="https://dskjal.com/blender/blender-build-memo.html"><em>build</em> instruction blog</a> </li>
+<li><a href="https://bluebirdofoz.hatenablog.com/entry/2019/07/05/091845"><em>build</em> instruction blog2</a></li>
+</ul>
+<hr  />
+</dd></dl>
+<h1><a class="anchor" id="s1"></a>
+Blender API 概要</h1>
+<p >blenderはC言語によるnaiveな実装がなされているので、その全体のシステムをどのように理解するかということになると、 様々な解釈がなされるものです。ここでは、非公式の見解を行いますので、詳細はオフィシャルのwikiで確認ください。 <a href="https://wiki.blender.org/wiki/Source">https://wiki.blender.org/wiki/Source</a></p>
+<h2><a class="anchor" id="s2"></a>
+CodeLayout</h2>
+<p >まずコード全体のレイアウトが以下のようになっています。 </p><div class="image">
+<img src="codelayout.jpg" alt=""/>
+</div>
+<h2><a class="anchor" id="s3"></a>
+基礎構造</h2>
+<p >基本的な階層構造として、MAKESDNAとMAKESRNAとがあります。 生物学的システムのシュミラクルとしてあり、staticな定義としてあるDnaTypeはあらかじめコンパクトに固定される一方、 Rnaはフロントエンドのinterfaceに直接使用され、かつ動的に定義することも可能です。 </p>
+<h3><a class="anchor" id="ss1"></a>
+Dna</h3>
+<p >全てのDNATypeはビルド時に自動生成されるfile（dna_type_offset.h）にenumerateされます。 また、dnaレベルでdefault値も定義されますので、少しでも変更を行えば、相当数のfileに影響を及ぼします。 ですので、適当な開発スケジュールを立てておかないと、毎回ビルドに相当の時間を費やすことになります。 </p>
+<h3><a class="anchor" id="ss2"></a>
+Rna</h3>
+<p >Rna構造は、runtime時にGUIの性能を高める事を主な目的としているAPIです。 後ほど見ていきますがAddonと呼ばれる、python言語によるプラグインを作成する際、 ユーザーが定義するクラス内に、pythonからRNAtypeを動的に組み込む事によって、realtimeの操作が円滑かつ柔軟になされていくでしょう。 これらの型を基礎にpythonで定義されている基本型は以下の通りです。<br  />
+<a href="https://docs.blender.org/api/current/bpy.props.html?highlight=bpy+props#module-bpy.props">https://docs.blender.org/api/current/bpy.props.html?highlight=bpy+props#module-bpy.props</a> <br  />
+通常のプログラミング言語と同様にこれらの型の組み合わせによって、様々なblender　addonが作成されますので、 最終的にはとても簡潔な言語構造として使用されていきます。 また、C APIで自作していくことも当然でき、pythonレベルにinterfaceを提供することも,しないこともできます。 C++等の依存packageを追加し(今回の場合はvulkan API)、blender内に組み込む場合は多くの部分を隠蔽することになります。</p>
+<h1><a class="anchor" id="s4"></a>
+Cycles Renderer 概要</h1>
+<p >DevelopDoc <a href="https://wiki.blender.org/wiki/Source/Render/Cycles">https://wiki.blender.org/wiki/Source/Render/Cycles</a></p>
+<h2><a class="anchor" id="ss3"></a>
+Kernel部分</h2>
+<p >基本的にパストレースレンダーは、物理ベースシェーディングと言われていますが、 Cyclesのデザインコンセプトは、もっと緩いアルゴリズムに対する立場をとっています。 OSLというシェーダー言語があるのですが、現在では、新規開発に使用されることはほとんどないと思います。 すべてC言語で、ナイーブに書かれているのでアルゴリズムは明確です。 もちろんそのようなシステムは使い物にならないので、CPUだとEMBREEの実装があり、GPUではCUDA、OPTIX等の実装があります。 Cyclesは当然BVHのアルゴリズムを持っていますが、もはやOPTIXとなるとそちらの方のBVHを使用することになっていくでしょう。 今回はVulkanRaytracyingでその実装を書き、テストを行っているのですが、 BVHはOptixのとも違うVulkanのがありましたので、それを使っています。2019、2020年は動きがかなりあったのですが、 その後は安定してきていると思います。<br  />
+</p><dl class="section note"><dt>Note</dt><dd><br  />
+ Gpu Render のメモリーマネージメント、スレッド間のアクセス管理等のプログラムを見ることはありません。ので、様々なバグが生じ、 画面に支障をきたすこともあるでしょう。開発が活発になっていると変更が多いので、その意味でも注意が必要です。<br  />
+ RTX40の購入者<br  />
+<a href="https://www.youtube.com/watch?v=9IOBFl5SQVM">https://www.youtube.com/watch?v=9IOBFl5SQVM</a><br  />
+RTX20の購入者<br  />
+<a href="https://www.youtube.com/watch?v=cLQQP5NcNJY">https://www.youtube.com/watch?v=cLQQP5NcNJY</a><br  />
+　</dd></dl>
+<h2><a class="anchor" id="ss4"></a>
+Device部分</h2>
+<p >毎回Sessionを生成して、blenderのcontextからディペンデンシーグラフを受け取り、シェダーシステム側のdataに整理しなおします。 VulkanRTはパイプラインを管理しやすくなっていますので、CyclesのDevice部分に連携させることは容易です。 DeviceBufferのポインターを参照できるようになっていますので、OpenGLとはレベルの違うメモリーマネージメントが可能です。</p>
+<h2><a class="anchor" id="ss5"></a>
+Blender互換部分</h2>
+<p >Blenderとの互換性は、リアルタイムのインターフェイスをもつということになります。 そしてそれはpython moduleとしてあり、blenderではAddonとしてinstallされます。 Addonのためのユーティリティは種々揃っていますので、guiは柔軟に変更できます。また、 XRの開発も行われています。その点においても、Vulkanのシステムは適合性が高いと思います。</p>
+<h1><a class="anchor" id="s5"></a>
+blender python</h1>
+<h2><a class="anchor" id="ss6"></a>
+bpy</h2>
+<p >blenderは基本的にすべてbpyというpythonmoduleをinterfaceにします。 interface上の関数は、operatorというコンセプトとして、bpyによってラップされます。 その他、editorまわりのことがたくさんあるのですが、今回はrenderの開発なので、省きます。</p>
+<h2><a class="anchor" id="ss7"></a>
+bmesh</h2>
+<p >これは、blenderをより記述的に使用する場合にbpyを使用しやすくするための補助モジュールです。</p>
+<h2><a class="anchor" id="ss8"></a>
+mathutils</h2>
+<p >さらに、一般的な数学関数をblenderのインタープリターやスクリプトで使用するためのモジュールです。 このprojectは小さく纏まっているので、変更を加えたり、動作確認等がしやすいでしょう。</p>
+<dl class="section note"><dt>Note</dt><dd><a href="https://docs.blender.org/api/current/info_quickstart.html">BPY official</a> </dd>
+<dd>
+<a href="https://docs.blender.org/manual/en/latest/advanced/scripting/addon_tutorial.html">Addon</a> </dd></dl>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
