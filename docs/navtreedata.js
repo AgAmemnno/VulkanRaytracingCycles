@@ -55,6 +55,14 @@ var NAVTREE =
         [ "Enumerator", "namespacemembers_eval.html", null ]
       ] ]
     ] ],
+    [ "Novels", "index.html", [
+      [ "Amori", "amori.html", "annotated_dup" ],
+      [ "Arimoto", "arimoto.html", null ],
+      [ "Essai", "essai.html", "hierarchy" ],
+      [ "Oyama", "oyama.html", "" ],
+      [ "Miyasita", "miyasita.html", "" ],
+      [ "Petro", "petro.html", "" ],
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
